@@ -1,0 +1,8 @@
+<c:choose>
+	<c:when test="${header['X-Requested-With'] == 'XMLHttpRequest'}">
+		<meta name="decorator" content="ajax"/>
+	</c:when>
+	<c:when test="${param.proxy == true}">
+		<meta name="decorator" content="proxy"/>
+	</c:when>
+</c:choose>

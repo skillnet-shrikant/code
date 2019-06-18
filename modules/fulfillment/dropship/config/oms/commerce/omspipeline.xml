@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE pipelinemanager
+	PUBLIC "-//Art Technology Group, Inc.//DTD Dynamo Pipeline Manager//EN"
+	'http://www.atg.com/dtds/pipelinemanager/pipelinemanager_1.0.dtd'>
+
+<pipelinemanager>
+
+	<!-- ************************************************************* -->
+	<!--   This chain handles DropShip SalesOrder File Generation	   -->
+	<!-- ************************************************************* -->
+	<pipelinechain name="handleGenerateSalesOrderFile" transaction="TX_REQUIRED" headlink="createSalesOrderMessage">
+		<pipelinelink name="createSalesOrderMessage" transaction="TX_MANDATORY">
+			<processor jndi="/oms/dropship/processor/CreateSalesOrderMessage" />
+			<transition returnvalue="1" link="generateSalesOrderFile" />
+		</pipelinelink>		
+		
+		<pipelinelink name="generateSalesOrderFile" transaction="TX_MANDATORY">
+			<processor jndi="/oms/dropship/processor/GenerateSalesOrderFile" />
+		</pipelinelink>	
+	</pipelinechain>
+
+	<!-- ************************************************************* -->
+	<!--   This chain handles DropShip Accept Messages				   -->
+	<!-- ************************************************************* -->
+	<pipelinechain name="handleDropshipAccept" transaction="TX_REQUIRED" headlink="processDropshipAcceptMessage">
+		<pipelinelink name="processDropshipAcceptMessage" transaction="TX_MANDATORY">
+			<processor jndi="/oms/dropship/processor/ProcessDropshipMessages" />
+		</pipelinelink>	
+	</pipelinechain>
+	
+</pipelinemanager>

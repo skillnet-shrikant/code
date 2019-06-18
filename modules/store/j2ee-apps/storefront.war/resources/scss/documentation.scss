@@ -1,0 +1,19 @@
+// css file for documentation.
+// Does not include all the modules since the documentation pages will also import the main.css file.
+
+// Set false for degrading to IE8
+$supports-mq: true !default;
+$supports-rem: true !default;
+
+// Globals and Variables //
+// Import Sass from files in the globals folder
+@import "globals/all";
+
+// Import Layout essentials including reset and responsive grids
+@import "layout/normalize";
+@import "layout/base";
+@import "layout/grids";
+@import "layout/blockGrids";
+
+/* Pages */
+@import "pages/documentation";

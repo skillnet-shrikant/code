@@ -1,0 +1,16 @@
+<%-- Header for the task list in the "Tasks" panel.  Includes paging, filtering.--%>
+
+<dspel:layeredBundle basename="atg.svc.agent.WebAppResources">
+    <table border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="w100p">
+      <tr class="pad5">
+        <td>
+          <%@ include file="/include/navigate.jsp" %>
+        </td>
+      </tr>
+    </table>
+    
+</dspel:layeredBundle>
+<%-- @version $Id: //application/service-UI/version/11.2/framework/Agent/src/web-apps/ServiceFramework/include/agentTicketSearchListHeader.jspf#1 $$Change: 946917 $--%>

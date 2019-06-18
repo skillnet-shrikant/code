@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+ATG-Required: KP.RS.main KP.RS.cscUIExtensions.DCS-CSR-UI KP.RS.cscUIExtensions.Agent KP.Services.rest KP.OMS.fulfillment.settlement KP.OMS.fulfillment.salesAudit KP.integration.dashboard
+ATG-Class-Path: lib/cscStore.jar
+ATG-Client-Class-Path: lib/cscStore.jar
+ATG-Config-Path: config
+
+Name: lib/cscStore.jar
+ATG-Client-Update-File: true

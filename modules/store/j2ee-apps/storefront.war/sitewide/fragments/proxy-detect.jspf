@@ -1,0 +1,8 @@
+<c:choose>
+	<c:when test="${param.proxy == true}">
+		<c:set var="isProxy" value="true" scope="request" />
+	</c:when>
+	<c:otherwise>
+		<c:set var="isProxy" value="false" scope="request" />
+	</c:otherwise>
+</c:choose>

@@ -1,0 +1,33 @@
+  <tr class="inlineEditor">
+  <td colspan="5">
+    <div class="editArea">
+      <div class="currentActivity">
+        <h5><fmt:message key="activityDetails" /></h5>
+        <dl class="status">
+          <c:forEach var="propertyName" items="${activityInfo.options.detailPageProperties}">
+            <strong>
+            <c:choose>
+            <c:when test="${propertyName eq 'orderId'}">
+              <fmt:message key="scheduledOrder" />
+            </c:when>
+            <c:otherwise>
+              <fmt:message key="${propertyName}" />
+            </c:otherwise> 
+            </c:choose>
+            </strong> :
+             <c:choose>
+             <c:when test="${propertyName eq 'orderId'}">
+               <%@ include file="/include/activities/activityViewOrder.jspf"%>
+             </c:when>
+             <c:otherwise>
+              <c:out escapeXml="true" value="${activity[propertyName]}"/>
+             </c:otherwise> 
+             </c:choose>
+            <br />
+          </c:forEach>
+        </dl>
+      </div>
+    </div>
+  </td>
+</tr>
+<%-- @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/include/activities/scheduledOrderActivityDefaultDetail.jspf#2 $$Change: 1192807 $--%>

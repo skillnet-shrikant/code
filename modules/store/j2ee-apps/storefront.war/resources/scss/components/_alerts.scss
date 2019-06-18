@@ -1,0 +1,66 @@
+// Use the components directory to construct the meat of your CSS.
+// Categorize your styles here based on element in the file name.
+
+// Alert box notifications definitions
+
+
+.alert-box {
+	text-align: center;
+	position: relative;
+	@include font-size(14px);
+	@include rem-size(margin, 20px 0px);
+	@include rem-size(padding, 10px 20px);
+	border: solid 2px transparent;
+	-webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+	h2 {
+		@include font-size(18px);
+		@include rem-size(margin, 4px 0px 8px);
+	}
+	p {
+		margin: 0;
+	}
+	&.text-left {
+		text-align: left;
+	}
+	&.callout {
+		border-color: $base-gray;
+		background-color: $light-gray;
+	}
+	&.error {
+		border-color: $error-color;
+		background-color: lighten($error-color, 45);
+		h2 {
+			color: $error-color;
+		}
+	}
+	&.info {
+		border-color: $info-color;
+		background-color: lighten($info-color, 20);
+		h2 {
+			color: $info-color;
+		}
+	}
+	&.success {
+		border-color: $success-color;
+		background-color: lighten($success-color, 50);
+		h2 {
+			color: $success-color;
+		}
+	}
+	&.warning {
+		border-color: $warning-color;
+		background-color: lighten($warning-color, 25);
+		h2 {
+			color: $warning-color;
+		}
+	}
+	.icon-close {
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin-top: 0;
+		cursor: pointer !important;
+	}
+}

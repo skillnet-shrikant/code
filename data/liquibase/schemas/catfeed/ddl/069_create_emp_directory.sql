@@ -1,0 +1,1 @@
+create or replace directory emp_feed_incoming as '/vagrant/feeds/csv/employee';

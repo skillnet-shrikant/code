@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+ATG-Required: KP.integration.axis2client
+ATG-Class-Path: lib/fedex.jar
+ATG-Client-Class-Path: lib/fedex.jar
+ATG-Config-Path: config

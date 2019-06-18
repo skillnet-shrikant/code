@@ -1,0 +1,297 @@
+// Use the components directory to construct the meat of your CSS.
+// Categorize your styles here based on element in the file name.
+
+// utility navbar definitions
+.utility-nav {
+	@include grid-column(12);
+	width: calc(100% - 294px);
+	@include clearfix;
+
+	nav {
+		margin: 0 auto;
+
+		> ul {
+			float: right;
+			display: block;
+			list-style: outside disc none;
+			margin: 0;
+			padding: 0;
+		}
+	}
+	.nav-top {
+		@include rem-size(height, 30px);
+		@include rem-size(padding-top, 6px);
+	}
+	.nav-bottom {
+		@include rem-size(height, 70px);
+		@include rem-size(padding, 32px 0px 0px);
+	}
+}
+
+.utility-nav-item {
+	display: block;
+	float: left;
+	vertical-align: middle;
+
+
+	& + .utility-nav-item {
+		@include rem-size(padding, 0px 0px 0px 16px);
+	}
+}
+
+.utility-nav-header {
+	border-color: transparent;
+	position: relative;
+	z-index: 200;
+
+	> a {
+		@include font-size(12px);
+		@include rem-size(line-height, 24px);
+		display: block;
+		text-decoration: none;
+		color: $black;
+		text-align: center;
+	}
+}
+
+#home-store-form {
+	@include rem-size(margin-bottom, 0px);
+}
+
+//home store link / dropdown
+.utility-home-store {
+	.home-store-menu {
+		display: none;
+		z-index: 103;
+		right: 0px;
+		top: 30px;
+		@include media(small-only){
+			width: 100%;
+		}
+		@include media(medium-up){
+			min-width: 350px;
+		}
+	}
+	@include media(small-only){
+		width: 100%;
+		position: relative;
+	}
+	.utility-home-header a {
+		text-transform: uppercase;
+		font-weight: $bold;
+		text-decoration: none;
+		@include media(medium-up){
+		   @include rem-size(font-size, 14px);
+		}
+		span {
+			color: $orange;
+		}
+	}
+	.store-card {
+		background-color: $white;
+		border: 1px solid $border-color;
+		@include box-shadow(0, 0, 4px, $border-color);
+		width: 100%;
+		position: relative;
+		p {
+			margin:0 ;
+		}
+		@include media(medium-up){
+			&:after,&:before {
+				bottom: 100%;
+				left: 89%;
+				border: solid transparent;
+				content: " ";
+				height: 0;
+				width: 0;
+				position: absolute;
+				pointer-events: none;
+			}
+			 &:after {
+				 border-color: rgba(136, 183, 213, 0);
+				border-bottom-color: white;
+				border-width: 11px;
+				margin-left: -32px;
+		     }
+		     &:before {
+		     	border-color: rgba(194, 225, 245, 0);
+				border-bottom-color: #ccc;
+				border-width: 15px;
+				margin-left: -36px;
+			}
+		}
+		@include media(small-only){
+			min-height: auto !important;
+		}
+		.store-location-info {
+			@include rem-size(padding, 10px);
+			@include media(small-only){
+				background-color: lightgray;
+				@include rem-size(padding, 0px 10px);
+			}
+		}
+		.card-title {
+			@include media(small-only){
+				display: none;
+			}
+			@include rem-size(padding, 0px);
+			background: transparent;
+			text-transform: capitalize;
+			font-weight: $bold;
+			@include font-size(16px);
+			border-bottom: 1px solid #ccc;
+			a {
+				color: $black;
+			}
+		}
+		.card-content {
+			@include rem-size(padding, 10px 0px);
+			width: 50%;
+			float: left;
+			@include media(small-only){
+				@include rem-size(padding, 0px 20px);
+				width: 100%;
+				float: none;
+			}
+			p.title {
+			    font-weight: $bold;
+				@include media(small-only){
+					display: none;
+				}
+			}
+			p {
+				@include media(small-only){
+					@include font-size(12px);
+					@include rem-size(margin, 0px);
+				}
+			}
+			a {
+				@include font-size(12px);
+				@include media(small-only){
+					@include rem-size(padding, 0px);
+			    	color: $orange;
+			    	background-color: lightgray;
+			    }
+			}
+			a.hide-store {
+				display: none;
+				@include media(small-only){
+					display: block;
+				}
+			}
+			a.view-store {
+				@include media(small-only){
+					display: none;
+				}
+			}
+		}
+		.card-links {
+			@include rem-size(padding, 0px);
+			.label {
+				background: $light-gray;
+				@include font-size(12px);
+				width: 100%;
+				@include rem-size(padding, 0px 10px);
+			}
+			.store-search-form, .update-search-form {
+				@include rem-size(padding, 10px);
+				@include media(small-only){
+					@include rem-size(padding, 8px);
+				}
+				.button.primary {
+					@include rem-size(margin-top, 0px);
+					width: 40%;
+					@include media(small-only){
+						@include rem-size(padding, 4px 24px);
+						width: 100%;
+					}
+				}
+				label {
+					display: none;
+				}
+				input {
+					width: 58%;
+				}
+				@include media(medium-up) {
+					input {
+						width: calc(100% - 140px);
+						display: inline-block;
+						margin-left: 0;
+					}
+					.button {
+						position: absolute;
+						right: 0px;
+						top: 0px;
+						padding: 6px 20px;
+					}
+					.error + .button {
+						@include rem-size(margin-top, -64px);
+					}
+				}
+			}
+		}
+	}
+}
+
+// my account link / dropdown
+.utility-login {
+	display: none;
+	padding: 0;
+	@include rem-size(margin, 0px 10px);
+
+	.off-canvas-menu & {
+		margin: 0;
+	}
+
+	// show this menu when user is a guest
+	.guest &.guest {
+		display: block;
+	}
+
+	// show this menu when user is partially or fully authenticated
+	&.recognized {
+		&.active a:focus {
+			outline: none;
+		}
+		.partially-authenticated &,
+		.fully-authenticated & {
+			display: block;
+		}
+		.utility-nav-header a {
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			font-weight: $bold;
+		}
+		.js-username {
+			display: inline;
+			vertical-align: 0;
+		}
+	}
+
+	.utility-nav-menu {
+		padding: 0;
+		width: 150px;
+		z-index: 103;
+	}
+	.sign-out input {
+		margin: 0;
+		@include rem-size(padding, 10px);
+		width: 100%;
+		border: none;
+		background: none;
+		@include font-size(12px);
+		text-align: left;
+		color: $black;
+
+		@include media(medium-up){
+			@include rem-size(padding, 0px 12px);
+			@include rem-size(line-height, 30px);
+			font-weight: $bold;
+			text-align: right;
+
+			&:hover {
+				background: $light-gray;
+			}
+		}
+	}
+}

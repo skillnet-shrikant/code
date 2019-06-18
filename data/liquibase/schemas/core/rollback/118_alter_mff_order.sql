@@ -1,0 +1,1 @@
+alter TABLE MFF_ORDER drop column app_instance_name;

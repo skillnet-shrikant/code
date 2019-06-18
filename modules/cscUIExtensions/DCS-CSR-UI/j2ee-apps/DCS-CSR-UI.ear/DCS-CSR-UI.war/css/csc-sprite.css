@@ -1,0 +1,6867 @@
+
+/*************** product view panel ***********************/
+.atg_commerce_csr_productViev{
+  float:left;
+  height:auto;
+  margin-top:5px;
+  margin-left:4px;
+}
+.atg_commerce_csr_productViev dl{
+display:block;
+width:210px;
+clear:left;
+}
+.atg_commerce_csr_productViev dl dt{
+width:auto;
+}
+.atg_commerce_csr_productViev dl dd{
+width:auto;
+margin:0;
+padding:0;
+}
+.atg_commerce_csr_productViev_popup{
+float:left;
+padding:10px;
+width:205px;
+height:auto;
+margin:0px;
+}
+.atg_commerce_csr_productViev dl dd.atg_commerce_csr_productVievDesc{
+width:90%;
+margin: 10px 0;
+}
+.atg_commerce_csr_toolbarLinks{
+padding:3px;
+margin-bottom:10px;
+background-color:#f5f5f5;
+}
+.atg_commerce_csr_toolbarLinks li{
+  float: right;
+  border-right: 1px solid #666;
+  margin-right: 5px;
+  padding-right: 5px;
+}
+.atg_propertyClear {
+  background-position: -16px 50%;
+}
+.atg_propertyEdit {
+  background-position: -50px 50%;
+}
+.atg_tableIcon {
+    background-image: url("../../WebUI/images/icons/icons_dataTable.gif");
+    background-repeat: no-repeat;
+    display: block;
+    height: 15px;
+    margin: 0 2px;
+    text-decoration: none;
+    text-indent: -99999px;
+    width: 16px;
+}
+.atg_commerce_csr_coreProductViewData{
+  overflow: auto;
+  width: auto;
+  height:100%;
+  padding: 0px 0px 0px 5px;
+  margin: 10px 0 10px 0;
+}
+.atg_commerce_csr_coreProductViewData .atg_tableIcon {
+  margin: 0 2px;
+  text-decoration: none;
+  text-indent: -99999px;
+  width: 16px;
+}
+.atg_commerce_csr_coreProductViewData table{
+width: 99%;
+margin-bottom:10px;
+}
+
+.atg_commerce_csr_coreProductViewData .atg_iconCell{
+  width:20px !important;
+  text-align:center;
+}
+
+.atg_commerce_csr_coreProductViewData div.atg_dataTableActions{
+	margin-right:10px;
+}
+.atg_commerce_csr_coreProductViewData_popup{
+overflow: auto;
+width: 420px;
+padding: 1px;
+height:420px;
+*/float:left;
+}
+.atg_commerce_csr_coreProduct_Cross_sell_items{
+float:left;
+display:block;
+padding:10px;
+font-weight:700;
+font-size: 12px;
+text-align:center;
+margin-left:50px;
+width:265px;
+}
+.atg_commerce_csr_coreProduct_Cross_sell_items dl{
+  margin:13px 0 13px 0;
+}
+.atg_commerce_csr_ProductViewImg{
+float:left;
+text-align:left;
+width:210px;
+}
+.atg_commerce_csr_catalog_product_info_layout {
+   padding-top:6px;
+}
+.atg_commerce_csr_crossSellThumb{
+float:left;
+padding-right:20px;
+}
+.atg_commerce_csr_coreProductView{
+vertical-align:top;
+margin-left:225px;
+overflow:hidden;
+}
+.atg_commerce_csr_coreProductViewData .atg_dataTableFooterActions{
+  border:none !important;
+}
+
+.atg_commerce_csr_coreProductView_popup{
+vertical-align:top;
+}
+.atg_commerce_csr_productVievTitle{
+font-weight:700;
+font-size: 14px;
+}
+.atg_commerce_csr_productVievPrice{
+margin: 0px;
+}
+.atg_commerce_csr_productVievID{
+margin: 0px;
+}
+
+/* Product Catalog - Find Products Search Form
+NOTE:uses the class "dataForm" from the CSS Framework as a base.
+------------------------------------------------------------------------------*/
+.atg_commerce_csr_relatedCategories ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.atg_commerce_csr_relatedCategories ul li{
+  margin: 0 0 5px 0;
+}
+
+#atg_commerce_csr_catalog_noResults{
+  padding: 7px 0 7px 7px;
+}
+
+.atg_commerce_csr_productBrowse #atg_commerce_csr_catalog_noResults {
+  position:absolute;
+  top:25px;
+  padding:7px 0 7px 0;
+}
+
+#atg_commerce_csr_catalog_search_noResults  {
+  clear:left;
+  padding-bottom:7px;
+  padding-top:7px;
+  padding-left:7px;
+}
+dl.atg_commerce_csr_findProdForm{
+  background-color:#EEEEEE;
+  border:1px solid #CCCCCC;
+  margin-right:1px;
+  padding-bottom:3px;
+  padding-left:3px;
+  padding-top:10px;
+  width:99%;
+}
+dl.atg_commerce_csr_findProdForm dt{
+clear:none;
+margin:0px;
+margin-right:7px;
+display:inline-block;
+float:left;
+}
+dl.atg_commerce_csr_findProdForm dd{
+margin:0px;
+margin-right:7px;
+overflow:hidden;
+display:inline-block;
+float:left;
+}
+dl.atg_commerce_csr_findProdForm dd.atg_commerce_csr_findProdInDesc ul{
+list-style:none;
+margin:0px;
+margin-bottom:20px;
+padding:0px;
+width:320px;
+overflow:hidden;
+}
+dl.atg_commerce_csr_findProdForm dd.atg_commerce_csr_findProdInDesc ul li{
+float:left;
+margin-right:10px;
+}
+
+dl.atg_commerce_csr_findProdForm dd.atg_commerce_csr_findProdInDesc ul li input{
+margin-top:0;
+vertical-align:-3px;
+}
+
+dl.atg_commerce_csr_findProdForm dd.atg_commerce_csr_findProdInDesc ul li.atg_commerce_csr_newSearch{
+margin-top:5px;
+float:right;
+}
+dl.atg_commerce_csr_findProdForm dt.atg_commerce_csr_findProdInLabel{
+width:100px;
+float:left;
+text-align:right;
+}
+dl.atg_commerce_csr_findProdForm dd input.atg_commerce_csr_formTextField{
+width:50px;
+margin:0px;
+}
+dl.atg_commerce_csr_findProdForm dt.atg_commerce_csr_label{
+width:65px;
+text-align:right;
+}
+dl.atg_commerce_csr_findProdForm dt.atg_commerce_csr_skuLabel{
+width:65px;
+text-align:right;
+}
+dl.atg_commerce_csr_findProdForm dt.atg_commerce_csr_descLabel{
+width:65px;
+margin-left:0px;
+text-align:right;
+margin-top:10px;
+}
+dl.atg_commerce_csr_findProdForm dd.atg_commerce_csr_descField input{
+width:352px;
+margin-top:5px;
+margin-bottom:5px;
+}
+dl.atg_commerce_csr_findProdForm dt.atg_commerce_csr_formButtonsLabel{
+width:100px;
+}
+dl.atg_commerce_csr_findProdForm dd.atg_commerce_csr_formButtons {
+width:433px;
+}
+dl.atg_commerce_csr_findProdForm{
+margin:0 7px 0 0;
+}
+dd.atg_commerce_csr_formButtons {
+margin-top: 7px !important;
+}
+dl.atg_commerce_csr_crossSellItems dd.atg_commerce_csr_formButtons {
+width:100%;
+text-align:left;
+}
+
+
+.atg .atg_commerce_csr_findProdForm ul.atg_dataForm {
+  width:700px;
+  padding:8px;
+}
+.atg .atg_commerce_csr_findProdForm ul.atg_dataForm li{
+  width:313px;
+}
+
+.atg .atg_commerce_csr_findProdForm ul.atg_dataForm li select{
+  width:auto;
+}
+.atg .atg_commerce_csr_findProdForm ul.atg_dataForm li.atg_commerce_csr_searchDescription{
+  width:530px;
+}
+.atg .atg_commerce_csr_findProdForm ul.atg_dataForm li.atg_commerce_csr_formButtons{
+  width:190px;
+  margin-left: 133px;
+}
+.atg .atg_commerce_csr_findProdForm ul.atg_dataForm li.atg_commerce_csr_searchDescription input{
+  width:380px;
+}
+#atg_commerce_csr_catalog_noResults{
+  clear:left;
+}
+
+input.atg_commerce_csr_searchFormButton{
+margin-bottom: 4px;
+margin-right: 5px;
+}
+
+/* More Product Catalog - Find More Products Search Form - Global Spec */
+dl.atg_commerce_csr_findMoreProdForm{
+width:600px;
+}
+dl.atg_commerce_csr_findMoreProdForm dt{
+clear:none;
+width:auto;
+}
+dl.atg_commerce_csr_findMoreProdForm dd{
+margin-right:10px;
+overflow:hidden;
+}
+.atg_dataForm .startDate,
+.atg_dataForm .endDate{
+width:140px;
+display:inline;
+margin:0px;
+float:left;
+}
+.atg_dataForm .startDate input,
+.atg_dataForm .endDate input{
+width:100px;
+float:left;
+margin:0px;
+}
+dl.atg_commerce_csr_findMoreProdForm dd.atg_commerce_csr_findProdInDesc ul{
+list-style:none;
+margin:0;
+padding:0;
+width:355px;
+overflow:hidden;
+}
+dl.atg_commerce_csr_findMoreProdForm dd.atg_commerce_csr_findProdInDesc ul li{
+float:left;
+margin-right:10px;
+}
+dl.atg_commerce_csr_findMoreProdForm dd.atg_commerce_csr_findProdInDesc ul li.atg_commerce_csr_newSearch{
+margin-top:5px;
+float:right;
+}
+dl.atg_commerce_csr_findMoreProdForm dt.atg_commerce_csr_findProdInLabel{
+width:100px;
+}
+dl.atg_commerce_csr_findMoreProdForm dd input.atg_commerce_csr_formDataField{
+width:70px;
+}
+dl.atg_commerce_csr_findMoreProdForm dt.atg_commerce_csr_publishedLabel,dl.atg_commerce_csr_findMoreProdForm dt.atg_commerce_csr_EndtDataLabel{
+width:150px;
+clear:left;
+}
+dl.atg_commerce_csr_findMoreProdForm dt.atg_commerce_csr_keywordLabel{
+width:150px;
+clear:left;
+}
+dl.atg_commerce_csr_findMoreProdForm dd.atg_commerce_csr_keywordField input{
+width:350px;
+}
+dl.atg_commerce_csr_findMoreProdForm dt.atg_commerce_csr_formButtonsLabel{
+width:100px;
+clear:left;
+}
+dl.atg_commerce_csr_findMoreProdForm dd.atg_commerce_csr_formButtons{
+text-align:right;
+width:429px;
+}
+.atg_commerce_csr_coreMoreProductViewData{
+overflow-y:scroll;
+width:98%;
+height:205px;
+padding: 1px;
+}
+
+ul.atg_commerce_csr_moreCatalogSearch,
+ul.atg_commerce_csr_morePricelistSearch{
+  width:600px;
+  margin-left:50px !important;
+}
+
+ul.atg_commerce_csr_moreCatalogSearch label,
+ul.atg_commerce_csr_morePricelistSearch label{
+  width:130px !important;
+  float:left;
+  text-align:right;
+  padding-right:5px;
+  margin-top:3px;
+}
+
+ul.atg_commerce_csr_moreCatalogSearch li#moreCatalogsEndDateLi label,
+ul.atg_commerce_csr_morePricelistSearch li#morePriceListsEndDateLi label{
+  width: 103px !important;
+}
+
+ul.atg_commerce_csr_moreCatalogSearch input,
+ul.atg_commerce_csr_morePricelistSearch input{
+  float:none !important;
+}
+
+ul.atg_commerce_csr_moreCatalogSearch li.atg_commerce_csr_commentsArea input,
+ul.atg_commerce_csr_morePricelistSearch li.atg_commerce_csr_commentsArea input{
+  width:322px;
+}
+ul.atg_commerce_csr_moreCatalogSearch li#moreCatalogsStartDateLi input,
+ul.atg_commerce_csr_moreCatalogSearch li#moreCatalogsEndDateLi input,
+ul.atg_commerce_csr_morePricelistSearch li#morePriceListsStartDateLi input,
+ul.atg_commerce_csr_morePricelistSearch li#morePriceListsEndDateLi input{
+   width:113px;
+}
+
+ul.atg_commerce_csr_moreCatalogSearch li.atg_commerce_csr_moreCatalogSearchButton,
+ul.atg_commerce_csr_morePricelistSearch li.atg_commerce_csr_more_morePricelistSearchButton{
+  clear:left !important;
+  float:left !important;
+  padding-top:15px;
+  margin-left:400px;
+}
+
+#atg_commerce_csr_catalog_moreCatalogs_noSearchPerformed,
+#atg_commerce_csr_catalog_moreCatalogs_noResults{
+  padding-left:80px;
+  padding-bottom:25px;
+}
+/*********** Browse Product *************/
+
+.atg_commerce_csr_panelToolBar li.atg_commerce_csr_continueShopping{
+  border-right: none;
+  padding:0px 0px;
+  margin-top: -6px;
+  margin-left: -8px
+}
+
+#atg_commerce_csr_catalog_subCategoriesListContainer{
+  padding-bottom:4px;
+}
+.atg_commerce_csr_productBrowse{
+  padding:1px 4px 4px 4px;
+  height:auto;
+  border-left:1px solid #CCCCCC;
+  margin-left:220px;
+  position:relative;
+}
+
+.atg_commerce_csr_coreProductBrowse{
+overflow-y:auto;
+}
+.atg_commerce_csr_productSearch{
+
+}
+.atg_commerce_csr_ProductViewImgBrowse{
+  float:left;
+  margin-right:20px;
+  text-align:center;
+}
+.atg_commerce_csr_ProductViewImgBrowseLabel{
+  font-size:larger;
+  font-weight:600;
+  text-decoration:underline;
+}
+dl.atg_commerce_csr_ProductBrowseOptions{
+width:250px;
+}
+dl.atg_commerce_csr_ProductBrowseOptions dt{
+  width:auto;
+  clear:none;
+  margin:0px;
+}
+dl.atg_commerce_csr_ProductBrowseOptions dd{
+  width:auto;
+  clear:none;
+  margin:0px;
+}
+dl.atg_commerce_csr_ProductBrowseOptions dt.optionsLabel{
+  font-size:larger;
+  font-weight:700;
+}
+dl.atg_commerce_csr_ProductBrowseOptions dt.optionsDescription{
+  padding:10px;
+  padding-left:0px;
+  font-size:x-small;
+  font-weight:500;
+}
+dl.atg_commerce_csr_ProductBrowseOptions dd select{
+  width:100px;
+  margin-top:2px;
+}
+dl.atg_commerce_csr_ProductBrowseOptions dt.optionsViewOrder{
+  font-size:larger;
+  font-weight:700;
+  text-decoration:underline;
+  padding-top:20px;
+}
+dl.atg_commerce_csr_ProductBrowseOptions dt.optionsViewOrder img{
+  padding-right:5px;
+}
+dl.atg_commerce_csr_ProductBrowse{
+  width:250px;
+}
+dl.atg_commerce_csr_ProductBrowse dt{
+  width:auto;
+  clear:none;
+  margin:0px;
+}
+dl.atg_commerce_csr_ProductBrowse dd{
+  width:auto;
+  clear:none;
+  margin:0px;
+}
+.atg_commerce_csr_productBrowse_DetailLabel{
+  float:left;
+  width:470px;
+  padding:3px;
+  padding-left:10px;
+  font-size:small;
+}
+dl.atg_commerce_csr_ProductBrowse dt.invBrowser{
+  padding-top:20px;
+  font-size:larger;
+  font-weight:700;
+  text-decoration:underline;
+}
+.browseProductLinks{
+  font-size:small;
+  background-color:#f5f5f5;
+  padding:3px;
+}
+.browseProductLinksRight{
+  font-size:small;
+  background-color:#f5f5f5;
+  padding:3px;
+  text-align:right;
+}
+/************ Add Product by Catalog ID *******************************/
+.atg_commerce_csr_coreProductAddByID{
+  overflow-y:auto;
+  width:100%;
+  height:250px;
+  margin-top:10px;
+  padding: 1px;
+}
+.atg_commerce_csr_coreProductAddByID .atg_iconCell{
+  width:20px !important; 
+}
+
+dl.atg_commerce_csr_CatalogID{
+  width:auto;
+  display:inline-block;
+}
+dl.atg_commerce_csr_CatalogID dt{
+  clear:none;
+  width:auto;
+  float:left;
+}
+dl.atg_commerce_csr_CatalogID dd{
+  margin-right:10px;
+  margin-left:0px;
+  overflow:hidden;
+  float:left;
+}
+dl.atg_commerce_csr_CatalogID dt.atg_commerce_csr_CatalogIDLabel{
+  font-weight:600;
+  padding-left:10px;
+  padding-right:5px;
+  padding-top:3px;
+  float:left;
+}
+dl.atg_commerce_csr_CatalogID dd.atg_commerce_csr_CatalogIDSelect select{
+  float:left;
+  width:200px;
+}
+dl.atg_commerce_csr_CatalogID dt.atg_commerce_csr_SelectedLabel{
+  font-weight:700;
+  padding-left:20px;
+  padding-right:5px;
+  padding-top:3px;
+  float:left;
+}
+dl.atg_commerce_csr_CatalogID dd.atg_commerce_csr_SelectedData{
+  padding-top:3px;
+}
+/**************** quick view popup **********************************/
+.atg_commerce_csr_productVievTitle_popup{
+  font-weight:700;
+  font-size: 14px;
+}
+.atg_commerce_csr_ProductVievPane_popup{
+  overflow:auto;
+  height:500px;
+  clear:left;
+  background-color:#fff;
+}
+.moreDetails_popup{
+  font-size:x-small;
+  float:right;
+  padding:5px;
+}
+dl.atg_commerce_csr_ProductQuickView_popup{
+  width:auto;
+}
+dl.atg_commerce_csr_ProductQuickView_popup dd.atg_commerce_csr_productVievID_popup{
+  margin: 0px;
+}
+dl.atg_commerce_csr_ProductQuickView_popup dd.atg_commerce_csr_productVievPrice_popup{
+  padding-bottom:20px;
+  padding-top:20px;
+}
+dl.atg_commerce_csr_ProductQuickView_popup dd select{
+  width:100px;
+  margin-bottom:2px;
+}
+dl.atg_commerce_csr_ProductQuickView_popup dd input{
+  margin-top:90px;
+}
+
+dl.atg_commerce_csr_Description_popup dt{
+  width:auto;
+  margin:0px;
+}
+dl.atg_commerce_csr_Description_popup dd{
+  width:auto;
+  margin:0px;
+}
+dl.atg_commerce_csr_Description_popup dt.atg_commerce_csr_specialLabel{
+  font-weight: bold;
+  margin-top: 20px;
+}
+/******* right panels for More Product Catalog - Global Spec *******************/
+.atg_commerce_csr_MoreProduct_GuideActions{
+  width:98%;
+  text-align:right;
+  font-size:x-small;
+  padding:2px;
+  margin-bottom:10px;
+  background-color:#f5f5f5;
+}
+ul.atg_commerce_csr_MoreProduct_GuideList{
+  width:auto;
+  display:block;
+  line-height: 18px;
+}
+dl.atg_commerce_csr_MoreProduct_FindByID,dl.atg_commerce_csr_MoreProduct_Notes{
+  width:auto;
+  margin-left:5px;
+  display:inline-block;
+}
+dl.atg_commerce_csr_MoreProduct_FindByID dd select,dl.atg_commerce_csr_MoreProduct_Notes dd select,dl.atg_commerce_csr_MoreProduct_Notes dd textarea{
+  width:215px;
+  margin-bottom:3px;
+}
+dl.atg_commerce_csr_MoreProduct_Notes dd select{
+  width:225px;
+}
+dl.atg_commerce_csr_MoreProduct_FindByID dd.enterId input{
+  width:210px;
+}
+dl.atg_commerce_csr_MoreProduct_FindByID dd.btnFind{
+  text-align:right;
+  width:215px;
+  display:inline;
+}
+
+div.atg_commerce_csr_productCatalogDetails ul{
+  list-style:none;
+  margin-top:0;
+	padding-left:5px;
+  float:left;
+}
+div.atg_commerce_csr_productCatalogDetails div{
+  float:left;
+}
+#atg_commerce_csr_catalog_productCatalogTableContainer .dojoxGrid-scrollbox{
+  border-bottom: 1px solid #c2c2c2;
+}
+div#atg_commerce_csr_catalog_productCatalogTable .dojoxGrid-cell{
+  padding:0 auto 0 auto;  
+  vertical-align:top;
+}
+
+#atg_commerce_csr_catalog_productCatalogTable table td input[type="text"]{
+  margin-right:15px;
+}
+
+.atg #atg_commerce_csr_catalog_productCatalogTableContainer td.dojoxGrid-cell {
+  padding:0 5px 0 5px;
+}
+.atg #atg_commerce_csr_catalog_productCatalogTableContainer td.dojoxGrid-cell input{
+  margin-top:5px;
+}
+
+.atg #atg_commerce_csr_catalog_productCatalogTableContainer div.atg_commerce_csr_productCatalogDetails{
+  height:65px;
+  padding:4px 0 4px 0;
+}
+
+div.atg_commerce_csr_coreCompleteOrderViewPanel div.header,div.atg_commerce_csr_coreExistingOrderView div.header{
+background-color:#f5f5f5 !important;
+width:100%;
+height:21px;
+}
+div.atg_commerce_csr_coreCompleteOrderViewPanel div.header span.title,div.atg_commerce_csr_coreExistingOrderView div.header span.title{
+float:left;
+padding:3px;
+font-weight:700;
+}
+div.atg_commerce_csr_coreCompleteOrderViewPanel div.header span.action,div.atg_commerce_csr_coreExistingOrderView div.header span.action{
+float:right;
+padding:3px;
+text-decoration:underline;
+}
+dl.atg_commerce_csr_searchCriteria dt,dl.atg_commerce_csr_searchCriteria dd{
+  float: left;
+  display: inline;
+  width: auto;
+  margin: 2px;
+}
+.atg_commerce_csr_orderPromotions{
+  float:left;
+  padding: 5px 0 0 0;
+}
+.atg_commerce_csr_orderPromotions dt{
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+.atg_commerce_csr_orderPromotions dd{
+  padding: 0;
+	clear:left;
+  margin: 8px 0 0 20px;
+}
+/************** Price Lists Panel *************************/
+ul.atg_commerce_csr_priceListForm{
+  list-style:none;
+  width:600px;
+	height: auto;
+	overflow: hidden;
+}
+
+ul.atg_commerce_csr_priceListForm li{
+  margin-bottom:10px;
+  padding-right:19px;
+  float:left;
+}
+
+ul.atg_commerce_csr_priceListForm .atg_commerce_csr_fieldTitle{
+   display: block;
+   float: left;
+   min-width: 80px;
+   margin: 2px 5px 0 10px;
+   text-align: left;
+   vertical-align: top;
+}
+
+ul.atg_commerce_csr_priceListForm label{
+  white-space:nowrap;
+}
+
+ul.atg_commerce_csr_priceListForm li.endDate,
+ul.atg_commerce_csr_priceListForm li.startDate{
+	width:230px;
+}
+ul.atg_commerce_csr_priceListForm li.startDate{
+	clear:left;
+}
+
+div.atg_commerce_csr_priceListsNoResults,
+#atg_commerce_csr_pricing_priceLists_morePriceLists_noSearchPerformed{
+	margin-left:70px;
+	padding:25px;
+	clear:both;
+}
+ul.atg_commerce_csr_priceListForm li.endDate .atg_commerce_csr_fieldTitle{
+	min-width:50px;
+}
+ul.atg_commerce_csr_priceListForm li.atg_commerce_csr_priceListControls{
+	clear:left;
+	padding-top:10px;
+	text-align:right;
+	width:425px;
+}
+
+/****   Product catalog ***************/
+#atg_commerce_csr_productCatalogResultsGrid{
+  border-right:1px solid #c8c8c8;
+  border-left:1px solid #c8c8c8;
+  border-bottom:1px solid #c8c8c8;
+  width:98%;
+}
+
+.atg_commerce_csr_productCatalogResults{
+  width:100%;
+  padding:0 6px 6px 6px;
+  font-weight:bold;
+  float:left;
+}
+.atg_commerce_csr_gridMessage,
+.atg_commerce_csr_productCatalogResults .atg_commerce_csr_gridMessage{
+  padding:4px 0 4px 10px;
+}
+
+#cmcProductCatalogSearchPContent span span{
+  padding-top:5px;
+  padding-left:5px;
+  display:block;
+}
+/**** Picker Grid *************************************************/
+.atg_commerce_csr_priceListSearch{
+  margin:5px;
+  width:650px;
+}
+#atg_commerce_csr_priceListSearchResultsGrid,
+#atg_commerce_csr_catalogListSearchResultsGrid{
+  border-left:1px solid #c8c8c8;
+  border-bottom:1px solid #c8c8c8;  
+  margin:5px;
+  padding-bottom:1px;
+}
+
+.atg_commerce_csr_gridIconCell{
+  border-right:none !important;
+  padding-right:none !important;
+  text-align:center !important;
+}
+th.atg_commerce_csr_griditemDescription{
+  padding-left:75px !important;
+  width:170px !important;
+}
+
+.atg_commerce_csr_corePanelData{
+padding:10px;
+overflow:hidden;
+clear: both;
+}
+
+.atg_commerce_csr_commentsArea textarea{
+  width: 400px;
+}
+
+dd.atg_commerce_csr_commentsArea{
+	width:430px;
+}
+
+li.atg_commerce_csr_commentsArea{
+	width: 99%;
+}
+
+.atg_commerce_csr_common_content_strikethrough{
+    text-decoration: line-through;
+    color:#ff0000;
+}
+
+.panelContent a{
+  text-decoration:underline;
+  text-underline-style:solid;
+  color: #003399;
+}
+
+div.dijitTooltipContents   div.atg_commerce_csr_subTable table.atg_dataTable{
+  padding:5px 10px 5px 10px;
+}
+
+.atg_svc_formActions .atg_commerce_csr_panelFooter{
+  clear:auto;
+}
+
+.atg_commerce_csr_electronicAddressForm ul.atg_dataForm span.atg_commerce_csr_fieldTitle{
+  min-width:80px;
+}
+
+.atg_commerce_csr_electronicAddressForm ul.atg_dataForm li.atg_svc_formActions div.atg_commerce_csr_panelFooter{
+  margin-right:30px;
+}
+
+.atg_commerce_csr_togglePanel .atg_svc_formActions .atg_commerce_csr_panelFooter{
+  float:right;
+  margin-right:65px;
+  padding-top:0px !important;
+}
+
+ul.atg_commerce_csr_searchOrder .atg_commerce_csr_fieldTitle,
+ul.atg_commerce_csr_dateRange .atg_commerce_csr_fieldTitle,
+ul.addressSearch .atg_commerce_csr_fieldTitle{
+  display: block;
+  float: left;
+  min-width:80px;
+  margin: 2px 5px 0 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.atg-base-table-product-catalog-search-label{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+}
+
+.atg-base-table-product-catalog-search-input{
+  margin-left: 20px !important;
+}
+
+.atg-base-table-product-catalog-search-input-padding{
+  padding-left: 20px !important;
+}
+
+.atg-base-table-product-catalog-search-button{
+  padding-top: 10px;
+  padding-left: 20px;  
+}
+
+.atg-base-table-product-catalog-search-length{
+  width: 380px
+}/* Address Toggles
+-------------------------------------------------------------------------------*/
+a.atg_commerce_csr_toggle{
+	display:block;
+	clear:both;
+}
+
+#widget_singleShippingAddressForm_ssAddress1{
+	width: 432px;
+}
+dd.atg_commerce_csr_addBillingAddress{
+	clear:left;
+	width:100%;
+}
+dl.atg_dataForm dt.atg_commerce_csr_billingOption{
+	width:165px;
+	text-align:left;
+}
+/*
+----------------------------------------------------------------------------*/
+dl.atg_commerce_csr_addressForm{
+  margin-top: 20px;
+}
+
+dd dl.atg_commerce_csr_addressForm dt{
+  width: 100px;
+  padding-top:3px;
+}
+.atg_commerce_csr_addressForm dt.atg_commerce_csr_lastName,
+.atg_commerce_csr_addressForm dt.atg_commerce_csr_zipcode,
+.atg_commerce_csr_addressForm dt.atg_commerce_csr_phone,
+.atg_commerce_csr_addressForm dt.atg_commerce_csr_add{
+clear:none;
+}
+.atg_commerce_csr_addressForm dt.atg_commerce_csr_middleName{
+width:16px;
+}
+.atg_commerce_csr_addressForm dt.atg_commerce_csr_lastName,
+.atg_commerce_csr_addressForm dt.atg_commerce_csr_zipcode{
+width:90px;
+}
+.atg_commerce_csr_addressForm dt.atg_commerce_csr_phone{
+width:105px;
+}
+.atg_commerce_csr_addressForm dd.atg_commerce_csr_zipcode{
+width:85px;
+}
+.atg_commerce_csr_addressForm dd.atg_commerce_csr_zipcode input{
+width:75px;
+}
+.atg_commerce_csr_addressForm dd.atg_commerce_csr_address input,
+.atg_commerce_csr_addressForm dd.atg_commerce_csr_city input{
+width:397px;
+}
+.atg_commerce_csr_addressForm dd.atg_commerce_csr_lastName input,
+.atg_commerce_csr_addressForm dd.atg_commerce_csr_phone input,
+.atg_commerce_csr_addressForm dd.atg_commerce_csr_firstName input{
+	width:120px;
+	float:left;
+}
+.atg_commerce_csr_addressForm dd.atg_commerce_csr_middleName{
+float:left;
+width:14px;
+}
+.atg_commerce_csr_addressForm dd.atg_commerce_csr_middleName input{
+width:13px;
+}
+
+.atg_commerce_csr_addressForm dd.atg_commerce_csr_state input,
+.atg_commerce_csr_addressForm dd.atg_commerce_csr_nickName input{
+width:150px;
+float:left;
+}
+.atg_commerce_csr_addressForm dd.atg_commerce_csr_country select{
+width:155px;
+float:left;
+}
+
+.dj_ie .atg_svc_popupPanel .atg_commerce_csr_addressForm li input,
+.dj_ie .atg_svc_popupPanel .atg_commerce_csr_addressForm li select{
+  float: left;
+  clear: right;
+}
+
+#addressPopup div.dijitDialogPaneContent{
+  overflow:hidden;
+}
+/* Address Table
+-------------------------------------------------------------------------------*/
+.atg_commerce_csr_addressTable{
+border:0px;
+margin-left:0px;
+padding:0px;
+}
+.atg_commerce_csr_addressTable td{
+border:0px;
+padding-right:25px;
+}
+/* Billing Table
+------------------------------------------------------------------------------*/
+.atg_commerce_csr_billingTable td.atg_numberValue input{
+width:60px;
+}
+.atg_commerce_csr_billingTable td.atg_commerce_csr_orderSummaryTotal{
+font-weight:bold;
+text-align:right;
+}
+
+/* Shipment Form
+-------------------------------------------------------------------------------*/
+.atg_commerce_csr_shipment{
+border:1px solid #c8c8c8;
+padding:10px;
+margin:4px;
+}
+.atg_commerce_csr_shipment h3{
+font-weight:bold;
+}
+.atg_commerce_csr_shipment .atg_dataTable{
+margin-left:30px;
+width:600px;
+}
+.atg_commerce_csr_shipment dl dt,.atg_commerce_csr_shipment dl dd{
+height:40px;
+margin:0px;
+margin-right:5px;
+padding:0px;
+}
+.atg_commerce_csr_shippingType{
+}
+dl.atg_commerce_csr_shippingType dt{
+width:0px;
+}
+dl.atg_commerce_csr_shippingType dd{
+margin-left:50px;
+}
+
+
+/* Stepwise Guide
+-------------------------------------------------------------------------------*/
+
+/* ordersummary guide*/
+span.atg_commerce_csr_orderSummaryAction{
+  padding:4px 11px;
+  overflow:hidden;
+  background-color:#e9e9e9;
+  width:90%;
+  display:block;
+  overflow:hidden;
+}
+span.atg_commerce_csr_orderSummaryAction a{
+  float:right;
+}
+
+
+dl.atg_commerce_csr_orderSummaryGuide{
+  padding:0;
+  margin:4px 0;
+}
+
+dl.atg_commerce_csr_orderSummaryGuide dt,
+dl.atg_commerce_csr_orderSummaryGuide dd{
+  border-bottom:1px solid #c2c2c2;
+  margin:4px 0;
+	height:14px;
+}
+dl.atg_commerce_csr_orderSummaryGuide dt{
+  padding:3px 3px 3px 10px;
+  width:53%;
+}
+
+dl.atg_commerce_csr_orderSummaryGuide dd{
+  padding:3px 10px 3px 3px;
+  width:35%;
+}
+
+dl.atg_commerce_csr_orderSummaryGuide dd{
+  text-align:right;
+  margin-right:2px;
+}
+.atg_commerce_csr_progressPanel{
+}
+ul.atg_commerce_csr_progressPanel{
+width:auto;
+display:block;
+line-height:18px;
+list-style-type:none;
+padding:2px;
+margin:auto 4px auto 2px;
+}
+ul.atg_commerce_csr_progressSubPanel{
+width:auto;
+font-weight:normal;
+display:block;
+line-height:18px;
+list-style-type:none;
+margin: 4px 4px 4px 2px;
+padding: 0;
+}
+.atg_commerce_csr_progressSubPanel li{
+  border-top: 1px solid #cdcdcd;
+  padding: 2px 0 2px 16px;
+  margin-top: 2px 0 0 0;
+  color: #ccc;
+}
+.atg_commerce_csr_progressSubPanel li a:link,
+.atg_commerce_csr_progressSubPanel li a:visited{
+  color: #000;
+}
+.atg_commerce_csr_progressSubPanel li a:hover,
+.atg_commerce_csr_progressSubPanel li a:active{
+    color: #333;
+}
+
+li.atg_commerce_csr_progressTitle{
+  font-weight:bold;
+  background-repeat: no-repeat;
+  background-position: 2px 4px;
+  background-image: url('../images/sprite-no-repeat.png');
+  -background-image: url('../images/sprite-no-repeat-ie6.png');
+  background-position: left -0px;
+  padding: 2px 2px 2px 19px;
+  border: 1px solid #ccc;
+  margin-bottom: 3px;
+}
+li.atg_commerce_csr_progressTitleCurrent{
+  font-weight:bold;
+  background-repeat: no-repeat;
+  background-position: 2px 4px;
+  background-image: url('../images/sprite-no-repeat.png');
+  -background-image: url('../images/sprite-no-repeat-ie6.png');
+  background-position: left -15px;
+  padding: 2px 2px 0 19px;
+  border: 1px solid #ccc;
+  margin-bottom: 3px;
+  color: #000;
+}
+li.atg_commerce_csr_progressCurrent{
+font-weight:bold;
+color: #55a623;
+}
+li.atg_commerce_csr_progressComplete{
+  background-repeat: no-repeat;
+  background-position: 3px 6px;
+  background-image: url('../images/sprite-no-repeat.png');
+  -background-image: url('../images/sprite-no-repeat-ie6.png');
+  background-position: left -30px;
+  padding-left:16px;
+  color: #000;
+}
+li.atg_commerce_csr_progressInComplete{
+  background-repeat: no-repeat;
+  background-position: 3px 6px;
+  background-image: url('../images/sprite-no-repeat.png');
+  -background-image: url('../images/sprite-no-repeat-ie6.png');
+  background-position: left -42px;
+  padding-left:16px;
+}
+li.atg_commerce_csr_progressInactive{
+padding-left:16px;
+}
+
+/* Payment Form
+-------------------------------------------------------------------------------*/
+
+.atg_commerce_csr_paymentForm{
+  margin: 10px;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+}
+
+.atg_commerce_csr_paymentForm li{
+  float: left;
+  margin-bottom: 10px;
+}
+
+.dj_ie .atg_commerce_csr_paymentForm li input,
+.dj_ie .atg_commerce_csr_paymentForm li select{
+  float: left;
+  clear: right;
+}
+
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate{
+	clear:left;
+	border-bottom:1px solid #c2c2c2;
+	padding-bottom: 5px;
+  padding-right:0;
+}
+
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate .dijitInlineTable{
+  width:164px !important;
+}
+
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate #widget_editCreditCardForm_expirationYear,
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate #csrBillingEditCreditCard_expirationYear,
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate #widget_csrBillingAddCreditCard_expirationYear,
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate #widget_csrBillingEditCreditCard_expirationYear{
+  width:134px !important;
+}
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate #widget_editCreditCardForm_expirationMonth,
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate #widget_csrBillingAddCreditCard_expirationMonth,
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate #widget_csrBillingEditCreditCard_expirationMonth,
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate #csrBillingEditCreditCard_expirationMonth
+{
+  width:164px !important;
+}
+
+
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate .dijitInlineTable .dijitDownArrowButton{
+  width:16px;
+}
+
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate .dijitInlineTable .dijitValidationIconField{
+  width:20px !important;
+}
+
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate .dijitInlineTable .dijitDownArrowButton .dijitDownArrowButtonInner{
+  left:2px;
+}
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate #widget_editCreditCardForm_expirationMonth .dijitInputField,
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate #widget_editCreditCardForm_expirationMonth .dijitInputField input,
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate #widget_csrBillingAddCreditCard_expirationMonth .dijitInputField,
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate #widget_csrBillingAddCreditCard_expirationMonth .dijitInputField input,
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate #widget_csrBillingEditCreditCard_expirationMonth .dijitInputField,
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate #widget_csrBillingEditCreditCard_expirationMonth .dijitInputField input,
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate #csrBillingEditCreditCard_expirationMonth .dijitInputField,
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate #csrBillingEditCreditCard_expirationMonth .dijitInputField input{
+  width:120px !important;
+}
+
+
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate #widget_editCreditCardForm_expirationYear .dijitInputField,
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate #widget_editCreditCardForm_expirationYear .dijitInputField input,
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate #widget_csrBillingAddCreditCard_expirationYear .dijitInputField,
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate #widget_csrBillingAddCreditCard_expirationYear .dijitInputField input,
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate #widget_csrBillingEditCreditCard_expirationYear .dijitInputField,
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate #widget_csrBillingEditCreditCard_expirationYear .dijitInputField input,
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate #csrBillingEditCreditCard_expirationYear .dijitInputField,
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_expirationDate #csrBillingEditCreditCard_expirationYear .dijitInputField input{
+  width:90px !important;
+}
+.atg_commerce_csr_paymentForm li li{
+  float: none;
+  margin-bottom: 5px;
+}
+
+.atg_commerce_csr_paymentForm .atg_commerce_csr_fieldTitle{
+  display: block;
+  float: left;
+  clear: right;
+  min-width: 80px;
+  margin: 2px 5px 0 10px;
+  text-align: left;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+
+.atg_commerce_csr_paymentForm label{
+  white-space: nowrap;
+}
+.atg_commerce_csr_paymentForm li input{
+ width: 20px;
+}
+.atg_commerce_csr_paymentForm li.atg_commerce_csr_makeDefault input{
+ width: auto;
+}
+
+.atg_commerce_csr_paymentForm .atg_commerce_csr_firstName,
+.atg_commerce_csr_paymentForm .atg_commerce_csr_lastName{
+  /*clear: left;*/
+}
+
+.atg_commerce_csr_paymentForm .atg_commerce_csr_makeDefault{
+  clear: left;
+  margin-left: 86px;
+}
+
+.atg_commerce_csr_paymentFormAddress .atg_commerce_csr_fieldTitle{
+  min-width: 80px;
+}
+.atg_commerce_csr_paymentFormAddress{
+  margin: 10px;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+  width: 550px;
+}
+.atg_commerce_csr_paymentFormAddress li{
+  margin: 0 0 10px;
+}
+.atg_commerce_csr_paymentFormAddress ul{
+  overflow: hidden;
+  margin: 15px 0 0;
+  padding: 0;
+}
+
+ul.atg_commerce_csr_addressPicker{
+  clear:left;
+}
+ul.atg_commerce_csr_addressPicker li{
+  list-style:none;
+}
+li.atg_commerce_csr_createNewAddress ul.atg_commerce_csr_addressForm{
+  clear:left;
+  padding-top:15px;
+}
+
+#csrBillingAddCreditCard_addressArea ul.atg_commerce_csr_addressForm{
+    padding-left:10px !important;
+}
+div.atg_commerce_csr_addressPickerControl{
+  margin-left:134px;
+  height:19px;
+}
+div.atg_commerce_csr_addressPickerControl span{
+  padding-right:6px;
+}
+
+#createGiftlistForm_addressRadioSelection_none {
+  margin-left: 4px;
+  margin-right: 5px\9;
+}
+
+#createGiftlistForm_addressRadioSelection_existing {
+  margin-left: 4px\9;
+  margin-top:-2px\9;
+  margin-right: 5px\9;
+}
+
+#createGiftlistForm_addressRadioSelection_new {
+  margin-left: 4px\9;
+  margin-top:-4px\9;
+  margin-right: 5px\9;
+}
+
+div.atg_commerce_csr_addressPickerControl span,
+div.atg_commerce_csr_addressPickerControl select,
+div.atg_commerce_csr_addressPickerControl input{
+  float:left;
+}
+
+div.atg_commerce_csr_addressPickerControl input{
+  margin-top:0;
+}
+
+
+label.atg_commerce_csr_billingAddress{
+  font-weight:bold;
+}
+.atg_commerce_csr_paymentSection{
+overflow:hidden;
+clear:both;
+border:1px solid #c8c8c8;
+padding:10px;
+margin:4px;
+}
+.atg_commerce_csr_paymentForm dt{
+font-weight: 700;
+width:90px;
+text-align: right;
+float: left;
+margin-bottom: 7px;
+margin-right: 5px;
+padding-top: 4px;
+display: inline;
+}
+.atg_commerce_csr_paymentForm dd{
+margin: 0px;
+margin-bottom: 7px;
+}
+
+dd.atg_commerce_csr_expDate{
+  width:500px;
+}
+
+td.atg_commerce_csr_billingAmount,
+th.atg_commerce_csr_billingAmount{
+  width:145px;
+}
+td.atg_commerce_csr_billingAmount .dijitValidationIcon{
+  background-position-x: right;
+}
+
+td.atg_commerce_csr_billingAmount table.dijitInlineTable{
+  width:120px;
+}
+#csrApplyRefunds td.atg_commerce_csr_billingAmount table.dijitInlineTable,
+#csrApplyRefunds td.atg_commerce_csr_billingGroup table.dijitInlineTable {
+  width:120px !important;
+}
+#csrApplyRefunds td.atg_commerce_csr_billingAmount table.dijitInlineTable td.dijitInputField,
+#csrApplyRefunds td.atg_commerce_csr_billingGroup table.dijitInlineTable td.dijitInputField,
+tr.atg_commerce_csr_billingGroup td.atg_commerce_csr_billingAmount table.dijitInlineTable td.dijitInputField,
+.atg_commerce_csr_paymentOptions td.atg_commerce_csr_billingAmount table.dijitInlineTable td.dijitInputField
+{
+  width:80px !important;
+}
+
+tr.atg_commerce_csr_billingGroup td.atg_commerce_csr_billingAmount table.dijitInlineTable td.dijitInputField input,
+.atg_commerce_csr_paymentOptions td.atg_commerce_csr_billingAmount table.dijitInlineTable td.dijitInputField input{
+  width:78px !important;
+}
+
+td.atg_commerce_csr_securityCode table.dijitInlineTable{
+  width:80px !important;
+}
+
+.atg_commerce_csr_paymentOptions td.atg_commerce_csr_securityCode table.dijitInlineTable td.dijitInputField{
+  width:40px !important;
+}
+
+.atg_commerce_csr_paymentOptions td.atg_commerce_csr_securityCode table.dijitInlineTable td.dijitInputField input{
+  width:38px !important;
+}
+
+.atg .atg_dataTable thead th.atg_commerce_csr_validatedField{
+  padding-right:32px;
+}
+
+dd.atg_commerce_csr_middleI, dd.atg_commerce_csr_middleI input{
+  width: 20px;
+}
+
+#editCreditCardFloatingPane div.dijitDialogPaneContent,
+#editPaymentOptionFloatingPane div.dijitDialogPaneContent{
+  max-height:600px !important;
+  overflow:hidden;
+}
+
+#editCreditCardPagePrompt,
+#editCreditCardFloatingPane{
+  max-width:580px;
+  width:580px;
+
+}
+.atg_commerce_csr_addressFormPopup div.atg_commerce_csr_panelFooter,
+#editCreditCardPagePrompt div.atg_commerce_csr_panelFooter{
+  width:90%;
+}
+
+.atg_commerce_csr_addressForm li.atg_svc_formActions div.atg_commerce_csr_panelFooter{
+  float:right;
+}
+
+.atg_commerce_csr_addressForm li.atg_svc_formActions{
+  float:left;
+  width:190px;
+}
+
+table.atg_commerce_csr_paymentOptions th.atg_iconCell,
+table.atg_commerce_csr_paymentOptions tr.atg_commerce_csr_billingGroup td.atg_iconCell{
+  width:30px;
+}
+
+/* edit split popup
+-------------------------------------------------------------------------------*/
+.atg_commerce_csr_splitPopup{
+height:200px;
+width: 550px !important;
+}
+.atg_commerce_csr_splitPopup table.atg_dataTable{
+margin:10px;
+width:550px !important;
+
+}
+/* edit split popup
+-------------------------------------------------------------------------------*/
+.atg_commerce_csr_creditCardPopup{
+height:600px;
+}
+#creditCardPopup{
+  max-width:none;
+}
+
+#creditCardPopup div.dijitDialogPaneContent{
+  max-height:none;
+}
+/* Payment Form
+-------------------------------------------------------------------------------*/
+.atg_commerce_csr_claimBox{
+clear:both;
+margin:5px;
+padding:10px;
+border:1px solid #ccc;
+}
+
+
+.atg_commerce_csr_common_content_alert{
+    font-weight: bold;
+    color: #FF0000;
+}
+
+.atg_commerce_csr_electronicAddressForm ul.atg_dataForm li.atg_commerce_csr_address input{
+  width:300px;
+}
+
+div.atg_commerce_csr_addressView ul.atg_svc_shipAddress{
+  margin-right:10px;
+  margin-left:0px;
+}
+
+.atg_commerce_csr_creditCardTabPane ul.atg_commerce_csr_paymentForm{
+  margin-top:10px;
+}
+
+.atg div.atg_commerce_csr_addressView ul.atg_svc_shipAddress{
+  margin-left: 0;
+}
+
+#editCreditCardForm_existingAddressList,
+#csrBillingAddCreditCard_existingAddressList{
+    width: 140px;
+}.endeca-catalog {width: 100%; background-color: #e9e9e9;}
+.endeca-catalog .layout { background-color: #e9e9e9;}
+
+.endeca-catalog .table {background-color: #f2f2f2;margin-right: 20px; clear: both;}
+.endeca-catalog ul {margin-left:0px; padding-left:0px}
+.endeca-catalog ul li {list-style-type: none;}
+.endeca-catalog .dimensions ul li, .endeca-catalog .selections ul li {border-bottom: 1px solid #DFDFDF;}
+
+.endeca-catalog #catalog-nav {float:left;width:200px;padding-right:0px;}
+.endeca-catalog #catalog-results {overflow:hidden; height: 100%; background-color: #E3E3E5;padding-left:20px;font-size:11px;}
+
+.endeca-catalog .search-row {width:180px;padding-left:13px;padding-bottom: 7px;float:left;}
+.endeca-catalog .search-row.li {border-bottom: 0px;}
+.endeca-catalog .highlight {color:orange; }
+
+.endeca-catalog .browse-row {padding-bottom: 7px; font-weight:bold; padding-left:13px;padding-top: 10px;float:left; height: 20px; color:#666666; cursor:pointer;}
+.endeca-catalog .browse-row-selected {padding-bottom: 7px; font-weight:bold; padding-left:13px;padding-top: 10px;float:left; height: 20px; color:#EFEFEF; background-color:#666666; cursor:pointer;}
+
+.endeca-catalog .dimensions {padding-left: 10px; padding-bottom:15px; background-color:  #F6F6F6;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F6F6F6), to(#CCCCCC));
+    background-image: -webkit-linear-gradient(top, #F6F6F6, #CCCCCC); 
+    background-image: -moz-linear-gradient(top, #F6F6F6, #CCCCCC);
+    background-image: -ms-linear-gradient(top, #F6F6F6, #CCCCCC);
+    background-image: -o-linear-gradient(top, #F6F6F6, #CCCCCC);
+    -moz-box-shadow: 0px 2px 2px #999999;
+    -webkit-box-shadow: 0px 2px 2px #999999;
+    box-shadow: 0px 2px 2px #999999;
+}
+.endeca-catalog .dimensions .sub-heading {padding-top: 10px; padding-left:0px; color: #333333;font-weight: bold; text-transform: uppercase; border-bottom: 2px solid #2D66A0; margin-bottom:5px;};
+.endeca-catalog .dimensions li { padding-left: 10px;position:relative; height:auto;display:inline-block;}
+.endeca-catalog .dimensions li span { padding-top: 3px;padding-bottom:3px;display:inline-block; width: 80%; }
+.endeca-catalog .dimensions li div {float:right; margin-top:3px; background: url(../images/catalog/facet-QTY-3.png) no-repeat;border:none;height:14px; -moz-border-radius: 50px;-webkit-border-radius: 50px;width: 25px;font-weight: bold;margin-right: 10px; text-align: center;}
+.endeca-catalog .dimensions li div label {padding-left: 1px}
+.endeca-catalog .dimensions .right {border-bottom: none; margin-top: 3px; width: 50%;}
+
+.endeca-catalog .selections {background-color:  white;padding-left: 10px; padding-bottom:10px;
+    -moz-box-shadow: 0px 2px 2px #999999;
+    -webkit-box-shadow: 0px 2px 2px #999999;
+    box-shadow: 0px 2px 2px #999999;
+}
+.endeca-catalog .selections .sub-heading {padding-top: 10px; padding-left:0px; color: #333333;font-weight: bold; text-transform: uppercase; border-bottom: 2px solid #2D66A0; margin-bottom:5px;}
+.endeca-catalog .selections hr {color: #6C90C2; height:5px}
+.endeca-catalog .selections li {padding-left:10px; height: 20px;padding-top: 2px}
+.endeca-catalog .selections li.refinement { position:relative; height:auto;}
+.endeca-catalog .selections li.refinement span{ padding-top: 3px; padding-bottom: 3px; display: inline-block; width: 80%; }
+.endeca-catalog .selections li.refinement div { display:inline-block;}
+.endeca-catalog .selections li.refinement.right {border-bottom: none; margin-top: 3px; width: 80%;}
+
+.endeca-catalog .first-cell-div{height: 18px;width: 18px;border: 0px solid #bbb;margin-top: 14px}
+
+.endeca-catalog .results-header {padding-bottom:0px;padding-right:20px; min-height: 20px;}
+.endeca-catalog .results-header .items {color: #999999; display: inline-block; line-height: 44px; padding-right: 20px;}
+.endeca-catalog .results-header .items span {color: #666666; font-weight: bold;}
+.endeca-catalog .results-header .sort {display:inline-block; line-height:44px;}
+.endeca-catalog .results-header .pagination {color: #333333; display:inline-block; float:right; font-weight: bold; line-height: 44px;}
+.endeca-catalog .results-header .pagination a {color: #999999; text-decoration: underline; font-weight: normal;}
+.endeca-catalog .results-title {
+    background-color: #F5F5F5;
+    border-bottom: 1px solid #e3e3e5;
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 20px;
+    margin-top: 15px;
+    min-height: 10px;
+    padding: 10px 10px 5px;
+}
+
+.endeca-catalog .results-none { background-color: #e3e3e5; font-weight:bold; text-align: center; height:100%; padding-top: 150px;}
+
+.endeca-catalog .right {float:right;padding-right: 12px;border-bottom: none}
+.endeca-catalog .right {padding-left: 160px}
+.endeca-catalog .row .column-site {width:50px;} 
+.endeca-catalog .row .column-image {width:50px;padding-top: 5px} 
+.endeca-catalog .row .column-image .product-image img {height: 35px;}
+.endeca-catalog .row .column-name {padding-left: 20px;padding-top: 10px; min-width: 250px;} 
+.endeca-catalog .row .column-price {min-width:50px;text-align:right;padding-right:15px;padding-top:10px} 
+.endeca-catalog .row .column-sale {color:red;min-width:30px;text-decoration:line-through;text-align:right;padding-left:40px;padding-right:15px;padding-top:10px} 
+.endeca-catalog .row .column-qty div input{text-align:right;padding-left:30px; padding-right:5px; width:20px}
+.endeca-catalog .row .column-qty {float:right;padding-top: 11px;padding-left:15px;padding-right:10px} 
+.endeca-catalog .row .column-action {float:right;text-align:right;padding-top: 10px; padding-right:10px}
+.endeca-catalog .row div {padding:1px 5px;float:left;}
+.endeca-catalog .row {min-width:650px; border-bottom:1px solid #E3E3E5;height: 50px}
+.endeca-catalog .row:nth-child(odd) { background:#F5F5F5; }
+.endeca-catalog .row:nth-child(even) { background:#F2F2F2; }
+
+.endeca-catalog .search-box {color: #999999;background:url(../images/catalog/search-box.png) no-repeat;border:none;height:20px; -moz-border-radius: 50px;-webkit-border-radius: 50px;width: 140px;padding-left: 10px;padding-bottom: 3px;}
+.endeca-catalog .search {background-color:#E3E3E5;padding-top:5px;padding-left:0px;padding-bottom:0px;border:0px;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFFFFF), to(#E3E3E5));
+    background-image: -webkit-linear-gradient(top, #FFFFFF, #E3E3E5); 
+    background-image: -moz-linear-gradient(top, #FFFFFF, #E3E3E5);
+    background-image: -ms-linear-gradient(top, #FFFFFF, #E3E3E5);
+    background-image: -o-linear-gradient(top, #FFFFFF, #E3E3E5);
+    -moz-box-shadow: 0px 2px 2px #999999;
+    -webkit-box-shadow: 0px 2px 2px #999999;
+    box-shadow: 0px 2px 2px #999999;
+}
+.endeca-catalog .second-cell-div {height: 35px;width: 35px;border: 2px solid #bbb; background-color: #FFFFFF;}	
+
+.endeca-catalog .icon-browse {cursor:pointer; float:right;background:url(../images/catalog/browse-icon.png) no-repeat;width: 15px;padding-top: 15px;padding-left:9px; margin-top:2px;}
+.endeca-catalog .icon-delete {cursor:pointer; float:right;background:url(../images/catalog/breadcrumb-X.png) no-repeat;width: 15px;padding-left:5px;position:absolute;height: 100%;right:0;top:0;margin:0;padding-top:0;vertical-align:middle;background-position: 0% 6px }
+.endeca-catalog .icon-down {cursor:pointer; float:right; background:url(../images/catalog/breadcrumb-site-arrow.png) no-repeat;width:10px;height:10px;margin-right:9px;margin-top: 4px;}
+.endeca-catalog .icon-search {cursor:pointer; float:right;background:url(../images/catalog/search-icon.png) no-repeat;width: 15px;margin-top:4px;padding-top: 15px;padding-left:5px; cursor:pointer}
+
+.endeca-catalog .selected-term {display:inline; }
+.endeca-catalog .corrected-term {display:inline; color:red; text-decoration:line-through; }
+.endeca-catalog .corrected-term p { padding:0px; display:inline; color: #333333; }
+
+.endeca-catalog .categories {
+  display: none;
+  position: absolute;
+  margin-left: 200px;
+  margin-top: -37px;
+  width: 180px;
+  border: 0px solid #DCDCDC;
+  box-shadow: 0px 0px 16px #414145;
+  -webkit-box-shadow: 0px 0px 16px #414145;
+  -moz-box-shadow: 0px 0px 16px #414145;
+  z-index: 10;
+  max-height: 450px;
+  overflow: auto;
+  border: 1px solid #CCCCCC \0/;
+}
+.endeca-catalog .categories ul {
+  list-style: none; 
+  border-top: 1px solid #CCCCCC; 
+  background-color: #EFEFEF;
+  padding:0px;
+  margin:0px;
+}
+.endeca-catalog .categories ul li {
+  border-bottom: 1px solid #DDDDDD; 
+  font-weight: bold;
+  font-size: 11px;
+  color: #5271e8;
+}
+.endeca-catalog .categories ul li a:link, .endeca-catalog .categories ul li a:visited { 
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  display: block; 
+  text-decoration: none;
+  color: #5271e8;
+}
+.endeca-catalog .categories ul li a:hover, .endeca-catalog .categories ul li a:active, .endeca-catalog .categories ul li a:focus { 
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  display: block; 
+  color: #EFEFEF;
+  background-color: #666666;
+  text-decoration: none;
+}
+.endeca-catalog .categories ul li a.empty:link, .endeca-catalog .categories ul li a.empty:visited { 
+  color: gray;
+}
+.endeca-catalog .categories ul li a.empty:hover, .endeca-catalog .categories ul li a.empty:active, .endeca-catalog .categories ul li a.empty:focus { 
+  color: gray;
+  background-color: #E0E0E0;
+}
+.endeca-catalog .sub-categories {
+  position: absolute;
+  margin-left: 380px;
+  margin-top: -37px;
+  float:left;
+  display: block;
+  border: 0px solid #DCDCDC;
+  background-color: #EFEFEF;
+  box-shadow: 0px 0px 16px #414145;
+  -webkit-box-shadow: 0px 0px 16px #414145;
+  -moz-box-shadow: 0px 0px 16px #414145;
+  max-height: 450px;
+  max-width: 550px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 100;
+  column-gap:20px;
+  -webkit-column-gap : 20px;
+  -moz-column-gap : 20px; 
+  -moz-column-rule:3px inset #FFFFFF;
+  -webkit-column-rule:3px inset #FFFFFF;
+  column-rule: 3px inset #FFFFFF;
+  -webkit-column-fill: auto; 
+  -moz-column-fill: auto;
+  column-fill: auto;
+  border: 1px solid #CCCCCC \0/;
+}
+
+.endeca-catalog .sub-categories table tr td {
+  vertical-align: top;
+}
+
+.endeca-catalog .sub-category {
+  font-weight: bold;
+  font-size: 11px;
+  min-width: 120px;
+  border-right: 1px solid #CCCCCC;
+}
+
+.endeca-catalog .sub-category a:link, .endeca-catalog .sub-category a:visited {
+  text-decoration: none;
+  color: #234584;
+  display:block;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.endeca-catalog .sub-category a:hover, .endeca-catalog .sub-category a:active, .endeca-catalog .sub-category a:focus {
+  padding-top: 10px;
+  color: #EFEFEF;
+  background-color: #666666;
+  display:block;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.endeca-catalog .sub-category a:link.level1, .endeca-catalog .sub-category a:visited.level1 {
+  color: #5271E8;
+}
+
+.endeca-catalog .sub-category ul {
+  list-style: none; 
+  background-color: #EFEFEF;
+  padding:0px;
+  margin-top:0px;
+  margin-left:0px;
+  margin-right:0px;
+  margin-bottom:10px;
+}
+.endeca-catalog .sub-category ul li {
+  border-bottom: 1px solid #DDDDDD; 
+  font-weight: bold;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  font-size: 11px;
+  color: #5271e8;
+  border: 0px;
+}
+.endeca-catalog .sub-category ul li a:link, .endeca-catalog .sub-category ul li a:visited { 
+  text-decoration: none;
+  color: #5271e8;
+  display:block;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.endeca-catalog .sub-category ul li a:hover, .endeca-catalog .sub-category ul li a:active, .endeca-catalog .sub-category ul li a:focus { 
+  color: #EFEFEF;
+  text-decoration: none;
+  display:block;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.endeca-catalog .sub-category ul li.level2 a {
+  font-weight:normal;
+  color: #223168;
+  display:block;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+ .endeca-catalog .column2  { min-width: 400px; }
+ .endeca-catalog .column3  { min-width: 550px; }
+ .endeca-catalog .column4  { min-width: 550px; }
+}
+
+  .endeca-catalog .icon-down {
+    position:relative;
+  }
+  #atg_csc_catalog_endeca_siteScopeDropdown {
+    cursor: default;
+    position: absolute;
+    z-index:10;
+    left: -90px; top: 10px;
+    border: 1px solid #DCDCDC;
+    background-color: white;
+    display: none;
+    padding-left:10px;
+    white-space: nowrap;
+    -moz-box-shadow: 2px 2px 2px #666666;
+    -webkit-box-shadow: 2px 2px 2px #666666;
+    box-shadow: 2px 2px 2px #666666;
+  }  
+  #atg_csc_catalog_endeca_siteScopeDropdown span {
+    line-height: 34px;
+    vertical-align: baseline;
+    margin: 0 0 0 10px;
+    padding: 10px;
+    color: #2d66a0;
+  }
+  #atg_csc_catalog_endeca_siteScopeCheckbox { cursor: pointer; position: relative; top: 2px;}
+
+  #changeSiteScope {
+    display: none;
+  }
+ /* gift cert form ----------------------------------*/
+
+  ul.atg_commerce_csr_creditClaimForm{
+    list-style:none;
+    width:600px;
+    padding-left:0;
+    margin-top:10px !important;
+    margin-bottom:10px !important;
+  }
+
+  ul.atg_commerce_csr_creditClaimForm li{
+    margin-bottom:10px;
+    padding-right:19px;
+    float:left;
+  }
+
+  .atg ul.atg_commerce_csr_creditClaimForm span.atg_commerce_csr_fieldTitle{
+    display: block;
+    float: left;
+    min-width: 80px;
+    margin: 2px 5px 0 10px;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  ul.atg_commerce_csr_creditClaimForm label{
+    white-space:nowrap;
+    font-weight:bold;
+  }
+  
+  /**********  GIFT REGISTRY CSS RULES *****************************************************************/
+
+/* Gift/Wish List Toolbar */
+ul.atg_commerce_csr_giftwishListToolbar{
+  margin:0;
+}
+
+ul.atg_commerce_csr_giftwishListToolbar li.atg_commcerce_csr_listOption{
+  float:left;
+  border:none;
+}
+
+
+.atg ul.atg_commerce_csr_giftListForm{
+  padding: 10px;
+}
+
+
+ul.atg_commerce_csr_searchGiftListForm li.atg_commerce_csr_eventType{
+  clear:left;
+}
+ul.atg_commerce_csr_searchGiftListForm li{
+  width:250px;
+}
+
+ul.atg_commerce_csr_searchGiftListForm li input[type="text"],
+ul.atg_commerce_csr_searchGiftListForm li select{
+  width:100px;
+}
+
+ul.atg_commerce_csr_searchGiftListForm li.atg_commerce_csr_giftListSearchSubmit,
+ul.atg_commerce_csr_searchGiftListForm li.atg_commerce_csr_giftListSearchSubmit input{
+  float:right;
+  margin-top:5px;
+}
+ul.atg_commerce_csr_searchGiftListForm {
+  width:530px;
+}
+.atg_commerce_csr_searchGiftListForm li.atg_commerce_csr_panelFooter{
+  width:546px;
+}
+
+.atg-csc-base-table atg-base-table-gift-list-search-form .atg-csc-base-table-row {  
+  margin-bottom: 10px;
+  min-width: 550px;
+}
+
+.atg-base-gift-list-event-date {  
+  white-space: nowrap;
+  float:left;
+  margin-top:5px;
+}
+
+ul.atg_commerce_csr_giftRegistryInfo{
+  display:block;
+  float:left;
+  padding:0;
+  min-width:215px;
+}
+ul.atg_commerce_csr_giftRegistryInfo li{
+  list-style-type:none;
+  float:left;
+  clear:left;
+  margin:3px 0;
+}
+ul.atg_commerce_csr_giftRegistryInfo li .atg_svc_fieldTitle{
+  text-align:right;
+  display:block;
+  float:left;
+  margin:0 5px 0 0;
+  text-align:right;
+  vertical-align:top;
+  white-space:nowrap;
+  width:110px;
+}
+ul.atg_commerce_csr_giftRegistryInfo li .atg_svc_fieldTitle label{
+  font-weight:bold;
+}  
+
+ul.atg_commerce_csr_giftRegistryInfo li span.plainText{
+  float:left;
+}
+
+
+.atg_commerce_csr_giftListForm li.atg_commerce_csr_eventType,
+.atg_commerce_csr_giftListForm li.atg_commerce_csr_eventDate,
+.atg_commerce_csr_giftListForm li.atg_commerce_csr_eventName,
+.atg_commerce_csr_giftListForm li.atg_commerce_csr_eventSite,
+.atg_commerce_csr_giftListForm li.atg_commerce_csr_eventStatus,
+.atg_commerce_csr_giftListResultsTotal{
+  clear:left;
+}
+
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_eventName .atg_commerce_csr_fieldTitle,
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_eventType .atg_commerce_csr_fieldTitle,
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_eventDate .atg_commerce_csr_fieldTitle,
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_eventOwner .atg_commerce_csr_fieldTitle,
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_eventSite .atg_commerce_csr_fieldTitle,
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_eventStatus .atg_commerce_csr_fieldTitle
+{
+  text-align:left;
+  font-weight:bold;
+  padding-right:4px;
+  padding-left:10px;
+}
+
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_eventOwner .atg_commerce_csr_fieldTitle,
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_eventSite .atg_commerce_csr_fieldTitle,
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_eventStatus .atg_commerce_csr_fieldTitle
+{
+  margin-left:13px;
+  min-width:80px;
+}
+
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_eventSite a{
+  margin-left:5px;
+}
+.atg ul.atg_commerce_csr_giftListForm{clear:left;}
+.atg ul.atg_commerce_csr_giftListForm select{
+  font-size: 13px;
+}
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_eventName input{
+  width:275px !important;
+}
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_eventDate input{
+  width:100px;
+}
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_eventDate img{
+  vertical-align:middle;
+}
+
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_eventStatus{
+  padding:0;
+  margin-bottom:0;
+}
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_eventStatus .atg_commerce_csr_fieldTitle,
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_giftListAddressForm .atg_commerce_csr_fieldTitle{
+  position:relative;
+  top:15px;
+}
+
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_eventStatus ul{
+  float:left;
+  padding:0;
+}
+
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_eventStatus ul li{
+  float:none;
+}
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_eventStatus ul li input{
+  margin-left:0;
+  margin-top:0;
+  vertical-align:middle;
+}
+
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_giftListAddressForm {
+  clear:left;
+  margin-top:10px;
+  margin-left:-5px;
+}
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_giftListAddressForm div.atg_commerce_csr_addressPickerControl{
+  /*margin-left:60px;*/
+}
+
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_giftListAddressForm .atg_commerce_csr_addressPicker{
+  display:block;
+  float:left;
+  margin:0;
+  width:600px;
+  padding:0;
+}
+
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_giftListAddressForm .atg_commerce_csr_addressPicker .dijitInlineTable ,
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_eventName .dijitInlineTable,
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_eventName .dijitInlineTable td,
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_eventName .dijitInlineTable input,
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_giftListAddressForm .atg_commerce_csr_addressPicker .dijitInlineTable td,
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_giftListAddressForm .atg_commerce_csr_addressPicker .dijitInlineTable td div,
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_giftListAddressForm .atg_commerce_csr_addressPicker .dijitInlineTable input,
+.atg ul.atg_commerce_csr_giftListForm .atg_commerce_csr_fieldTitle{
+  position:static !important;
+}
+
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_country .dijitInlineTable {
+  width:455px !important;
+}
+.atg ul.atg_commerce_csr_giftListForm ul.atg_commerce_csr_eventStatusPicker{
+  margin-left:0;
+  padding:0;
+  clear:none;
+  float:left;
+
+}
+
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_giftListAddressForm .atg_commerce_csr_addressPicker li.atg_commerce_csr_existingAddress,
+.atg ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_giftListAddressForm .atg_commerce_csr_addressPicker li.atg_commerce_csr_createNewAddress{
+  margin-left:6px;
+  clear:left;
+  width:100%;
+}
+
+ul.atg_commerce_csr_giftRegistryInfo span.atg_commerce_csr_giftListAddress{
+  width:115px;
+}
+
+li.atg_commerce_csr_giftListAddressForm ul.atg_commerce_csr_addressForm{
+  margin-left:10px;
+}
+
+ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_saveProfile, 
+ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_addFormControls {
+  margin-left:140px !important;
+  padding-top:12px;
+}
+
+ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_addFormControls {
+  clear:left;
+  margin-left:40px;
+  width:425px;
+  border-width:1px 0 0 0;
+  border-color:#c8c8c8;
+  border-style:solid;
+}
+ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_addFormControls span.atg_commerce_csr_saveProfile {
+float:left;
+}
+
+ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_addFormControls span.atg_commerce_csr_addControls {
+float:right;
+}
+
+ul.atg_commerce_csr_giftListForm li.atg_commerce_csr_addFormControls span.atg_commerce_csr_saveProfile input{
+  margin-top:0;
+  vertical-align:middle;
+}
+
+
+.dj_ie .atg .coreCustomerInfo ul.atg_svc_addressForm .dijitInlineTable .dijitInputField input,
+.dj_ie .atg .coreCustomerInfo ul.atg_svc_addressForm .dijitInlineTable .dijitInputField td,
+.dj_ie .atg .coreCustomerInfo ul.atg_svc_addressForm .dijitInlineTable{
+  position:relative !important;
+}
+
+
+/*set position to static to correct for dojo floating elements in IE*/
+table.atg_commerce_csr_giftlistCart .dijitInlineTable,
+table.atg_commerce_csr_giftlistCart .dijitInlineTable td,
+table.atg_commerce_csr_giftlistCart .dijitInlineTable input,
+.dj_ie table.atg_commerce_csr_giftlistCart .dijitInlineTable .dijitInputField input,
+.dj_ie .atg .atg_dataForm .dijitInlineTable .dijitInputField input,
+.dj_ie .atg .atg_dataForm .dijitInlineTable .dijitInputField td,
+.dj_ie .atg .atg_dataForm .dijitInlineTable,
+.dj_ie .atg  .dijitInlineTable .dijitInputField input,
+.dj_ie .atg  .dijitInlineTable td.dijitInputField ,
+.dj_ie .atg  .dijitInlineTable td,
+.dj_ie .atg  .dijitInlineTable{
+  position: static !important;
+}
+
+table.atg_commerce_csr_giftlistCart .dijitInlineTable td.dijitInputField,
+table.atg_commerce_csr_giftlistCart .dijitInlineTable input{
+  width:80px !important;
+}
+
+#atg_commerce_csr_giftRegistryEditGrid,
+#atg_commerce_csr_giftRegistryEventsGrid,
+.atg_commerce_csr_giftRegistryResults{
+  clear:both;
+}
+
+/* Gift Registry Product View */
+
+.atg_commerce_csr_giftListAddButton{
+  width:100px;
+}
+.atg_commerce_csr_giftListCancelButton{
+  width:75px;
+}
+
+.atg_dataTableActions{
+  border-top:none;
+  margin-right:0;
+}
+.atg_dataTableActions .atg_actionTo div{
+  padding:2px 0;
+}
+.atg_dataTableActions div.atg_commerce_csr_addToCart{
+  padding:0 0 10px 0;
+}
+
+
+.atg_dataTableActions div input{
+  margin-left:5px;
+}
+#atg_commerce_csr_gift_GiftlistGridStatus{
+  padding:10px;
+}
+#atg_commerce_csr_giftlistSearchForm_atg_commerce_csr_searchGiftListForm{
+  padding-top:10px;
+}
+
+/* Checkout Gift/Wish List Name */
+
+ul.atg_commerce_csr_itemDesc li.atg_commerce_csr_giftwishListName{
+  padding-left:20px;
+  margin-bottom:12px;
+}
+
+ul.atg_commerce_csr_giftlistQuantity{
+  margin-top:14px;
+  padding:0;
+}
+
+ul.atg_commerce_csr_giftlistQuantity li{
+  margin-bottom:12px;
+  margin-left:4px;
+  list-style-type:none;
+  
+}
+
+#giftlistCreatePopup{
+  max-width:650px;
+}
+
+#giftlistCreatePopup .atg_commerce_csr_popupPanel{
+  width:630px;
+  overflow:hidden;
+}
+#giftlistCreatePopup .dijitDialogPaneContent{
+  overflow-x:hidden;
+}
+
+#atg_commerce_csr_giftRegistryEventsGrid div.atg_svc_formActions input{
+  margin:6px;
+  float:right;
+}
+
+/* Confirm Giftlist Delete PopUp */
+
+#atg_commerce_csr_deleteGiftListConfirm div.dijitDialogPaneContent {
+min-width:400px;
+}
+
+#atg_commerce_csr_deleteGiftListConfirm div.dijitDialogPaneContent p{
+  width:275px;
+  margin-top:10px;
+}
+#atg_commerce_csr_deleteGiftListConfirm div.atg_commerce_csr_panelFooter{
+  width:90%;
+  float:right;
+}
+
+.giftSelect{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+}
+.giftSelect .productContainer{
+  overflow: hidden;
+  display: block;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.giftSelect .productContainer:hover{
+  background: #F6F4DE;
+  cursor: pointer;
+}
+.giftSelect li table.atg_dataTable{
+  margin-top: -1px !important;
+}
+.giftSelect .productInfo{
+  padding-top: 15px;
+}
+.giftSelect .productTitle{
+  font-size: 24px;
+  color: #6491DC;
+  margin-bottom: 10px;
+}
+.giftSelect .productTitle .productID{
+  font-weight: normal;
+  font-size: 7px;
+  color: #999;
+}
+.giftSelect .productDescription{
+  font-size: 14px;
+  margin: 0 0 10px 0;
+  color: #666;
+}
+.giftSelect .productImage{
+  float: left;
+  margin-right: 20px;
+}
+.giftSelect .productPrice{
+  font-size: 24px;
+  color: #000;
+}
+.giftSelect th{
+  border: none !important;
+}
+.giftSelect .giftActions{
+  text-align: right;
+  padding: 15px !important;
+  background-color: #E8E8E8;
+}
+.giftSelect .giftChoose{
+  text-align: center;
+}
+
+.atg_commerce_csr_itemDesc{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.atg_commerce_csr_itemDesc li{
+  margin: 0 0 3px 0;
+  padding: 0;
+}
+
+	.atg_commerce_csr_electronicAddressForm ul.atg_dataForm li.atg_svc_formActions{
+		width:635px;
+	}
+
+	.atg_commerce_csr_electronicAddressForm ul.atg_dataForm li.atg_svc_formActions input{
+		margin-right:0;
+	}
+
+	.atg_commerce_csr_togglePanel .atg_svc_formActions{
+    width:600px !important;
+    margin:0;
+    padding-top:15px;
+  }
+
+.atg-base-table-gift-list-search-form{
+    margin-left: 10px;
+    margin-top: 10px;
+    min-width: 550px;
+}
+
+.atg-base-table-gift-list-search-spacing{
+  padding-left: 50px;
+}
+
+.atg-csc-base-table-cell #createGiftlistForm_addressRadioSelection_none,
+.atg-csc-base-table-cell #createGiftlistForm_addressRadioSelection_existing,
+.atg-csc-base-table-cell #createGiftlistForm_addressRadioSelection_new{
+  margin-left: 0px;
+  padding-bottom: 2px;
+  padding-top: 2px;
+  padding-right: 10px;
+}
+
+.atg-csc-base-table-row #createGiftlistForm_eventName{
+  width: 270px !important;
+}
+
+.atg-csc-base-table .atg_commerce_csr_eventSite select,
+.atg-csc-base-table .atg_commerce_csr_eventDate input,
+.atg-csc-base-table .atg_commerce_csr_eventType select,
+.atg-csc-base-table .atg_commerce_csr_eventName input{
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+}
+
+.atg-csc-base-table .atg_commerce_csr_eventType select {  
+  height: 26px;
+  max-height: 26px;
+}
+
+.atg-base-table-customer-gift-list-spacing-three-top{
+    padding-top:15px !important;
+}
+
+#createGiftlistForm_addressArea .atg-base-table-customer-address-add-form{
+  margin-top: 10px;
+}
+
+.atg-base-table-customer-gift-list-radio-button{
+  position: relative;
+  top: 2px;
+}
+
+.atg-commerce-csr-giftlist-address{
+  display: inline-block;
+}
+
+.atg-commerce-csr-giftlist-search{
+  padding-left:20px;
+  min-width:550px;
+}
+
+.atg-commerce-csr-giftlist-search tr td {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+.atg-commerce-csr-giftlist-search .atg-commerce-csr-giftlist-separator.td {  
+  padding-left: 40px;
+}
+
+.atg-commerce-csr-giftlist-search-event-date {  
+  margin-left: 20px !important;
+  margin-left: 0px \0/ !important;
+}
+
+#createGiftlistForm_existingAddressList,
+#createGiftlistFormsiteId{
+ padding-right: 1px !important;
+}
+
+#createGiftlistForm_existingAddressList,
+#editGiftlistForm_existingAddressList{
+    width: 140px;
+}/* CSC Styles
+------------------------------------------------------------------------------*/
+
+/* CSS Sprite Directives */
+
+h4 dl.atg_commerce_csr_subSection{
+  list-style: none;
+  font-size: 8px;
+  font-weight: normal;
+  float: right;
+  margin: 0 5px 0 0;
+}
+
+img{
+  border: none;
+}
+form{
+  margin: 0;
+  padding: 0;
+}
+hr{
+  border: 1px solid #fff;
+  border-top: 1px solid #ccc;
+  clear: left;
+  margin: 10px 0;
+}
+h4{
+  margin: 5px 0;
+  clear: left;
+}
+fieldset{
+  margin-top: 15px;
+  border: 1px solid #ccc;
+  padding-top: 20px;
+}
+legend{
+  font-weight: bold;
+  font-size: 13px;
+  color: #333333;
+}
+.atg_commerce_csr_simpleList{
+  margin: 20px;
+  padding: 0;
+  list-style: none;
+}
+.atg_commerce_csr_simpleList li{
+  margin: 0 0 5px 0;
+  list-style: none;
+}
+
+.hidden_node{
+  display: none;
+}
+
+
+/* -------------------------------------------------------*/
+/* Styles for the Commerce Area                           */
+/* -------------------------------------------------------*/
+
+#commerceMenu{
+  margin-left:12px;
+}
+
+#commerceMenu .dijitDropDownButtonHover .dijitButtonNode,
+#commerceMenu .dijitDropDownButtonActive .dijitButtonNode,
+#commerceMenu .popupActive .dijitButtonNode{
+  background-color: #fff;
+  background-repeat: repeat-x;
+  background-position: top center;
+  border-left:1px solid #a7bacb;
+  border-right:1px solid #a7bacb;
+  padding-left:3px;
+  padding-right:3px;
+  background-image: url(../images/nav/commerce_gradient.png);
+}
+
+#commerceMenu .dijitRight{
+  padding:0 1px;
+}
+
+#commerceMenu .dijitDropDownButtonHover .dijitRight,
+#commerceMenu .dijitDropDownButtonActive .dijitRight,
+#commerceMenu .popupActive{
+  border-right:#c9c9c9 1px solid;
+  border-left:#e8e8e8 1px solid;
+  padding:0 !important;
+}
+
+#commerceMenu .dijitDropDownButton span.dijitA11yDownArrow{
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-image: url('../images/sprite-no-repeat.png');
+  -background-image: url('../images/sprite-no-repeat-ie6.png');
+  background-position: left -54px;
+  text-indent:-9999px;
+  width:7px;
+  padding-left:2px;
+  margin-top:3px;
+}
+
+#commerceMenu #productsMenu td{
+  padding:5px 3px !important
+}
+.dijitMenuSeparator{
+  background-color:#fff !important;
+}
+
+.dijitMenuItem td
+ {
+  padding:4px !important;
+  font-size:10px;
+  background-color:#fff !important;
+}
+
+.dijitMenuItemHover td{
+  color:#355779;
+}
+
+.dijitMenuSeparatorTop{
+  background-color:#fff !important;
+}
+
+.atg_commerce_csr_commerceDopDownContainer{
+  border-left:#a7bacb 1px solid;
+  border-right:#a7bacb 1px solid;
+  border-bottom:#a7bacb 1px solid;
+  padding:1px;
+}
+/* -------------------------------------------------------*/
+/* Styles for the Commerce Context Area                   */
+/* -------------------------------------------------------*/
+#commerceContextArea .dijitButtonNode{
+  padding:0 1px;
+}
+
+#commerceContextArea .dijitA11yDownArrow {
+   display: none; 
+}
+
+#ordersMenu .dijitMenuItemIcon, #customerMenu .dijitMenuItemIcon, #productsMenu .dijitMenuItemIcon {
+   display:none;
+}
+
+#catalogMenu .dijitMenuItemIcon, #priceListMenu .dijitMenuItemIcon {
+   display:none;
+}
+
+#sitesMenu .dijitMenuItemIcon  {
+   display:block;
+}
+
+.dijitMenuItemIcon img {
+  width:16px;
+  height:16px;
+}
+
+#commerceContextArea .dijitButtonNode *{
+  vertical-align:top;
+}
+
+
+.atg_commerce_csr_commerceContextAreaContainer{
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-image: url('../images/sprite-no-repeat.png');
+  -background-image: url('../images/sprite-no-repeat-ie6.png');
+  background-position: left -63px;
+  padding-left:12px;
+  margin-right:5px;
+  float:right;
+}
+
+#commerceContextArea {
+/*   border:1px solid #CCCCCC;*/
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-image: url('../images/sprite-no-repeat.png');
+  -background-image: url('../images/sprite-no-repeat-ie6.png');
+  background-position: right -81px;
+  padding-right:10px;
+}
+
+
+#commerceContextArea .dijitDropDownButtonHover .dijitButtonNode,
+#commerceContextArea .dijitDropDownButtonActive .dijitButtonNode{
+  background-repeat: repeat-x;
+  background-position: top center;
+  background-image: url(../images/nav/context_gradient.png);
+  border-left:1px solid #a7bacb;
+  border-right:1px solid #a7bacb;
+  padding:0 !important;
+}
+
+#commerceContextArea .dijitRight{
+  padding:0 1px;
+}
+
+#commerceContextArea .dijitDropDownButtonHover .dijitRight,
+#commerceContextArea .dijitDropDownButtonActive .dijitRight{
+  border-right:#c9c9c9 1px solid;
+  border-left:#e8e8e8 1px solid;
+  padding:0 !important;
+}
+
+#commerceContextArea .atg_commerce_context_area_divider {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-image: url('../images/sprite-no-repeat.png');
+  -background-image: url('../images/sprite-no-repeat-ie6.png');
+  background-position: left -99px;
+  height:18px;
+  width:2px;
+}
+
+#commerceContextArea .atg_commerce_context_area_highlight {
+  /* font-weight:bold;*/
+   color:#f07d14;
+}
+
+#commerceContextArea .atg_commerce_context_area_current_site_icon {
+   margin-right:4px;
+   width: 16px;
+   height: 16px;
+}
+
+.atg_commerce_csr_site_icon, .atg_commerce_csr_storeIcon {
+   width: 16px;
+   height: 16px;
+}
+
+
+/* -------------------------------------------------------*/
+/* Styles for MultiSite Icons                             */
+/* -------------------------------------------------------*/
+.atg_commerce_csr_cartSelectCustomerPanel {
+   background-color:#EFEFEF;
+   padding-bottom:4px;
+   height:24px;
+}
+.atg ul.atg_dataForm li.atg_commerce_csr_selectCustomerAction,
+span.atg_commerce_csr_selectCustomerAction{
+  float:right;
+}
+.atg_commerce_csr_siteIcon {
+  margin-top: 4px;
+  border: 0px;
+}
+
+th.atg_commerce_csr_siteIcon,
+td.atg_commerce_csr_siteIcon{
+  width:53px;
+}
+
+.atg_commerce_csr_crossSellSiteIcon {
+  margin-top: 10px;
+  float:left;
+  padding-right:10px;
+}
+
+
+dl.atg_commerce_csr_shipmentInfo{
+  float: left;
+  margin: 10px 20px 10px 0;
+}
+dl.atg_commerce_csr_shipmentInfo dt{
+  float: none;
+  margin: 0 0 4px 0;
+  padding: 0;
+  width: auto;
+  text-align: left;
+}
+
+dl.atg_commerce_csr_shipmentInfo dd{
+   float: none;
+   margin: 0;
+}
+
+
+ul.atg_commerce_csr_readOnlyForm{
+  list-style:none;
+  width:600px;
+}
+
+
+ul.atg_commerce_csr_readOnlyForm li{
+  margin:5px auto 10px auto;
+  padding-right:19px;
+  float:left;
+	width:280px;
+  white-space:nowrap;
+}
+
+
+ul.atg_commerce_csr_readOnlyForm .atg_commerce_csr_fieldTitle{
+   display: block;
+   float: left;
+	font-weight:bold;
+   margin: 0 5px 0 10px;
+   text-align: left;
+   min-width: 80px;
+}
+
+
+dl.atg_commerce_csr_readOnlyForm{
+  overflow: hidden;
+}
+dl.atg_commerce_csr_readOnlyForm dt{
+  padding: 0;
+  margin: 0 4px 7px 0;
+}
+dl.atg_commerce_csr_readOnlyForm dd{
+  padding: 0;
+  margin: 0 0 7px 0;
+}
+
+table.atg_commerce_csr_nestedTable{
+	display: inline-block !important;
+}
+
+.atg_commmerce_csr_nestedTable td{
+ background-color: #fefbe8;
+}
+.atg_commmerce_csr_nestedTable td .atg_dataTable td{
+ background-color: #fff;
+}
+.atg_commmerce_csr_nestedTable td .atg_dataTable tr.atg_altRow td{
+  background-color: #F6F7F9;
+}
+.panelContent{
+/* just owerwrite .panelContent class from workspace.css */
+margin-left:0px;
+}
+.atg_commerce_csr_content{
+padding:5px 10px;
+}
+.atg_commerce_csr_browseTree{
+float:left;
+border-right:1px solid #ccc;
+padding:10px;
+width:200px;
+}
+.atg_commerce_csr_coreContent{
+}
+.atg_commerce_csr_sectionOpen{
+  display:block;
+  padding:3px;
+  padding-left:15px;
+  margin:0px;
+  background-repeat: no-repeat;
+  background-image: url('../images/sprite-no-repeat.png');
+  -background-image: url('../images/sprite-no-repeat-ie6.png');
+  background-position: left -117px;
+}
+.atg_commerce_csr_sectionClosed{
+  display:block;
+  padding:3px;
+  padding-left:15px;
+  margin:0px;
+  background-repeat: no-repeat;
+  background-image: url('../images/sprite-no-repeat.png');
+  -background-image: url('../images/sprite-no-repeat-ie6.png');
+  background-position: left -129px;
+}
+.atg_dataTable{
+clear:left;
+}
+
+.atg_dataTable .atg_numberValue input
+.atg_dataTable input.atg_numberValue{
+text-align:right;
+}
+
+td.atg_numberValue img{
+  vertical-align:middle;
+}
+
+.atg_commerce_csr_editAction{
+  background-repeat: no-repeat;
+  background-position: 4px;
+  background-image: url(../images/icons/edit.gif);/** sprite-ref: no-repeat; */
+}
+.atg_commerce_csr_panelFooter{
+clear:both;
+padding:5px 10px 5px 0;
+text-align:right;
+}
+.atg_commerce_csr_popupPanelConfirm{
+width:350px;
+height:auto;
+background-color: #9FC7F1;
+border:1px solid #000;
+}
+.atg_commerce_csr_popupPanelConfirm dl.addNote{
+  display: inline;
+}
+dl.addNote dt{
+  float: left;
+  display: inline;
+  font-weight: 700;
+  text-align: right;
+  margin: 10px;
+  margin-top: 0px;
+}
+dl.add_aCredit{
+  width: 550px;
+}
+
+dl.add_aCredit table,
+.atg_commerce_csr_customerInfo table{
+  width:180px;
+}
+
+div.atg_commerce_csr_coreCustomerInfo span.atg_commerce_csr_fieldTitle{
+  font-weight:bold;
+}
+
+dl.add_aCredit dt{
+  width: 180px;
+  margin-right: 5px;
+  text-align: right;
+  font-weight: 700;
+  float: left;
+}
+dl.add_aCredit dd{
+  width: 300px;
+  margin: 0px;
+  margin-bottom: 7px;
+  float: left;
+}
+dl.add_aCredit dd select{
+  width: 180px;
+  margin-left: 0px;
+}
+dl.add_aCredit dd input{
+  width: 150px !important;
+}
+dl.add_aCredit dd textarea{
+  width: 250px;
+  height: 70px;
+}
+
+.dj_ie dl.add_aCredit dd input{
+  float: left;
+  clear: right;
+}
+
+#addNewCreditPopup .atg_commerce_csr_popupPanel{
+	width: 550px;
+}
+
+#addNewCreditForm .atg_commerce_csr_panelFooter{
+	width: 550px;
+}
+
+.atg_commerce_csr_popupPanelConfirm h4{
+clear:left;
+margin:0px;
+padding-left:30px;
+padding-top:10px;
+font-size:small;
+}
+.atg_commerce_csr_popupPanelConfirm ul li{
+list-style:none;
+margin-left:0px;
+}
+.atg_commerce_csr_popupPanelConfirm ul.card{
+float:left;
+height:100px;
+margin:10px;
+margin-left:20px;
+}
+.atg_commerce_csr_popupPanelConfirm ul.address{
+height:100px;
+margin:10px;
+}
+textarea.note{
+width:220px;
+height:50px;
+overflow:auto;
+}
+.atg_commerce_csr_popupPanel_Product_Catalog{
+width:700px;
+height:auto;
+background-color: #fff;
+margin:10px;
+}
+.atg_commerce_csr_popupPanel_Cancel_Order {
+width:500px;
+height:auto;
+background-color: #fff;
+margin:10px;
+}
+.atg_commerce_csr_popupPanel{
+width:680px;
+height:auto;
+background-color: #fff;
+margin:10px;
+}
+.atg_commerce_csr_popupPanel.atg_commerce_csr_popupPanelCloseButton{
+float:right;
+}
+.atg_commerce_csr_popupPanel h4{
+clear:left;
+background-color: #eee;
+padding:10px;
+margin:0px;
+border:1px solid #c2c2c2;
+}
+.atg_commerce_csr_popupLink{
+  background-repeat: no-repeat;
+  background-position: right 2px;
+  background-image: url('../images/sprite-no-repeat.png');
+  -background-image: url('../images/sprite-no-repeat-ie6.png');
+  background-position: right -141px;
+  display:block;
+  float:left;
+  padding: 2px 21px 4px 0;
+  margin:10px 0 10px 5px;
+}
+.atg_commerce_csr_expired{
+color:#ff0000;
+}
+.atg_commerce_csr_balance{
+color: #009900;
+}
+.atg_commerce_csr_sectionHeader{
+clear:both;
+}
+.atg_commerce_csr_subNavLink{
+padding:10px;
+margin:0px;
+display:block;
+overflow:hidden;
+clear:both;
+text-align:right;
+}
+
+.atg_csc_positiveBalance{
+	color: #009900 !important;
+}
+
+.atg_csc_negativeBalance{
+	color:#ff0000 !important;
+}
+
+/*********** Multisite Selection Picker *************/
+
+#atg_commerce_csr_multisiteSelectSite table{
+  width:98%;
+  border-collapse:collapse;
+  border-bottom:2px solid #BEBEBE;
+  width:100%;
+}
+
+tr.atg_commcerce_csr_multisiteSelectorHeader th{
+  background-color:#F5F5F5 !important;
+}
+
+.atg_commcerce_csr_multisiteSelectorHeader th{
+  border:none !important;
+}
+
+#atg_commerce_csr_multisiteSelectSite table tr.even{
+  background-color:#F6F7F9;
+}
+
+#atg_commerce_csr_multisiteSelectSite table th{
+  font-weight:bold;
+  border-right:1px solid #BEBEBE;
+  color:#666666;
+  background-color:#E8E8E8;
+}
+
+#atg_commerce_csr_multisiteSelectSite table th span{
+  color:#000;
+}
+
+#atg_commerce_csr_multisiteSelectSite table td,
+#atg_commerce_csr_multisiteSelectSite table th{
+  padding:5px;
+}
+
+#atg_commerce_csr_multisiteSelectSite table.atg_csr_singleSites td.atg_commerce_csr_storeIcon{
+  width:15px;
+  text-align:right;
+}
+#atg_commerce_csr_multisiteSelectSite table.atg_csr_singleSites td.atg_commerce_csr_catalogName{
+  width:382px;
+}
+#atg_commerce_csr_multisiteSelectSite table.atg_csr_groupedSites td.atg_commerce_csr_catalogName{
+  width:366px;
+}
+#atg_commerce_csr_multisiteSelectSite table.atg_csr_groupedSites .atg_commerce_csr_storeIcon{
+  width:32px;
+  text-align:right;
+}
+
+#atg_commerce_csr_multisiteSelectSite table .atg_commcerce_csr_multisiteSelect{
+  border-right:1px solid #BEBEBE;
+  width:35px;
+}
+
+
+/* dojo overrides */
+
+body .dojoFloatingPane{
+background-color:#ffffff;
+border:1px solid;
+font-size: 100%;
+}
+body .dojoFloatingPaneClient,
+body .dojoFloatingPaneTitleBar,
+body .dojoFloatingPaneResizebar{
+background-color:#ffffff;
+border:none;
+font-size:100%;
+font-family:"arial","helvetica","sans serif";
+}
+
+/* Drop-Down Menus */
+
+body .dojoMenuBar2{
+  background: none;
+  margin-left: 8px;
+}
+body .dojoMenuItem2Hover{
+  background-color: #C4D4EA !important;
+  color: #000;
+}
+body span.dojoMenuItem2{
+  color: #036;
+  font: 12px arial,sans-serif !important;
+  padding: 6px 8px !important;
+  display: block !important;
+  float: left;
+}
+body tr.dojoMenuItem2{
+  color: #036;
+  font: 12px arial,sans-serif !important;
+}
+body .dojoPopupMenu2{
+  background-color: #E0E9F4 !important;
+  border-top: none !important;
+  border-color: #C4CCD8 !important;
+  margin-top: 1px !important;
+}
+body .dojoMenuSeparator2Top{
+  display: none;
+}
+body .dojoMenuSeparator2Bottom{
+  border-color: #C4CCD8 !important;
+}
+body .dojoMenuItem2Icon{
+  width: 5px !important;
+  height: 19px !important;
+}
+body .dojoMenuItem2Label{
+  padding-right: 8px;
+}
+
+/* atg theme overrides*/
+.atg div.atg_commerce_csr_cscDateRangePicker .dijitTabPaneWrapper{
+  clear:left;
+}
+.atg div.atg_commerce_csr_cscDateRangePicker{
+  width:600px;
+}
+
+/* commerce tab sub menu*/
+.atg div.columnHeader .dijitToolbar{
+  background: #EFEFEF none repeat scroll 0%;
+}
+.atg div.columnHeader .dijitToolbar .dijitDropDownButtonHover .dijitButtonNode{
+  border:0;
+}
+.atg div.columnHeader .dijitToolbar .dijitButtonContents{
+  color:#355779;
+}
+
+/*override the css hacks from the base theme*/
+.atg .dijitToolbar .dijitDropDownButton .dijitButtonNode,
+.atg .dijitToolbar .dijitDropDownButtonHover .dijitButtonNode{
+	_border: 0px;
+  _margin: 3px 5px 3px 5px;
+  _padding: 0px;
+}
+
+.atg .dijitMenuItem,
+.atg .dijitMenuItemHover{
+  font-family: "Arial";
+  font-weight:normal;
+}
+.atg .dijitMenuItem,
+.atg .dijitMenuSeparator{
+    background-color:#EFEFEF;
+}
+.atg .dijitMenuItemHover{
+    background-color:#9FC7F1;
+}
+#customerMenu .dijitMenuTable{
+  font-family:inherit;
+  font-weight:inherit;
+}
+/* Self Clearing Floats */
+.atg_commerce_csr_promoSearchForm:after,
+#atg_commerce_csr_availablePromotions .atg_commerce_csr_panelFooter:after,
+.atg_commerce_csr_promoResultsHeader:after,
+#cmcShippingMethodPContent .atg_commerce_csr_promotionsBox:after{
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.atg_commerce_csr_promoSearchForm,
+#atg_commerce_csr_availablePromotions .atg_commerce_csr_panelFooter,
+.atg_commerce_csr_promoResultsHeader,
+#cmcShippingMethodPContent .atg_commerce_csr_promotionsBox{ 
+  zoom:1; 
+}
+
+#atg_commerce_csr_promotionsBrowserDialog{
+  width:800px;
+}
+
+#atg_commerce_csr_promotionsTabContainer,
+#atg_commerce_csr_availablePromotionsGrid,
+#atg_commerce_csr_availablePromotions,
+#atg_commerce_csr_promotionsSearch,
+#atg_commerce_csr_promoSearchResultsGrid{
+  width:790px;
+}
+
+#atg_commerce_csr_promotionsTabContainer{
+  height:470px;
+}
+
+#atg_commerce_csr_promotionsTabContainer .atg_commerce_csr_panelFooter input{
+  margin-left:15px;
+}
+
+#atg_commerce_csr_availablePromotions,
+#atg_commerce_csr_promotionsSearch{
+  overflow:hidden;
+  width:788px;
+  border:1px solid #ccc;
+}
+
+#atg_commerce_csr_availablePromotions,
+#atg_commerce_csr_promotionsSearch{
+  height:415px;
+}
+
+#atg_commerce_csr_promotionsBrowserDialog .atg_commerce_csr_gridMessage{
+  padding:6px 10px;
+}
+
+#atg_commerce_csr_promotionsBrowserDialog .atg_commerce_csr_panelFooter{
+  margin-left:-1px;
+  border:none;
+  background-color:#f5f5f5;     
+}
+
+#atg_commerce_csr_promotionsBrowserDialog .atg_commerce_csr_orderSummaryHeader{
+  padding:4px 7px;
+}
+
+#atg_commerce_csr_promotionsBrowserDialog .atg_commerce_csr_orderSummary{
+  border:1px solid #c8c8c8;
+  margin:4px 15px;
+  background-color:#fff;
+}
+
+#atg_commerce_csr_availablePromotions .atg_commerce_csr_panelGridFooter{   
+  margin-top:1px;     
+  border-top:1px solid #c8c8c8;
+  border-bottom:1px solid #c8c8c8;
+}
+#atg_commerce_csr_promotionsBrowserDialog .atg_commerce_csr_promoBrowserSearchResults .atg_commerce_csr_panelFooter{
+  margin-top:2px;      
+  border-top:1px solid #c8c8c8;   
+}
+
+span.atg_commerce_csr_appliedIndicator{
+  font-size:18px;
+}
+.atg_commerce_csr_iconPromoGranted{
+  display: block;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-image: url('../images/sprite-no-repeat.png');
+  -background-image: url('../images/sprite-no-repeat-ie6.png');
+  background-position: left -157px;
+  width: 20px;
+  height: 16px;
+  text-indent: -9999px;
+}
+
+/****General styles **********************************************************************/
+.atg_commerce_csr_propertyClear{
+  display: block;
+  margin: 0;
+  width: 16px;
+  height: 16px;
+  text-indent: -99999px;
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-image: url(/agent/images/icons/icon_propertyClear.gif);/** sprite-ref: no-repeat; */
+}
+
+p.atg_commerce_csr_promoMatchingResults,
+p.atg_commerce_csr_promoavailablePromotions{
+  margin:5px 10px;
+}
+
+.atg .dojoxGrid .atg_numberValue{
+  text-align:right;
+}
+
+/*** new dojo fixes ***********************************************************************/
+.atg .dojoxGrid .dojoxGrid-header table.dojoxGrid-row-table {
+  margin-top:1px;
+}
+.atg .dojoxGrid-header .dojoxGrid-cell{
+  color: #666;
+}
+
+
+.atg .dojoxGrid-header .sortable{
+  text-decoration:underline;
+}
+
+.atg .dojoxGrid-content{
+  border-bottom: 1px solid #c2c2c2;
+  border-left: 1px solid #c2c2c2;
+}
+
+.atg .dojoxGrid-header{
+  background: none !important;
+  border-top: none !important;
+}
+/**********  MUTISITE CSS RULES *****************************************************************/
+
+li.atg_commerce_csr_productId,
+li.atg_commerce_csr_description{
+  clear:left;
+}
+#atg_commerce_csr_productSearch{
+  padding:15px 0 0 0;
+  width: 98%;
+}
+
+.atg_commerce_csr_productSearch #atg_commerce_csr_catalog_noResults{
+  padding:0 7px 7px 7px;
+}
+
+ul.atg_commerce_csr_findProdForm {
+  display:inline-block;
+  float:none;
+  margin:0;
+  padding:0;
+
+  clear:both;
+  float:left;
+}
+
+ul.atg_commerce_csr_findProdForm li span.atg_commerce_csr_fieldTitle label{
+  vertical-align:middle;
+}
+
+
+
+ul.atg_commerce_csr_findProdForm li input.atg_commerce_csr_formTextField
+{
+  margin:0;
+  width:50px;
+  vertical-align:middle;
+}
+
+ul.atg_commerce_csr_findProdForm li select{
+  margin:0;
+  width:55px;
+  vertical-align:middle;
+}
+
+ul.atg_commerce_csr_findProdForm li.atg_commerce_csr_productSearchCategory select{
+  width:90px;
+}
+
+ul.atg_commerce_csr_findProdForm li.atg_commerce_csr_description input {
+  margin-bottom:5px;
+  margin-top:5px;
+  width:352px;
+  vertical-align:middle;
+}
+
+
+ul.atg_commerce_csr_findProdForm li.atg_commerce_csr_productSearchSubmit{
+  margin-top:5px;
+}
+
+  .atg_commerce_csr_priceListSearch,
+  .atg_commerce_csr_catalogListSearch{
+    height:60px;
+  }
+  
+  ul.atg_commerce_csr_selectPricelist,
+  ul.atg_commerce_csr_selectCataloglist{
+    padding:10px 0 10px 10px;
+    float:left;
+    margin-left:10px !important;
+  }
+  .atg_commerce_csr_priceListSubmit,
+  .atg_commerce_csr_catalogListSubmit{
+    float:left;
+    margin:2px 0 2px 10px;
+  }
+  
+  ul.atg_commerce_csr_selectPricelist span.atg_svc_fieldTitle,
+  ul.atg_commerce_csr_selectCataloglist span.atg_svc_fieldTitle{
+    width:100px;
+    display:block;
+    float:left;
+    text-align:right;
+    margin-right:3px;
+  }
+   ul.atg_commerce_csr_selectPricelist span.atg_svc_fieldTitle label,
+   ul.atg_commerce_csr_selectCataloglist span.atg_svc_fieldTitle label{
+     vertical-align:middle;
+   }
+  
+  ul.atg_commerce_csr_selectPricelist input,
+  ul.atg_commerce_csr_selectCataloglist input{
+    float:left;
+    }
+  ul.atg_commerce_csr_selectPricelist li.atg_commerce_csr_priceListkeyword,
+  ul.atg_commerce_csr_selectPricelist li.atg_commerce_csr_endDate,
+  ul.atg_commerce_csr_selectCataloglist li.atg_commerce_csr_catalogListkeyword,
+  ul.atg_commerce_csr_selectCataloglist li.atg_commerce_csr_endDate{
+    padding-right:0;
+  }
+  li.atg_commerce_csr_priceListkeyword input,
+  li.atg_commerce_csr_catalogListkeyword input{
+    width:300px;
+  }
+  li.atg_commerce_csr_priceListkeyword span,
+  li.atg_commerce_csr_catalogListkeyword span{
+    text-align:right;
+  }
+  
+  ul.atg_commerce_csr_selectPricelist li
+  ul.atg_commerce_csr_selectCataloglist li{
+    text-align:right;
+  }
+  
+  ul.atg_commerce_csr_selectPricelist li.atg_commerce_csr_startDate,
+  ul.atg_commerce_csr_selectCataloglist li.atg_commerce_csr_startDate{
+    width:212px;
+    padding-right:8px;
+    clear:left;
+  }
+  
+  ul.atg_commerce_csr_selectPricelist li.atg_commerce_csr_endDate,
+  ul.atg_commerce_csr_selectCataloglist li.atg_commerce_csr_endDate{
+    width:212px;
+    padding-right:0;
+  }
+  
+  ul.atg_commerce_csr_selectPricelist li.atg_commerce_csr_startDate input,
+  ul.atg_commerce_csr_selectPricelist li.atg_commerce_csr_endDate input,
+  ul.atg_commerce_csr_selectCataloglist li.atg_commerce_csr_startDate input,
+  ul.atg_commerce_csr_selectCataloglist li.atg_commerce_csr_endDate input{
+    width:80px;
+  }
+  
+  .atg_commerce_csr_selectPricelist li img,
+  .atg_commerce_csr_selectCataloglist li img{
+    vertical-align:middle;
+    float:left;
+    margin-top:2px;
+    margin-left:2px;
+  }
+  
+
+#atg_commerce_csr_multisiteSelectSite table{
+  width:98%;
+  border-collapse:collapse;
+  border-bottom:2px solid #BEBEBE;
+  width:100%;
+}
+
+tr.atg_commcerce_csr_multisiteSelectorHeader th{
+  background-color:#F5F5F5 !important;
+}
+
+.atg_commcerce_csr_multisiteSelectorHeader th{
+  border:none !important;
+}
+
+#atg_commerce_csr_multisiteSelectSite table tr.even{
+  background-color:#F6F7F9;
+}
+
+#atg_commerce_csr_multisiteSelectSite table th{
+  font-weight:bold;
+  border-right:1px solid #BEBEBE;
+  color:#666666;
+  background-color:#E8E8E8;
+}
+
+#atg_commerce_csr_multisiteSelectSite table th span{
+  color:#000;
+}
+
+#atg_commerce_csr_multisiteSelectSite table td,
+#atg_commerce_csr_multisiteSelectSite table th{
+  padding:5px;
+}
+
+#atg_commerce_csr_multisiteSelectSite table.atg_csr_singleSites td.atg_commerce_csr_storeIcon{
+  width:15px;
+  text-align:right;
+}
+#atg_commerce_csr_multisiteSelectSite table.atg_csr_singleSites td.atg_commerce_csr_catalogName{
+  width:382px;
+}
+#atg_commerce_csr_multisiteSelectSite table.atg_csr_groupedSites td.atg_commerce_csr_catalogName{
+  width:366px;
+}
+#atg_commerce_csr_multisiteSelectSite table.atg_csr_groupedSites .atg_commerce_csr_storeIcon{
+  width:32px;
+  text-align:right;
+}
+
+#atg_commerce_csr_multisiteSelectSite table .atg_commcerce_csr_multisiteSelect{
+  border-right:1px solid #BEBEBE;
+  width:35px;
+}
+
+
+#atg_commerce_csr_productCatalogResultsGrid .dojoxGrid ,
+#atg_commerce_csr_priceListSearchResultsGrid .dojoxGrid {
+  width:100%;
+}
+
+/* Self Clearing Floats */
+.atg_commerce_csr_promoSearchForm:after,
+#atg_commerce_csr_availablePromotions .atg_commerce_csr_panelFooter:after,
+.atg_commerce_csr_promoResultsHeader:after,
+.atg_commerce_csr_orderReview:after,
+div.atg_commerce_csr_orderAdjustments .dijitTitlePaneTitle:after,
+div.atg_store_csr_returnOrderHistory:after,
+.atg_commerce_csr_findProdForm:after{
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.atg_commerce_csr_promoSearchForm,
+#atg_commerce_csr_availablePromotions .atg_commerce_csr_panelFooter,
+.atg_commerce_csr_promoResultsHeader,
+.atg_commerce_csr_orderReview,
+div.atg_commerce_csr_orderAdjustments .dijitTitlePaneTitle.
+div.atg_store_csr_returnOrderHistory{ 
+  zoom:1; 
+}
+
+#atg_commerce_csr_promotionsBrowserDialog{
+  width:800px;
+}
+
+#atg_commerce_csr_promotionsTabContainer,
+#atg_commerce_csr_availablePromotionsGrid,
+#atg_commerce_csr_availablePromotions,
+#atg_commerce_csr_promotionsSearch,
+#atg_commerce_csr_promoSearchResultsGrid{
+  width:790px;
+}
+
+#atg_commerce_csr_promotionsTabContainer{
+  height:470px;
+}
+
+#atg_commerce_csr_availablePromotions,
+#atg_commerce_csr_promotionsSearch{
+  overflow:hidden;
+  width:788px;
+  border:1px solid #ccc;
+}
+
+#atg_commerce_csr_availablePromotions,
+#atg_commerce_csr_promotionsSearch{
+  height:415px;
+}
+
+#atg_commerce_csr_promotionsBrowserDialog .atg_commerce_csr_gridMessage{
+  padding:4px 10px;
+}
+
+#atg_commerce_csr_promotionsBrowserDialog .atg_commerce_csr_panelFooter{
+  margin-left:-1px;
+  border:none;
+  height:16px;
+  background-color:#f5f5f5;     
+}
+#atg_commerce_csr_promotionsBrowserDialog #atg_commerce_csr_promotionsOrderSummary{
+  border:1px solid #c8c8c8;
+  margin:3px 6px;
+  background-color:#fff;
+  width:250px;
+  float:right;
+  position:relative;
+  top:-10px;
+}
+#atg_commerce_csr_promotionsBrowserDialog #atg_commerce_csr_promotionsOrderSummary table{
+  width:250px;
+}
+#atg_commerce_csr_promotionsBrowserDialog #atg_commerce_csr_promotionsOrderSummary span.atg_commerce_csr_orderSummaryHeader{
+  display:block;
+  font-weight:bold;
+  border-bottom:1px solid #c8c8c8;
+  padding:1px 7px 1px 34px;
+  background-color:#efefef;
+}
+
+#atg_commerce_csr_availablePromotions .atg_commerce_csr_panelGridFooter{   
+  margin-top:1px;     
+  border-top:1px solid #c8c8c8;
+  border-bottom:1px solid #c8c8c8;
+  padding:2px auto 2px auto;
+  position:relative;
+  top:-16px;
+}
+#atg_commerce_csr_promotionsBrowserDialog .atg_commerce_csr_promoBrowserSearchResults .atg_commerce_csr_panelFooter{
+  margin-top:2px;      
+  border-top:1px solid #c8c8c8;   
+}
+
+#atg_commerce_csr_promotionsSearch h3{
+  background-color:#efefef;
+  border-top:1px solid #999999;
+  margin:0;
+  padding:4px;
+}
+
+span.atg_commerce_csr_appliedIndicator{
+  font-size:18px;
+}
+
+.atg #atg_commerce_csr_availablePromotions .dojoxGrid-cell,
+.atg #atg_commerce_csr_availablePromotions .dojoxGrid-header .dojoxGrid-cell{
+  padding:1px 5px;
+}
+/****General styles **********************************************************************/
+.atg_commerce_csr_propertyClear{
+  display: block;
+  margin: 0;
+  width: 16px;
+  height: 16px;
+  text-indent: -99999px;
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-image: url(/agent/images/icons/icon_propertyClear.gif);/** sprite-ref: no-repeat; */
+}
+
+p.atg_commerce_csr_promoMatchingResults,
+p.atg_commerce_csr_promoavailablePromotions{
+  margin:5px 10px;
+}
+
+.atg .dojoxGrid .atg_numberValue{
+  text-align:right;
+}
+
+.atg_commerce_csr_panelMessage{
+  float:left !important;
+}
+
+.atg_commerce_csr_panelComment{
+  margin-top:0 !important;
+}
+/*** new dojo fixes ***********************************************************************/
+.atg .dojoxGrid .dojoxGrid-header table.dojoxGrid-row-table {
+  margin-top:0;
+}
+.atg .dojoxGrid-header .dojoxGrid-cell{
+  color: #666;
+}
+.atg .dojoxGrid-header {
+  border-left:1px solid #c8c8c8;
+}
+.atg .dojoxGrid-header table{
+  border-left:none;
+}
+
+.atg .dojoxGrid-scrollbox{
+  overflow: auto;
+}
+.atg .dojoxGrid-header .sortable{
+  text-decoration: underline;
+}
+/*** Fix for bug CSC-168599 ***/
+.dijit  {
+  position: static !important;
+}
+.dijitReset  {
+  position: static !important;
+}
+.dijitReset  input {
+  position: static !important;
+}
+.dijitReset  td {
+  position: static !important;
+}
+
+.dijitReset .dijitInputField input {
+  position: static !important;
+  padding-bottom: 2px;
+  padding-top: 3px;
+}
+
+.dj_ie .dijitTextBox .dijitInputField INPUT {
+  position: static !important;
+  padding-bottom: 2px;
+  padding-top: 3px;
+}
+
+.dijitTextBox {
+  position: static !important;
+}
+
+.dijitTextBox input {
+  position: static !important;
+}
+
+.dijitTextBoxError {
+  position: static !important;
+}
+
+.dijitInlineTable {
+  position: static !important;
+}
+
+.dj_ie .dijitTextBox .dijitInputField {
+  position: static !important;
+}
+
+.dijitReset .dijitAlignClient {
+  position: static !important;
+}
+
+.dijitReset .dijitAlignClient input {
+  position: static !important;
+}
+
+.dijit .dijitReset .dijitInlineTable .staticInput .dijitTextBox .dijitTextBoxFocused {
+  position: static !important;
+}
+
+.dijit .dijitReset .dijitInlineTable .staticInput .dijitTextBox .dijitTextBoxFocused input {
+  position: static !important;
+}
+
+.dijitTextBox.dijitInlineTable {
+  width:100px !important;
+}
+.atg_propertyCalendar{
+  display:inline-block;
+  background-repeat:no-repeat;
+  background-image:url(images/icon_calendar.gif);/** sprite-ref: no-repeat; */
+  width:20px;
+}
+.notInStock{
+color:#ff0000;
+}
+
+.atg_propertyView{
+  background-repeat: no-repeat;
+  background-image: url('../images/sprite-no-repeat.png');
+  -background-image: url('../images/sprite-no-repeat-ie6.png');
+  background-position: left -173px;
+  padding-bottom: 3px;
+}
+.atg_commerce_csr_iconInfo{
+  vertical-align: -3px;
+}
+/* special table rules --------------------------------------------------*/
+  .atg table.atg_commerce_csr_innerTable{
+    margin-bottom: 8px;
+  }
+
+  .atg table.atg_commerce_csr_innerTable th{
+    border-bottom:1px solid #c2c2c2;
+    padding:2px;
+  }
+  .atg table.atg_commerce_csr_innerTable td ul.atg_svc_shipAddress{
+    padding-top:0;
+		padding-left:0;
+  }
+  .atg table.atg_commerce_csr_innerTable td{
+    border:none;
+  }
+ .atg table.atg_commerce_csr_innerTable{
+    margin-bottom:0;
+  }
+  
+   div.atg_commerce_csr_subPanelHeader h4{
+    margin:0;
+  }
+    div.atg_commerce_csr_subPanelHeader h4{
+    font-size: 10px;
+    line-height:12px;
+  }
+.atg .dijitTooltipContents{
+    font-size:11px;
+  }
+
+	.atg .dijitTitlePaneTextNode{ float:left;}
+.atg .dijitToolbar .dijitButtonNode{
+			border:none;
+		}
+.atg_commerce_csr_togglePanel .dijitTitlePaneContentOuter{
+    clear:left;
+  }
+  
+  .atg_commerce_csr_popup .dojoFloatingPaneTitleBar{
+
+	background-color: #9FC7F1;
+	padding: 5px;
+
+}
+
+.atg_commerce_csr_popup .dojoFloatingPaneTitleText{
+	padding: 5px;
+	font-size: 14px;
+}
+
+
+table.dijitTextBoxError .dijitValidationIcon{
+  margin:0 0 0 5px;
+  display: block;
+}
+
+ .atg .dijitTitlePaneContentInner{
+    padding:5px 10px;
+  }
+
+  .atg .dijitTab{
+    background-color:#e5e5e5;
+    border-bottom:none;
+  }
+
+  .atg .dijitTabChecked{
+    position:relative;
+    top: 1px;
+  }
+
+  .atg .dijitTabInnerDiv{
+    padding-top:6px;
+    border-bottom:none;
+  }
+
+  .atg .dijitTabChecked .dijitTabInnerDiv{
+    background-color:#f5f5f5;
+    font-weight: bold;
+  }
+
+  .atg .atg_csr_commerce_toggleTabPane .dijitTabPane{
+    overflow:hidden;
+  }
+  .atg .dijitTabPaneWrapper{
+    clear:both;
+    background-color: #f5f5f5;
+  }
+
+a.frameworkLink, a.frameworkLink:link, a.frameworkLink:visited, a.frameworkLink:hover {
+  color:blue;
+  cursor:pointer;
+  text-decoration:underline;
+}
+/*
+  In-Store Pickup CSS. This file will eventually be merged into the functional component CSS files once they have been refactored. Many of these styles will be moved into base.css
+  @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/css/in_store_pickup.css#1 $$Change: 946917 $
+  @updated $DateTime: 2015/01/26 17:26:27 $$Author: jsiddaga $
+*/
+
+.hidden {
+  display: none;
+}
+
+#widget_inStorePickupCountry, 
+#widget_shippingInStorePickupCountry {
+  width: 450px !important;
+}
+
+.red {
+  color: red;
+}
+
+#inStorePickupResults h3 {
+  font-weight: bold !important;
+  font-size: 16px;
+  margin-top: 0 !important;
+}
+
+
+/*
+------------------------------------------------------
+In-Store Pickup
+------------------------------------------------------
+*/
+.atg-csc-in-store-pickup-locations {
+  height: 255px;
+  overflow:auto;
+}
+
+.atg-csc-in-store-pickup-locations tr th {
+  border-bottom:1px solid #CCCCCC;
+}
+
+.atg-csc-in-store-locations-distance {
+  padding-top:10px;
+  padding-bottom:10px;
+  vertical-align:top;
+  padding-left:10px;
+  font-weight:bold;
+  border-bottom:1px solid #CCCCCC;
+}  
+
+.atg-csc-in-store-locations-address {
+  padding-top:10px;
+  padding-bottom:10px;
+  border-bottom:1px solid #CCCCCC;
+}
+
+.atg-csc-in-store-locations-container {
+  border-top:1px solid #CCCCCC;
+  border-left:1px solid #CCCCCC;
+  border-right:1px solid #CCCCCC;
+  width:100%;
+  overflow:auto;
+}
+
+#loadMoreStoresButton {
+  background-color: #EFEFEF;
+  cursor: pointer;
+}
+
+#loadMoreStoresButton td {
+  background-color: #EFEFEF;
+  height: 45px;
+}
+
+.atg-csc-in-store-locations-td {
+  padding-top:10px;
+  padding-bottom:10px;
+  border-bottom:1px solid #CCCCCC;
+  padding-left: 23px;
+}
+
+.atg-csc-in-store-locations-td2 {
+  padding-top:10px;
+  padding-bottom:10px;
+  border-bottom:1px solid #CCCCCC;
+  text-align: left;
+  padding-left: 57px;
+}
+
+.atg-csc-in-store-locations-button-container {
+  text-align:right;
+  padding-top:10px;
+  padding-bottom:10px;
+  padding-right:10px;
+  border-bottom:1px solid #CCCCCC;
+}
+
+.atg-csc-in-store-locations-th1 {
+  text-align:right;
+  padding-right:10px;
+  border-bottom:1px solid #CCCCCC;
+}
+
+.atg-csc-in-store-locations-th2 {
+  border-bottom:1px solid #CCCCCC;
+  padding-left:58px;
+}
+
+.atg-csc-in-store-locations-quantity-span {
+  color:#FFFFFF;
+  font-weight:bold;
+  background-color:#666666;
+  font-size:15px;
+  vertical-align:middle;
+  display: inline-block;
+  height: 18px;
+}
+
+.atg-csc-in-store-locations-quantity {
+  padding-top:10px;
+  padding-bottom:10px;
+  border-bottom:1px solid #CCCCCC;
+  font-weight: bold;
+}
+
+.atg-csc-in-store-locations-quantity span, .atg-csc-in-store-locations-title-quantity {
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px; 
+  border-radius: 6px;
+  color: #FFFFFF;
+  font-weight: bold;
+  background-color: #666666;
+  padding:3px;
+}
+
+.atg-csc-in-store-locations-add {
+  text-align:right;
+  padding-top:10px;
+  padding-bottom:10px;
+  padding-right:10px;
+  border-bottom:1px solid #CCCCCC;
+}
+
+.atg-csc-in-store-cart td {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+.atg-csc-in-store-cart td ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.atg-csc-in-store-cart td li {
+  margin: 0;
+  padding: 0;
+}
+
+.atg-csc-in-store-cart-pickup-details {
+	display: inline-block;
+}
+
+.atg-csc-in-store-pickup-quantity {
+	padding-left: 4px;
+}
+
+.atg-csc-in-store-address-disabled {
+	color: #CCCCCC;
+}
+
+.atg-csc-in-store-pickup-location {
+	float:left;
+	padding-left:40px;
+	clear:right;
+}
+
+.atg-csc-in-store-pickup-apply-checkbox {
+	position: relative;
+	top: 3px;
+}
+
+/*
+------------------------------------------------------
+Icons
+------------------------------------------------------
+*/
+.atg-csc-in-store-sub-item {
+  background-image: url("../images/icons/sub-item.png");
+  background-repeat: no-repeat;
+  width: 10px;
+  height: 15px;
+  margin-left:10px;
+  padding-left:5px;
+  display: inline-block;
+  float: left;
+}
+
+.atg-csc-in-store-more {
+  background-image: url("../images/icons/more-elipses.png");
+  background-repeat: no-repeat;
+  background-position: center 8px;
+  width: 11px;
+  height: 3px;
+  margin-left:2px;
+  padding-left:2px;
+  padding-right:12px;
+  cursor: pointer;
+}
+
+.atg-csc-in-store-apply-remainder {
+  background-image: url("../images/icons/icon_applyRemainder.gif");
+  background-repeat: no-repeat;
+  background-position: center 5px;
+  cursor: pointer;
+  display: inline-block;
+  height: 16px;
+  width: 5px;
+  
+}
+
+.atg-csc-in-store-form-container {
+  width:100%;
+  margin-top:10px;
+}
+
+/*
+------------------------------------------------------
+Dojo Accordion Widget Overrides
+------------------------------------------------------
+*/
+
+.atg .dijitAccordionBody {
+	height: auto !important;
+	max-height: 75%;
+	overflow: auto;
+	padding-top:15px;	
+	padding-bottom:5px;
+	padding-left: 6px;
+	padding-right: 10px;
+}
+
+.atg .dijitAccordionPane-selected .dijitAccordionTitle {
+   background-color: #EFEFEF;
+   background-image: linear-gradient(bottom, #DFDFDF 1%, #EFEFEF 51%);
+	background-image: -o-linear-gradient(bottom, #DFDFDF 1%, #EFEFEF 51%);
+	background-image: -moz-linear-gradient(bottom, #DFDFDF 1%, #EFEFEF 51%);
+	background-image: -webkit-linear-gradient(bottom, #DFDFDF 1%, #EFEFEF 51%);
+	background-image: -ms-linear-gradient(bottom, #DFDFDF 1%, #EFEFEF 51%);
+
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.01, #CDCDCD),
+		color-stop(0.51, #EFEFEF)
+	);
+
+   border-top: 1px solid #CCCCCC;
+}
+
+.atg .dijitAccordionPane-selected .dijitAccordionTitle .dijitAccordionText {
+	color: #333333;
+	font-size: 12px;
+	font-weight: normal;
+	padding-left: 18px;
+}
+
+.atg .dijitAccordionPane .dijitAccordionTitle {
+	background-color: #DFDFDF;
+   background-image: linear-gradient(bottom, #EFEFEF 1%, #DFDFDF 51%);
+	background-image: -o-linear-gradient(bottom, #EFEFEF 1%, #DFDFDF 51%);
+	background-image: -moz-linear-gradient(bottom, #EFEFEF 1%, #DFDFDF 51%);
+	background-image: -webkit-linear-gradient(bottom, #EFEFEF 1%, #DFDFDF 51%);
+	background-image: -ms-linear-gradient(bottom, #EFEFEF 1%, #DFDFDF 51%);
+
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.01, #EFEFEF),
+		color-stop(0.51, #CDCDCD)
+	);
+    border-top: 1px solid #CCCCCC;
+    
+}
+
+.atg .dijitAccordionPane .dijitAccordionTitle .dijitAccordionText {
+	color: #666666;
+	font-size: 12px;
+	font-weight: normal;
+	padding-left: 18px;
+}
+
+.atg .dijitAccordionPane-selected .dijitAccordionArrow {
+    /*background: none !important;*/
+    margin: 0px;
+    width: 0px;
+}
+.atg .dijitAccordionPane .dijitAccordionArrow {
+    float: right;
+    padding-right: 3px;
+    background: url("../images/icons/toggle-plus.png") no-repeat scroll 0 0 transparent;
+}
+
+.dijitAccordionPane-selected .dijitAccordionArrow {
+  background: none !important;
+}
+
+
+/*
+------------------------------------------------------
+Dojo Tab Widget Overrides
+------------------------------------------------------
+*/
+
+.atg .dijitTabContainer {
+	background-color: #FFFFFF;
+}
+
+.atg .dijitTab {
+   background: none;
+   background-color: #F5F5F5;
+   border-top: 1px solid #CCCCCC !important;
+   border-left: 1px solid #CCCCCC !important;
+   border-right: 1px solid #CCCCCC !important;
+   border-bottom: 1px solid #CCCCCC !important;
+   line-height: normal;
+   margin-right: -1px;
+	padding: 0;
+	top: 1px;
+}
+ 
+.atg .dijitTabChecked {
+	border-bottom: 1px solid #FFFFFF !important;
+}
+
+.atg .dijitTabChecked .dijitTabInnerDiv {
+    background-color: #FFFFFF;
+    color: #333333;
+    font-weight: normal;
+    top: 1px;
+}
+
+.atg .dijitTabPaneWrapper {
+    background-color: #FFFFFF;
+    clear: both;
+}
+
+
+/*
+------------------------------------------------------
+CSS Overrides (to be merged into master CSS)
+------------------------------------------------------
+*/
+div.atg_commerce_csr_addressView li.atg_commerce_csr_shippingControls input {
+	padding-top:0px;
+	padding-bottom:0px;
+	padding-left:2px;
+	padding-right:2px;
+}
+
+div.atg_commerce_csr_addressView li.atg_commerce_csr_shippingControls{
+	margin-bottom:5px;
+	margin-top:15px;
+}
+
+.atg-csc-base-bold {
+  font-weight: bold;
+}
+
+#dijit__MasterTooltip_0, #dijit__MasterTooltip_0 div {
+  background-color: white !important;
+  font-size: 16px !important;
+}
+
+.atg_commerce_csr_quatity .atg_tableIcon {
+  display: inline-block;
+}
+
+#csrSelectShippingMethods .atg_commerce_csr_addressView {
+  width:500px;
+  margin-left: 0;
+}
+
+#inStorePickupResults {
+  text-align: center;
+}
+
+.atg-csc-instore-payment-div {
+  clear:both;
+  padding-top:20px;
+  padding-bottom:20px;
+}
+
+#singleShippingAddressContainer {
+  max-height: 230px;
+  overflow: auto;
+}
+
+.gray {
+  color: gray !important;
+}
+
+#inStorePickupSearchContainer,
+#shippingInStorePickupSearchContainer {
+  width: 450px;
+  margin: 0 auto;
+}
+/* Styles needed for navigation tree */
+.openIcon {
+  background-image:url("/agent/image/icons/folderActionPlus.gif");
+  display: block;
+  float: left;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  margin: 0 2px 0 2px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  border: none;
+}
+
+.closeIcon {
+  background-image:url("/agent/image/icons/folderActionMinus.gif");
+  display: block;
+  float: left;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  margin: 0 2px 0 2px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  border: none;
+}
+.noOpenCloseIcon{
+	margin-left:16px;
+}
+.treeCell a {
+  cursor: pointer;
+}
+
+.treeNode {
+  background: #ffffff;
+  cursor:pointer;
+  font-size:.9em;
+	color:#336699;
+}
+
+.treeNodeSelected {
+  font-weight:bold;
+  font-size:.95em;
+}
+.treeCell{
+	white-space:nowrap;
+	font-family:"arial","sans serif";
+	font-weight:normal;
+	font-size:9pt;
+}
+.treeCell img{
+	visibility:hidden;
+	width:0;
+}
+/* Shopping Cart and Cross sells
+------------------------------------------------------------------------------*/
+
+#atg_commerce_csr_emptyCartMessage{
+	margin: 20px;
+}
+
+#atg_commerce_csr_emptyCartMessage a{
+  margin-left:15px;
+}
+#cmcShoppingCartPContent td.atg_iconCell{
+  width:20px !important;
+}
+
+.atg_commerce_csr_orderAdjustmentPanel{
+  border: 1px solid #c2c2c2;
+  overflow: hidden;
+}
+
+.atg_commerce_csr_orderAdjustmentPanel .atg_dataForm{
+  margin: 10px;
+}
+
+.atg_commerce_csr_shoppingCartform{
+background-color:#e8e8e8;
+}
+
+.atg_commerce_csr_shoppingCartformVert{
+clear:none;
+}
+
+/* Order Summary box
+-------------------------------------------------------------------------------*/
+.atg_commerce_csr_orderSummary{
+border:0;
+width:220px;
+float:right;
+margin:6px 15px 7px;
+}
+
+*+html .atg_commerce_csr_orderSummary{
+  margin-right:13px;
+}
+
+.atg_commerce_csr_orderSummary .atg_commerce_csr_orderSummaryHeader{
+background-color:#e8e8e8;
+display:block;
+padding:7px;
+font-weight:bold;
+border-bottom:1px solid #c8c8c8;
+}
+
+.atg_commerce_csr_orderSummary dl {
+overflow:visible;
+}
+
+.atg_commerce_csr_orderSummary .atg_dataForm dt{
+margin-bottom:1px;
+padding-top:5px;
+font-weight:normal;
+width:70%;
+}
+
+.atg_commerce_csr_orderSummary .atg_dataForm dd{
+margin-bottom:1px;
+padding-top:5px;
+font-weight:normal;
+text-align:right;
+width:20%;
+overflow:visible;
+}
+
+.atg_commerce_csr_orderSummary .atg_dataForm dt .atg_commerce_csr_orderSummaryTotal{
+font-weight:bold;
+}
+
+.atg_commerce_csr_orderSummary .atg_dataForm dd .atg_commerce_csr_orderSummaryTotal{
+color:#066D00;
+font-weight:bold;
+}
+
+/*Order Search Address Form
+-------------------------------------------------------------------------------*/
+
+div.atg_commerce_csr_advancedSearch{
+  margin-left:0;
+}
+
+div.atg_commerce_csr_advancedSearch li.atg_commerce_csr_firstName{
+  width:278px !important;
+  padding-right:0;
+}
+
+div.atg_commerce_csr_advancedSearch li.atg_commerce_csr_lastName{
+  clear:none !important;
+  width:290px !important;
+}
+
+div.atg_commerce_csr_advancedSearch li.atg_commerce_csr_lastName input{
+  width:135px !important;
+}
+
+/* Order Promo Form
+-------------------------------------------------------------------------------*/
+.atg_commerce_csr_promoForm{
+}
+
+.atg_commerce_csr_promoForm .atg_commerce_csr_dataForm dt{
+font-weight:bold;
+}
+
+.atg_commerce_csr_promoForm .atg_commerce_csr_dataForm{
+margin-right:15px;
+}
+
+.atg_commerce_csr_promoTable{
+clear:left;
+}
+
+.atg_commerce_csr_activePromo{
+border:2px solid yellow;
+margin-top:10px;
+}
+
+.atg_commerce_csr_inactivePromo{
+border:2px solid grey;
+margin-top:10px;
+}
+
+.atg_commerce_csr_activePromoNoApply{
+border:2px solid red;
+margin-top:10px;
+}
+
+.atg_commerce_csr_promoForm dl{
+float:left;
+}
+
+.atg_commerce_csr_promoForm dt{
+float:none;
+margin:0;
+}
+
+.atg_commerce_csr_promoForm dd{
+margin:0;
+}
+
+.atg_commerce_csr_promoSummary{
+width:250px;
+float:left;
+clear:none;
+}
+
+/****************** Search Orders **************************************/
+.atg_commerce_csr_coreSearchOrders{
+}
+
+.atg_commerce_csr_coreSearchOrders .atg_commerce_csr_panelFooter{
+	width:100%;
+	padding-right:0;
+}
+
+.atg_commerce_csr_coreSearchOrders .atg_commerce_csr_panelFooter input{
+  margin-right: 20px;
+}
+
+ul.atg_commerce_csr_searchOrder{
+	list-style: none;
+}
+
+ul.atg_commerce_csr_searchOrder li{
+	margin-bottom: 10px;
+	padding-right: 19px;
+	float: left;
+}
+
+ul.atg_commerce_csr_searchOrder li.startDate,
+ul.atg_commerce_csr_searchOrder li.endDate{
+	padding-right: 0;
+}
+ul.atg_commerce_csr_searchOrder li.orderStatus{ /* IE adjustment. Select box size is two pixels smaller than regular text inputs. */
+	margin-bottom: 12px;
+	width:100%;
+}
+
+ul.atg_commerce_csr_searchOrder li.atg_commerce_csr_formButtons{
+	float: none;
+	clear: left;
+	margin: 12px 0 0 460px;
+}
+
+ul.atg_commerce_csr_searchOrder li input{
+	width: 150px;
+}
+
+ul.atg_commerce_csr_searchOrder li.atg_commerce_csr_formButtons input{
+	width: auto;
+}
+
+div.atg_commerce_csr_searchOrder .atg_commerce_csr_fieldTitle{
+	display: block;
+	float: left;
+	min-width: 80px;
+	margin: 2px 5px 0 10px;
+	text-align: left;
+	vertical-align: top;
+}
+
+div.atg_commerce_csr_searchOrder label{
+	white-space: nowrap;
+}
+
+dl.atg_commerce_csr_searchOrder{
+width:550px;
+margin: 0px;
+}
+
+dl.atg_commerce_csr_searchOrder dt{
+clear:none;
+width:100px;
+text-align: right;
+padding-top: 4px;
+float: left;
+}
+
+dl.atg_commerce_csr_searchOrder dd{
+margin: 0px;
+margin-bottom: 7px;
+overflow:hidden;
+height: 1%;
+float: left;
+}
+
+dl.atg_commerce_csr_searchOrder dd.phone{
+  width: 340px;
+}
+
+dl.atg_commerce_csr_searchOrder dt.labelBtn{
+width:430px;
+clear:left;
+}
+
+dl.atg_commerce_csr_searchOrder dt.lastName,
+dl.atg_commerce_csr_searchOrder dt.orderStatus,
+dl.atg_commerce_csr_searchOrder dt.email{
+	width:149px;
+}
+dl.atg_commerce_csr_searchOrder dd input{
+width:100px;
+float:left;
+}
+
+dl.atg_commerce_csr_searchOrder dd.email,
+dl.atg_commerce_csr_searchOrder dd.lastName,
+dl.atg_commerce_csr_searchOrder dd.endDate{
+	width:183px;
+}
+
+dl.atg_commerce_csr_searchOrder dt.loginId,
+dl.atg_commerce_csr_searchOrder dt.firstName,
+dl.atg_commerce_csr_searchOrder dt.startDate,
+dl.atg_commerce_csr_searchOrder dt.sku{
+  clear:left;
+}
+
+dl.atg_commerce_csr_searchOrder dt .clear{
+  clear:left;
+}
+
+dl.atg_commerce_csr_searchOrder dd.atg_commerce_csr_formButtons{
+	clear:left;
+	width:500px;
+}
+
+dl.atg_commerce_csr_searchOrder dd.atg_commerce_csr_formButtons input{
+	float:right;
+}
+
+.atg_commerce_csr_advancedSearch .atg_commerce_csr_popupPanelCloseButton{
+float:right;
+}
+
+#csrEditAddressFloatingPane{
+  max-width:650px !important;
+}
+
+#csrEditAddressFloatingPane .dijitDialogPaneContent{
+  overflow:hidden;
+}
+
+/*  order view details-------------------------------*/
+div.atg_commerce_csr_orderDetails{
+  display:block;
+  overflow:hidden;
+  margin-bottom:10px;
+}
+
+ div.atg_commerce_csr_orderDetails ul{
+   width:600px;
+   margin-top:0px;
+   margin-bottom:10px;
+   list-style:none;
+}
+
+div.atg_commerce_csr_orderDetails ul li{
+ float:left;
+ margin:0px auto 5px;
+ padding-right:19px;
+ white-space:nowrap;
+ width:280px;
+}
+div.atg_commerce_csr_orderDetails ul li span.atg_commerce_csr_fieldTitle{
+  white-space:normal;
+}
+
+.atg div.atg_commerce_csr_orderDetails ul.atg_dataForm .atg_commerce_csr_fieldTitle{
+  font-weight:bold;
+  min-width:80px;
+  float:left;
+}
+ul.atg_commerce_csr_orderDetails span.atg_commerce_csr_fieldData{
+  float:left;
+}
+#customerInformationPanelContent .atg_resultTotal,
+#atg_svc_agent_ticket_historyGridStatus,
+#cmcApprovalsPContent .atg_resultTotal,
+#customerScheduledOrdersPanelContent .atg_resultTotal,
+#atg_commerce_csr_giftRegistryEventsGrid .atg_resultTotal{
+  padding:10px;
+}
+/* address view ----------------------------------*/
+div.atg_commerce_csr_addressView{
+  float:left;
+  margin-top:0px;
+  padding-top:0px;
+  margin-left:10px;
+}
+
+#csrSplitShippingGroupQty select,
+#csrMultipleShippingAddressForm select{
+  width: 200px;
+}
+
+div.atg_commerce_csr_addressView h4{
+  padding-bottom:0;
+  margin-top:0px;
+  margin-bottom:0px;
+  margin-left:0px;
+}
+
+div.atg_commerce_csr_addressView ul.atg_svc_shipAddress{
+  display:block;
+  margin-left: 0px !important;
+  margin-left:0px;
+  margin-right:20px;
+  margin-top:0px;
+  padding-left:0px;
+  padding-top:0px;
+  text-align: left;
+}
+
+div.atg_commerce_csr_addressView li.atg_commerce_csr_shippingControls{
+  margin-bottom:10px;
+}
+
+#cmcShippingAddressPContent div.atg_commerce_csr_addressView ul#atg_commerce_csr_neworder_ShippingAddressHome li{
+   padding-left:4px;
+}
+
+#csrSelectShippingMethods div.atg_commerce_csr_addressView ul.atg_svc_shipAddress{
+  padding:10px !important;
+}
+
+div.atg_commerce_csr_addressView li.atg_commerce_csr_shippingControls input{
+  padding:3px;
+}
+
+div.atg_commerce_csr_addressView li.atg_commerce_csr_editAddress{
+  padding-left: 4px !important;
+  padding-left: 0px;
+}
+
+div.atg_commerce_csr_addressView li.atg_commerce_csr_editAddress a.atg_addressEditIcon{
+  float:left;
+  margin-top:5px;
+}
+
+div.atg_commerce_csr_addressView li.atg_messaging_confirmation{
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: scroll 3px 3px !important;;
+  background-image: url(/agent/images/icon_submitReview.gif);/** sprite-ref: no-repeat; sprite-margin-top: 3px;*/
+  /*background: transparent url(/agent/images/icon_submitReview.gif) no-repeat scroll 9px 3px;*/
+  padding-left:16px !important;
+  padding-left:20px;
+  margin-bottom:10px;
+  margin-left:-10px;
+  color:#066D00;
+  font-weight:bold;
+}
+
+.atg_commerce_create_customer_confirm { padding-left: 30px }
+.atg_commerce_create_customer_confirm_header { padding-left:30px;padding-bottom:10px;font-weight:bold; }
+.field-label-first-column {min-width: 100px; padding-bottom: 10px; }
+.field-value-first-column {min-width: 180px; padding-bottom: 10px;}
+.field-value-first-column.input, .field-value-second-column.input { width: 180px }
+.field-label-second-column {min-width: 100px; padding-bottom: 10px; padding-left:20px; }
+.field-value-second-column {min-width: 180px; padding-bottom: 10px; }
+
+/* Fieldset legends -------------------------------------*/
+div.atg_commerce_csr_content fieldset,
+div.atg_commerce_csr_subPanel fieldset{
+  border-left:none;
+  border-right:none;
+  border-bottom:none;
+  padding:10px 10px 0 10px;
+  border-top:1px solid #666;
+}
+
+#atg_commerce_csr_orderReview_shippingSummary_subPanel legend {
+  padding-bottom: 1px;
+}
+
+/*   Shipping Method Picker------------------------------*/
+
+
+div.atg_commerce_csr_shippingMethodPicker,
+div.atg_commerce_csr_shippingMethod,
+div.atg_commerce_csr_statusView{
+  float:left;
+  margin-top:0px;
+  padding-top:0px;
+  margin-left:20px;
+  margin-right:20px;
+}
+div.atg_commerce_csr_statusView{
+  width: 100px;
+  margin-right:0;
+}
+
+div.atg_commerce_csr_shippingMethod ul,
+div.atg_commerce_csr_statusView ul{
+  padding-left:0;
+  margin-top:0;
+  margin-left:0;
+}
+
+div.atg_commerce_csr_shippingMethod li,
+div.atg_commerce_csr_statusView li{
+  list-style-type:none;
+}
+
+
+div.atg_commerce_csr_shippingMethod h4,
+div.atg_commerce_csr_statusView h4{
+  margin-bottom:0px;
+  padding-bottom:0;
+  margin-top:0px;
+}
+
+.atg_commerce_csr_statusViewShortened{
+width: 70px!important;
+}
+
+.atg_commerce_csr_statusViewExtended{
+width: 200px!important;
+}
+
+
+div.atg_commerce_csr_shippingMethodPicker h4{
+   margin-bottom:10px;
+   margin-top:0px;
+}
+
+div.atg_commerce_csr_shippingMethodPicker ul{
+     padding-left:15px;
+     margin-top:0px;
+     margin-left:10px !important;
+     margin-left:10px;
+}
+div.atg_commerce_csr_addressMultiPickerGrid{
+  height:300px;
+  width:100%;
+}
+
+/* shipping footer ------------------------------*/
+div.atg_commerce_csr_shippingFooter,
+div.atg_commerce_csr_billingFooter,
+div.atg_commerce_csr_orderViewFooter{
+   border-top:1px solid #c2c2c2;
+   padding:10px 10px 20px 10px;
+   margin:10px 0 0 0;
+   clear:both;
+}
+
+div.atg_commerce_csr_billingFooter input{
+  float:right;
+}
+
+
+
+/* csr datatable -----------------------------*/
+table.atg_commerce_csr_dataTable{
+
+}
+
+table.atg_commerce_csr_dataTable td{
+  margin:0;
+}
+
+table.atg_commerce_csr_dataTable th{
+  padding:4px 0 4px 3px;
+}
+
+table.atg_commerce_csr_dataTable ul.atg_commerce_csr_itemDesc  li{
+  padding:0;
+  margin:0;
+  line-height:14px;
+}
+/* scheduled orders -----------------------------*/
+div.atg_commerce_csr_scheduleForm{
+  margin-top:10px;
+}
+ul.atg_commerce_csr_scheduleForm {
+  margin-left:0;
+}
+
+div.atg_commerce_csr_scheduleControls{
+  display:block;
+  clear:both;
+  width:345px !important;
+  width:310px;
+  padding:8px 0 10px 0;
+  overflow:hidden;
+  margin:10px 0 10px 0;
+  float:left;
+}
+div.atg_commerce_csr_scheduleControls input{
+  float:right;
+  margin-left:8px;
+}
+
+div.atg_commerce_csr_scheduleForm ul.atg_dataForm li{
+  margin-bottom:4px;
+  margin-top:3px;
+  clear:left;
+  width:300px;
+}
+div.atg_commerce_csr_scheduleForm  ul.atg_commerce_csr_scheduleEndOptions{
+  float:left;
+}
+
+
+
+.atg_commerce_csr_scheduleForm fieldset{
+  border:none;
+  margin-top:5px;
+  padding-top:5px;
+}
+
+div.atg_commerce_csr_scheduleForm ul.atg_dataForm span.atg_commerce_csr_fieldTitle{
+  min-width:80px;
+  text-align:left;
+ margin-top:3px;
+}
+
+div.atg_commerce_csr_scheduleForm  ul.atg_commerce_csr_scheduleEndOptions span.atg_commerce_csr_fieldTitle{
+    text-align:left;
+}
+
+div.atg_commerce_csr_tableControls{
+  display:block;
+  float:right !important;
+  float:none;
+  margin:9px 0px 9px 9px;
+  padding:0 0 6px 0;
+  clear:both;
+  width:95%;
+}
+
+.atg_commerce_csr_shippingFooter div.atg_commerce_csr_tableControls{
+  width:auto;
+  clear:none;
+}
+
+input.atg_commerce_csr_shippingButton{
+  width: 130px;
+}
+
+.atg_commerce_csr_shoppingCartControls input{
+  width:auto;
+}
+
+fieldset div.atg_commerce_csr_tableControls{
+  float:right;
+}
+
+div.atg_commerce_csr_tableControls input{
+  padding:2px;
+  float:right;
+}
+
+#atg_commerce_csr_neworder_newShippingAddress li.atg_commerce_csr_add{
+  width: 100%;
+  text-align: right;
+}
+
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_addFormControls{
+  clear:left;
+}
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_addProfile input,
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_addFormControls input{
+  width:auto;
+}
+
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_addFormControls .atg_commerce_csr_saveProfile input{
+  margin-top:0;
+  vertical-align:middle;
+}
+
+ul.atg_commerce_csr_addressForm li.atg_commerce_csr_saveProfile,
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_addFormControls{
+  margin-left:105px !important;
+  margin-left:50px;
+}
+
+ul.atg_commerce_csr_addressForm li.atg_commerce_csr_saveProfile{
+  clear:left;
+}
+
+ul.atg_commerce_csr_addressForm li.atg_commerce_csr_saveProfile input{
+  margin-top:0;
+  vertical-align:middle;
+}
+
+ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_existingBilling{
+  width:100%;
+  
+}
+
+ #cmcBillingPContent  ul.atg_commerce_csr_creditClaimForm{
+   border-top:1px solid #c2c2c2;
+   padding-top:15px;
+ }
+div.atg_commerce_csr_promoBox{
+  margin-left:8px;
+  margin-top:5px;
+  height:110px;
+  width:37%;
+  display:block;
+  overflow:hidden;
+  float:left;
+  border:1px solid #c2c2c2;
+  background-color: #ffffff;
+  clear:right;
+}
+div.atg_commerce_csr_promoBox ul.atg_dataForm{
+  padding-left:8px;
+  margin-left:0;
+  width:100%;
+
+}
+div.atg_commerce_csr_promotionsListing  ul.atg_commerce_csr_promotionsQualifications{
+  height:80px;
+  margin-right:0;
+  margin-bottom:0;
+}
+
+div.atg_commerce_csr_promoBox h4,
+div.atg_commerce_csr_promotionsListing h4{
+  margin-bottom:0px;
+  margin-left:10px;
+  margin-top:0px;
+  padding-bottom:6px;
+}
+
+div.atg_commerce_csr_shoppingCartSummary{
+  width:100%;
+  float:right;
+  position:static;
+}
+
+
+div.atg_commerce_csr_shoppingCartSummary div.atg_commerce_csr_shoppingCartControls{
+  float:right;
+  width:130px;
+  height:100%;
+  position:relative;
+  top:48px;
+  left:-10px;
+}
+
+div.atg_commerce_csr_shoppingCartSummary div.atg_commerce_csr_shoppingCartControls input{
+  margin:6px 0 6px 0;
+}
+
+
+
+input.atg_commerce_csr_activeButton{
+  font-weight:bold;
+  font-size:100%;
+}
+
+div.atg_commerce_csr_promotionsContainer{
+  clear:left;
+  overflow:hidden;
+  display:block;
+}
+
+div.atg_commerce_csr_promotionsContainer div.atg_commerce_csr_promotionsListing{
+  overflow-y:scroll;height:110px;width:60%;border:1px;border-style:solid;border-color:#c2c2c2;
+}
+
+div.atg_commerce_csr_orderAdjustmentPanel table.atg_commerce_csr_innerTable{
+  margin-bottom:0;
+}
+
+div.atg_commerce_csr_orderAdjustmentPanel{
+  display: block;
+}
+div.atg_commerce_csr_orderAdjustmentPanel table.atg_commerce_csr_innerTable{
+  border-right:0;
+  border-bottom:0;
+  border-left:0;
+}
+
+div.atg_commerce_csr_orderAdjustmentPanel table.atg_commerce_csr_innerTable thead th{
+  background-color:#ffffff;font-weight:bold;
+}
+div.atg_commerce_csr_orderAdjustmentPanel table.atg_commerce_csr_innerTable tfoot tr{
+  font-weight:bold;
+}
+div.atg_commerce_csr_orderAdjustmentPanel table.atg_commerce_csr_innerTable td.atg_commerce_csr_emptyCell{
+  background-color:#FEFFCB;
+}
+
+div.atg_commerce_csr_orderAdjustmentPanel dl.atg_dataForm dt{
+  width:55px;
+}
+div.atg_commerce_csr_orderAdjustmentPanel dl.atg_dataForm .atg_inlineLabel{
+  width:65px;
+}
+
+div.atg_commerce_csr_orderAdjustmentPanel dl.atg_dataForm dd.atg_commerce_csr_paymentType input#amountTxt{
+  width:30px;
+}
+
+div.atg_commerce_csr_orderAdjustmentPanel .atg_commerce_csr_commentsArea textarea{
+  width:192px !important;
+  height:50px !important;
+}
+
+div.atg_commerce_csr_orderAdjustmentPanel dl.atg_dataForm dd.atg_commerce_csr_paymentType label,
+div.atg_commerce_csr_orderAdjustmentPanel dl.atg_dataForm dd.atg_commerce_csr_paymentType input{
+  vertical-align:middle !important;
+}
+
+div.atg_commerce_csr_orderAdjustmentPanel .atg_dataTable tfoot td{
+  background-color:#FEFFCB;
+}
+
+div.atg_commerce_csr_orderAdjustmentPanel dd.atg_commerce_csr_commentsArea{
+  width:auto;
+}
+
+div.atg_commerce_csr_subPanel fieldset{
+  border-width:1px 0 0 0;
+}
+
+div.atg_commerce_csr_subPanel fieldset div.atg_commerce_csr_addressView{
+  margin-left:-20px;
+}
+table.atg_commerce_csr_innerTable td.atg_commerce_csr_priceOveride{
+     width:100px;
+ }
+div.atg_commerce_csr_orderControls{
+  width:98%;
+  padding:6px;
+}
+div.atg_commerce_csr_orderControls input{
+    float:right;
+    margin:4px;
+}
+.atg_commerce_csr_finishOrderButtons {
+  float:right;
+  margin:4px;
+}
+div.atg_commerce_csr_returningCustomer ul.atg_dataForm span.atg_commerce_csr_fieldTitle{
+  min-width:80px;
+}
+.atg_commerce_csr_innerTable tr.atg_commerce_csr_billingGroup td{
+  border:none;
+}
+
+tr.atg_commerce_csr_billingGroup div.atg_commerce_csr_addressView{
+  margin-left:0 !important;
+}
+
+
+
+.atg_commerce_csr_billingGroup a.atg_tableIcon{
+  padding: 5px 0 !important;
+}
+
+
+
+
+.atg div.atg_commerce_csr_customerSearch{
+  width:800px;
+  height:380px;
+  max-width:900px;
+}
+div.atg_commerce_csr_customerSearch ul.atg_dataForm li input{
+  width:100px;
+}
+div.atg_commerce_csr_customerSearch ul.atg_dataForm li  span.atg_commerce_csr_fieldTitle{
+  min-width:80px;
+}
+div.atg_commerce_csr_customerSearch ul.atg_dataForm li.atg_commerce_csr_formControls{
+  width:683px;
+}
+/*Order Confirmation */
+#cmcConfirmOrderPContent ul.atg_dataForm,
+#cmcConfirmNewSchedulePContent ul.atg_dataForm,
+#cmcConfirmUpdateSchedulePContent ul.atg_dataForm{
+  padding-left:20px;
+}
+
+#cmcConfirmOrderPContent ul.atg_dataForm li td.dijitInputField input,
+#cmcConfirmNewSchedulePContent ul.atg_dataForm li td.dijitInputField input,
+#cmcConfirmUpdateSchedulePContent ul.atg_dataForm li td.dijitInputField input{
+  width:150px !important;
+
+}
+dl.atg_commerce_csr_customerInfo input{ 
+  max-width:155px;
+}
+
+#cmcConfirmOrderPContent ul.atg_dataForm li table,
+#cmcConfirmNewSchedulePContent ul.atg_dataForm li table,
+#cmcConfirmUpdateSchedulePContent ul.atg_dataForm li table{
+  width:175px !important;
+}
+.atg_commerce_csr_emailConfirmationForm td.dijitInputField{
+  width: 175px !important;
+}
+
+.atg_commerce_csr_emailConfirmationForm table.dijitInlineTable{
+  width:200px;
+}
+/* billing ------------------------------------------*/
+
+
+  ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_cardType td.dijitInputField input,
+  ul.atg_commerce_csr_creditClaimForm li.atg_svc_billingClaimCode td.dijitInputField input{
+    width:120px !important;
+  }
+  ul.atg_commerce_csr_creditClaimForm li.atg_svc_billingClaimCode{
+     padding-right:0!important;
+   }
+  ul.atg_commerce_csr_creditClaimForm li.atg_svc_billingClaimCode table{
+    width:150px !important;
+  }
+  
+  ul.atg_commerce_csr_paymentForm  li.atg_commerce_csr_cardNumber .dijitInlineTable{
+    width:180px;
+  }
+
+  ul.atg_commerce_csr_paymentForm  li.atg_commerce_csr_cardNumber{
+    clear:left;
+  }
+  .atg_commerce_csr_popupPanel ul.atg_commerce_csr_paymentForm  li.atg_commerce_csr_cardNumber{
+    width:300px;
+  }
+
+
+  ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_cardNumber td.dijitInputField input{
+    width:140px !important;
+  }
+  
+  ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_cardNumber #widget_editCreditCardForm_maskedCreditCardNumber{
+    width:164px !important;
+  }
+
+  ul.atg_commerce_csr_paymentForm  ul.atg_commerce_csr_addressPicker input{
+    width:auto;
+  }
+
+  ul.atg_commerce_csr_paymentForm  ul.atg_commerce_csr_addressPicker{
+    float:left;
+    margin: -10px 0 0 -10px;
+    padding:0;
+    display: block;
+  }
+
+  ul.atg_commerce_csr_paymentForm  ul.atg_commerce_csr_addressPicker li{
+    float:auto;
+    margin-bottom:5px;
+    display: inline-block;
+  }
+  ul.atg_commerce_csr_paymentForm  ul.atg_commerce_csr_addressPicker li.atg_commerce_csr_createNewAddress{
+    clear:left;
+    width:100%;
+  }
+  li.atg_commerce_csr_createNewAddress table{
+    float: left;
+  }
+  ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_addFormControls{
+    width:425px;
+  }
+
+  ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_addFormControls span.atg_commerce_csr_saveProfile{
+    float:left;
+  }
+
+  ul.atg_commerce_csr_paymentForm li.atg_commerce_csr_addFormControls span.atg_commerce_csr_addControls{
+    float:right;
+  }
+
+  div.atg_commerce_csr_noPaymentOptions{
+    height:50px;
+    margin:27px auto auto 20px;
+    vertical-align:middle;
+  }
+  #editCreditCardForm div.atg_commerce_csr_panelFooter{
+		width:540px;
+	}
+
+	#creditCardPopup .atg_commerce_csr_popupPanel{
+		width:600px;
+	}
+
+ #cmcBillingPContent #csrBillingAddCreditCard ul.atg_commerce_csr_paymentForm{
+
+   padding-top:10px;
+ }
+ 
+ .atg li.atg_commerce_csr_cardType .dijitComboBoxDisabled input,
+ .atg #widget_csrEditCreditCard_maskedCreditCardNumber input{
+   background-color:#e4e4e4;
+ }
+ 
+ #widget_editCreditCardForm_creditCardNumber.dijitInlineTable {
+   width: 140px !important;
+ }
+ 
+ 
+
+/**********  ORDER REVIEW CSS RULES *****************************************************************/
+
+div.atg_commerce_csr_orderReview div.atg_commerce_csr_orderSummary{
+  margin-right:112px !important;
+}
+
+/*** Increase Order Serach tooltip preview hover area */
+.atg_tooltip_icon{
+  padding: 5px 10px;
+}
+
+#cmcOrderResultsPContent .atg_commerce_csr_content table tr td:first-child{
+  padding: 0px !important;
+}
+
+
+#widget_atg_commerce_csr_confirm_toAddress {
+  position: static !important;
+}
+
+#widget_atg_commerce_csr_confirm_toAddress tbody tr td input {
+  position: static !important;
+}
+
+#atg_commerce_csr_confirm_toAddress {
+  position: static !important;
+}
+
+.staticInput {
+  position: static !important;
+}
+
+.atg_commerce_csr_scheduleFormCalendarIcon {
+  position: static !important;
+}
+
+@-moz-document url-prefix() {
+  .editPaymentOptionIcon {
+    position: absolute;
+  } 
+}
+
+.atg_commerce_csr_coreMoreProductView .atg_dataForm{
+  display:block;
+  width:16px;
+  height:15px;
+  margin:0 2px 0 2px;
+  background-repeat:no-repeat;
+  background-position:50% 50%;
+  text-decoration:none;
+  text-indent:-99999px;
+}
+
+.atg_commerce_csr_corePanelData .title{
+  font-weight:700;
+}
+
+.oldPrice{
+  color:#ff0000;
+  text-decoration:line-through;
+}
+
+div.atg_commerce_csr_subPanel{
+  overflow:hidden;
+  display:block;
+  clear:both;
+  padding: 0 5px 0 5px;
+  border:none;
+  margin-bottom:5px;
+}
+
+div.atg_commerce_csr_hoverPopupTitle{
+  width:390px;
+  background-color:#FFFFFF;
+  padding:4px;
+}
+
+.atg_commerce_csr_error,
+.atg_commerce_csr_dataHighlight,
+.atg_commerce_csr_error a{
+  color:#ff0d0d;
+}
+
+a.atg_commerce_csr_return,
+li.atg_commerce_csr_return a{
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-image: url(/agent/images/icons/icon_propertyMoveBack.gif);/** sprite-ref: no-repeat; */
+  padding: 1px 0 0 16px;
+  float:left;
+}
+
+li.atg_commerce_csr_return{
+  float:left;
+  border:0;
+}
+
+div.atg_commerce_csr_subPanelHeader{
+  margin-left:-10px;
+  margin-right:-10px;
+}
+
+div.atg_commerce_csr_subPanelHeader ul{
+  padding:4px 4px 4px 7px;
+  border-top:1px solid #bebebe;
+  border-bottom:1px solid #bebebe;
+  background-color:#F5F5F5 none repeat scroll 0%;
+}
+
+.atg_commerce_csr_content h4,
+.atg_commerce_csr_content p{
+    margin:6px 0;
+}
+
+div.atg_commerce_csr_togglePanel{
+  width:100%;
+  clear:both;
+}
+
+.atg_commerce_csr_popup{
+  width: 630px;
+}
+
+#addOrderNotePopup div.atg_commerce_csr_popup{
+	width:550px;
+}
+
+.atg_svc_formActions .atg_svc_defaultOption{
+  margin-left:100px;
+  float:left;
+}
+
+.atg_svc_formActions .atg_svc_defaultOption input{
+  margin-top:0;
+  vertical-align:middle;
+}
+
+.atg_svc_formActions .atg_svc_defaultOption input{
+  margin-top:0;
+  vertical-align:middle;
+}
+
+.atg_commerce_csr_shipAddressTabPane{
+  height:315px;
+  overflow:hidden;
+}
+
+.atg_commerce_csr_togglePanel{
+  width:700px;
+
+}
+
+div.atg_commerce_csr_tableControls{
+  margin: 5px 9px 5px 9px;
+}
+
+.atg_commerce_csr_togglePanel .atg_svc_formActions .atg_svc_defaultOption{
+  float:left;
+  margin-left:100px;
+  clear:left;
+}
+
+.atg_commerce_csr_orderSummary .atg_dataForm dt,
+.atg_commerce_csr_orderSummary .atg_dataForm dd{
+  padding-top:0;
+}
+
+.atg_commerce_csr_subPanel .atg_commerce_csr_addressView{
+  width:32%;
+  margin-left:0;
+}
+
+.atg_commerce_csr_subPanel div.atg_commerce_csr_addressView li{
+  padding-left:0 !important;
+}
+
+div.atg_commerce_csr_subPanel fieldset div.atg_commerce_csr_addressView{
+  margin-left:8px;
+}
+
+div.atg_commerce_csr_subPanel fieldset div.atg_commerce_csr_addressView h4,
+div.atg_commerce_csr_subPanel fieldset div.atg_commerce_csr_addressView ul{
+  margin-left:8px;
+}
+
+div.atg_commerce_csr_subPanel div.atg_commerce_csr_addressView h4,
+div.atg_commerce_csr_subPanel div.atg_commerce_csr_addressView ul{
+  margin-left:8px !important;
+}
+
+.atg_commerce_csr_addressView .atg_commerce_csr_statusView{
+  margin-top: 5px;
+}
+
+.atg_commerce_csr_subPanel .atg_commerce_csr_statusView,
+.atg_commerce_csr_subPanel .atg_commerce_csr_shippingMethod{
+  width: 16%;
+  margin-left:0;
+}
+
+.atg_commerce_csr_subPanel .atg_commerce_csr_statusView h4,
+.atg_commerce_csr_subPanel .atg_commerce_csr_statusView ul{
+  margin-left:8px;
+}
+
+div.atg_commerce_csr_billingSummary div.atg_commerce_csr_orderSummary{
+  margin-right:45px !important;
+}
+
+div.atg_commerce_csr_orderReview div.atg_commerce_csr_orderSummary{
+  margin-right:100px !important;
+  margin-left:0px !important;
+}
+
+.atg_commerce_csr_subPanel .atg_commerce_csr_shippingMethod h4,
+.atg_commerce_csr_subPanel .atg_commerce_csr_shippingMethod ul{
+  margin-left:8px !important;
+}
+
+div.atg_commerce_csr_searchOrder li.orderId{
+  width:auto;
+}
+
+div.atg_commerce_csr_searchOrder{
+  float:left;
+  clear:left;
+}
+
+div.atg_commerce_csr_searchOrder .atg-csc-base-table-cell{
+  margin-bottom: 5px;
+  padding-bottom: 2px;
+  padding-top: 2px;
+  padding-right: 10px;
+}
+
+div.atg_commerce_csr_searchOrder .email,
+div.atg_commerce_csr_searchOrder .lastName,
+div.atg_commerce_csr_searchOrder .sku{
+  padding-right:0;
+  float: right;
+  width: 49%;
+}
+div.atg_commerce_csr_searchOrder input{
+  width:115px !important;
+}
+
+ul.atg_commerce_csr_dateRange li input{
+  width: 80px !important;
+}
+
+ul.atg_commerce_csr_dateRange{
+  float:right;
+  padding:0 5px;
+  list-style-type:none;
+  width:30%;
+  background-color:#EFEFEF;
+  margin:0;
+  font-size:11px;
+  border: 1px solid #E9E9E9;
+}
+
+ul.atg_commerce_csr_dateRange p{
+text-align:center;
+}
+
+ul.atg_commerce_csr_dateRange li{
+  margin-bottom: 7px;
+}
+
+.atg_commerce_csr_dateRange img{
+  vertical-align:middle;
+}
+
+li.atg_commerce_csr_searchIn{
+  padding-left:0;
+}
+
+li.atg_commerce_csr_searchIn input{
+  padding-left:10px;
+  vertical-align:middle;
+  margin-top:0;
+}
+.atg_commerce_csr_subPanel .atg_commerce_csr_statusTabularView{
+  float:right;
+}
+
+/* order modification containers for the extended shopping cart */
+
+div.atg_commerce_csr_promotionsListing,
+div.atg_commerce_csr_promotionsListing .atg_dataTable,
+div.atg_commerce_csr_promotionsListing .atg_dataTable td,        
+div.atg_commerce_csr_enterPromoForm
+{
+  background-color:#f5f5f5;
+}
+div.atg_commerce_csr_promotionsListing .atg_dataTable{
+  border:none;
+}
+
+div.atg_commerce_csr_promotionsListing h4{
+  border-bottom:1px solid #c2c2c2;
+}        
+div.atg_commerce_csr_orderModifications{
+  float:left; 
+  width:53%;
+  margin:8px;
+}
+
+.atg_commerce_csr_promotionsListing{
+  border-width:1px;
+  border-style:solid;
+  border-color:#c2c2c2;
+}
+#csrSelectShippingMethods div.atg_commerce_csr_promotionsBox{
+  clear:both;
+}
+
+.atg_commerce_csr_promotionsBoxTitle {
+   background-color:#E5E5E5;padding-top:6px;padding-bottom:6px;
+}
+
+.atg .dijitTitlePaneContentInner{
+  padding:0 !important;
+}
+
+div.atg_commerce_csr_orderModifications .atg_commerce_csr_orderAdjustmentPanel{
+  background-color:#f5f5f5;
+}
+.atg div.atg_commerce_csr_orderModifications .dijitTitlePane .dijitTitlePaneTitle{
+  height:16px;
+  background-color:#e8e8e8;
+  overflow:hidden;
+}
+
+div.atg_commerce_csr_appeasementTotal{
+  float:left;
+  margin:8px 0 0 6px;
+  padding:0 0 8px 0;
+  font-weight:bold;
+}
+
+
+.atg_commerce_csr_orderSummary input{
+  text-align:right;
+}
+div.atg_commerce_csr_shoppingCartSummary div.atg_commerce_csr_shoppingCartControls{
+  left:0;
+  width:140px;
+}
+
+#atg_commerce_csr_neworder_orderSummaryData{
+  float:right;
+}
+
+.atg_commerce_csr_billingSummary #atg_commerce_csr_neworder_orderSummaryData{
+  
+}
+
+.atg_commerce_csr_orderReview #atg_commerce_csr_neworder_orderSummaryData{
+  margin-right:113px;
+}
+
+
+#atg_commerce_csr_neworder_orderSummaryData td{
+  text-align:left;
+  padding-right: 10px;
+}
+#atg_commerce_csr_neworder_orderSummaryData td.atg_commerce_csr_orderSummaryAmount{
+  max-width:70px;
+}
+
+
+
+
+li.atg_commerce_csr_adjustmentAmount,
+li.atg_commerce_csr_adjustmentComment{
+  clear:left;
+
+}
+li.atg_commerce_csr_adjustmentComment{
+  width:100%;
+}
+.atg_commerce_csr_orderAdjustmentPanel .atg_dataForm li label{
+  width:100px;
+  position:relative;
+}
+.atg_commerce_csr_orderAdjustmentPanel .atg_dataForm li.atg_commerce_csr_adjustmentReason label,
+.atg_commerce_csr_orderAdjustmentPanel .atg_dataForm li.atg_commerce_csr_adjustmentAmount label,
+.atg_commerce_csr_orderAdjustmentPanel .atg_dataForm li.atg_commerce_csr_adjustmentComment label{
+  width:100px;
+  text-align:right;
+  float:left;
+  padding-top:4px;
+  padding-right:5px;
+}
+
+.atg_commerce_csr_orderAdjustmentPanel .atg_dataForm li.atg_commerce_csr_adjustmentAmount input{
+  width:50px;
+}
+.atg_commerce_csr_orderAdjustmentPanel .atg_dataForm li.atg_commerce_csr_adjustmentComment textarea{
+  width:170px;
+  height:50px;
+}
+
+.atg_commerce_csr_orderAdjustmentPanel .atg_dataForm li.atg_commerce_csr_adjustmentFormButtons{
+  padding-right:0;
+  position:relative;
+  top:40px;
+}
+
+/****   Order Apprival Styles ****************/
+
+
+ul.atg_commerce_csr_orderApproveInfo{
+  display:block;
+  float:left;
+  padding:0 0 0 20px;
+  min-width:300px;
+}
+
+#atg_commerce_csr_orderApprovePanel .atg_commerce_csr_panelToolBar .atg_commcerce_csr_listOption{
+  float:left;
+}
+
+#atg_commerce_csr_orderApprovePanel .atg_commerce_csr_panelToolBar li{
+  border:none;
+}
+
+ul.atg_commerce_csr_orderApproveInfo li{
+  list-style-type:none;
+  float:left;
+  clear:left;
+  margin:3px 0;
+}
+ul.atg_commerce_csr_orderApproveInfo li .atg_svc_fieldTitle{
+  display:block;
+  float:left;
+  margin:0 5px 0 0;
+  vertical-align:top;
+  white-space:nowrap;
+  width:100px;
+}
+ul.atg_commerce_csr_orderApproveInfo li .atg_svc_fieldTitle label{
+  font-weight:bold;
+}  
+
+ul.atg_commerce_csr_orderApproveInfo li span.plainText{
+  float:left;
+}
+
+
+ul.atg_commerce_csr_orderApproveInfo li span.atg_commerce_csr_pendingApproval{
+  color:#ff0000;
+}
+
+ul.atg_commerce_csr_orderApprovalToolbar{
+  margin:0;
+}
+
+ul.atg_commerce_csr_orderApprovalToolbar li.atg_commcerce_csr_listOption{
+  float:left;
+  border:none;
+}
+
+ul.atg_commerce_csr_panelToolBar img{
+  vertical-align:middle;
+  margin-left:5px;
+  margin-right:10px;
+}
+
+.atg .atg_commerce_csr_orderAdjustments .dijitTitlePaneContentInner{
+   padding:0;
+}
+
+.atg_commerce_csr_orderAdjustments{
+  float:left;
+  clear:left;
+  border-right:1px solid #C2C2C2;
+  border-left:1px solid #C2C2C2;
+  border-bottom:1px solid #C2C2C2;
+}
+
+div.atg_commerce_csr_orderAdjustments .dijitTitlePaneTitle{
+  background:#E8E8E8 none repeat scroll 0 0;
+  color:#747474;
+  margin:0;
+  padding:2px 0 2px 10px;
+}
+
+.atg_commerce_csr_orderAdjustmentPanel{
+  border:none;
+  padding:0;
+}
+.atg_commerce_csr_orderAdjustments table {
+  border-width:1px 0 0 0  !important;
+}
+
+.atg_commerce_csr_orderAdjustments table td{
+  border-bottom: 1px solid #E8E8E8 !important;
+}
+
+.atg_commerce_csr_orderReview,
+.atg_commerce_csr_shoppingCartSummary{
+  position:relative;
+
+}
+
+.atg_commerce_csr_appeasementTotal{
+  padding-top:20px;
+}
+
+.atg_commerce_csr_orderReview .atg_commerce_csr_appeasementListing{
+  float:left;
+  clear:left;
+  margin:8px 8px 8px 12px;
+  width:54%;
+}
+
+.atg_commerce_csr_appeasementListing .atg_svc_fieldTitle{
+  font-weight:bold;
+}
+
+
+ul.atg_commerce_csr_simpleList li{
+  padding-left:20px;
+}
+ul.atg_commerce_csr_simpleList li p{
+  padding-left:0;
+  margin-left:0;
+}
+ul.atg_commerce_csr_simpleList li.warning{
+  background-repeat:no-repeat;
+  background-image: url(/agent/images/notify_icons/icon_warningSmall.gif);/** sprite-ref: no-repeat; */
+  color:#ff0000;
+}
+
+.atg-base-table-order-search-spacing{
+  padding-left: 50pxpx;
+}
+div.atg_commerce_csr_searchOrder input{
+  position: relative; top:-2px;
+}
+
+div.atg_commerce_csr_searchOrder select{
+  position: relative; top:-3px;
+  margin-bottom: 9px !important;
+}
+
+.atg-base-table-order-search-p-margin-bottom{
+  margin-bottom: 4px !important;
+  text-align:left !important;
+  padding-left:10px;
+}
+.atg-base-table-order-search-p-margin-top{
+  margin-top: 4px !important;
+  text-align:left !important;
+  padding-left:10px;
+}
+.atg_commerce_csr_dateRange label{
+  padding-bottom: 12px;
+}
+
+.atg_commerce_csr_dateRange span{
+    position: relative; top:2px;
+}
+
+.atg_commerce_csr_dateRange img{
+    position: relative; top:-1px;
+}
+
+.atg-base-table-order-search-advanced-form{
+  margin-left: 10px;
+}
+
+.atg-base-table-order-search-advanced-form-input-size{
+  width: 386px;
+}
+.atg-base-table-order-search-advanced-form-input-size-one{
+  width: 427px !important;
+}
+.atg-base-table-order-search-advanced-form-input-size-two{
+  width: 123px !important;
+}
+
+.atg-base-table-order-search-advanced-form-input-size-three{
+  width: 205px !important;
+}
+
+.atg-base-table-schedule-create-label-valign{
+  padding-top: 15px;
+  vertical-align: top;
+}
+
+.atg-base-table-schedule-create-label-padding{
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.arg_commerce_csr_orderSummaryAmount{
+  text-align:right !important;
+}
+
+.atg-base-table-order-view-first-label{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 5px;
+  font-weight: bold;
+}
+
+.atg-base-table-order-view-label{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 50px;
+  padding-right: 5px;
+  font-weight: bold;
+}
+
+div.atg_dateRangePicker{
+  width:550px;
+  overflow:hidden;
+  
+}
+div.atg_dateRangePicker ul.atg_dataForm span.atg_commerce_csr_fieldTitle{
+  text-align:left;
+  width:100%;
+}
+div.atg_dateRangePicker ul.atg_dataForm span.atg_commerce_csr_extendedFieldTitle{
+  width:160px;
+  display:block;
+}
+div.atg_dateRangePickerTabs{
+  width:100%;
+  clear:left;  
+}
+div.atg_dateRangePicker fieldset{
+  padding-bottom:4px;
+  margin:0 auto 8px 0;
+}
+.atg_dateRangePicker_intervalTab,
+.atg_dateRangePicker_calendarTab{
+	padding: 10px 20px 0px 20px;
+}
+/*.atg_dateRangePicker_days div.atg_commerce_csr_selectedItem,
+.atg_dateRangePicker_days div.atg_commerce_csr_nonSelectedItem{
+  width:90px;
+}
+*/
+.atg_dateRangePicker_weeksSelect{
+  clear:left;
+  overflow:hidden;
+  width:420px;
+  margin:8px 0 0 8px;
+}
+
+.atg_dateRangePicker_daysSelect{
+  width:420px;
+  overflow:hidden;
+  margin:0px 0 0px 8px;
+}
+
+.atg_dateRangePicker_datesOfMonth{
+  clear:left;
+  width:280px;
+  border:2px solid #e5eef7;
+  overflow:hidden;
+  margin:12px 0 0px 20px;
+}
+
+.atg_dateRangePicker_selectPanel{
+  margin:12px 0 12px 20px;
+}
+ 
+.atg_dateRangePicker_daysOptions{
+  margin-left:20px;
+}
+
+.atg_dateRangePicker_days ul.atg_dataForm{
+  margin-left:16px;
+}
+ 
+.atg_dateRangePicker_empty{
+  height:17px !important;
+  height:21px;
+
+}
+.atg_dateRangePicker_months{
+  clear:left;
+  margin:12px 0 12px 20px;
+}
+.dijitTabPaneWrapper {
+    clear: both;
+}
+
+.expandedContent{
+	display: none;
+}
+
+.expandedContent select{
+	min-width: 200px;
+}
+
+.weeksSelect{
+  display:none;
+}
+
+div.atg_commerce_csr_selectedItem ,
+div.atg_commerce_csr_selectedItem span{
+  width:80px;
+  float:left;
+  color:#003399;
+  overflow:hidden;
+  padding-left:16px !important;
+  padding-left:0;
+}
+div.atg_commerce_csr_selectedItem,
+div.atg_commerce_csr_nonSelectedItem{
+  padding-left:16px;
+}
+
+div.atg_commerce_csr_selectedItem{                         
+  background: url(/agent/image/iconcatalog/global/icon_submit.png) no-repeat;
+  cursor:pointer;cursor:hand;
+}
+
+div.atg_commerce_csr_selectedItem span,
+div.atg_commerce_csr_nonSelectedItem span {
+  cursor:pointer;cursor:hand;
+  padding-left:16px !important;
+  padding-left:0;
+}
+div.atg_commerce_csr_nonSelectedItem,
+div.atg_commerce_csr_nonSelectedItem span {
+  width:80px;
+  float:left;
+
+  color:#003399;
+  overflow:hidden;
+}
+
+div.atg_dateRangePicker_monthsSubOptions{
+  width:80px;float:left;
+}
+
+div.atg_dateRangePicker_datesOfMonth div.atg_commerce_csr_selectedItem span{
+  background:none;
+}
+
+div.atg_dateRangePicker_datesOfMonth div.atg_commerce_csr_nonSelectedItem{
+  
+}
+
+div.atg_dateRangePicker_datesOfMonth div.atg_commerce_csr_selectedItem{
+    background:#fffda9;
+    height:auto !important;
+    height:21px;
+}
+
+div.atg_dateRangePicker_datesOfMonth div.atg_commerce_csr_selectedItem,
+div.atg_dateRangePicker_datesOfMonth div.atg_commerce_csr_nonSelectedItem{
+  width:30px;
+  padding:4px;
+  height:21px !important;
+  border-width:1px;
+  border-color:#eee;
+  overflow:hidden;
+  border-style: solid;
+}
+
+#endDateImg,
+#startDateImg{
+	position:static;
+	top:4px !important;
+	top:3px;
+	left:3px;
+    vertical-align: middle;
+}
+
+div.atg_commerce_csr_scheduleForm  ul.atg_commerce_csr_scheduleEndOptions span.atg_commerce_csr_fieldTitle{
+	margin-top:0;
+}
+/* position widget elements as static to correct for the IE floating elements bug*/
+div.atg_dateRangePicker #endDateImg,
+div.atg_dateRangePicker #startDateImg,
+.atg div.atg_dateRangePicker .dijitTabChecked,
+.atg div.atg_dateRangePicker .dijitTab,
+.atg div.atg_dateRangePicker .dijitTabInnerDiv{
+  position:static !important;
+}
+
+#atg_commerce_csr_order_calendarScheduledOrderUpdate .dijitInlineTable,
+#atg_commerce_csr_order_calendarScheduledOrderCreate .dijitInlineTable {
+  width: auto !important;
+}
+
+#atg_commerce_csr_order_calendarScheduledOrderUpdate .dijitInlineTable input,
+#atg_commerce_csr_order_calendarScheduledOrderCreate .dijitInlineTable input{
+  width: 129px !important;
+}
+
+.atg_commerce_csr_appeasement_appeasementTotal {
+	display:inline-block;
+	width:200px;
+	vertical-align:sub;
+	}
+	
+#atg_commerce_csr_updateAppeasement{
+	display: inline;
+	}
+
+.atg_commerce_csr_appeasement_appeasementRefundList li{
+	list-style-type: none;
+	margin-left: -40px;
+}
+
+.atg_commerce_csr_appeasementWarning{
+  color:#ff0000;
+}
+
+.atg_commerce_csr_appeasementsDetails{
+	margin-right: 113px;
+	float:right;
+	clear:both;
+	border-top: solid 1px #cecece;
+	padding-top: 10px;
+}
+
+.atg_commerce_csr_appeasementsDetails td{
+	padding-right: 10px;
+}
+
+.atg_commerce_csr_appeasementsDetailsValue{
+	text-align: right;
+}
+	/**********  PROMOTION BROWSER CSS RULES *****************************************************************/
+#atg_commerce_csr_promotionsBrowserDialog,
+#atg_commerce_csr_promotionsBrowserDialog .dijitDialogPaneContent{
+  max-width:850px;
+  max-height:550px;
+  overflow:hidden;
+}
+.atg #atg_commerce_csr_promotionsBrowserDialog .dijitTabPaneWrapper{
+  border:none;
+}
+#atg_commerce_csr_availablePromotions .atg_commerce_csr_panelFooter{
+  background-color:#e8e8e8;
+  border:1px solid #c2c2c2;
+  padding:5px 17px 5px 0;  
+}
+
+
+#atg_commerce_csr_availablePromotions .atg_commerce_csr_panelFooter span,
+#promotionsSearch .atg_commerce_csr_panelFooter span{
+float:left;
+margin-left:5px;
+}
+#atg_commerce_csr_availablePromotions .atg_commerce_csr_panelFooter input,
+#atg_commerce_csr_promotionsSearch .atg_commerce_csr_panelFooter input{
+float:right;
+}
+
+
+.atg_commerce_csr_promoSearchForm{
+  margin: 14px 2px;
+  width: 780px;
+}
+.atg_commerce_csr_promoSearchForm ul{
+  float:left;
+}
+
+.atg_commerce_csr_promoSearchForm .atg_commerce_csr_promosearchTerm li{
+  float:none !important;
+}
+
+.atg_commerce_csr_promoSearchForm .atg_commerce_csr_promosearchTerm li.atg_commerce_csr_promoSearchGloabal{
+  margin-top:7px;
+}
+.atg_commerce_csr_promoSearchForm .atg_commerce_csr_promosearchTerm input{
+  margin:0;
+}
+
+.atg_commerce_csr_promoSearchForm .atg_commerce_csr_promosearchTerm .atg_commerce_csr_promoSearchKeyword input{
+width:200px;
+}
+.atg_commerce_csr_promoSearchForm .atg_commerce_csr_promoSearchFilters span.atg_svc_fieldTitle{
+  float:left;
+  text-align:right;
+  margin-right:5px;
+  margin-top:2px;
+  width:75px;
+}
+ 
+.atg_commerce_csr_promoSearchFilters li.atg_commerce_csr_promoSearchSite {
+  width:165px;
+}
+ 
+.atg_commerce_csr_promoSearchFilters li.atg_commerce_csr_promoSearchSite input{
+  float:right;
+  margin-right:-10px;
+}
+
+.atg_commerce_csr_promoSearchFilters li.atg_commerce_csr_promoSearchGlobal{
+  width:200px;
+  margin-left:0;
+}
+
+.atg_commerce_csr_promoSearchFilters li.atg_commerce_csr_promoSearchGlobal input{
+  float:left;
+}
+
+.atg_commerce_csr_promoSearchFilters{
+  width:440px;
+}
+
+.atg_commerce_csr_promosearchTerm .atg_svc_fieldTitle{
+  float:left;
+  width:100px;
+  margin-right:10px;
+  text-align:right;
+}
+
+.atg_commerce_csr_promoSearchFilters .atg_commerce_csr_promoSearchtype{
+  width:175px;
+  clear: left;
+}
+
+.atg_commerce_csr_promoSearchtypeInactive{
+  visibility:hidden;
+  width:210px;
+}
+
+p.atg_commerce_csr_promoMatchingResults{
+  float:left;
+}
+
+p.atg_commerce_csr_promoavailablePromotions{
+  float:right;
+}
+
+.atg_commerce_csr_promoBrowserSearchResults .panelHeader{
+  height:23px;
+  overflow:hidden;
+  width:auto;
+  background:#9FC7F1 none repeat scroll 0 0;
+  border:1px solid #FFFFFF;
+}
+
+/**********  PROMOTION BROWSER CSS RULES *****************************************************************/
+#atg_commerce_csr_promotionsBrowserDialog,
+#atg_commerce_csr_promotionsBrowserDialog .dijitDialogPaneContent{
+  max-width:850px;
+  max-height:550px;
+  overflow:hidden;
+}
+.atg #atg_commerce_csr_promotionsBrowserDialog .dijitTabPaneWrapper{
+  border:none;
+}
+#atg_commerce_csr_availablePromotions .atg_commerce_csr_panelFooter{
+  background-color:#e8e8e8;
+  border:1px solid #c2c2c2;
+  padding:5px 17px 5px 0;  
+}
+#atg_commerce_csr_promotionsBrowserDialog .atg_commerce_csr_panelFooter{
+  padding:5px 17px 10px 0;  
+}
+
+
+#atg_commerce_csr_availablePromotions .atg_commerce_csr_panelFooter span,
+#promotionsSearch .atg_commerce_csr_panelFooter span{
+  float:left;
+  margin-left:5px;
+}
+#atg_commerce_csr_availablePromotions .atg_commerce_csr_panelFooter input,
+#atg_commerce_csr_promotionsSearch .atg_commerce_csr_panelFooter input{
+  float:right;
+}
+
+
+.atg_commerce_csr_promoSearchForm{
+  margin:14px 20px;
+}
+.atg_commerce_csr_promoSearchForm ul{
+  float:left;
+}
+
+.atg_commerce_csr_promoSearchForm .atg_commerce_csr_promosearchTerm li{
+  float:none !important;
+}
+
+.atg_commerce_csr_promoSearchForm .atg_commerce_csr_promosearchTerm li.atg_commerce_csr_promoSearchGloabal{
+  margin-top:7px;
+}
+.atg_commerce_csr_promoSearchForm .atg_commerce_csr_promosearchTerm input{
+  margin:0;
+}
+
+.atg_commerce_csr_promoSearchForm .atg_commerce_csr_promosearchTerm .atg_commerce_csr_promoSearchKeyword input{
+width:200px;
+}
+
+
+.atg_commerce_csr_promoSearchFilters li.atg_commerce_csr_promoSearchSite {
+  width:165px;
+}
+ 
+.atg_commerce_csr_promoSearchFilters li.atg_commerce_csr_promoSearchSite input{
+  float:right;
+  margin-right:-10px;
+}
+
+.atg_commerce_csr_promoSearchFilters li.atg_commerce_csr_promoSearchGlobal{
+  width:200px;
+  margin-left:0;
+}
+
+.atg_commerce_csr_promoSearchFilters li.atg_commerce_csr_promoSearchGlobal input{
+  float:left;
+}
+
+.atg_commerce_csr_promoResultsHeader{
+  border-top:1px solid #999;
+}
+
+p.atg_commerce_csr_promoMatchingResults{
+  float:left;
+}
+
+p.atg_commerce_csr_promoavailablePromotions{
+  float:right;
+}
+
+.atg_commerce_csr_promoBrowserSearchResults .panelHeader{
+  height:23px;
+  overflow:hidden;
+  width:auto;
+  background:#9FC7F1 none repeat scroll 0 0;
+  border:1px solid #FFFFFF;
+}
+.atg_commerce_csr_promotionsListing {
+  position: static !important;
+}
+
+.atg_commerce_csr_promotionsPanelContainer{
+width:68%;
+float:left;
+clear:left;
+}
+.atg_commerce_csr_promotionsPanel{
+border:1px solid #c2c2c2;
+overflow:auto;
+height:100px;
+}
+.atg_commerce_csr_promotionsPanel ul{
+list-style-type: none;
+margin: 8px;
+padding: 0;
+}
+.atg_commerce_csr_promotionsPanel li{
+margin: 0 0 4px 0;
+padding: 2px 0 2px 2px;
+}
+
+
+span.atg_commerce_csr_iconPromoApplied,
+span.atg_commerce_csr_iconPromoAlmost,
+span.atg_commerce_csr_iconPromoNotQualified,
+span.atg_commerce_csr_iconPromoNotAvailable{
+  display: block;
+  margin: 0 8px 0 0;
+  float:left;
+  width: 20px;
+  height: 16px;
+  text-indent: -9999px;
+}
+
+.atg_commerce_csr_iconPromoApplied{
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-image: url('../images/sprite-no-repeat.png');
+  -background-image: url('../images/sprite-no-repeat-ie6.png');
+  background-position: left -189px;
+}
+.atg_commerce_csr_iconPromoAlmost{
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-image: url('../images/sprite-no-repeat.png');
+  -background-image: url('../images/sprite-no-repeat-ie6.png');
+  background-position: left -205px;
+}
+.atg_commerce_csr_iconPromoNotQualified{
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-image: url('../images/sprite-no-repeat.png');
+  -background-image: url('../images/sprite-no-repeat-ie6.png');
+  background-position: left -221px;
+}
+.atg_commerce_csr_iconPromoNotAvailable{
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-image: url('../images/sprite-no-repeat.png');
+  -background-image: url('../images/sprite-no-repeat-ie6.png');
+  background-position: left -237px;
+}
+
+.atg_iconCell .atg_commerce_csr_iconPromoApplied,
+.atg_iconCell .atg_commerce_csr_iconPromoAlmost,
+.atg_iconCell .atg_commerce_csr_iconPromoNotQualified,
+.atg_iconCell .atg_commerce_csr_iconPromoNotAvailable{
+  margin-left: 4px;
+}
+
+
+.atg_commerce_csr_content ul li.indent{
+margin-left:30px;
+}
+.atg_commerce_csr_promoBox{
+border:1px solid #c2c2c2;
+width:30%;
+height:100px;
+float:right;
+background-color:#e8e8e8;
+margin:0 0 20px 0;
+}
+.atg_commerce_csr_promoBox dl{
+margin:10px;
+}
+
+.atg_commerce_csr_promoBox li{
+padding-right:5px !important;
+}
+
+.atg_commerce_csr_promoBox dt{
+margin:0 0 3px 0;
+font-weight:bold;
+}
+.atg_commerce_csr_promoBox dd{
+margin:0 0 4px 0;
+}
+
+td.atg_commerce_csr_finalPrice,
+th.atg_commerce_csr_finalPrice{
+  width:100px;
+}
+
+td.atg_commerce_csr_totalPrice,
+th.atg_commerce_csr_totalPrice{
+  width:85px;
+}
+
+div.atg_commerce_csr_orderAdjustmentComment {
+  overflow-x: hidden;
+  width: auto;
+}
+/* promotions listing ---------------------------*/
+  div.atg_commerce_csr_promotionsListing{
+    float:left;
+    margin-top:0px;
+    padding-top:5px;
+    margin-left: 0px;
+    padding-left: 0px;
+  }
+
+  div.atg_commerce_csr_promotionsListing h4{
+      padding-bottom:6px;
+      margin-top:0px;
+      margin-bottom:0px;
+      margin-left:0px;
+  }
+
+  div.atg_commerce_csr_promotionsListing ul{
+    display:block;
+    margin-left:10px !important ;
+    margin-left: 10px;
+    margin-right:20px;
+    margin-top:5px;
+    padding-left:0px;
+    padding-top:0px;
+  }
+
+  div.atg_commerce_csr_promotionsListing li{
+    padding-left:0px;
+    list-style-type:none;
+  }
+  
+  
+/******** refund type ******************************/
+.atg_commerce_csr_refundType{
+width:220px;
+float:left;
+clear:both;
+margin:7px;
+}
+.atg_commerce_csr_refundType .atg_dataForm dt{
+margin-bottom:5px;
+padding-top:5px;
+font-weight:normal;
+width:120px;
+}
+.atg_commerce_csr_refundType .atg_dataForm dd{
+margin-bottom:5px;
+padding-top:5px;
+font-weight:normal;
+text-align:right;
+width:40px;
+}
+
+/************** Return Items Panel *************************/
+h4 dl.atg_commerce_csr_returnItems{
+float: right;
+margin:0px;
+display:inline;
+}
+h4 dl.atg_commerce_csr_shipmentAddress{
+float: left;
+display:inline;
+margin:0px;
+}
+dl.atg_commerce_csr_returnItems dd{
+  font-weight: 500;
+}
+dl.atg_commerce_csr_returnItems dt,dl.atg_commerce_csr_returnItems dd,dl.atg_commerce_csr_shipmentAddress dt,dl.atg_commerce_csr_shipmentAddress dd{
+display:inline;
+margin:3px;
+}
+dl.atg_commerce_csr_returnItems dt{
+	clear:none;
+}
+dl.atg_commerce_csr_shipmentAddress dd ul{
+  display: inline;
+  margin: 0px;
+  margin-left:-20px;
+*/margin-left:0px;
+}
+dl.atg_commerce_csr_shipmentAddress dd ul li{
+display: inline;
+list-style: none;
+font-weight:500;
+}
+dl.atg_commerce_csr_returnItems dd{
+margin-right:20px;
+}
+dl.return_confirmation{
+display:inline-block;
+width:400px;
+margin:0px;
+}
+dl.return_confirmation dt{
+clear:none;
+display:inline;
+width:auto;
+float:left;
+padding-top:5px;
+margin-right:10px;
+}
+dl.atg_commerce_csr_Net_Adjustment{
+width:200px;
+display:inline;
+}
+dl.atg_commerce_csr_Net_Adjustment dt{
+font-weight:700;
+}
+dl.atg_commerce_csr_Return_Items,dl.giftCertificate{
+width:600px;
+display:inline-block;
+margin:20px;
+}
+dl.atg_commerce_csr_Return_Items dt.processRefund{
+font-weight:700;
+}
+dl.atg_commerce_csr_Return_Items dt,dl.atg_commerce_csr_Net_Adjustment dt,dl.giftCertificate dt{
+clear:none;
+display:inline;
+width:auto;
+}
+dl.atg_commerce_csr_Return_Items dd,dl.atg_commerce_csr_Net_Adjustment dd,dl.giftCertificate dd{
+margin:0px;
+margin-right:5px;
+overflow:hidden;
+display:inline;
+}
+.atg_commerce_csr_returnConfirmEmail dl.return_confirmation{
+  float: left;
+  */margin-bottom:10px;
+}
+.atg_commerce_csr_returnConfirmEmail .atg_actionTo{
+  float:right;
+}
+dl.refunds_made{
+display:inline-block;
+margin:0;
+}
+dl.refunds_made dt{
+clear:none;
+margin-right:10px;
+text-align:left;
+display:inline;
+float:left;
+}
+dl.refunds_made dd{
+text-align:right;
+float:left;
+margin:0px;
+margin-right:5px;
+overflow:hidden;
+display:inline;
+}
+dl.atg_commerce_csr_Return_Items dd textarea{
+width:515px;
+height:50px;
+}
+dl.atg_commerce_csr_Return_Items dd select{
+width:200px;
+}
+dl.atg_commerce_csr_Return_Items dt.reason{
+width:70px;
+text-align:right;
+margin:0px;
+padding:0px;
+display:block;
+float:left;
+}
+dl.atg_commerce_csr_Return_Items dt.comments{
+width:70px;
+height:50px;
+text-align:right;
+margin:0px;
+padding:0px;
+display:block;
+float:left;
+}
+dl.atg_commerce_csr_Return_Items dd.btnAddAdjusment{
+float:right;
+margin-bottom:20px;
+}
+
+.atg_commerce_csr_billingAddr ul{
+  display: inline;
+  margin: 0px;
+  margin-left:-40px;
+*/margin-left:0px;
+}
+
+li.atg_commerce_csr_confirmReturn{
+  padding-top:5px;
+}
+li.atg_commerce_csr_rtnAmt{
+  padding-left:30px;
+}
+
+.atg_commerce_csr_billingAddr ul li{
+display: inline;
+list-style: none;
+font-weight:500;
+}
+
+.addressSelect dd{
+  margin-left: 25px;
+}
+
+.atg_commerce_csr_addressView ul.currentSelected{
+		border: solid #addf90 2px;
+}
+
+#atg_commerce_csr_neworder_addNewShippingAddressTitle{
+  clear: left;
+}
+ul.shipMethod{
+  list-style:none;
+}
+
+ul.shipReturn li{
+margin:0px;
+}
+
+ul.shipMethod li{
+  margin-top:5px;
+}
+
+*+html ul.shipMethod li{
+  margin-top:0;
+}
+
+ul.shipMethod li input{
+  margin-top:0;
+  vertical-align:middle;
+}
+
+
+
+ul.shipReturn{
+margin:3px;
+}
+ul.confirmCancel{
+margin-left:50px;
+}
+ul.confirmCancel li,ul.editCC li{
+list-style:none;
+}
+
+
+  /* panel toolbar ------------------------------------*/
+  ul.atg_commerce_csr_panelToolBar li.atg_commerce_csr_return{
+    float:left;
+    border:0;
+  }
+
+  div.atg_commerce_csr_returningCustomer ul.atg_dataForm{
+    padding-left:0;
+  }
+
+  div.atg_commerce_csr_returningCustomer ul.atg_dataForm .atg_commerce_csr_fieldTitle{
+    min-width:80px;
+  }
+
+.atg_commerce_csr_panelToolBar a{
+	text-decoration:underline !important;
+}
+
+
+/**********  REFUNDS AND EXCHANGES **************************************************************/
+.atg_commerce_csr_returnDetailsTable th{
+  padding-left:5px;
+}
+
+.atg_commerce_csr_returnDetailsTable  .atg_commerce_csr_itemQtyAndIcon,
+.atg_commerce_csr_returnDetailsTable  .atg_commerce_csr_itemQtyAndIcon{
+  display:inline-block;
+  vertical-align:top;
+}
+.atg_commerce_csr_returnDetailsTable .atg_commerce_csr_itemDesc,
+.atg_commerce_csr_returnDetailsTable .atg_commerce_csr_itemDesc{
+  display:inline-block;
+}
+
+.atg_commerce_csr_returnDetailsTable .atg_commerce_csr_itemQtyAndIcon span{
+  float:right;
+  padding: 0 5px;
+}
+.atg_commerce_csr_returnDetailsTable .atg_commerce_csr_itemQtyAndIcon img{
+  float:left;
+  padding:0 5px;
+}
+
+.atg_commerce_csr_returnDetailsTable .atg_commerce_csr_returnItemName{
+  width:74%;
+}
+
+.atg_commerce_csr_returnDetailsTable .atg_commerce_csr_returnTotal{
+  padding-right:80px !important;
+  text-align:right;
+}
+.atg_commerce_csr_returnDetailsTable .atg_commerce_csr_returnTotalsHeader{
+  border-bottom:1px solid #C2C2C2;
+}
+
+.atg_commerce_csr_returnDetailsTable  td{
+  border:none;
+  white-space: nowrap;
+}
+
+.atg_commerce_csr_returnDetailsTable .atg_commerce_csr_subtotal{
+  border-left:none;
+  border-top:none;
+  border-bottom:none;
+  text-align:right;
+}
+.atg_commerce_csr_nonReturns{
+  border-top:none !important;
+}
+#cmcReturnsHistoryPContent{
+  background: url('../images/verticalborder.gif') repeat-y 20% 20%;
+}
+
+#cmcRefundTypePContent .atg_commerce_csr_billingFooter{
+  border-top:none;
+}
+#cmcRefundTypePContent .atg_commerce_csr_billingFooter input{
+  margin-left:15px;
+}
+.atg_commerce_csr_promotionsListing a{
+  float:right;
+  margin-right:10px;
+}
+.atg_commerce_csr_promotionsListing table th,
+.atg_commerce_csr_promotionsListing td{
+  border:none;
+}
+
+.atg_commerce_csr_promotionsListing table th{
+  background-color: #F5F5F5;
+}
+.atg_commerce_csr_orderHistoryOrderDetails{
+  float:right;
+  width: 79%;
+  border-left:1px solid #C2C2C2;
+  padding-bottom: 10000px;
+  margin-bottom: -10000px;
+}
+.atg_commerce_csr_orderHistoryOrderDetails .atg_commerce_csr_corePanelData .atg_commerce_csr_corePanelData,
+#cmcReturnsHistoryPContent .atg_commerce_csr_orderHistoryOrderDetails{
+  border-left:none;
+}
+.atg_commerce_csr_orderHistoryOrderDetails h4.atg_commerce_csr_orderTitle{
+  margin-bottom:0;
+  margin-top:0;
+}
+
+.atg_commerce_csr_orderHistoryOrderDetails h4.atg_commerce_csr_orderTitle{
+  padding-left:10px;
+}
+
+div.atg_store_csr_returnOrderHistory{
+  width:20%;
+  float:left;
+  padding-bottom: 10000px;
+  margin-bottom: -10000px;
+}
+
+ul.atg_commerce_csr_orderHistoryOrderList{
+  float:left;
+  list-style:none;
+  padding:0;
+  margin:0;
+  width:100%;
+
+}
+
+ul.atg_commerce_csr_orderHistoryOrderList li{
+  padding:2px;  
+  margin:10px 10px 0 10px ;
+}
+
+ul.atg_commerce_csr_orderHistoryOrderList li.active{
+  padding:2px 5px;  
+  background-color:#9fc7f1;
+  color:#fff;
+}
+
+.atg_commerce_csr_orderHistoryOrderDetails p{
+  margin-top:10px;
+  margin-bottom:5px;
+  margin-left:0;
+}
+
+.atg_commerce_csr_orderHistoryOrderDetails .atg_commerce_csr_orderSummary{
+  width:auto !important;
+}
+.atg_commerce_csr_orderHistoryOrderDetails div.atg_commerce_csr_orderModifications{
+  width:50%;
+}
+
+.atg_iconCell a{
+  float:right;
+}
+.atg_dataTable td.atg_iconCell{
+  width:40px;
+}
+.atg .atg_dataTable .atg_commerce_csr_validatedField {
+padding-right:32px;
+}
+.atg_commerce_csr_returnDetailPromotions{
+  margin-top:10px !important;
+  border-right:none;
+  border-top:1px solid #C2C2C2;
+  border-left:1px solid #C2C2C2;
+}
+
+
+div.atg_commerce_csr_promotionsListing{
+  height:auto;
+  width:54%;
+  position:static;
+  padding-top:0;
+  margin-left:1px;
+}
+
+div.atg_commerce_csr_orderReview div.atg_commerce_csr_promotionsLising{
+  border-right:none;
+  margin-left:1px;
+}
+
+div.atg_commerce_csr_promotionsListing h4{
+  margin-left:0;
+  padding:2px 0 2px 10px;
+  background-color:#E8E8E8;
+  color:#747474;
+}
+
+.atg_commerce_csr_promotionsListing a.atg_commerce_csr_promoBrowser{
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-image: url('../images/sprite-no-repeat.png');
+  -background-image: url('../images/sprite-no-repeat-ie6.png');
+  background-position: right -253px;
+  padding-right:20px;
+  margin-right:5px;
+}
+
+
+/* Fix for IE7 to Pull up Promo Browser Links */
+*+html .atg_commerce_csr_promotionsListing a.atg_commerce_csr_promoBrowser{
+ margin-top:-20px; 
+}
+
+ul.atg_commerce_csr_promotionsQualifications{
+  overflow-y:auto;
+  width:auto;
+}
+
+.atg_commerce_csr_enterPromoForm{
+  padding: 5px 0 5px 0 !important;
+}
+.atg_commerce_csr_enterPromoForm li{
+  padding-right:10px !important;
+}
+
+span.atg_commerce_csr_promoAmount{
+  float:right;
+  margin-right:10px;
+}
+
+.atg_commerce_csr_orderSummary{
+  width:auto !important;
+  margin:6px 15px 7px 0px !important
+}
+
+.atg_commerce_csr_returnOrderSummary,
+.atg_commerce_csr_returnDetailSummary{
+  margin:6px 80px 7px 15px !important;
+}
+.atg_commerce_csr_orderSummaryTotal{
+  font-weight:bold;
+  white-space:nowrap;
+}
+
+
+div.atg_commerce_csr_promotionsListing{
+  width:100%;
+  margin:0;
+}
+
+
+/* Return Details */
+
+.atg_commerce_csr_returnsPaymentDetails td{
+  border-bottom: 1px solid #C2C2C2 !important;
+}
+
+.atg_commerce_csr_returnsPaymentDetails th{
+  border-right:none !important;
+}
+
+.atg_commerce_csr_returnsPaymentDetails td td{
+  border:none !important;
+}
+
+.atg_commerce_csr_orderSummaryDetail{
+  margin-right:70px;
+}
+
+div.atg_commerce_csr_refundItems table.atg_dataTable td{
+  border:none;
+}
+div.atg_commerce_csr_refundItems table.atg_dataTable td.atg_commerce_csr_storeIcon,
+div.atg_commerce_csr_refundItems table.atg_dataTable td.atg_numberValue{
+  width:20px;
+}
+div.atg_commerce_csr_refundItems tr.atg_commerce_csr_returnedItem td.atg_numberValue{
+  width:auto;
+}
+
+div.atg_commerce_csr_refundItems div.atg_commerce_csr_promotionsListing{
+  margin:6px;
+}
+
+div.atg_commerce_csr_promotionsListing th{
+  background-color:#E8E8E8 !important;
+  color:#747474 !important;
+  font-weight:bold !important;
+}
+div.atg_commerce_csr_productItemList img.atg_commerce_csr_storeIcon,
+div.atg_commerce_csr_productItemList span.atg_commerce_csr_returnQty,
+div.atg_commerce_csr_productItemList ul.atg_commerce_csr_itemDesc{
+  float:left;
+}
+div.atg_commerce_csr_productItemList span.atg_commerce_csr_returnQty{
+  padding:0 10px;
+}
+
+.atg_commerce_csr_iconApplyRemainder{
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-image: url('../images/sprite-no-repeat.png');
+  -background-image: url('../images/sprite-no-repeat-ie6.png');
+  background-position: left -269px;
+  padding: 0 0 0 16px;
+  font-size: 16px;
+  height:20px;
+  float:left;
+  margin-top:5px;
+}
+
+div.atg_commerce_csr_billingSummary #atg_commerce_csr_neworder_orderSummaryData{
+  margin-right:54px;
+}
+
+.atg_dataTable .atg_commerce_csr_shortData{
+  width:15%;
+}
+
+.atg_dataTable .atg_commerce_csr_returnQty{
+  padding: 0px !important;
+}

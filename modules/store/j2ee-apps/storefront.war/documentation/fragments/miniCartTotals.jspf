@@ -1,0 +1,29 @@
+<div class="mini-cart-totals">
+	<div class="totals">
+		<div class="total-row subtotal">
+			<div class="total-label">Subtotal:</div>
+			<div class="total-amount">$&lt;##.##&gt;</div>
+		</div>
+		<div class="total-row shipping">
+			<div class="total-label">Estimated Shipping:</div>
+			<div class="total-amount">$&lt;##.##&gt;</div>
+		</div>
+		<div class="total-row tax">
+			<div class="total-label">Sales Tax:
+				<p class="note">Calculated at checkout</p>
+			</div>
+			<div class="total-amount">$&lt;##.##&gt;</div>
+		</div>
+		<div class="total-row savings">
+			<div class="total-label">Saved:</div>
+			<div class="total-amount">$&lt;##.##&gt;</div>
+		</div>
+		<div class="total-row total">
+			<div class="total-label">Estimated Total:</div>
+			<div class="total-amount">$&lt;##.##&gt;</div>
+		</div>
+	</div>
+	<div class="mini-cart-buttons">
+		<button class="button primary">View cart &amp; checkout</button>
+	</div>
+</div>

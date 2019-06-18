@@ -1,0 +1,9 @@
+<actor-template default-chain-id="dashboardStatus" xsi:noNamespaceSchemaLocation="http://www.atg.com/xsds/actorChain_1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <actor-chain id="dashboardStatus" transaction="TX_SUPPORTS">
+    <component component-var="dashboard" name="/mff/reporting/MFFRestReportingManager" id="dashboardStatus" method="runReportingQueries" method-return-var="outputMap">
+      <output name="response" id="response" value="${outputMap}"/>
+    </component>
+  </actor-chain>
+
+</actor-template>

@@ -1,0 +1,145 @@
+<%--
+- File Name: cartItem.jsp
+- Author(s): 
+- Copyright Notice:
+- Description: Fragment included in updateCartItemSuccess which creates a json success message after quantity update. 
+- 		Has data for cart line items.
+- 		Created to handle 2414. The gift item can be added as a separate SKU as well. This should be rendered on two different lines
+-		in the cart with the non-gift item functioning like any other item (edit/remove enabled).
+-  		Backend still needs this as one commerce item. 
+- Parameters:
+--%>
+
+<%@ include file="/sitewide/fragments/content-type-json.jspf" %>
+<dsp:page>
+
+	<dsp:getvalueof var="ciId" param="commerceItem.id" />
+	
+	<%-- 
+	2414:
+	For gift items... it may be just one commerce item but we need to display
+	the "gift" qty and user added qty on two different lines in the cart
+	qtyDisplay drives the qty we display... it could be the gift qty or the user added qty
+	 --%>
+	<dsp:getvalueof var="qtyToDisplay" param="displayQty" />
+	
+	<%-- 2414: boolean to indicate if the item is a free gift --%>
+	<dsp:getvalueof var="freeGift" param="freeGift" />
+	<c:set var="itemPromos" value="" />
+	
+	<%-- 2414: boolean to indicate if free gift is added as a separate sku by the user or not --%>
+	<dsp:getvalueof var="justGift" param="justGift" />	
+	<dsp:getvalueof var="quantity" param="commerceItem.quantity" scope="request" />
+	
+	<c:set var="totalLinePrice" value="FREE" />	
+	
+	<%-- 2414: This is a regular item.. nothing to do with GWP --%>
+	<%-- we simply display the commerceItem quantity in this case --%>
+	<c:if test="${empty qtyToDisplay}">
+		<c:set var="qtyToDisplay" value="${quantity}" />
+	</c:if>
+	
+	<%--2414: This condition means.. there is a free gift and user has added the sku directly as well
+		Adding a suffix to itemId.. so it doesnt clash with the transactional forms
+	 --%>
+	<c:if test="${freeGift and not justGift}">
+		<c:set var="ciId" value="${ciId}-FREE" /> 
+		<c:set var="totalLinePrice" value="FREE" />
+	</c:if>	
+
+	<%-- 2414:price the item only if it is not a gift --%>
+	<c:if test="${not freeGift}">
+		<dsp:droplet name="LineItemTotalPriceDroplet">
+			<dsp:param name="commerceItem" param="commerceItem"/>
+			<dsp:oparam name="output">
+				<dsp:getvalueof var="totalLinePrice" param="totalLinePrice"/>
+				<dsp:getvalueof var="itemPromos" param="lineItemPromos"/>
+			</dsp:oparam>
+		</dsp:droplet>
+	</c:if>
+
+	<json:object>
+		<json:property name="commerceItemId">
+			${ciId}
+		</json:property>
+		<json:property name="totalLinePrice">
+			<dsp:valueof value="${totalLinePrice}" converter="currency"/>
+		</json:property>
+		<json:property name="freeGift">
+			${freeGift}
+		</json:property>
+		<json:property name="itemQuantity">
+			${qtyToDisplay}
+		</json:property>
+		<json:property name="totalItemQuantity">
+			${quantity}
+		</json:property>
+		<json:property name="shortDescription">
+			<dsp:droplet name="ForEach">
+				<dsp:param name="array" value="${itemPromos}"/>
+				<dsp:param name="elementName" value="promoItem"/>
+				<dsp:oparam name="output">
+					<dsp:valueof param="promoItem.shortDescription"/>
+				</dsp:oparam>
+			</dsp:droplet>
+		</json:property>
+		<json:property name="displayName">
+			<dsp:droplet name="ForEach">
+				<dsp:param name="array" value="${itemPromos}"/>
+				<dsp:param name="elementName" value="promoItem"/>
+				<dsp:oparam name="output">
+					<dsp:valueof param="promoItem.displayName"/>
+				</dsp:oparam>
+			</dsp:droplet>
+		</json:property>
+	</json:object>
+
+	<%-- LTL is highest priority, hence no need check for additonal handling or oversize --%>
+	<dsp:droplet name="LTLOrderCheckDroplet">
+		<dsp:param name="items" bean="ShoppingCart.current.commerceItems"/>
+		<dsp:param name="order" bean="ShoppingCart.current"/>
+		<dsp:oparam name="empty">
+
+			<%-- oversize --%>
+			<%-- BZ 3063 - Oversized charges independent of addln handling --%>
+
+			<dsp:droplet name="HasOversizeItemDroplet">
+				<dsp:param name="commerceItem" param="commerceItem"/>
+				<dsp:oparam name="output">
+					<dsp:droplet name="Switch">
+						<dsp:param name="value" param="isOverSize"/>
+						<dsp:oparam name="true">
+							<c:set var="isOversize" value="${isOversize + quantity}" scope="request" />
+						</dsp:oparam>
+						<dsp:oparam name="false">
+							
+							<dsp:droplet name="HasAddtionalHandlingDroplet">
+								<dsp:param name="commerceItem" param="commerceItem"/>
+								<dsp:oparam name="output">
+									<dsp:droplet name="Switch">
+										<dsp:param name="value" param="isLongLight"/>
+										<dsp:oparam name="true">
+											<c:set var="longLight" value="${longLight + quantity}" scope="request" />
+										</dsp:oparam>
+									</dsp:droplet>
+								</dsp:oparam>
+							</dsp:droplet>						
+						</dsp:oparam>
+					</dsp:droplet>
+				</dsp:oparam>
+			</dsp:droplet>
+
+		</dsp:oparam>
+	</dsp:droplet>
+
+	<%-- signature required --%>
+	<dsp:droplet name="Switch">
+		<dsp:param name="value" param="commerceItem.minimumAge"/>
+		<dsp:oparam name="18">
+			<c:set var="signatureRequired" value="1" scope="request" />
+		</dsp:oparam>
+		<dsp:oparam name="21">
+			<c:set var="signatureRequired" value="1" scope="request" />
+		</dsp:oparam>
+	</dsp:droplet>
+</dsp:page>	

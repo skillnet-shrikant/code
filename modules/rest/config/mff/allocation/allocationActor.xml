@@ -1,0 +1,92 @@
+<actor-template default-chain-id="storeAllocation" xsi:noNamespaceSchemaLocation="http://www.atg.com/xsds/actorChain_1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+<actor-chain id="storeAllocation" transaction="TX_SUPPORTS">
+  <form var="storeOrderActionFormHandler" requires-session-confirmation="true" name="/mff/allocation/StoreOrderAllocationFormHandler" use-forwards="true" handle="storeSubmit" id="storeOrderActionFormHandler">
+      <input name="commerceItemCount" priority="1000" value="${param.commerceItemCount}"/>
+      <input name="orderId" value="${param.orderId}"/>
+      <input name="signature" value="${param.signature}" />
+      <input name="specialInstructions" value="${param.specialInstructions}" />
+      <input name="comments" value="${param.comments}" />
+      <input name="dateOfBirth" value="${param.dateOfBirth}" />
+      <input name="storeAllocationInput[].commerceItemId" value="${objectParam.items[].commerceItemId}" array-size="${param.commerceItemCount}"/>
+      <input name="storeAllocationInput[].reasonCode" value="${objectParam.items[].reasonCode}" array-size="${param.commerceItemCount}"/>
+      <input name="storeAllocationInput[].trackingNumber" value="${objectParam.items[].trackingNumber}" array-size="${param.commerceItemCount}"/>
+      
+      <input name="errorURL" value="/model/mff/allocation/AllocationActor/allocation-error"/>
+      <input name="successURL" value="/model/mff/allocation/AllocationActor/allocation-success"/>
+    </form>
+</actor-chain>
+
+<actor-chain id="allocation-error" transaction="TX_SUPPORTS">
+  <actor return-model-var="model" name="/mff/allocation/AllocationActor" id="error" chain-id="error">
+    <output id="model" value="${model}" add-map-children="true"/>
+  </actor>
+</actor-chain>
+
+<actor-chain id="allocation-success" transaction="TX_SUPPORTS">
+   <component component-var="fh" name="/mff/allocation/StoreOrderAllocationFormHandler" set-property-requires-session-confirmation="true" id="fh" invoke-method-requires-session-confirmation="true">
+      <output filter-id="detailed" name="response" id="response" value="${fh.allocationResponse.order}"/>
+   </component>
+</actor-chain>
+
+<actor-chain id="updateInPickingStatus" transaction="TX_SUPPORTS">
+  <form var="storeOrderActionFormHandler" requires-session-confirmation="true" name="/mff/allocation/StoreOrderAllocationFormHandler" use-forwards="true" handle="updateInPickingStatus" id="storeOrderActionFormHandler">
+      <input name="orderCount" priority="1000" value="${param.orderCount}"/>
+      <input name="storeId" value="${param.storeId}"/>
+      <input name="inPickingInput[].orderId" value="${objectParam.items[].orderId}" array-size="${param.orderCount}"/>
+      <input name="inPickingInput[].commerceItemIds" value="${objectParam.items[].commerceItemIds}" array-size="${param.orderCount}"/>
+      
+      <input name="errorURL" value="/model/mff/allocation/AllocationActor/inpicking-error"/>
+      <input name="successURL" value="/model/mff/allocation/AllocationActor/inpicking-success"/>
+    </form>
+</actor-chain>
+
+<actor-chain id="inpicking-error" transaction="TX_SUPPORTS">
+  <actor return-model-var="model" name="/mff/allocation/AllocationActor" id="error" chain-id="error">
+    <output id="model" value="${model}" add-map-children="true"/>
+  </actor>
+</actor-chain>
+
+<actor-chain id="inpicking-success" transaction="TX_SUPPORTS">
+   <output id="response" name="response" value="success"/>
+</actor-chain>
+
+<actor-chain id="cancelOrder" transaction="TX_SUPPORTS">
+  <form var="storeOrderActionFormHandler" requires-session-confirmation="true" name="/mff/allocation/StoreOrderAllocationFormHandler" use-forwards="true" handle="cancelOrder" id="storeOrderActionFormHandler">
+      <input name="orderIdToCancel" value="${param.orderIdToCancel}"/>
+      <input name="cancelOrderReasonCode" value="${param.cancelOrderReasonCode}"/>
+      <input name="errorURL" value="/model/mff/allocation/AllocationActor/cancelOrder-error"/>
+      <input name="successURL" value="/model/mff/allocation/AllocationActor/cancelOrder-success"/>
+    </form>
+</actor-chain>
+
+<actor-chain id="cancelOrder-error" transaction="TX_SUPPORTS">
+  <actor return-model-var="model" name="/mff/allocation/AllocationActor" id="error" chain-id="error">
+    <output id="model" value="${model}" add-map-children="true"/>
+  </actor>
+</actor-chain>
+
+<actor-chain id="cancelOrder-success" transaction="TX_SUPPORTS">
+   <component component-var="fh" name="/mff/allocation/StoreOrderAllocationFormHandler" set-property-requires-session-confirmation="true" id="fh" invoke-method-requires-session-confirmation="true">
+      <output filter-id="detailed" name="response" id="response" value="${fh.cancelOrderResponse.order}"/>
+   </component>
+</actor-chain>
+
+<actor-chain id="error" transaction="TX_SUPPORTS">
+  <component component-var="fh" name="/mff/allocation/StoreOrderAllocationFormHandler" set-property-requires-session-confirmation="true" id="fh" invoke-method-requires-session-confirmation="true">
+    <output name="formError" id="formError" value="${fh.formError}"/>
+    <output name="formExceptions" id="formExceptions" value="${fh.formExceptions}"/>
+  </component>
+</actor-chain>
+
+<actor-chain id="getPlanoGramInfo" transaction="TX_SUPPORTS">
+    <droplet id="getPlanoGramInfoDroplet" name="/mff/allocation/GetPlanoGramInfoDroplet"  var="getPlanoGramInfoParamStack">
+      <input name="itemId" value="${param.itemId}" />
+      <input name="storeId" value="${param.storeId}" />
+      <oparam name="output">
+        <output id="planogramInfo" name="planogramInfo" value="${getPlanoGramInfoParamStack.planogramInfo}" filter-id="planogramInfo"/>
+      </oparam>
+    </droplet>
+</actor-chain>
+
+</actor-template>

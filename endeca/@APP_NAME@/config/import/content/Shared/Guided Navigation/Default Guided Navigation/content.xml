@@ -1,0 +1,1606 @@
+<ContentItem type="SecondaryContent" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://endeca.com/schema/content/2008">
+  <TemplateId>GuidedNavigation</TemplateId>
+  <Name>Guided Navigation</Name>
+  <Property name="navigation">
+    <ContentItemList type="Navigation">
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Categories</Name>
+        <Property name="dimensionName">
+          <String>product.category</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>4294576276</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Brands</Name>
+        <Property name="dimensionName">
+          <String>product.brand</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>2405449141</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Sale</Name>
+        <Property name="dimensionName">
+          <String>sku.clearance</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>2568784930</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>In Store Only</Name>
+        <Property name="dimensionName">
+          <String>product.inStoreOnly</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>1917209772</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Made In USA</Name>
+        <Property name="dimensionName">
+          <String>product.madeInUsa</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>3665946274</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Minimum Age</Name>
+        <Property name="dimensionName">
+          <String>product.minimumAge</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>3129211143</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Price Range</Name>
+        <Property name="dimensionName">
+          <String>product.priceRange</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>1732050642</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Federal License Required</Name>
+        <Property name="dimensionName">
+          <String>product.ffl.required</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>2582160004</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Action</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.Action</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>1867275727</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Age</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.Age</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>877444451</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Fit</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.Fit</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>1747701128</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Gender</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.Gender</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>2861299413</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Inseam</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.Inseam</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>2550834197</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>League</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.League</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>533975705</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Leg Opening</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.LegOpening</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>320387678</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Neckline</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.Neckline</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>3746730463</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Size Range</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.SizeRange</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>1256607390</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Sleeve Length</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.SleeveLength</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>1574304092</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Species</Name>
+        <Property name="dimensionName">
+          <String>skuSearchFacet.Species</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>1791799406</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Team</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.Team</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>1021720385</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Wash</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.Wash</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>12174672</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Age</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.Age</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>877444451</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Application</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.Application</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>3173229723</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Capacity</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.Capacity</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>1022043076</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Color</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.Color</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>1026454914</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Coverage</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.Coverage</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>1902321827</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Finish</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.Finish</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>3889364643</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Flavor</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.Flavor</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>441991619</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Gaming System</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.GamingSystem</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>2314633650</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Genre</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.Genre</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>1494038519</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Handedness</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.Handedness</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>2101400010</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Indoor/Outdoor</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.IndoorOutdoor</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>3542771002</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Magnification</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.Magnification</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>3154505141</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Megapixels</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.Megapixels</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>3117498988</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Number of Pieces</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.NumberofPieces</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>3356263610</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Number of Speeds</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.NumberofSpeeds</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>3036953330</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Objective Diameter</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.ObjectiveDiameter</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>1372699787</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Pest Type</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.PestType</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>3422108592</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Retrieval</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.Retrieval</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>3069593721</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Rim Diameter</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.RimDiameter</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>142847469</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Rod Length</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.RodLength</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>3347211296</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Rod Power</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.RodPower</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>304573440</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Screen Size</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.ScreenSize</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>2250430654</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Shape</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.Shape</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>3314859470</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Tire Aspect Ratio</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.TireAspectRatio</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>113815386</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Wattage</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.Wattage</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>764922981</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="Navigation">
+        <TemplateId>RefinementMenu</TemplateId>
+        <Name>Weight</Name>
+        <Property name="dimensionName">
+          <String>sku.multi.Weight</String>
+        </Property>
+        <Property name="dimensionId">
+          <String>3006602495</String>
+        </Property>
+        <Property name="sort">
+          <String>default</String>
+        </Property>
+        <Property name="showMoreLink">
+          <Boolean>false</Boolean>
+        </Property>
+        <Property name="moreLinkText">
+          <String>Show More Refinements...</String>
+        </Property>
+        <Property name="numRefinements">
+          <String>10</String>
+        </Property>
+        <Property name="maxNumRefinements">
+          <String>200</String>
+        </Property>
+        <Property name="boostRefinements">
+          <List name="boost" xmlns="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="buryRefinements">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+    </ContentItemList>
+  </Property>
+</ContentItem>

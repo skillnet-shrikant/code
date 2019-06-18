@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE gsa-template SYSTEM "dynamosystemresource:/atg/dtds/gsa/gsa_1.0.dtd">
+
+<gsa-template>
+  <header>
+    <name>Fleet Farm Invoice Repository</name>
+    <author>J. Vose</author>
+	<version>1.0</version>
+	<description>Captures the data needed to create the Sales Audit Feed.  Note that caching is disabled across all items in this repository by design.</description>
+  </header>
+
+  <!--
+  ****************************************************************************************
+  ***  Item: invoice
+  ***  Description: Items that have been shipped, returned or appeased and are ready for
+  ***  extract to sales audit.
+  ****************************************************************************************
+  -->
+  <item-descriptor name="invoice" cache-mode="disabled">
+      <table name="mff_invoice" id-column-name="invoice_id" type="primary">
+        <property column-name="invoice_id" 						data-type="string" 		name="id" 							required="true"  queryable="true" />
+		<property column-name="order_number" 					data-type="string" 		name="orderNumber" 					required="true"  queryable="true" />
+		<property column-name="order_date" 						data-type="timestamp" 	name="orderDate" 					required="true"  queryable="true" />
+		<property column-name="source" 							data-type="string" 		name="source" 						required="true"  queryable="true" />
+		<property column-name="order_type" 						data-type="string" 		name="orderType" 					required="false" queryable="true" />
+		<property column-name="business_type" 					data-type="string" 		name="businessType" 				required="false" queryable="true" />
+		<property column-name="loyalty_identifier" 				data-type="string" 		name="loyaltyIdentifier" 			required="false" queryable="true" />
+		<property column-name="customer_purchase_order" 		data-type="string" 		name="customerPurchaseOrder" 		required="false" queryable="true" />
+		<property column-name="reference" 						data-type="string" 		name="reference" 					required="false" queryable="true" />
+		
+		<property column-name="fleet_Farm_id"					
+					property-type="com.security.repository.property.EncryptionPropertyDescriptor" 		
+																						name="fleetFarmId" 					required="false" queryable="true" >
+  				<attribute name="encryptor" bean="/com/security/crypto/AESEncryptor"/>
+  		</property>
+  																								
+		<property column-name="tax_exemption_certificate" 		data-type="string" 		name="taxExemptionCertificate"		required="false" queryable="true" />
+		<property column-name="tax_exemption_name" 				data-type="string" 		name="taxExemptionName"				required="false" queryable="true" />
+		<property column-name="tax_exemption_type" 				data-type="string" 		name="taxExemptionType"				required="false" queryable="true" />
+		<property column-name="order_shipping" 					data-type="double" 		name="orderShipping"				required="true"  queryable="true" />
+		<property column-name="order_shipping_local_tax" 		data-type="double" 		name="orderShippingLocalTax"		required="true"  queryable="true" />
+		<property column-name="order_shipping_county_tax" 		data-type="double" 		name="orderShippingCountyTax"		required="true"  queryable="true" />
+		<property column-name="order_shipping_state_tax" 		data-type="double" 		name="orderShippingStateTax"		required="true"  queryable="true" />
+		<property column-name="order_shipping_total" 			data-type="double" 		name="orderShippingTotal"			required="true"  queryable="true" />
+		<property column-name="order_shipping_tax" 				data-type="double" 		name="orderShippingTax"				required="false" queryable="true" />
+		<property column-name="order_shipping_extended_total" 	data-type="double" 		name="orderShippingExtendedTotal"	required="true"  queryable="true" />
+		<property column-name="ship_via" 						data-type="string" 		name="shipVia"						required="true"  queryable="true" />
+		<property column-name="status" 							data-type="string" 		name="status"						required="false"  queryable="true" >
+			<attribute name="useCodeForValue" value="false"/>
+				<option value="created" 	code="0"/>
+				<option value="extracted" 	code="1"/>
+				<option value="error" 		code="2"/>
+		</property>
+		<property column-name="last_extract_date" 				data-type="timestamp" 	name="lastExtractDate"				required="false"  queryable="true" />
+
+		<!-- Extract File -->
+		<property  column-name="extract" 						item-type="extract" cascade="delete" name="extract" required="false"  queryable="true" />
+
+		<!-- Shipping and billing address -->
+		<property  column-name="shipping_address" 				item-type="invoiceAddress" cascade="delete" name="shippingAddress" required="true"  queryable="true" />
+		<property  column-name="billing_address" 				item-type="invoiceAddress" cascade="delete" name="billingAddress"  required="true"  queryable="true" />
+
+		<!-- Line Summary -->
+		<property  column-name="line_summary" 					item-type="lineSummary" cascade="delete" name="lineSummary" required="true"  queryable="true" />
+      </table>
+
+		<!-- Shipped Items -->
+		<table name="mff_invoice_rel_inv_ship" id-column-name="invoice_id" multi-column-name="sequence_num" type="multi" shared-table-sequence="1">
+			<property component-item-type="shippedItem" column-name="line_id" data-type="list" cascade="delete" writable="true" name="shippedItems" required="false" cache-mode="inherit" queryable="true" />
+		</table>
+
+		<!-- Returned Items -->
+		<table name="mff_invoice_rel_inv_return" id-column-name="invoice_id" multi-column-name="sequence_num" type="multi" shared-table-sequence="1">
+			<property component-item-type="returnedItem" column-name="line_id" data-type="list" cascade="delete" writable="true" name="returnedItems" required="false" cache-mode="inherit" queryable="true" />
+		</table>
+
+		<!-- Appeased Items -->
+		<table name="mff_invoice_rel_inv_appease" id-column-name="invoice_id" multi-column-name="sequence_num" type="multi" shared-table-sequence="1">
+			<property component-item-type="appeasement" column-name="appeasement_id" data-type="list" cascade="delete" writable="true" name="appeasedItems" required="false" cache-mode="inherit" queryable="true" />
+		</table>
+
+		<!-- Cartons -->
+		<table name="mff_invoice_rel_inv_carton" id-column-name="invoice_id" multi-column-name="sequence_num" type="multi" shared-table-sequence="1">
+			<property component-item-type="carton" column-name="carton_id" data-type="list" cascade="delete" writable="true" name="cartons" required="false" cache-mode="inherit" queryable="true" />
+		</table>
+
+		<!-- Payments -->
+		<table name="mff_invoice_rel_inv_payment" id-column-name="invoice_id" multi-column-name="sequence_num" type="multi" shared-table-sequence="1">
+			<property component-item-type="payment" column-name="payment_id" data-type="list" cascade="delete" writable="true" name="payments" required="false" cache-mode="inherit" queryable="true" />
+		</table>
+
+		<!-- Auxilliarys -->
+		<table name="mff_invoice_rel_inv_aux" id-column-name="invoice_id" multi-column-name="sequence_num" type="multi" shared-table-sequence="1">
+			<property component-item-type="auxilliary" column-name="auxilliary_id" data-type="list" cascade="delete" writable="true" name="auxilliarys" required="false" cache-mode="inherit" queryable="true" />
+		</table>
+
+  </item-descriptor>
+
+  <!--
+  ****************************************************************************************
+  ***  Item: invoiceAddress
+  ***  Description: Billing and shipping addresses associated with a given invoice.
+  ****************************************************************************************
+  -->
+  <item-descriptor name="invoiceAddress" cache-mode="disabled">
+      <table name="mff_invoice_address" id-column-name="address_id" type="primary" shared-table-sequence="1">
+  		<property column-name="address_id" 						data-type="string" 		name="id"							required="true"  queryable="true" />
+		<property column-name="address_type" 					data-type="string" 		name="type"							required="true"  queryable="true">
+			<attribute name="useCodeForValue" value="false"/>
+			<option value="shipping" 	code="0"/>
+			<option value="billing" 	code="1"/>
+		</property>
+		<property column-name="first_name" 						data-type="string" 		name="firstName"					required="true"  queryable="true" />
+		<property column-name="middle_name" 					data-type="string" 		name="middleName"					required="false" queryable="true" />
+		<property column-name="last_name" 						data-type="string" 		name="lastName"						required="true"  queryable="true" />
+		<property column-name="organization" 					data-type="string" 		name="organization"					required="false" queryable="true" />
+		<property column-name="company_name" 					data-type="string" 		name="companyName"					required="false" queryable="true" />
+		<property column-name="home_phone" 						data-type="string" 		name="homePhone"					required="false" queryable="true" />
+		<property column-name="work_phone" 						data-type="string" 		name="workPhone"					required="false" queryable="true" />
+		<property column-name="mobile_phone" 					data-type="string" 		name="mobilePhone"					required="false" queryable="true" />
+		<property column-name="fax" 							data-type="string" 		name="fax"							required="false" queryable="true" />
+		<property column-name="email" 							data-type="string" 		name="email"						required="false" queryable="true" />
+		<property column-name="address_1" 						data-type="string" 		name="address1"	 					required="true"  queryable="true" />
+		<property column-name="address_2" 						data-type="string" 		name="address2"	 					required="false" queryable="true" />
+		<property column-name="address_3" 						data-type="string" 		name="address3"	 					required="false" queryable="true" />
+		<property column-name="address_4" 						data-type="string" 		name="address4"	 					required="false" queryable="true" />
+		<property column-name="city" 							data-type="string" 		name="city"	 						required="true"  queryable="true" />
+		<property column-name="province_code" 					data-type="string" 		name="provinceCode"					required="true"  queryable="true" />
+		<property column-name="province" 						data-type="string" 		name="province"						required="false" queryable="true" />
+		<property column-name="postal_code" 					data-type="string" 		name="postalCode"					required="true"  queryable="true" />
+		<property column-name="country_code" 					data-type="string" 		name="countryCode"					required="true"  queryable="true" />
+    </table>
+  </item-descriptor>
+
+  <!--
+  ****************************************************************************************
+  ***  Item: appeasement
+  ***  Description: Appeasements granted to a given customer.
+  ****************************************************************************************
+  -->
+  <item-descriptor name="appeasement" cache-mode="disabled">
+      <table name="mff_invoice_appeasement" id-column-name="appeasement_id" type="primary" shared-table-sequence="1">
+  		<property column-name="appeasement_id" 					data-type="string" 		name="id"							required="true"  queryable="true" />
+		<property column-name="appease_code" 					data-type="string" 		name="appeaseCode"					required="true"  queryable="true" />
+		<property column-name="appease_description" 			data-type="string" 		name="appeaseDescription"			required="true"  queryable="true" />
+		<property column-name="reference" 						data-type="string" 		name="reference"					required="true"  queryable="true" />
+		<property column-name="appease_date" 					data-type="timestamp"   name="appeaseDate"					required="true"  queryable="true" />
+		<property column-name="amount" 							data-type="double" 		name="amount"						required="false" queryable="true" />
+    </table>
+  </item-descriptor>
+
+  <!--
+  ****************************************************************************************
+  ***  Item: auxilliary
+  ***  Description: Name/value pairs that are associated with orders, lines and payments.
+  ****************************************************************************************
+  -->
+  <item-descriptor name="auxilliary" cache-mode="disabled">
+      <table name="mff_invoice_auxilliary" id-column-name="auxilliary_id" type="primary" shared-table-sequence="1">
+  		<property column-name="auxilliary_id" 					data-type="string" 		name="id"							required="true"  queryable="true" />
+		<property column-name="auxilliary_type" 				data-type="enumerated"  name="type"							required="true"  queryable="true">
+			<attribute name="useCodeForValue" value="false"/>
+			<option value="order" 		code="0"/>
+			<option value="payment" 	code="1"/>
+			<option value="return" 		code="2"/>
+			<option value="shipment" 	code="3"/>
+		</property>
+		<property column-name="auxilliary_name" 				data-type="string" 		name="auxilliaryName"				required="true"  queryable="true" />
+		<property column-name="auxilliary_value" 				data-type="string" 		name="auxilliaryValue"				required="true"  queryable="true" />
+      </table>
+  </item-descriptor>
+
+  <!--
+  ****************************************************************************************
+  ***  Item: carton
+  ***  Description: Cartons associated with an invoice.
+  ****************************************************************************************
+  -->
+  <item-descriptor name="carton" cache-mode="disabled">
+      <table name="mff_invoice_carton" id-column-name="carton_id" type="primary" shared-table-sequence="1">
+  		<property column-name="carton_id" 						data-type="string" 		name="id"							required="true"  queryable="true" />
+		<property column-name="tracking_number" 				data-type="string" 		name="trackingNumber"				required="true"  queryable="true" />
+		<property column-name="carton_number" 					data-type="string" 		name="cartonNumber"					required="true"  queryable="true" />
+		<property column-name="ship_date" 						data-type="timestamp" 	name="shipDate"						required="true"  queryable="true" />
+		<property column-name="ship_via" 						data-type="string" 		name="shipVia"						required="false" queryable="true" />
+		<property column-name="facility_cd" 					data-type="string" 		name="facilityCd"					required="false" queryable="true" />
+		<property column-name="weight" 							data-type="double" 		name="weight"						required="false" queryable="true" />
+		<property column-name="carton_size" 					data-type="string" 		name="cartonSize"					required="false" queryable="true" />
+		<property column-name="carton_type" 					data-type="string" 		name="cartonType"					required="false" queryable="true" />
+		<property column-name="bill_of_lading" 					data-type="string" 		name="billOfLading"					required="false" queryable="true" />
+		<property column-name="pro_num" 						data-type="string" 		name="proNum"						required="false" queryable="true" />
+		<property column-name="manifest_number" 				data-type="string" 		name="manifestNumber"				required="false" queryable="true" />
+		<property column-name="pick_ticket" 					data-type="string" 		name="pickTicket"					required="false" queryable="true" />
+		<property column-name="return_label_number" 			data-type="string" 		name="returnLabelNumber"			required="false" queryable="true" />
+		<property column-name="deliver_confirmation_number" 	data-type="string" 		name="deliverConfirmationNumber"	required="false" queryable="true" />
+      </table>
+  </item-descriptor>
+
+  <!--
+  ****************************************************************************************
+  ***  Item: lineCarton
+  ***  Description: Cartons associated with a line item.
+  ****************************************************************************************
+  -->
+  <item-descriptor name="lineCarton" cache-mode="disabled">
+      <table name="mff_invoice_line_carton" id-column-name="line_carton_id" type="primary" shared-table-sequence="1">
+  		<property column-name="line_carton_id" 					data-type="string" 		name="id"							required="true"  queryable="true" />
+		<property column-name="tracking_number" 				data-type="string" 		name="trackingNumber"				required="true"  queryable="true" />
+		<property column-name="ship_via" 						data-type="string" 		name="shipVia"						required="true"  queryable="true" />
+		<property column-name="quantity" 						data-type="long" 		name="quantity"						required="true"  queryable="true" />
+		<property column-name="deliver_confirmation_number" 	data-type="string" 		name="deliverConfirmationNumber"	required="false" queryable="true" />
+		<property column-name="serial_number" 					data-type="string" 		name="serialNumber"					required="false" queryable="true" />
+		<property column-name="carton_number" 					data-type="string" 		name="cartonNumber"					required="true"  queryable="true" />
+      </table>
+  </item-descriptor>
+
+  <!--
+  ****************************************************************************************
+  ***  Item: lineDiscount
+  ***  Description: Discounts associated with a line item.
+  ****************************************************************************************
+  -->
+  <item-descriptor name="lineDiscount" cache-mode="disabled">
+      <table name="mff_invoice_line_discount" id-column-name="line_discount_id" type="primary">
+  		<property column-name="line_discount_id" 				data-type="string" 		name="id"							required="true"  queryable="true" />
+		<property column-name="discount_type" 					data-type="string" 		name="discountType"					required="true"  queryable="true" />
+		<property column-name="discount_code" 					data-type="string" 		name="discountCode"					required="true"  queryable="true" />
+		<property column-name="source" 							data-type="string" 		name="source"						required="true"  queryable="true" />
+		<property column-name="amount" 							data-type="double" 	name="amount"						required="true"  queryable="true" />
+      </table>
+  </item-descriptor>
+
+  <!--
+  ****************************************************************************************
+  ***  Item: Payment
+  ***  Description: Payments associated with an invoice.
+  ****************************************************************************************
+  -->
+  <item-descriptor name="payment" cache-mode="disabled">
+      <table name="mff_invoice_payment" id-column-name="payment_id" type="primary">
+  		<property column-name="payment_id" 						data-type="string" 		name="id"							required="true"  queryable="true" />
+		<property column-name="payment_type" 					data-type="string" 		name="paymentType"					required="true"  queryable="true" />
+		<property column-name="amount" 							data-type="double" 		name="amount"						required="true"  queryable="true" />
+		<property column-name="transaction_reference" 			data-type="string" 		name="transactionReference"			required="false" queryable="true" />
+		<property column-name="payment_date" 					data-type="timestamp" 	name="paymentDate"					required="false" queryable="true" />
+		<property column-name="card_reference" 					data-type="string" 		name="cardReference"				required="false" queryable="true" />
+		<property column-name="card_number" 					data-type="string" 		name="cardNumber"					required="false" queryable="true" />
+		<property column-name="token_id" 						data-type="string" 		name="tokenId"						required="false" queryable="true" />
+      </table>
+
+	  <!-- Auxilliarys -->
+	  <table name="mff_invoice_rel_pay_aux" id-column-name="payment_id" multi-column-name="sequence_num" type="multi" shared-table-sequence="1">
+		<property component-item-type="auxilliary" column-name="auxilliary_id" data-type="list" cascade="delete" writable="true" name="auxilliarys" required="false" cache-mode="inherit" queryable="true" />
+	  </table>
+  </item-descriptor>
+
+  <!--
+  ****************************************************************************************
+  ***  Item: lineItem
+  ***  Description: Generic type for line items.
+  ****************************************************************************************
+  -->
+  <item-descriptor name="lineItem" sub-type-property="type" cache-mode="disabled">
+      <table name="mff_invoice_line" id-column-name="line_id" type="primary">
+  		<property column-name="line_id" 						data-type="string" 		name="id"							required="true"  queryable="true" />
+		<property name="type" data-type="enumerated" default="shippedItem" hidden="false">
+			<attribute name="useCodeForValue" value="false"/>
+				<option value="lineItem" 		code="0"/>
+				<option value="shippedItem" 	code="1"/>
+				<option value="returnedItem" 	code="2"/>
+		</property>
+		<property column-name="extract_line_id" 				data-type="long" 		name="extractLineId"				required="true"  queryable="true" />
+		<property column-name="client_line_id" 					data-type="string" 		name="clientLineId"					required="true"  queryable="true" />
+		<property column-name="skucode" 						data-type="string" 		name="skucode"						required="true"  queryable="true" />
+		<property column-name="barcode" 						data-type="string" 		name="barcode"						required="true"  queryable="true" />
+		<property column-name="item_number" 					data-type="string" 		name="itemNumber"					required="true"  queryable="true" />
+		<property column-name="color_code" 						data-type="string" 		name="colorCode"					required="true"  queryable="true" />
+		<property column-name="size_code" 						data-type="string" 		name="sizeCode"						required="true"  queryable="true" />
+		<property column-name="quantity" 						data-type="long" 		name="quantity"						required="true"  queryable="true" />
+		<property column-name="unit_price" 						data-type="double" 		name="unitPrice"					required="true"  queryable="true" />
+		<property column-name="facility_cd" 					data-type="string" 		name="facilityCd"					required="true"  queryable="true" />
+		<property column-name="shipping_amount" 				data-type="double" 		name="shippingAmount"				required="true"  queryable="true" />
+		<property column-name="line_local_tax" 					data-type="double" 		name="lineLocalTax"					required="true"  queryable="true" />
+		<property column-name="line_county_tax" 				data-type="double" 		name="lineCountyTax"				required="true"  queryable="true" />
+		<property column-name="line_state_tax" 					data-type="double" 		name="lineStateTax"					required="true"  queryable="true" />
+		<property column-name="line_tax_total" 					data-type="double" 		name="lineTaxTotal"					required="true"  queryable="true" />
+		<property column-name="line_shipping_tax" 				data-type="double" 		name="lineShippingTax"				required="false" queryable="true" />
+		<property column-name="line_extended_total" 			data-type="double" 		name="lineExtendedTotal"			required="true"  queryable="true" />
+		<property column-name="extended_price" 					data-type="double" 		name="extendedPrice"				required="true"  queryable="true" />
+      </table>
+
+	  <!-- Line Discounts -->
+	  <table name="mff_invoice_rel_line_disc" id-column-name="line_id" multi-column-name="sequence_num" type="multi" shared-table-sequence="1">
+		<property component-item-type="lineDiscount" column-name="line_discount_id" data-type="list" cascade="delete" writable="true" name="lineDiscounts" required="false" cache-mode="inherit" queryable="true" />
+	  </table>
+
+  	  <!-- Line Cartons -->
+	  <table name="mff_invoice_rel_line_carton" id-column-name="line_id" multi-column-name="sequence_num" type="multi" shared-table-sequence="1">
+		<property component-item-type="lineCarton" column-name="line_carton_id" data-type="list" cascade="delete" writable="true" name="lineCartons" required="false" cache-mode="inherit" queryable="true" />
+	  </table>
+
+	  <!-- Auxilliarys -->
+	  <table name="mff_invoice_rel_line_aux" id-column-name="line_id" multi-column-name="sequence_num" type="multi" shared-table-sequence="1">
+		<property component-item-type="auxilliary" column-name="auxilliary_id" data-type="list" cascade="delete" writable="true" name="auxilliarys" required="false" cache-mode="inherit" queryable="true" />
+	  </table>
+  </item-descriptor>
+
+  <!--
+  ****************************************************************************************
+  ***  Item: shippedItem
+  ***  Description: Items that have been shipped by the store.
+  ****************************************************************************************
+  -->
+  <item-descriptor name="shippedItem" sub-type-value="shippedItem" super-type="lineItem" cache-mode="disabled">
+      <table name="mff_invoice_line_shipped" id-column-name="line_id" type="auxiliary" shared-table-sequence="1">
+   		<property column-name="line_id" 						data-type="string" 		name="id"							required="true"  queryable="true" />
+		<property column-name="line_number" 					data-type="long" 		name="lineNumber"					required="false" queryable="true" />
+		<property column-name="giftcard_number"					data-type="string" 		name="giftCardNumber"				required="false" queryable="true" />
+      </table>
+  </item-descriptor>
+
+
+  <!--
+  ****************************************************************************************
+  ***  Item: returnedItem
+  ***  Description: Items that have been returned by the customer.
+  ****************************************************************************************
+  -->
+   <item-descriptor name="returnedItem" sub-type-value="returnedItem" super-type="lineItem" cache-mode="disabled">
+      <table name="mff_invoice_line_returned" id-column-name="line_id" type="auxiliary" shared-table-sequence="1">
+   		<property column-name="line_id" 						data-type="string" 		name="id"							required="true"  queryable="true" />
+		<property column-name="line_number" 					data-type="long" 		name="lineNumber"					required="false" queryable="true" />
+		<property column-name="return_reason" 					data-type="string" 		name="returnReason"					required="false" queryable="true" />
+		<property column-name="rma_number" 						data-type="string" 		name="rmaNumber"					required="false" queryable="true" />
+		<property column-name="returned_amount" 				data-type="double" 		name="returnedAmount"				required="false" queryable="true" />
+		<property column-name="restock_local_tax" 				data-type="double" 		name="restockLocalTax"				required="true"  queryable="true" />
+		<property column-name="restock_county_tax" 				data-type="double" 		name="restockCountyTax"				required="true"  queryable="true" />
+		<property column-name="restock_state_tax" 				data-type="double" 		name="restockStateTax"				required="true"  queryable="true" />
+		<property column-name="restock_tax_total" 				data-type="double" 		name="restockTaxTotal"				required="true"  queryable="true" />
+		<property column-name="restock_shipping_tax" 			data-type="double" 		name="restockShippingTax"			required="true"  queryable="true" />
+		<property column-name="restock_extended_total" 			data-type="double" 		name="restockExtendedTotal"			required="true"  queryable="true" />
+      </table>
+  </item-descriptor>
+
+
+  <!--
+  ****************************************************************************************
+  ***  Item: lineSummary
+  ***  Description: A summary of the invoice line item.
+  ****************************************************************************************
+  -->
+  <item-descriptor name="lineSummary" cache-mode="disabled">
+      <table name="mff_invoice_line_summary" id-column-name="line_summary_id" type="primary">
+  		<property column-name="line_summary_id" 				data-type="string" 		name="id"							required="true"  queryable="true" />
+		<property column-name="transaction_total" 				data-type="double" 		name="transactionTotal"				required="true"  queryable="true" />
+		<property column-name="transaction_taxable_total" 		data-type="double" 		name="transactionTaxableTotal"		required="true"  queryable="true" />
+		<property column-name="transaction_tax_total" 			data-type="double" 		name="transactionTaxTotal"			required="true"  queryable="true" />
+		<property column-name="line_count" 						data-type="long" 		name="lineCount"					required="true"  queryable="true" />
+		<property column-name="payment_total" 					data-type="double" 		name="paymentTotal"					required="true"  queryable="true" />
+		<property column-name="payment_count" 					data-type="long" 		name="paymentCount"					required="true"  queryable="true" />
+		<property column-name="discount_total" 					data-type="double" 		name="discountTotal"				required="true"  queryable="true" />
+		<property column-name="discount_count" 					data-type="long" 		name="discountCount"				required="true"  queryable="true" />
+		<property column-name="giftcard_sold_total" 			data-type="double" 		name="giftcardSoldTotal"			required="true"  queryable="true" />
+		<property column-name="giftcard_sold_count" 			data-type="long" 		name="giftcardSoldCount"			required="true"  queryable="true" />
+      </table>
+  </item-descriptor>
+
+
+  <!--
+  ****************************************************************************************
+  ***  Item: extract
+  ***  Description: A summary for each sales audit extract.
+  ****************************************************************************************
+  -->
+  <item-descriptor name="extract" cache-mode="disabled">
+      <table name="mff_invoice_extract" id-column-name="extract_id" type="primary">
+  		<property column-name="extract_id" 						data-type="string" 		name="id"							required="true"  queryable="true" />
+		<property column-name="extract_date" 					data-type="timestamp" 	name="extractDate"					required="true"  queryable="true" />
+		<property column-name="extract_file_name" 				data-type="string" 		name="extractFileName"				required="true"  queryable="true" />
+		<property column-name="run_type" 						data-type="string" 		name="runType"						required="true"  queryable="true" >
+			<attribute name="useCodeForValue" value="false"/>
+			<option value="standard" 	code="0"/>
+			<option value="re-run" 		code="1"/>
+		</property>
+
+		<!-- Extract Counts -->
+		<property  column-name="extract_summary" 				item-type="extractSummary" cascade="delete" name="extractSummary" required="true"  queryable="true" />
+      </table>
+
+	  <!-- Payments -->
+	  <table name="mff_invoice_rel_ext_pay" id-column-name="extract_id" multi-column-name="sequence_num" type="multi" shared-table-sequence="1">
+		<property component-item-type="paymentSummary" column-name="extract_payment_id" data-type="list" cascade="delete" writable="true" name="paymentSummary" required="false" cache-mode="inherit" queryable="true" />
+	  </table>
+  </item-descriptor>
+
+  <!--
+  ****************************************************************************************
+  ***  Item: extractSummary
+  ***  Description: A summary for all of the extracts in a given file.
+  ****************************************************************************************
+  -->
+  <item-descriptor name="extractSummary" cache-mode="disabled">
+      <table name="mff_invoice_extract_summary" id-column-name="extract_summary_id" type="primary">
+  		<property column-name="extract_summary_id" 				data-type="string" 		name="id"							required="true"  queryable="true" />
+		<property column-name="transactions_total" 				data-type="double" 		name="transactionTotal"				required="true"  queryable="true" />
+		<property column-name="transactions_taxable_total" 		data-type="double" 		name="transactionTaxableTotal"		required="true"  queryable="true" />
+		<property column-name="transactions_tax_total" 			data-type="double" 		name="transactionTaxTotal"			required="true"  queryable="true" />
+		<property column-name="transaction_counts" 				data-type="long" 		name="transactionCount"				required="true"  queryable="true" />
+		<property column-name="transaction_lines_counts" 		data-type="long" 		name="lineCount"					required="true"  queryable="true" />
+		<property column-name="payments_total" 					data-type="double" 		name="paymentTotal"					required="true"  queryable="true" />
+		<property column-name="payments_count" 					data-type="long" 		name="paymentCount"					required="true"  queryable="true" />
+		<property column-name="discounts_total" 				data-type="double" 		name="discountTotal"				required="true"  queryable="true" />
+		<property column-name="discounts_count" 				data-type="long" 		name="discountCount"				required="true"  queryable="true" />
+		<property column-name="giftcard_sold_total" 			data-type="double" 		name="giftcardSoldTotal"			required="true"  queryable="true" />
+		<property column-name="giftcard_sold_count" 			data-type="long" 		name="giftcardSoldCount"			required="true"  queryable="true" />
+      </table>
+  </item-descriptor>
+
+
+  <!--
+  ****************************************************************************************
+  ***  Item: paymentSummary
+  ***  Description: A summary of all the payment types used in the feed.
+  ****************************************************************************************
+  -->
+  <item-descriptor name="paymentSummary" cache-mode="disabled">
+      <table name="mff_invoice_extract_payment" id-column-name="extract_payment_id" 	type="primary">
+  		<property column-name="extract_payment_id" 				data-type="string" 		name="id"							required="true"  queryable="true" />
+		<property column-name="payment_type" 					data-type="string" 		name="paymentType"					required="true"  queryable="true" />
+		<property column-name="credit_total" 					data-type="double" 		name="creditTotal"					required="true"  queryable="true" />
+		<property column-name="credit_count" 					data-type="long" 		name="creditCount"					required="true"  queryable="true" />
+		<property column-name="debit_total" 					data-type="double" 		name="debitTotal"					required="true"  queryable="true" />
+		<property column-name="debit_count" 					data-type="long" 		name="debitCount"					required="true"  queryable="true" />
+      </table>
+  </item-descriptor>
+
+</gsa-template>

@@ -1,0 +1,169 @@
+<ContentItem type="Page" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://endeca.com/schema/content/2008">
+  <TemplateId>GardenCenterPage</TemplateId>
+  <Name>Garden Center Page</Name>
+  <Property name="HeaderContent">
+    <ContentItemList type="HeaderContent"/>
+  </Property>
+  <Property name="SecondaryContent">
+    <ContentItemList type="SecondaryContent">
+      <ContentItem type="SecondaryContent">
+        <TemplateId>GardenCenterLogo</TemplateId>
+        <Name>GardenCenterLogo</Name>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Secondary Content Slot</Name>
+        <Property name="contentPaths">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>/content/Shared/Garden Center Guides Navigation</String>
+          </List>
+        </Property>
+        <Property name="templateTypes">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>SecondaryContent</String>
+          </List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Secondary Content Slot</Name>
+        <Property name="contentPaths">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>/content/Shared/Garden Center Articles Navigation</String>
+          </List>
+        </Property>
+        <Property name="templateTypes">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>SecondaryContent</String>
+          </List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Secondary Content Slot</Name>
+        <Property name="contentPaths">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>/content/Shared/Garden Center Lawns &amp; Gardens Navigation</String>
+          </List>
+        </Property>
+        <Property name="templateTypes">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>SecondaryContent</String>
+          </List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>GardenCenterEmailSignup</TemplateId>
+        <Name>GardenCenterEmailSignup</Name>
+      </ContentItem>
+    </ContentItemList>
+  </Property>
+  <Property name="MainContent">
+    <ContentItemList type="MainContent">
+      <ContentItem type="MainContent">
+        <TemplateId>ArticleLibraryContainer</TemplateId>
+        <Name>ArticleLibraryContainer</Name>
+        <Property name="sectionTitle">
+          <String>Article Library</String>
+        </Property>
+        <Property name="ArticleLibraryColumns">
+          <ContentItemList type="ArticleLibraryColumn">
+            <ContentItem type="ArticleLibraryColumn">
+              <TemplateId>ArticleLibraryColumn</TemplateId>
+              <Name>ArticleLibraryColumn</Name>
+              <Property name="sectionTitle">
+                <String>Garden</String>
+              </Property>
+              <Property name="UtilityLinks">
+                <ContentItemList type="UtilityLink">
+                  <ContentItem type="UtilityLink">
+                    <TemplateId>UtilityLink</TemplateId>
+                    <Name>UtilityLink</Name>
+                    <Property name="linkURL">
+                      <Item class="com.endeca.infront.cartridge.model.LinkBuilder" xmlns="http://endeca.com/schema/xavia/2010">
+                        <Property name="path">/pages/mffHome/promos/Garden-Center-How-To-Pick-Christmas-Tree</Property>
+                        <Property name="linkType">Navigation State</Property>
+                        <Property name="queryString"/>
+                      </Item>
+                    </Property>
+                    <Property name="linkText">
+                      <String>How to Pick Out Great Christmas Trees</String>
+                    </Property>
+                  </ContentItem>
+                </ContentItemList>
+              </Property>
+            </ContentItem>
+            <ContentItem type="ArticleLibraryColumn">
+              <TemplateId>ArticleLibraryColumn</TemplateId>
+              <Name>ArticleLibraryColumn</Name>
+              <Property name="sectionTitle">
+                <String>Lawn</String>
+              </Property>
+              <Property name="UtilityLinks">
+                <ContentItemList type="UtilityLink">
+                  <ContentItem type="UtilityLink">
+                    <TemplateId>UtilityLink</TemplateId>
+                    <Name>UtilityLink</Name>
+                    <Property name="linkURL">
+                      <Item class="com.endeca.infront.cartridge.model.LinkBuilder" xmlns="http://endeca.com/schema/xavia/2010">
+                        <Property name="path">/pages/mffHome/promos/Garden-Center-Best-Snowblowers</Property>
+                        <Property name="linkType">Navigation State</Property>
+                        <Property name="queryString"/>
+                      </Item>
+                    </Property>
+                    <Property name="linkText">
+                      <String>Best Snowblowers</String>
+                    </Property>
+                  </ContentItem>
+                </ContentItemList>
+              </Property>
+            </ContentItem>
+            <ContentItem type="ArticleLibraryColumn">
+              <TemplateId>ArticleLibraryColumn</TemplateId>
+              <Name>ArticleLibraryColumn</Name>
+              <Property name="sectionTitle">
+                <String>Patio</String>
+              </Property>
+              <Property name="UtilityLinks">
+                <ContentItemList type="UtilityLink">
+                  <ContentItem type="UtilityLink">
+                    <TemplateId>UtilityLink</TemplateId>
+                    <Name>UtilityLink</Name>
+                    <Property name="linkURL">
+                      <Item class="com.endeca.infront.cartridge.model.LinkBuilder" xmlns="http://endeca.com/schema/xavia/2010">
+                        <Property name="path">/pages/mffHome/promos/Garden-Center-Salt-Spreader-Buyers-Guide</Property>
+                        <Property name="linkType">Navigation State</Property>
+                        <Property name="queryString"/>
+                      </Item>
+                    </Property>
+                    <Property name="linkText">
+                      <String>Salt Spreader Buyers Guide</String>
+                    </Property>
+                  </ContentItem>
+                </ContentItemList>
+              </Property>
+            </ContentItem>
+          </ContentItemList>
+        </Property>
+      </ContentItem>
+    </ContentItemList>
+  </Property>
+</ContentItem>

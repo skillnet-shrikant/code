@@ -1,0 +1,76 @@
+
+  <%--
+    To format the agent appeasement limit and appeasement total the currency code is required.
+    If the appeasement id is available in the approvalMap the lookup the appeasement obtain
+    the currency code via the order price info. If the appeasement id is not available as in
+    the case of an Order approval look up the order via the OrderItemLookup droplet.
+  --%>
+
+  <c:choose>
+    <c:when test="${not empty approvalMap['appeasementId']}">
+      <dsp:droplet name="/atg/commerce/custsvc/appeasement/AppeasementItemLookup">
+        <dsp:param name="id" value="${approvalMap['appeasementId']}" />
+        <dsp:oparam name="output">
+          <dsp:tomap var="appeasement" param="element" />
+          <c:set var="currencyCode" value="${appeasement.order.priceInfo.currencyCode}" />
+        </dsp:oparam>
+      </dsp:droplet>
+    </c:when>
+    <c:otherwise>
+      <dsp:droplet name="/atg/commerce/custsvc/order/OrderItemLookup">
+        <dsp:param name="id" value="${approvalMap['orderId']}"/>
+        <dsp:oparam name="output">
+          <dsp:tomap var="order" param="element" />
+          <dsp:tomap var="orderPriceInfoMap" value="${order.priceInfo}" />
+          <c:set var="currencyCode" value="${orderPriceInfoMap.currencyCode}" />
+        </dsp:oparam>
+      </dsp:droplet>
+    </c:otherwise>
+  </c:choose>
+
+  <tr class="inlineEditor">
+  <td colspan="5">
+    <div class="editArea">
+      <div class="currentActivity">
+        <h5><fmt:message key="activityDetails" /></h5>
+        <dl class="status">
+          <c:forEach var="propertyName" items="${activityInfo.options.detailPageProperties}">
+            <strong>
+              <fmt:message key="${propertyName}" />
+            </strong> :
+            <c:choose>
+              <c:when test="${propertyName eq 'orderId'}">
+                <%@ include file="/include/activities/activityViewOrder.jspf"%>
+              </c:when>
+              <c:when test="${propertyName eq 'appeasementId'}">
+                <%-- Show the appeasement Id --%>
+                <c:out escapeXml="true" value="${approvalMap[propertyName]}"/>
+                <br />
+                <%-- Show the order that the appeasement as related to --%>
+                <%@ include file="/include/activities/activityViewAppeasementOrder.jspf"%>
+              </c:when>
+              <c:when test="${propertyName eq 'agentAppeasementLimit'}">
+                 <dsp:droplet name="/atg/commerce/custsvc/approvals/order/GetAgentAppeasementLimitForApproval">
+                 <dsp:param name="approvalId" value="${activity.approvalId}"/>
+                 <dsp:oparam name="output">
+                   <dsp:getvalueof var="element" param="element"/>
+                   <csr:formatNumber value="${element}" type="currency" currencyCode="${currencyCode}" />
+                 </dsp:oparam>
+               </dsp:droplet>
+
+              </c:when>
+              <c:when test="${propertyName eq 'appeasementTotal'}">
+                <csr:formatNumber value="${approvalMap[propertyName]}" type="currency" currencyCode="${currencyCode}" />
+              </c:when>
+              <c:otherwise>
+                <c:out escapeXml="true" value="${approvalMap[propertyName]}"/>
+              </c:otherwise>
+            </c:choose>
+            <br />
+          </c:forEach>
+        </dl>
+      </div>
+    </div>
+  </td>
+</tr>
+<%-- @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/include/activities/approvalEventActivityDefaultDetail.jspf#3 $$Change: 1192807 $--%>

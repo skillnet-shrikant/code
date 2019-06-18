@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE gsa-template
+        PUBLIC "-//Art Technology Group, Inc.//DTD General SQL Adapter//EN"
+        "http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
+
+<gsa-template>
+
+  <header>
+    <name>Order</name>
+    <author>DMI</author>
+  </header>
+
+
+	<!-- ############################################# -->
+	<!--               ORDER                           -->
+	<!-- ############################################# -->
+	
+	<item-descriptor name="order">
+		<property name="legacyOrder" display-name="Legacy Order Flag" category="MFF Order Extensions" data-type="boolean" default="false" />
+	
+	    <table name="MFF_ORDER" type="auxiliary" id-column-name="order_id">
+	    	<property name="orderNumber" column-name="order_number" display-name="Order Number"  category="MFF Order Extensions" data-type="string"/>
+	    	<property name="employeeId" column-name="employee_id" display-name="Employee Id"  category="MFF Order Extensions" property-type="com.security.repository.property.EncryptionPropertyDescriptor">
+  				<attribute name="encryptor" bean="/com/security/crypto/AESEncryptor"/>
+  			</property>	    	
+	    	<property name="customerIp" column-name="ip_address" display-name="Customer IP Address" category="MFF Order Extensions" data-type="string"/>
+	    	<property name="bopisOrder" column-name="bopis_order" display-name="Bopis Order Flag" category="MFF Order Extensions" data-type="boolean" default="false" />
+	    	<property name="bopisStore" column-name="bopis_store" display-name="Bopis Store"  category="MFF Order Extensions" data-type="string" />
+	    	<property name="bopisSignature" column-name="bopis_signature" display-name="Bopis Signature"  category="MFF Order Extensions" data-type="string" />
+	    	<property name="bopisPerson" column-name="bopis_person" display-name="Bopis Person"  category="MFF Order Extensions" data-type="string" />
+	    	<property name="bopisEmail" column-name="bopis_email" display-name="Bopis Email"  category="MFF Order Extensions" data-type="string" />
+	    	<property name="contactEmail" column-name="contact_email" display-name="Contact Email"  category="MFF Order Extensions" data-type="string" />
+	    	<property name="fflOrder" column-name="ffl_order" display-name="FFL Order Flag" category="MFF Order Extensions" data-type="boolean" default="false" />
+	    	<property name="fflDealerId" display-name="FFL Dealer Id" column-name="ffl_dealer_id" data-type="string" expert="false" cache-mode="inherit"/>
+	    	<property name="taxExemptionCode" column-name="tax_exemption_code" display-name="Tax Exemption Code" category="MFF Order Extensions" data-type="string"/>
+	    	<property name="bopisReadyForPickupDate" column-name="bopis_ready_for_pickup_date" display-name="Bopis Ready For Pickup Date" data-type="timestamp" category="MFF Order Extensions" />
+	    	<property name="bopisReminderSentDate" column-name="bopis_reminder_sent_date" display-name="Bopis Reminder Sent Date" data-type="timestamp" category="MFF Order Extensions" />
+	    	<property name="bopisSecondReminderSentDate" column-name="bopis_sec_reminder_sent_date" display-name="Bopis Second Reminder Sent Date" data-type="timestamp" category="MFF Order Extensions" />
+	    	<property name="returnablePPS" column-name="returnable_pps" display-name="Returnable PPS" category="MFF Order Extensions" data-type="boolean" default="true"/>
+	    	<property name="dateOfBirth" column-name="date_of_birth" display-name="Date of Birth" category="MFF Order Extensions" data-type="timestamp" />
+	    	<property name="appInstanceName" column-name="app_instance_name" display-name="App Instance name"  category="MFF Order Extensions" data-type="string" />
+		</table>
+		
+		<table name="mff_order_coupons" type="multi" id-column-name="order_id" multi-column-name="sequence_num">
+	      <property name="couponCodes" column-name="coupon_id" data-type="list" component-data-type="string" display-name="Coupons" category="MFF Order Extensions" />
+	    </table>
+	</item-descriptor>
+
+	<!-- ############################################# -->
+	<!--           COMMERCE ITEM                       -->
+	<!-- ############################################# -->
+	<item-descriptor name="commerceItem">
+		<table type="auxiliary" id-column-name="commerce_item_id" name="mff_item">
+			<property name="shipDate" display-name="Shipped Date" data-type="timestamp" column-name="ship_date" category="OMS" />
+			<property name="returnDate" display-name="Returned Date" data-type="timestamp" column-name="return_date" category="OMS" />
+			<property name="cancelDate" display-name="Canceled Date" data-type="timestamp" column-name="cancel_date" category="OMS" />
+			<property name="trackingNumber" display-name="Tracking Number" data-type="string" column-name="tracking_number" category="OMS" />
+			<property name="cancelDescription" display-name="Cancel Description" data-type="string" column-name="cancel_description" category="OMS" />	
+			<property name="shipping" 			display-name="Shipping" 		 column-name="shipping" 		 data-type="double" expert="false" cache-mode="inherit" default="0.0" />
+			<property name="shippingTax" 		display-name="Shipping Tax" 	 column-name="shipping_tax" 	 data-type="double" expert="false" cache-mode="inherit" default="0.0" />
+			<property name="shippingCityTax" 	display-name="Shipping City Tax" 	 column-name="shipping_city_tax" 	 data-type="double" expert="false" cache-mode="inherit" default="0.0" />
+			<property name="shippingCountyTax" 	display-name="Shipping County Tax" 	 column-name="shipping_county_tax" 	 data-type="double" expert="false" cache-mode="inherit" default="0.0" />
+			<property name="shippingStateTax" 	display-name="Shipping State Tax" 	 column-name="shipping_state_tax" 	 data-type="double" expert="false" cache-mode="inherit" default="0.0" />
+			<property name="shippingDistrictTax" display-name="Shipping District Tax" column-name="shipping_district_tax" data-type="double" expert="false" cache-mode="inherit" default="0.0" />
+			<property name="shippingCountryTax" display-name="Shipping Country Tax" column-name="shipping_country_tax" data-type="double" expert="false" cache-mode="inherit" default="0.0" />
+			<property name="shippingDiscount" 		display-name="Shipping Discount" column-name="shipping_discount" 	 data-type="double" expert="false" cache-mode="inherit" default="0.0" />
+			<property name="fulfillmentStore" 	display-name="Fulfillment Store" column-name="fulfillment_store" data-type="string" expert="false" cache-mode="inherit"/>
+			<property name="giftCardNumber" 	display-name="Gift Card Number" column-name="gc_number" data-type="string" expert="false" cache-mode="inherit"/>
+			<property name="minimumAge" 	display-name="Minimum Age" column-name="minimum_age" data-type="int" expert="false" cache-mode="inherit"/>
+			<property name="ffl" display-name="Federal Firearm Licence Required" column-name="is_ffl" data-type="boolean" default="false" expert="false" cache-mode="inherit"/>
+			<property name="dropShip" display-name="Drop Ship" column-name="is_drop_ship" data-type="boolean" default="false" expert="false" cache-mode="inherit"/>
+			<property name="giftCard" display-name="Is Gift Card Item" column-name="is_giftcard" data-type="boolean" default="false" expert="false" cache-mode="inherit"/>
+			<property name="giftCardDenomination" display-name="Gift Card Denomination" column-name="gc_denomination" data-type="double" default="0.0" expert="false" cache-mode="inherit"/>
+			<property name="taxPriceInfo" column-name="tax_info_id" item-type="taxPriceInfo" display-name="Line Item Tax Info"/>
+			<property name="activationAttempts" display-name="GC activation attempts" column-name="activation_attempts" data-type="int" expert="false" default="0" cache-mode="inherit"/>
+			<property name="rejectionReasonCodes" display-name="RejectionReasonCodes" column-name="rejection_reason_codes" data-type="string" expert="false" cache-mode="inherit"/>
+			<property name="gwpPromoId" display-name="GWP Promo Id" column-name="gwp_promo_id" data-type="string" expert="false" cache-mode="inherit"/>
+			<property name="gwpValue" display-name="GWP Value" column-name="gwp_value" data-type="double" expert="false" default="0" cache-mode="inherit"/>
+			<property name="gwpGiftCardValue" display-name="GWP Gift Card Value" column-name="gwp_gift_card_value" data-type="double" default="0" expert="false" cache-mode="inherit"/>
+			<property name="gwpGiftCardPromo" display-name="GWP Gift Card Promo" column-name="is_gwp_gift_card_promo" data-type="boolean" default="false" expert="false" cache-mode="inherit"/>
+			<property name="isFreeShippingPromo" display-name="Free Shipping Promo" column-name="is_free_shipping_promo" data-type="boolean" default="false" expert="false" cache-mode="inherit"/>
+		</table>
+		<table name="mff_itemprev_allocations" type="multi" id-column-names="commerce_item_id">
+        	<property name="previousAllocation" column-names="store" data-type="set" component-data-type="string" display-name="Previous Store Allocation"/>
+		</table>
+		<table name="mff_return_items" type="multi" id-column-names="commerce_item_id">
+        	<property name="returnItemIds" column-names="prorate_item_id" data-type="set" component-data-type="string" display-name="Return Items"/>
+		</table>
+	</item-descriptor>
+	
+	<item-descriptor writable="true" cache-mode="simple" hidden="false" name="prorateItem">
+		<table name="mff_prorate_item" id-column-name="prorate_item_id" type="primary" shared-table-sequence="1">
+		
+			<property name="id" column-name="prorate_item_id" display-name="Id" data-type="string" hidden="false" writable="true" required="true" cache-mode="inherit" queryable="true">
+				<attribute name="propertySortPriority" value="10"/>
+			</property>
+			<property name="orderId" column-name="order_id" display-name="Order Id" data-type="string"  hidden="false" writable="true" required="true" cache-mode="inherit" queryable="true">
+				<attribute name="propertySortPriority" value="14"/>
+			</property>	
+			<property name="lineNumber" column-name="line_number" display-name="Line Number" data-type="double" hidden="false" writable="true" required="true" cache-mode="inherit" queryable="true">
+				<attribute name="propertySortPriority" value="15"/>
+			</property>
+			<property name="commerceItemId" column-name="commerce_item_id" display-name="Id" data-type="string" hidden="false" writable="true" required="true" cache-mode="inherit" queryable="true">
+				<attribute name="propertySortPriority" value="16"/>
+			</property>
+			<property name="prorateUnitPrice" column-name="unit_price" display-name="Unit Price" data-type="double"  hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true" default="0.0">
+				<attribute name="propertySortPriority" value="17"/>
+			</property>		 
+			<property name="prorateShipping" column-name="shipping" display-name="Prorate Shipping" data-type="double" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+				<attribute name="propertySortPriority" value="20"/>
+			</property>	
+			<property name="prorateShippingTax" column-name="shipping_tax" display-name="Prorate Shipping Tax" data-type="double" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+				<attribute name="propertySortPriority" value="21"/>
+			</property>	
+			<property name="prorateShippingCityTax" column-name="shipping_city_tax" display-name="Prorate Shipping City Tax" data-type="double" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+				<attribute name="propertySortPriority" value="22"/>
+			</property>
+			<property name="prorateShippingCountyTax" column-name="shipping_county_tax" display-name="Prorate Shipping County Tax" data-type="double" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+				<attribute name="propertySortPriority" value="23"/>
+			</property>
+			<property name="prorateShippingStateTax" column-name="shipping_state_tax" display-name="Prorate Shipping State Tax" data-type="double" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+				<attribute name="propertySortPriority" value="24"/>
+			</property>
+			<property name="prorateShippingDistrictTax" column-name="shipping_district_tax" display-name="Prorate Shipping District Tax" data-type="double" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+				<attribute name="propertySortPriority" value="25"/>
+			</property>
+			<property name="prorateShippingCountryTax" column-name="shipping_country_tax" display-name="Prorate Shipping Country Tax" data-type="double" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+				<attribute name="propertySortPriority" value="26"/>
+			</property>
+			<property name="prorateTax" column-name="tax" data-type="double" display-name="Total Item Tax" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+				<attribute name="propertySortPriority" value="27"/>
+			</property>		
+			<property name="prorateItemCityTax" column-name="item_city_tax" data-type="double" display-name="Prorate Item City Tax" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+				<attribute name="propertySortPriority" value="28"/>
+			</property>	
+			<property name="prorateItemCountyTax" column-name="item_county_tax" data-type="double" display-name="Prorate Item County Tax" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+				<attribute name="propertySortPriority" value="29"/>
+			</property>	
+			<property name="prorateItemStateTax" column-name="item_state_tax" data-type="double" display-name="Prorate Item State Tax" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+				<attribute name="propertySortPriority" value="30"/>
+			</property>	
+			<property name="prorateItemDistrictTax" column-name="item_district_tax" data-type="double" display-name="Prorate Item District Tax" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+				<attribute name="propertySortPriority" value="31"/>
+			</property>	
+			<property name="prorateItemCountryTax" column-name="item_country_tax" data-type="double" display-name="Prorate Item Country Tax" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+				<attribute name="propertySortPriority" value="32"/>
+			</property>		
+			<property name="prorateTotal" column-name="total" display-name="Total" data-type="double" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+				<attribute name="propertySortPriority" value="30"/>
+			</property>	
+			<property name="prorateTotalWithoutShipping" column-name="total_without_shipping" display-name="Total Wihtout Shipping" data-type="double" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+				<attribute name="propertySortPriority" value="32"/>
+			</property>	
+			<property name="state" column-name="state" display-name="State" data-type="string" hidden="false" writable="true" required="false" cache-mode="disabled" queryable="true">
+				<attribute name="propertySortPriority" value="35"/>
+			</property>		
+			<property name="quantity" column-name="quantity" display-name="Quantity" data-type="long" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+				<attribute name="propertySortPriority" value="36"/>
+			</property>
+			<property name="listPrice" column-name="list_price" display-name="List Price" data-type="double" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+				<attribute name="propertySortPriority" value="37"/>
+			</property>	
+			<property name="salePrice" column-name="sale_price" display-name="Sale Price" data-type="double" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+				<attribute name="propertySortPriority" value="38"/>
+			</property>	
+			<property name="prorateOrderDiscountShare" column-name="order_discount_share" display-name="Prorated Order Discount Share" data-type="double" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+				<attribute name="propertySortPriority" value="39"/>
+			</property>	
+			<property name="proratedDiscountPrice" column-name="discount_price" display-name="Prorated Discount Price" data-type="double" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+				<attribute name="propertySortPriority" value="40"/>
+			</property>
+			<property name="proratedGwpAmount" column-name="gwp_amount" display-name="Prorated GWP Amount" data-type="double" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+				<attribute name="propertySortPriority" value="40"/>
+			</property>
+			<property name="creationDate" column-name="creation_date" display-name="Creation Date" data-type="timestamp" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+				<attribute name="useNowForDefault" value="true"/>
+				<attribute name="propertySortPriority" value="40"/>
+			</property>				
+			<property name="returnDate" column-name="return_date" display-name="Return Date" data-type="timestamp" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+				<attribute name="propertySortPriority" value="45"/>
+			</property>		
+		</table>
+	</item-descriptor>
+	
+	<!-- ############################################# -->
+	<!--             SHIPPING GROUP                    -->
+	<!-- ############################################# -->
+  
+  <item-descriptor name="hardgoodShippingGroup">
+  	<table name="mff_ship_group" type="auxiliary" id-column-name="shipping_group_id">
+ 	  <property name="fulfillmentStore" display-name="Fulfillment Store" column-name="fulfillment_store" data-type="string" expert="false" cache-mode="inherit"/>
+ 	  <property name="isSaturdayDelivery" display-name="Saturday Delivery" column-name="saturday_delivery" data-type="boolean" default="false" expert="false" cache-mode="inherit"/>
+    </table>
+  </item-descriptor>
+	
+	<!-- ############################################# -->
+	<!--           TAX PRICE INFO                      -->
+	<!-- ############################################# -->
+ 
+  <item-descriptor name="taxPriceInfo">
+  	<table name="mff_tax_price_info" type="auxiliary" id-column-name="amount_info_id">
+   		<property category="MFF" name="countyTaxInfo" column-name="county_tax_info" data-type="string" display-name="County Tax Info"/>
+   	</table>
+	 <!-- <property name="shippingTax" display-name="Shipping Tax" data-type="double" property-type="com.mff.repository.property.OrderShippingTaxPropertyDescriptor"/> -->
+  </item-descriptor>
+  
+   <!-- ############################################# -->
+	<!--           Item price pro-rate changes start   -->
+	<!-- ############################################# -->
+    <item-descriptor name="orderPriceInfo">
+   	<table name="mff_order_price" type="auxiliary" id-column-name="amount_info_id">
+   		<property category="Sub-total" name="orderSubTotalLessGiftCard" column-name="order_subtotal_less_giftcard" data-type="double" display-name="Order Sub-Total Less Gift-Card"/>
+   		<property category="Sub-total" name="giftCardPaymentTotal" column-name="gift_card_payment_total" data-type="double" display-name="Gift Card Payment Total"/>
+   		<property category="Sub-total" name="orderChargeAmount" column-name="order_charge_amount" data-type="double" display-name="Order Charge Amount"/>
+   	</table>
+   </item-descriptor>
+   
+   <item-descriptor name="itemPriceInfo">
+   	<table name="mff_item_price" type="auxiliary" id-column-name="amount_info_id">
+   		<property category="Discount" name="proratedDiscountPrice" column-name="prorated_discount_price"
+   			 data-type="double" display-name="Prorated Discount Amount"/>
+   		<property category="SalePriceList" name="salePriceListId" column-name="sale_price_list_id"
+   			 data-type="string" display-name="Sale Price List Id"/>
+   		<property category="SalePriceList" name="salePricePromoId" column-name="sale_price_promo_id"
+   			 data-type="string" display-name="Sale Price Promo Id"/>
+   			 
+   			 <!-- 
+   			 Qualifier Price
+   			 Prorate Factor
+   			 Discount Amount
+   			 Prorated Discount
+   			 Effective Price
+   			  -->
+   			  
+   		<!--  For 3.5 just the two will be good -->
+   		<property category="ReSA Discount Attributes" name="discountAmount" column-name="discount_amount"
+   			 data-type="double" display-name="Discount to be prorated"/>
+
+   		<property category="ReSA Discount Attributes" name="effectivePrice" column-name="effective_price"
+   			 data-type="double" display-name="Effective Price"/>
+
+		<!--  Long term prorated discount solution... use the below 
+   		<property category="ReSA Discount Attributes" name="qualifierPrice" column-name="qualifier_price"
+   			 data-type="double" display-name="Qualifier Price before Discount"/>
+   			 
+   		<property category="ReSA Discount Attributes" name="prorateFactor" column-name="prorate_factor"
+   			 data-type="double" display-name="Prorate Factor"/>	   			 	 
+
+
+   		<property category="ReSA Discount Attributes" name="proratedDiscountAmount" column-name="prorated_discount_amount"
+   			 data-type="double" display-name="Prorated Discount"/>
+
+   		-->	 
+   			 
+   	</table>
+   </item-descriptor>
+   
+   <!-- ############################################# -->
+	<!--           Item price pro-rate changes end   -->
+	<!-- ############################################# -->
+   
+   <!-- ######################################### -->
+   <!--  		SETLLEMENT RELATED CHANGES        -->
+   <!-- ######################################### -->
+	<item-descriptor name="pgGcSettlement" display-name="Gift Card Payment Group Settlement Record">
+		<table name="oms_pg_gc_settlement" type="primary" id-column-name="gc_settlement_id">
+			<property name="id" data-type="string" column-name="gc_settlement_id"></property>
+			<property name="giftCardNumber" data-type="string" column-name="gc_num" display-name="GiftCard Number"></property>
+			<property name="giftCardPin" data-type="string" column-name="gc_pin" display-name="GiftCard Pin"></property>
+			<property name="date" data-type="timestamp" column-name="create_date" display-name="Creation Date"/>
+			<property name="settlementAmount" data-type="double" column-name="amount" display-name="Gift Card Settlement Amount"/>
+		</table>
+	</item-descriptor>
+	<item-descriptor name="pgSettlement" display-name="Payment Group Settlement Record">
+		<table name="oms_pg_settlement" type="primary" id-column-name="settlement_id">
+			<property name="id" data-type="string" column-name="settlement_id"></property>
+			<property name="invoiceId" data-type="string" column-name="invoice_id" display-name="Invoice Id"></property>
+			<property name="date" data-type="timestamp" column-name="create_date" display-name="Creation Date"/>
+			<property name="settlementAmount" data-type="double" column-name="amount" display-name="Settlement Amount"/>
+		</table>
+	</item-descriptor>
+  <item-descriptor name="paymentGroup" >
+    <table name="oms_pg_settlement_rel" multi-column-name="seq_nbr" type="multi" id-column-names="payment_group_id">
+      <property name="settlements" column-name="settlement_id" data-type="list" component-item-type="pgSettlement" display-name="Settlement Relationship" cascade="insert,update" >
+      </property>
+    </table>
+    <table name="oms_pg_gc_settlement_rel" multi-column-name="seq_nbr" type="multi" id-column-names="payment_group_id">
+      <property name="giftCardSettlements" column-name="gc_settlement_id" data-type="list" component-item-type="pgGcSettlement" display-name="Gift Card Settlement Relationship" cascade="insert,update" >
+      </property>
+    </table>
+  </item-descriptor>
+   <!-- ######################################### -->
+   <!--  		END OF SETTLEMENT RELATED CHANGES       -->
+   <!-- ######################################### -->  	 	
+   
+   <!-- ##################################### -->
+   <!--    APPEASEMENT RELATED CHANGES        -->
+   <!-- ##################################### -->
+	<item-descriptor name="appeasementRefund">
+		<table name="dcspp_appeasement_refund" type="primary" id-column-name="id">
+			<property name="type">
+				<option code="3" value="giftCard" />
+			</property>
+		</table>
+	</item-descriptor>
+	<item-descriptor sub-type-value="giftCard" super-type="appeasementRefund" name="appeasementGiftCardRefund">
+		<table name="mff_appeasement_refund_gc" id-column-name="appeasement_refund_id" type="auxiliary">
+			<property name="paymentGroupId" column-name="payment_group_id" data-type="string" />
+		</table>
+	</item-descriptor>
+   
+   <!-- ##################################### -->
+   <!--    END OF APPEASEMENT RELATED CHANGES -->
+   <!-- ##################################### -->   
+   
+   <item-descriptor writable="true" cache-mode="simple" hidden="false" name="agentActionLog">
+		<table name="mff_agent_log" id-column-name="action_log_id" type="primary" shared-table-sequence="1">
+			<property name="id" data-type="string" column-name="action_log_id"></property>
+			<property name="agentId" data-type="string" column-name="agent_id" display-name="Agent UserId"></property>
+			<property name="orderNumber" data-type="string" column-name="order_number" display-name="Order Number"></property>
+			<property name="action" data-type="string" column-name="action" display-name="Agent Action"></property>
+			<property name="creationDate" data-type="timestamp" column-name="creation_date" display-name="Creation Date">
+				<attribute name="useNowForDefault" value="true"/>
+			</property>
+		</table>
+   </item-descriptor>
+</gsa-template>

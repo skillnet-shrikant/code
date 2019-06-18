@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<EditorConfig xmlns="http://endeca.com/schema/editor-config/2010">
+    <EditorModule url="/ifcr/tools/pbx/modules/editors.swf">
+        <!-- Default Guided Search Editors -->
+        <Editor name="editors:BooleanEditor">
+            <EditorConfig ></EditorConfig>
+        </Editor>
+        <Editor name="editors:ChoiceEditor">
+            <EditorConfig ></EditorConfig>
+        </Editor>
+        <Editor name="editors:ColorEditor">
+            <EditorConfig ></EditorConfig>
+        </Editor>
+        <Editor name="editors:DynamicSlotEditor">
+            <EditorConfig ></EditorConfig>
+        </Editor>
+        <Editor name="editors:NumericStepperEditor">
+            <EditorConfig ></EditorConfig>
+        </Editor>
+        <Editor name="editors:RadioGroupEditor">
+            <EditorConfig ></EditorConfig>
+        </Editor>
+        <Editor name="editors:RecordListEditor">
+            <EditorConfig resourcePath="/configuration/tools/xmgr/services/dataservice.2.json">
+                <RecordsPerPageOptions>
+                    <RecordsPerPage>10</RecordsPerPage>
+                    <RecordsPerPage>25</RecordsPerPage>
+                    <RecordsPerPage>50</RecordsPerPage>
+                </RecordsPerPageOptions>
+            </EditorConfig>
+        </Editor>
+        <Editor name="editors:SliderEditor">
+            <EditorConfig ></EditorConfig>
+        </Editor>
+        <Editor name="editors:StringEditor">
+            <EditorConfig ></EditorConfig>
+        </Editor>
+        <Editor name="editors:StringMapEditor">
+            <EditorConfig ></EditorConfig>
+        </Editor>
+        <!-- Experience Manager Editors -->
+        <Editor name="editors:BoostBuryEditor">
+            <EditorConfig ></EditorConfig>
+        </Editor>
+        <Editor name="editors:DebugEditor">
+            <EditorConfig ></EditorConfig>
+        </Editor>
+        <Editor name="editors:DimensionListEditor">
+            <EditorConfig ></EditorConfig>
+        </Editor>
+        <Editor name="editors:DimensionSelectorEditor">
+            <EditorConfig ></EditorConfig>
+        </Editor>
+        <Editor name="editors:DimvalListEditor">
+            <EditorConfig ></EditorConfig>
+        </Editor>
+        <Editor name="editors:GuidedNavigationEditor">
+            <EditorConfig ></EditorConfig>
+        </Editor>
+        <Editor name="editors:LinkBuilderEditor">
+           <EditorConfig resourcePath="/configuration/tools/xmgr/services/productdataservice.json" />
+        </Editor>
+        <Editor name="editors:MediaEditor">
+            <EditorConfig>
+                <useMediaBrowser>false</useMediaBrowser>
+                <mediaRoots>
+                    <default>http://@WORKBENCH_HOST@:@WORKBENCH_PORT@/ifcr/sites/@APP_NAME@/media/</default>
+                    <IFCRSource>http://@WORKBENCH_HOST@:@WORKBENCH_PORT@/ifcr/sites/@APP_NAME@/media/</IFCRSource>
+                </mediaRoots>
+                <!-- If you want to connect to a media MDEX using dgraphID uncomment the mediaApplicationID and mediaDgraphID tags and specify appropriate values. The sslEnabled tag is needed along with mdexHost and mdexPort, if media MDEX is running in secure mode.
+                Note : In this approach, if you won't specify mediaDgraphID explicitly, the first AuthoringDgraph will be used.
+                <mediaApplicationID>media</mediaApplicationID>
+                <mediaDgraphID>Dgraph1</mediaDgraphID>
+                <sslEnabled>true</sslEnabled> -->
+                <mdexPort>@MEDIA_MDEX_PORT@</mdexPort>
+                <mdexHost>@MEDIA_MDEX_HOST@</mdexHost>
+                <videoFormats>flv|f4v|3pg|mov|mp4</videoFormats>
+                <imageFormats>jpg|jpeg|png|gif</imageFormats>
+                <mediaURI>/ifcr/sites/@APP_NAME@/media/</mediaURI>
+            </EditorConfig>
+        </Editor>
+        <Editor name="editors:RecordStratificationEditor">
+            <EditorConfig resourcePath="/configuration/tools/xmgr/services/dataservice.2.json">
+                <RecordsPerPageOptions>
+                    <RecordsPerPage>10</RecordsPerPage>
+                    <RecordsPerPage>25</RecordsPerPage>
+                    <RecordsPerPage>50</RecordsPerPage>
+                </RecordsPerPageOptions>
+            </EditorConfig>
+        </Editor>
+        <Editor name="editors:SpotlightSelectionEditor">
+            <EditorConfig resourcePath="/configuration/tools/xmgr/services/productdataservice.json" />
+        </Editor>
+        <Editor name="editors:BoostBuryRecordEditor">
+            <EditorConfig resourcePath="/configuration/tools/xmgr/services/productdataservice.json" />
+        </Editor>
+        <Editor name="editors:RichTextEditor">
+            <EditorConfig ></EditorConfig>
+        </Editor>
+        <Editor name="editors:SortEditor">
+            <EditorConfig ></EditorConfig>
+        </Editor>
+        <Editor name="editors:XmlEditor">
+            <EditorConfig ></EditorConfig>
+        </Editor>
+    </EditorModule>
+    <GlobalEditorConfig></GlobalEditorConfig>
+</EditorConfig>
+<!-- @version $Id: //hosting-blueprint/B2CBlueprint/version/11.2/Storefront/deploy/import/configuration/tools/xmgr/editors.xml#1 $$Change: 1179550 $-->

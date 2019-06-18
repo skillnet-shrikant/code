@@ -1,0 +1,28 @@
+<dsp:page>
+
+	<dsp:getvalueof var="listrakEnabled" bean="/mff/MFFEnvironment.listrakEnabled"/>
+	<c:if test="${listrakEnabled}">
+
+		<!-- Listrak PDP -->
+		<script type="text/javascript">
+			(function(d) { if (document.addEventListener) document.addEventListener('ltkAsyncListener', d);
+			else {e = document.documentElement; e.ltkAsyncProperty = 0; e.attachEvent('onpropertychange', function (e) {
+				if (e.propertyName == 'ltkAsyncProperty'){d();}});}})(function() {
+				/********** Begin Custom Code **********/
+				<c:choose>
+					<c:when test="${section == 'browse' && pageType == 'product'}">
+						_ltk.Activity.AddProductBrowse('${defaultSKU}');
+					</c:when>
+					<c:otherwise>
+						_ltk.Activity.AddPageBrowse();
+					</c:otherwise>
+				</c:choose>
+				_ltk.Activity.Submit();
+				/********** End Custom Code **********/
+			});
+		</script>
+		<!-- /Listrak PDP -->
+
+	</c:if>
+
+</dsp:page>

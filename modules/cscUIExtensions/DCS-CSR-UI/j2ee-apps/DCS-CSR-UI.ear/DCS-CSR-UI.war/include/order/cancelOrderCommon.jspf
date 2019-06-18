@@ -1,0 +1,28 @@
+<dsp:importbean bean="/atg/commerce/custsvc/order/CancelOrderFormHandler"/>
+<dsp:importbean bean="/atg/commerce/custsvc/order/ShoppingCart" var="cart" />
+
+<dsp:getvalueof var="orderId" param="orderId"/>
+<dsp:getvalueof var="cancelSuccessURL" param="successUrl"/>
+<dsp:getvalueof var="cancelErrorURL" param="errorUrl"/>
+
+<%-- Cancel Order popup --%>
+<script type="text/javascript">
+  if (!dijit.byId("cancelOrderPopup")) {
+    new dojox.Dialog({ id: "cancelOrderPopup",
+                       cacheContent: "false", 
+                       executeScripts: "true",
+                       scriptHasHooks: "true",
+                       duration: 100,
+                       "class": "atg_commerce_csr_popup"});
+  }
+</script>
+
+<%-- Cancel Order source --%>
+<c:url var="cancelOrderPopupUrl" context="${CSRConfigurator.contextRoot}"
+  value="/include/order/cancelOrderPopup.jsp">
+  <c:param name="orderId" value="${cart.originalOrder.id}" />
+  <c:param name="${stateHolder.windowIdParameterName}" value="${windowId}" />
+  <c:param name="errorUrl" value="${cancelErrorURL}" />
+  <c:param name="successUrl" value="${cancelSuccessURL}" />
+</c:url>
+<%-- @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/include/order/cancelOrderCommon.jspf#1 $$Change: 946917 $--%>

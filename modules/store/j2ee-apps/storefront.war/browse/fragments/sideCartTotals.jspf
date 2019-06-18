@@ -1,0 +1,22 @@
+<dsp:page>
+
+	<%-- Imports --%>
+	<dsp:importbean bean="/atg/commerce/ShoppingCart"/>
+	<dsp:setvalue param="order" beanvalue="ShoppingCart.current"/>
+
+	<%-- Page Variables --%>
+	<dsp:droplet name="/atg/dynamo/droplet/ProtocolChange">
+		<dsp:param name="inUrl" value="${contextPath}/checkout/cart.jsp"/>
+		<dsp:oparam name="output">
+			<dsp:getvalueof var="cartUrl" scope="request" param="secureUrl"/>
+		</dsp:oparam>
+	</dsp:droplet>
+	<div class="totals">
+		<div class="total-row subtotal">
+			<div class="total-label">Subtotal:</div>
+			<div class="total-amount"><dsp:valueof param="order.priceInfo.rawSubtotal" converter="currency"/></div>
+		</div>
+	</div>
+	<dsp:a href="${cartUrl}" class="button primary">View cart &amp; checkout</dsp:a>
+
+</dsp:page>

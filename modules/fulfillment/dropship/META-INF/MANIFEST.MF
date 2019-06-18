@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+ATG-Required: KP.OMS.fulfillment
+ATG-Class-Path: lib/dropship.jar lib-external/dropship_xsd.jar
+ATG-Client-Class-Path: lib/dropship.jar 
+ATG-Config-Path: config
+
+Name: lib/dropship.jar
+ATG-Client-Update-File: true

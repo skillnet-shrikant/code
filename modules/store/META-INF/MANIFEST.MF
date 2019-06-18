@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+ATG-Required: DafEar.Admin DPS DSS DCS.PublishingAgent KP.RS.main
+ATG-Config-Path: config
+ATG-Web-Module: j2ee-apps/storefront.war
+ATG-Module-Uri: storefront.war
+ATG-Context-Root: /

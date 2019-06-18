@@ -1,0 +1,67 @@
+<ContentItem type="SecondaryContent" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://endeca.com/schema/content/2008">
+  <TemplateId>UtilityNavigation</TemplateId>
+  <Name>UtilityNavigation</Name>
+  <Property name="sectionTitle">
+    <String>Articles</String>
+  </Property>
+  <Property name="UtilityLinks">
+    <ContentItemList type="UtilityLink">
+      <ContentItem type="UtilityLink">
+        <TemplateId>UtilityLink</TemplateId>
+        <Name>UtilityLink</Name>
+        <Property name="linkURL">
+          <Item class="com.endeca.infront.cartridge.model.LinkBuilder" xmlns="http://endeca.com/schema/xavia/2010">
+            <Property name="path">/promos/Garden-Center-Lawn</Property>
+            <Property name="linkType">Navigation State</Property>
+            <Property name="queryString"/>
+          </Item>
+        </Property>
+        <Property name="linkText">
+          <String>Lawn</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="UtilityLink">
+        <TemplateId>UtilityLink</TemplateId>
+        <Name>UtilityLink</Name>
+        <Property name="linkURL">
+          <Item class="com.endeca.infront.cartridge.model.LinkBuilder" xmlns="http://endeca.com/schema/xavia/2010">
+            <Property name="path">/promos/Garden-Center-Gardening</Property>
+            <Property name="linkType">Navigation State</Property>
+            <Property name="queryString"/>
+          </Item>
+        </Property>
+        <Property name="linkText">
+          <String>Garden</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="UtilityLink">
+        <TemplateId>UtilityLink</TemplateId>
+        <Name>UtilityLink</Name>
+        <Property name="linkURL">
+          <Item class="com.endeca.infront.cartridge.model.LinkBuilder" xmlns="http://endeca.com/schema/xavia/2010">
+            <Property name="path">/promos/Garden-Center-Patio</Property>
+            <Property name="linkType">Navigation State</Property>
+            <Property name="queryString"/>
+          </Item>
+        </Property>
+        <Property name="linkText">
+          <String>Patio</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="UtilityLink">
+        <TemplateId>UtilityLink</TemplateId>
+        <Name>UtilityLink</Name>
+        <Property name="linkURL">
+          <Item class="com.endeca.infront.cartridge.model.LinkBuilder" xmlns="http://endeca.com/schema/xavia/2010">
+            <Property name="path">/promos/Garden-Center-Articles</Property>
+            <Property name="linkType">Navigation State</Property>
+            <Property name="queryString"/>
+          </Item>
+        </Property>
+        <Property name="linkText">
+          <String>Article Library</String>
+        </Property>
+      </ContentItem>
+    </ContentItemList>
+  </Property>
+</ContentItem>

@@ -1,0 +1,522 @@
+/* Static Content Pages
+========================================================= */
+.static-content,
+.garden-center {
+	.two-column-container {
+		.section-title {
+			@include rem-size(padding-top, 0px);
+		}
+		.two-column-left {
+			@include rem-size(padding, 0px 10px);
+			@include media(medium-up) {
+				width: 28%;
+			}
+			.mobile-refinements {
+				@include rem-size(padding, 10px 0px);
+			}
+			.facet-menu {
+				// style override
+				@include media(small-only) {
+					margin: 0 !important;
+				}
+			}
+		}
+		.two-column-right {
+			@include media(medium-up) {
+				width: 72%;
+			}
+			.show-sidebar {
+				display: block;
+				@include rem-size(margin-bottom, 20px);
+				@include media(medium-up) {
+					display: none;
+				}
+			}
+		}
+		ul, li {
+			@include unlist;
+		}
+	}
+	.content-container {
+		@include rem-size(padding, 0px 10px 10px 10px);
+		.content-section {
+			& + .content-section {
+				@include rem-size(padding-top, 10px);
+			}
+		}
+		.heading {
+			text-transform: uppercase;
+		}
+		.subheading {
+			text-transform: uppercase;
+			@include font-size(17px);
+			@include rem-size(padding-left, 10px);
+		}
+		.question {
+			color: $orange;
+			font-weight: $bold;
+			@include rem-size(padding, 5px 0px);
+		}
+	}
+	.icon-arrow-down {
+		float: right;
+	}
+	.facet-list.links .active {
+		background: transparent;
+		color: $black;
+	}
+}
+.content-title {
+	text-transform: uppercase;
+	background: $medium-gray;
+	font-weight: $bold;
+	color: $white;
+	@include rem-size(padding, 10px);
+	@include rem-size(margin-top, -20px); // compensate for conditional p tag
+	@include font-size(20px);
+}
+.accordion-nav-active {
+	font-weight: $bold;
+}
+#faqs-accordion {
+	@include rem-size(padding, 5px 0px 10px);
+}
+// contact us subject selections
+.option-div {
+	display: none;
+}
+
+// credit cards
+
+// top table styles combined with
+// product-form-pickers in _skuPicker.scss
+.inner-cc-table {
+	table {
+		table-layout: fixed;
+		min-width: 100%;
+
+		@include media(small-only) {
+			min-width: 800px;
+		}
+	}
+	.table-picker & {
+		overflow-x: scroll;
+	}
+}
+
+.static-cc-strip {
+	text-align:center;
+	border-collapse:collapse;
+	padding: 10px;
+}
+.cc-titles {
+	@include font-size(16px);
+	font-weight: $bold;
+}
+.static-cc-table {
+	width: 100%;
+	text-align:center;
+	margin:0;
+	@include font-size(16px);
+	border-collapse:collapse;
+	td {
+		width: 30%;
+		text-align: center;
+		@include font-size(14px);
+		@include rem-size(padding-left, 60px);
+	}
+}
+.bg-strip img {
+	width: 85%;
+}
+.cc-fineprint {
+	@include rem-size(padding, 0px 15px);
+	@include font-size(11px);
+}
+
+// supplier info
+.supplier-info-table {
+	td {
+		@include rem-size(padding, 5px 10px);
+	}
+	tr:nth-child(even) {
+		background: $light-gray;
+	}
+	tr:nth-child(odd) {
+		background: $base-gray;
+	}
+}
+
+
+// careers
+#careersMain {
+	min-height: unset !important;
+	padding-bottom: 0px !important;
+	margin-top: -15px !important;
+	width: auto !important;
+	max-width: 980px !important;
+}
+#CareerImg {
+	@include rem-size(margin, -15px 0px 15px);
+}
+.career-center {
+	.content-container {
+		@include rem-size(padding, 0px 10px);
+	}
+}
+.careers-content-left {
+	float: left;
+	width: 70%;
+	@include rem-size(padding-right, 20px);
+	@include media(small-only){
+		width: 100%;
+		float: none;
+	}
+}
+.careers-benefits {
+	float: left;
+	width: 30%;
+	background: $light-gray;
+	font-weight: $bold;
+	line-height: 1.4;
+	@include rem-size(margin, 20px 0px);
+	@include rem-size(padding, 20px);
+	@include media(small-only){
+		width: 100%;
+		float: none;
+	}
+	.benefits-title {
+		color: $orange;
+		text-transform: uppercase;
+	}
+	.careers-note {
+		@include font-size(10px);
+		font-weight: $normal;
+	}
+}
+.brainshark-video {
+	position: relative;
+	padding-bottom: 60%; /* 450 / 750 */
+	padding-top: 25px;
+	height: 0;
+
+	iframe {
+		border: none;
+
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+}
+
+
+/* Static Content & Garden Center Accordions
+========================================================= */
+#gardenCenterAccordion, #staticContentAccordion {
+	.has-submenu {
+    border: 0px !important;
+		.accordion-title {
+			font-weight: $normal;
+		}
+		.facet-list {
+    	@include rem-size(padding-left, 0px);
+		}
+	}
+}
+
+
+/* Garden Center
+========================================================= */
+.garden-center {
+	.section-row {
+		@include rem-size(padding, 10px 0px 0px);
+	}
+	.mobile-refinements {
+		.section-title {
+			padding: 0;
+		}
+	}
+	.two-column-container .two-column-right .show-sidebar {
+		@include rem-size(margin, 15px 0px 0px);
+	}
+	.hide-sidebar .icon-close {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+	}
+
+	// managed content slot
+	.managed-content-slot {
+		@include rem-size(padding-top, 10px);
+	}
+
+	// full width image - banner
+	.full-width-img {
+		img {
+			min-width: 100%;
+			max-width: 100%;
+		}
+	}
+	.product-tile {
+		min-height: 268px;
+	}
+
+	// two-column-images
+	.two-column-content {
+		img {
+			max-width: 100%;
+		}
+		.img-container {
+			position: relative;
+		}
+		.img-container:hover > .title-container {
+			@include transition();
+			background: rgba(0, 0, 0, 0.6);
+		}
+		.title-container {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			max-width: 100%;
+			@include rem-size(padding, 10px);
+			background: rgba(0, 0, 0, 0.4);
+ 			color: $white;
+ 			line-height: 1.4rem;
+			.title {
+				@include font-size(16px);
+				font-weight: $bold;
+				text-align: center;
+	 		}
+		}
+		.two-col-left {
+			@include media(medium-up) {
+				width: 50%;
+				float: left;
+				@include rem-size(padding-right, 5px);
+			}
+		}
+		.two-col-right {
+			@include rem-size(padding-top, 10px);
+
+			@include media(medium-up) {
+				width: 50%;
+				float: left;
+				@include rem-size(padding, 0px 0px 0px 5px);
+			}
+		}
+		.two-col-right-top {
+			overflow: auto;
+			@include rem-size(padding-bottom, 10px);
+			.nested-two-col-left {
+				width: 50%;
+				float: left;
+				@include rem-size(padding-right, 5px);
+			}
+			.nested-two-col-right {
+				width: 50%;
+				float: left;
+				@include rem-size(padding-left, 5px);
+			}
+		}
+	}
+
+	// four column featured products
+	.subtitle {
+		@include font-size(16px);
+		font-weight: $bold;
+		@include rem-size(margin-bottom, 10px);
+
+		.article-column {
+			border-bottom: 1px solid $black;
+		}
+	}
+	.four-col-products {
+		.cols {
+			@include block-grid(
+				$per-row: 1,
+				$spacing: 20px,
+				$base-style: true
+			);
+			@include media(medium-up) {
+				@include block-grid(
+					$per-row: 3,
+					$spacing: 20px,
+					$base-style: false
+				);
+			}
+		}
+		img {
+			width: 100%;
+		}
+		.product-mini-tile {
+			@include font-size(13px);
+			font-weight: $bold;
+			a {
+				color: $black;
+			}
+			img {
+				max-width: 100%;
+			}
+		}
+	}
+
+	// promoProductGrid.jsp
+	.two-column-container ul.promo-product-grid {
+		@include block-grid(
+			$per-row: 2,
+			$spacing: 10px,
+			$base-style: true
+		);
+		@include media(large-up) {
+			@include block-grid(
+				$per-row: 4,
+				$spacing: 20px,
+				$base-style: false
+			);
+			@include rem-size(margin, 0px -10px);
+		}
+	}
+	.promo-product-grid-container {
+		@include rem-size(padding, 20px 0px 0px);
+		@include rem-size(margin, 0px -10px);
+
+		.section-row {
+			padding: 0;
+		}
+		@include media(large-up){
+			.section-row {
+				@include rem-size(padding, 10px 0px 0px);
+			}
+		}
+	}
+
+	// h1 title center aligned
+	.headline-title {
+		text-align: center;
+		h1 {
+			@include rem-size(margin-bottom, 0px);
+		}
+	}
+	// h3 title left aligned
+	.small-title {
+		h3 {
+			@include rem-size(margin-bottom, 10px);
+		}
+	}
+
+
+	// full width image, non-banner
+	.single-image-row {
+		img {
+			max-width: 100%;
+			display: block;
+			margin: 0 auto;
+		}
+	}
+
+	// text with right floated text-wrapped img
+	.text-wrapped-img {
+		h3 {
+			@include rem-size(margin-bottom, 0px);
+		}
+		p:nth-child(2){
+			@include rem-size(margin-top, 0px);
+		}
+	}
+	.wrap-right {
+		@include rem-size(margin-left, 15px);
+		width: 50%;
+	}
+	.wrap-left {
+		@include rem-size(margin-right, 15px);
+		width: 50%;
+	}
+	.static-img-right {
+		@include rem-size(padding, 5px 0px 0px 10px);
+	}
+	.static-img-left {
+		@include rem-size(padding, 5px 10px 0px 0px);
+	}
+
+	// text paragraph with title
+	.text-with-title-row {
+		h3 {
+			@include rem-size(margin, 0px 0px 4px);
+		}
+		p {
+			@include rem-size(margin-top, 0px);
+		}
+	}
+
+	// three columns of text links w titles
+	.three-col-link-list {
+		@include unlist();
+		.cols {
+			@include block-grid(
+				$per-row: 1,
+				$spacing: 20px,
+				$base-style: true
+			);
+			@include media(medium-up) {
+				@include block-grid(
+					$per-row: 3,
+					$spacing: 20px,
+					$base-style: false
+				);
+			}
+		}
+	}
+
+	// 3 category images w title boxes
+	// and plant category grid
+	.category-img-row, .nine-img-grid {
+		.cols {
+			@include block-grid(
+				$per-row: 2,
+				$spacing: 10px,
+				$base-style: true
+			);
+			@include media(medium-up) {
+				@include block-grid(
+					$per-row: 3,
+					$spacing: 20px,
+					$base-style: false
+				);
+			}
+		}
+		.img-container {
+			position: relative;
+			img {
+				width: 100%;
+			}
+		}
+		.img-container:hover > .title-container {
+			@include transition();
+			background: rgba(0, 0, 0, 0.6);
+		}
+		.title-container {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			max-width: 100%;
+			@include font-size(16px);
+			font-weight: $bold;
+			text-align: center;
+			@include rem-size(padding, 5px);
+			background: rgba(0, 0, 0, 0.4);
+			color: $white;
+		}
+	}
+}
+.garden-center-logo img {
+	width: 100%;
+	cursor: pointer;
+
+	@include media(small-only){
+		display: none;
+	}
+}

@@ -1,0 +1,1 @@
+grant select, update, delete, insert on google_mff_category_map to atg_catfeed;

@@ -1,0 +1,19 @@
+.note {
+	font-size: .8em;
+	color: #FF0000;
+}
+
+.done {
+	text-decoration: line-through;
+	}
+body {
+	font-size: 69%;
+	font-family: Verdana, Arial, sans-serif;
+}
+td {
+	font-size: .75em;
+}
+img { 
+   border: none; 
+   behavior: url('../../css/pngbehavior.htc'); 
+}

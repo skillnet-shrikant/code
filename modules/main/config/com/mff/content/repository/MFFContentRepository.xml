@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<!DOCTYPE gsa-template PUBLIC "-//Art Technology Group, Inc.//DTD General SQL Adapter//EN" "http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
+
+<gsa-template>
+
+	<header>
+		<name>MFF Content Repository</name>
+		<author>DMI</author>
+		<description>This repository holds Mill static content.</description>
+	</header>
+	<!-- ///////////// Start of Content Item Descriptors//////////// -->
+	
+	<item-descriptor name="mffStaticLeftNav" display-property="title" display-name="MFF Static Left Nav">		    	
+	    	<table name="mff_static_left_nav" type="primary" id-column-name="id">
+				<property name="title" data-type="string" column-name="title" display-name="left nav heading" required="true">
+					<attribute name="propertySortPriority" value="1"/>
+				</property>
+				<property name="displayOrder" data-type="int" column-name="display_order" display-name="Display Order">
+					<attribute name="propertySortPriority" value="2"/>
+				</property>
+			</table>
+			
+			<table name="mff_static_left_nav_links" type="multi" id-column-name="id" multi-column-name="sequence_num">
+		    	<property name="leftNavLinks" data-type="list" display-name="Left Nav Links" component-item-type="mffStaticContent" column-name="link_id">
+		    		<attribute name="propertySortPriority" value="3"/>
+		    		<attribute name="references" value="true"/>
+		        </property>
+		   </table>
+	</item-descriptor>
+	
+	<item-descriptor name="taxExmpClassification" display-property="displayName" display-name="Tax Exemption Classification">
+		  <table name="MFF_TAX_EXMP_CLASSIFICATION" type="primary" id-column-names="id">
+		  		<property name="taxExmpCode" column-name="exmp_code" data-type="string" display-name="Classification Code"/>
+				<property name="displayName" column-name="display_name" data-type="string" display-name="Classification Name"/>
+				<property name="status" column-name="status" default="true" data-type="boolean" display-name="Is Active"/>
+		</table>
+	</item-descriptor>
+	
+	<item-descriptor name="ppsMessage" display-property="id" display-name="PPS Message">
+		<table name="MFF_PPS_MESSAGE" type="primary" id-column-names="id">
+			<property name="id" data-type="string" column-name="id">
+				<attribute name="uiwritable" value="false"/>
+			</property>
+			<property name="text" column-name="text" data-type="big string" display-name="PPS Message"/>
+		</table>
+	</item-descriptor>
+				 
+	<item-descriptor name="mffStaticContent" display-property="displayName" display-name="MFF Static Content">		
+	 	    <table name="mff_content" type="primary" id-column-name="content_id">
+	 	    
+	 	    	<property name="contentId" column-name="content_id" data-type="string" display-name="Id" required="true">
+	 	    		<attribute name="propertySortPriority" value="10"/>
+	 	    		<attribute name="uiwritable" value="false"/>
+	 	    	</property>
+	 	    	<property name="contentKey" data-type="enumerated" column-name="content_key" display-name="Content Key">
+					<attribute name="useCodeForValue" value="false"/>
+					<attribute name="propertySortPriority" value="20"/>
+					<option value="Header Promo Content" code="0000"/>
+					<option value="Footer Static Content" code="1111"/>
+					<option value="Left nav Static Content" code="2222"/>
+					<option value="Default Store Hours" code="3333"/>
+					<option value="FAQ" code="4444"/>
+					<option value="Visit Stores" code="5555"/>
+				</property>
+        	    <property name="displayName" column-name="display_name" data-type="string" display-name="Display Name">
+        	    	<attribute name="propertySortPriority" value="30"/>
+        	    </property>
+		        <property name="jspPagePath" column-name="jsp_page_path" data-type="string" display-name="JSP page path">
+		        	<attribute name="propertySortPriority" value="40"/>
+		        </property>
+		        <property name="redirectUrl" column-name="page_url" data-type="string" display-name="Redirect URL">
+		        	<attribute name="propertySortPriority" value="50"/>
+		        </property>
+		        <property name="urlTitle" column-name="url_title" data-type="string" display-name="URL Title">
+		        	<attribute name="propertySortPriority" value="60"/>
+		        </property>
+		        <property name="target" column-name="target" data-type="enumerated" display-name="target">
+					<attribute name="useCodeForValue" value="false"/>
+					<attribute name="propertySortPriority" value="70"/>
+					<option value="Same Browser" code="0"/>
+					<option value="New Window" code="1"/>
+				</property>
+		        <property name="startDate" column-name="start_date" data-type="timestamp" display-name="Start Date">
+		        	<attribute name="propertySortPriority" value="100"/>
+		        </property>
+		        <property name="endDate" column-name="end_date" data-type="timestamp" display-name="End Date">
+		        	<attribute name="propertySortPriority" value="110"/>
+		        </property>
+		        <property name="pageTitle" column-name="page_title" display-name="Page Title" data-type="string" category="SEO Details">
+					<attribute name="propertySortPriority" value="120" />
+				</property>
+				<property name="metaDescription" column-name="meta_description" display-name="Meta Description" data-type="string" category="SEO Details">
+					<attribute name="propertySortPriority" value="130" />
+				</property>
+		    </table>
+		    
+	      	<!-- List of sub links -->
+			<table name="mff_static_left_nav_rltd_links" id-column-name="link_id" type="multi" multi-column-name="sequence_num">
+		      <property readable="true" display-name="related sub links" expert="false" hidden="false" data-type="list" component-item-type="mffStaticContent" writable="true" queryable="true" cache-mode="inherit" backing-map-property="false" name="relatedLinks" column-name="related_link_id">
+		        <attribute name="references" value="true"/>
+		         <attribute name="propertySortPriority" value="80"/>
+		      </property>
+		    </table>
+		    
+		    <!-- List of content sections -->
+	        <table name="mff_content_items" id-column-name="content_id" type="multi" multi-column-name="sequence_num">
+		      <property name="contentSections" display-name="Content Sections" data-type="list" repository="/atg/content/ContentManagementRepository" component-item-type="article" column-name="content_section">
+		      	<attribute name="references" value="true"/>
+		      	<attribute name="propertySortPriority" value="90"/>
+		        </property>
+		    </table>
+		    
+	</item-descriptor>
+
+	<item-descriptor name="infoMessage" display-property="infoKey" display-name="Info Messages">		    	
+	    	<table name="mff_info_message" type="primary" id-column-name="id">
+				<property name="infoKey" data-type="string" column-name="info_key" display-name="Key" required="true">
+					<attribute name="propertySortPriority" value="1"/>
+				</property>
+				<property name="infoMsg" data-type="big string" column-name="info_msg" display-name="Info Text">
+					<attribute name="propertySortPriority" value="2"/>
+				</property>
+			</table>
+	</item-descriptor>
+		
+	<!-- ///////////// End of Content Item Descriptors//////////// -->
+
+</gsa-template>

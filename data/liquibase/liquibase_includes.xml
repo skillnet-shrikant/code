@@ -1,0 +1,224 @@
+<project name="liquibase_includes" basedir="." xmlns:liquibase="antlib:liquibase.integration.ant">
+
+   <property environment="env"/>
+
+   <dirname property="liquibase_includes.basedir" file="${ant.file.liquibase_includes}"/>
+   <property file="${liquibase_includes.basedir}/build.properties"/>
+   <!-- if env.ENV_NAME is present, set that as the envName  -->
+   <condition property="envName" value="${env.ENV_NAME}">
+      <and>
+	 <not>
+	    <equals arg1="${env.ENV_NAME}" arg2=""/>
+	 </not>
+	 <not>
+	    <equals arg1="${env.ENV_NAME}" arg2="$${env.ENV_NAME}"/>
+	 </not>
+      </and>
+   </condition>
+   <!-- otherwise set the default env name as "dev" -->
+   <property name="envName" value="dev"/>
+
+   <property file="${liquibase_includes.basedir}/users/${envName}.properties" />
+
+   <path id="antContribClasspath">
+      <pathelement location="${liquibase_includes.basedir}/${ant-contrib.jar}" />
+   </path>
+
+   <path id="liquibaseClasspath">
+      <pathelement location="${liquibase_includes.basedir}/${liquibase.jar}" />
+      <pathelement location="${liquibase_includes.basedir}" />
+   </path>
+
+   <path id="jdbcClasspath">
+      <pathelement location="${liquibase_includes.basedir}/${oracle.jdbc.jar}" />
+      <pathelement location="${liquibase_includes.basedir}"/>
+   </path>
+
+   <taskdef resource="liquibase/integration/ant/antlib.xml" uri="antlib:liquibase.integration.ant">
+      <classpath refid="liquibaseClasspath" />
+   </taskdef>
+
+   <taskdef resource="liquibasetasks.properties">
+      <classpath refid="liquibaseClasspath" />
+   </taskdef>   
+		
+   <taskdef resource="net/sf/antcontrib/antcontrib.properties" uri="antlib:net.sf.antcontrib">
+      <classpath refid="antContribClasspath" />
+   </taskdef>
+   
+   <taskdef resource="net/sf/antcontrib/antlib.xml">
+		 <classpath refid="antContribClasspath" />
+   </taskdef>
+
+   <!-- database schema definitions -->
+
+   
+   <liquibase:database id="system-db" driver="${jdbc.driver}" url="${jdbc.url}" user="${jdbc.system.user}" password="${jdbc.system.password}"/>
+   <liquibase:database id="cata-db" driver="${jdbc.driver}" url="${jdbc.url}" user="${jdbc.cata.user}" password="${jdbc.cata.password}"/>
+   <liquibase:database id="catb-db" driver="${jdbc.driver}" url="${jdbc.url}" user="${jdbc.catb.user}" password="${jdbc.catb.password}"/>
+   <liquibase:database id="core-db" driver="${jdbc.driver}" url="${jdbc.url}" user="${jdbc.core.user}" password="${jdbc.core.password}"/>
+   <liquibase:database id="pub-db" driver="${jdbc.driver}" url="${jdbc.url}" user="${jdbc.pub.user}" password="${jdbc.pub.password}"/>
+   <liquibase:database id="service-db" driver="${jdbc.driver}" url="${jdbc.url}" user="${jdbc.service.user}" password="${jdbc.service.password}"/>
+   <liquibase:database id="oms-db" driver="${jdbc.driver}" url="${jdbc.url}" user="${jdbc.oms.user}" password="${jdbc.oms.password}"/>
+   <liquibase:database id="catfeed-db" driver="${jdbc.driver}" url="${jdbc.url}" user="${jdbc.catfeed.user}" password="${jdbc.catfeed.password}"/>
+   <liquibase:database id="legacy-db" driver="${jdbc.driver}" url="${jdbc.url}" user="${jdbc.legacy.user}" password="${jdbc.legacy.password}"/>
+   <liquibase:database id="stage-cata-db" driver="${jdbc.driver}" url="${jdbc.url}" user="${jdbc.stage.cata.user}" password="${jdbc.stage.cata.password}"/>
+   <liquibase:database id="stage-catb-db" driver="${jdbc.driver}" url="${jdbc.url}" user="${jdbc.stage.catb.user}" password="${jdbc.stage.catb.password}"/>
+   <liquibase:database id="stage-core-db" driver="${jdbc.driver}" url="${jdbc.url}" user="${jdbc.stage.core.user}" password="${jdbc.stage.core.password}"/>
+   
+
+   <!--                             -->
+
+   <target name="liquibase-execute-changelog">
+      <fail unless="liquibase.changelog">liquibase.changelog not set</fail>
+      <fail unless="liquibase.dbref">liquibase.dbref not set</fail>
+      <echo>Executing Liquibase changelog file ${liquibase.changelog} against dbref ${liquibase.dbref}</echo>
+
+      <if>
+	 <isset property="liquibase.outputFile"/>
+	 <then>
+	    <liquibase:updateDatabase databaseRef="${liquibase.dbref}" classpathref="jdbcClasspath" changelogFile="${liquibase.changelog}" outputFile="${liquibase.outputFile}">
+	       <liquibase:changeLogParameters>
+		  <propertyset>
+		     <propertyref regex=".*"/>
+		  </propertyset>
+	       </liquibase:changeLogParameters>
+	    </liquibase:updateDatabase>
+	 </then>
+	 <else>
+	    <liquibase:updateDatabase databaseRef="${liquibase.dbref}" classpathref="jdbcClasspath" changelogFile="${liquibase.changelog}">
+	       <liquibase:changeLogParameters>
+		  <propertyset>
+		     <propertyref regex=".*"/>
+		  </propertyset>
+	       </liquibase:changeLogParameters>
+	    </liquibase:updateDatabase>
+	 </else>
+      </if>
+   </target>
+	
+ <target name="liquibase-execute-changelog-with-label">
+      <fail unless="liquibase.changelog">liquibase.changelog not set</fail>
+      <fail unless="liquibase.dbref">liquibase.dbref not set</fail>
+ 	  <fail unless="liquibase.labels">liquibase.label not set</fail>
+      <echo>Executing Liquibase changelog file ${liquibase.changelog} against dbref ${liquibase.dbref} with label ${liquibase.labels}</echo>
+
+      <if>
+	 <isset property="liquibase.outputFile"/>
+	 <then>
+	    <liquibase:updateDatabase databaseRef="${liquibase.dbref}" classpathref="jdbcClasspath" changelogFile="${liquibase.changelog}" outputFile="${liquibase.outputFile}" labels="${liquibase.labels}">
+	       <liquibase:changeLogParameters>
+		  <propertyset>
+		     <propertyref regex=".*"/>
+		  </propertyset>
+	       </liquibase:changeLogParameters>
+	    </liquibase:updateDatabase>
+	 </then>
+	 <else>
+	    <liquibase:updateDatabase databaseRef="${liquibase.dbref}" classpathref="jdbcClasspath" changelogFile="${liquibase.changelog}" labels="${liquibase.labels}">
+	       <liquibase:changeLogParameters>
+		  <propertyset>
+		     <propertyref regex=".*"/>
+		  </propertyset>
+	       </liquibase:changeLogParameters>
+	    </liquibase:updateDatabase>
+	 </else>
+      </if>
+	</target>
+
+   <target name="liquibase-rollback-changelog">
+      <fail unless="liquibase.changelog">liquibase.changelog not set</fail>
+      <fail unless="liquibase.dbref">liquibase.dbref not set</fail>
+      <fail unless="liquibase.rollbackTag">liquibase.rollbackTag not set</fail>
+      <echo>Executing Liquibase changelog file ${liquibase.changelog} against dbref ${liquibase.dbref}</echo>
+
+      <if>
+	 <isset property="liquibase.outputFile"/>
+	 <then>
+	    <liquibase:rollbackDatabase rollbackTag="${liquibase.rollbackTag}" databaseRef="${liquibase.dbref}" classpathref="jdbcClasspath" changelogFile="${liquibase.changelog}" outputFile="${liquibase.outputFile}">
+	       <liquibase:changeLogParameters>
+		  <propertyset>
+		     <propertyref regex=".*"/>
+		  </propertyset>
+	       </liquibase:changeLogParameters>
+	    </liquibase:rollbackDatabase>
+	 </then>
+	 <else>
+	    <liquibase:rollbackDatabase rollbackTag="${liquibase.rollbackTag}" databaseRef="${liquibase.dbref}" classpathref="jdbcClasspath" changelogFile="${liquibase.changelog}">
+	       <liquibase:changeLogParameters>
+		  <propertyset>
+		     <propertyref regex=".*"/>
+		  </propertyset>
+	       </liquibase:changeLogParameters>
+	    </liquibase:rollbackDatabase>
+	 </else>
+      </if>
+   </target>
+	
+	<target name="liquibase-rollback-changelog-count">
+	      <fail unless="liquibase.changelog">liquibase.changelog not set</fail>
+	      <fail unless="liquibase.dbref">liquibase.dbref not set</fail>
+	      <fail unless="liquibase.rollbackCount">liquibase.rollbackTag not set</fail>
+	      <echo>Executing Liquibase changelog file ${liquibase.changelog} against dbref ${liquibase.dbref}</echo>
+
+	      <if>
+		 <isset property="liquibase.outputFile"/>
+		 <then>
+		    <liquibase:rollbackDatabase rollbackCount="${liquibase.rollbackCount}" databaseRef="${liquibase.dbref}" classpathref="jdbcClasspath" changelogFile="${liquibase.changelog}" outputFile="${liquibase.outputFile}">
+		       <liquibase:changeLogParameters>
+			  <propertyset>
+			     <propertyref regex=".*"/>
+			  </propertyset>
+		       </liquibase:changeLogParameters>
+		    </liquibase:rollbackDatabase>
+		 </then>
+		 <else>
+		    <liquibase:rollbackDatabase rollbackCount="${liquibase.rollbackCount}" databaseRef="${liquibase.dbref}" classpathref="jdbcClasspath" changelogFile="${liquibase.changelog}">
+		       <liquibase:changeLogParameters>
+			  <propertyset>
+			     <propertyref regex=".*"/>
+			  </propertyset>
+		       </liquibase:changeLogParameters>
+		    </liquibase:rollbackDatabase>
+		 </else>
+	      </if>
+	   </target>
+	
+
+   <target name="liquibase-rollback-everything">
+      <fail unless="liquibase.changelog">liquibase.changelog not set</fail>
+      <fail unless="liquibase.dbref">liquibase.dbref not set</fail>
+      <echo>Rolling back all changesets in changelog file ${liquibase.changelog} against dbref ${liquibase.dbref}</echo>
+
+      <if>
+	 <isset property="liquibase.outputFile"/>
+	 <then>
+	    <liquibase:rollbackDatabase rollbackCount="99999" databaseRef="${liquibase.dbref}" classpathref="jdbcClasspath" changelogFile="${liquibase.changelog}" outputFile="${liquibase.outputFile}">
+	       <liquibase:changeLogParameters>
+		  <propertyset>
+		     <propertyref regex=".*"/>
+		  </propertyset>
+	       </liquibase:changeLogParameters>
+	    </liquibase:rollbackDatabase>
+	 </then>
+	 <else>
+	    <liquibase:rollbackDatabase rollbackCount="99999" databaseRef="${liquibase.dbref}" classpathref="jdbcClasspath" changelogFile="${liquibase.changelog}">
+	       <liquibase:changeLogParameters>
+		  <propertyset>
+		     <propertyref regex=".*"/>
+		  </propertyset>
+	       </liquibase:changeLogParameters>
+	    </liquibase:rollbackDatabase>
+	 </else>
+      </if>
+   </target>
+
+   <target name="liquibase-tag-database">
+      <fail unless="liquibase.dbref">liquibase.dbref not set</fail>
+      <fail unless="liquibase.databaseTag">liquibase.databaseTag not set</fail>
+      <echo>Tagging Liquibase database as ${liquibase.databaseTag} against dbref ${liquibase.dbref}</echo>
+      <liquibase:tagDatabase databaseRef="${liquibase.dbref}" classpathref="jdbcClasspath" tag="${liquibase.databaseTag}">
+      </liquibase:tagDatabase>
+   </target>
+
+</project>

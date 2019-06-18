@@ -1,0 +1,168 @@
+<ContentItem type="Page" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://endeca.com/schema/content/2008">
+  <TemplateId>GardenCenterPage</TemplateId>
+  <Name>Garden Center Page</Name>
+  <Property name="HeaderContent">
+    <ContentItemList type="HeaderContent"/>
+  </Property>
+  <Property name="SecondaryContent">
+    <ContentItemList type="SecondaryContent">
+      <ContentItem type="SecondaryContent">
+        <TemplateId>GardenCenterLogo</TemplateId>
+        <Name>GardenCenterLogo</Name>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Secondary Content Slot</Name>
+        <Property name="contentPaths">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>/content/Shared/Garden Center Guides Navigation</String>
+          </List>
+        </Property>
+        <Property name="templateTypes">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>SecondaryContent</String>
+          </List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Secondary Content Slot</Name>
+        <Property name="contentPaths">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>/content/Shared/Garden Center Articles Navigation</String>
+          </List>
+        </Property>
+        <Property name="templateTypes">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>SecondaryContent</String>
+          </List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Secondary Content Slot</Name>
+        <Property name="contentPaths">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>/content/Shared/Garden Center Lawns &amp; Gardens Navigation</String>
+          </List>
+        </Property>
+        <Property name="templateTypes">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>SecondaryContent</String>
+          </List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>GardenCenterEmailSignup</TemplateId>
+        <Name>GardenCenterEmailSignup</Name>
+      </ContentItem>
+    </ContentItemList>
+  </Property>
+  <Property name="MainContent">
+    <ContentItemList type="MainContent">
+      <ContentItem type="MainContent">
+        <TemplateId>MainTitleTextBlock</TemplateId>
+        <Name>MainTitleTextBlock</Name>
+        <Property name="mainTitle">
+          <String>How to Pick Out Great Christmas Trees</String>
+        </Property>
+        <Property name="sectionTitle">
+          <String/>
+        </Property>
+        <Property name="paraText">
+          <String/>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ImageTextBlock</TemplateId>
+        <Name>ImageTextBlock</Name>
+        <Property name="sectionTitle">
+          <String/>
+        </Property>
+        <Property name="imageURL">
+          <String>http://www.fleetfarm.com/content/garden-center/gardening/christmas-tree-medium.jpg</String>
+        </Property>
+        <Property name="imageAltText">
+          <String>happy kid who just picked out the greatest christmas tree</String>
+        </Property>
+        <Property name="imageAlignment">
+          <String>left</String>
+        </Property>
+        <Property name="paraText">
+          <String>There are few things in the world quite like the sight of a Christmas tree surrounded by family, friends and gifts. The overwhelming sense of satisfaction you receive when your tree looks great comes in part from the knowledge of what work went into making it look great.&lt;br&gt;&lt;br&gt;Most Christmas trees are either spruce, pine, fir, cypress or cedar. There are several types of each. Each type of tree has different characteristics, and picking the type of tree that's best for you depends on your situation. The most popular Christmas tree in the United States is the Scotch pine. Douglas and Noble firs are two of the more popular trees in the United States, they are typically on the larger end. Spruce trees tend to have sharper needles.&lt;br&gt;&lt;br&gt;Once you know what type of tree you want, it's time to pick out the best tree. Before you do anything else, you should clean the area where you plan to put your tree. Measure the height, width and depth and write it down. Be sure to bring your tape measure with you to the place where you plan to buy your tree. Once you're face to face with the tree that seems great for your home, here's a three-step process to make sure you have the best tree possible:&lt;ul&gt;&lt;li&gt;Check for freshness: When you bend the needles on a fresh fir tree they'll snap, on a fresh pine they will bend.&lt;/li&gt;&lt;li&gt;Ensure the needles are secure: Reach into the middle of the tree and grasp a branch, slide your hand out toward you. If you bring a lot of needles with you, pick another tree. &lt;/li&gt;&lt;li&gt;Check for uniformity: Look all around the tree for discoloration, variations in color can signal a future of dull gray spots.&lt;/li&gt;&lt;/ul&gt;</String>
+        </Property>
+        <Property name="sectionHref">
+          <String/>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String>ARIENS DELUXE 30-IN 306CC 2-STAGE SNOW THROWER</String>
+        </Property>
+        <Property name="paraText">
+          <String>When it's time to raise your tree in your living room it's important that you have a nice strong stand that can hold water to keep your tree from drying out. Mill's Fleet Farm offers the best tree stands available. Three points of contact is the absolute minimum for a tree, four is substantially better. &lt;a href="/detail/cinco-express-christmas-tree-stand-large/0000000071015" target="_blank"&gt;This would be your ideal stand.&lt;/a&gt; When mounting your tree it's best to cut a half-inch off the bottom of the tree then fully deploy your branches and lift the tree into the stand as opposed to attaching the stand first. Doing this allows you to see which direction it may lean. If your tree is still unbalanced small pieces of wood wedged between the stand and the trunk work well. Now you can decorate.</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String>Troy-Bilt 26-in. 243cc 2-Stage Snow Thrower</String>
+        </Property>
+        <Property name="paraText">
+          <String>Of course if all of this is too time consuming, you can always purchase an artificial tree. We even offer some trees that are already decorated such as &lt;a href="/detail/general-foam-7-5-ft-redford-semi-decorated-christmas-tree/0000000251708" target="_blank"&gt;this beautiful 7.5' tree&lt;/a&gt;</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>PromoProductGrid</TemplateId>
+        <Name>PromoProductGrid</Name>
+        <Property name="sectionTitle">
+          <String>Featured Products</String>
+        </Property>
+        <Property name="recordSelection">
+          <Item class="com.endeca.infront.cartridge.RecordSpotlightSelection" xmlns="http://endeca.com/schema/xavia/2010">
+            <Property name="filterState">
+              <Item class="com.endeca.infront.navigation.model.FilterState">
+                <Property name="featuredRecords">
+                  <List>
+                    <String>0000000250032</String>
+                    <String>0000000208889</String>
+                    <String>0000000038091</String>
+                    <String>0000000207671</String>
+                  </List>
+                </Property>
+              </Item>
+            </Property>
+          </Item>
+        </Property>
+        <Property name="maxNumRecords">
+          <String>4</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>GardenCenterArticlesLink</TemplateId>
+        <Name>GardenCenterViewAll Articles Link</Name>
+      </ContentItem>
+    </ContentItemList>
+  </Property>
+</ContentItem>

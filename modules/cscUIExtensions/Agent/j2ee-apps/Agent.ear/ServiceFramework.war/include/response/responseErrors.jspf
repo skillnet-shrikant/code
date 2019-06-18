@@ -1,0 +1,14 @@
+<c:if test="${!empty mainFormHandler.validationErrors}">
+  <span class="error">      
+      <c:forEach var="errorItem" items='${mainFormHandler.validationErrors}' varStatus="loop">
+        <fmt:message key="${errorItem.messageKey}" >        
+          <c:forEach var="errorItemParam" items='${errorItem.params}' varStatus="loop">
+            <fmt:param value="${errorItemParam}" />
+          </c:forEach>
+        </fmt:message>
+        <br/>
+      </c:forEach>
+      <br /> 
+  </span>
+</c:if>
+<%-- @version $Id: //application/service-UI/version/11.2/framework/Agent/src/web-apps/ServiceFramework/include/response/responseErrors.jspf#1 $$Change: 946917 $--%>

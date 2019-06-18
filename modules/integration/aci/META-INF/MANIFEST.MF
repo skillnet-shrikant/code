@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+ATG-Required: KP.integration.security
+ATG-Class-Path: lib/aci.jar lib-external/lpj_52.jar lib-external/log4j-1.2.17.jar lib-external/log4j.properties lib-external/bcpkix-jdk15on-147.jar lib-external/bcprov-jdk15on-147.jar lib-external/local_policy.jar lib-external/US_export_policy.jar
+ATG-Client-Class-Path: lib/aci.jar lib-external/lpj_52.jar lib-external/log4j-1.2.17.jar lib-external/log4j.properties lib-external/bcpkix-jdk15on-147.jar lib-external/bcprov-jdk15on-147.jar lib-external/local_policy.jar lib-external/US_export_policy.jar
+ATG-Config-Path: config
+ATG-Web-Module: j2ee-apps/aci-tieback.war
+ATG-Module-Uri: aci-tieback.war
+ATG-Context-Root: aci-tieback
+
+Name: lib/aci.jar
+ATG-Client-Update-File: true
+SHA-Digest: 8R6mzxcTAL694N0L1zqr4sj//CE=
+Digest-Algorithms: SHA MD5
+MD5-Digest: w/zBizAJCz/eA6LpbmHI/w==

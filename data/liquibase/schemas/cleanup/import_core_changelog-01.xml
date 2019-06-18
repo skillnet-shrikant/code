@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+<!--		  
+   <changeSet author="cgopalan" id="001_import_zipcode_usa">
+	<comment>imports zip code data</comment>
+	<sqlFile path="schemas/import/dml/core/001_import_zipcode_usa.sql"/>
+   </changeSet> 	  
+-->   
+   <changeSet author="cgopalan" id="002_inventory_levels">
+	<comment>imports zip code data</comment>
+	<sqlFile path="schemas/import/dml/core/002_inventory_levels.sql"/>
+   </changeSet> 
+
+<!--
+   <changeSet author="cgopalan" id="003_search_facets">
+	<comment>test facet data</comment>
+	<sqlFile path="schemas/import/dml/core/003_search_facets.sql"/>
+   </changeSet>
+-->
+   <changeSet author="smyana" id="004_update_mff_zipcode_data">
+	<comment>prepend zeros for zipcodes with leght less than 5</comment>
+	<sqlFile path="schemas/import/dml/core/004_update_mff_zipcode_data.sql"/>
+   </changeSet>
+<!--   
+   <changeSet author="cgopalan" id="005_search_facets">
+	<comment>test facet data</comment>
+	<sqlFile path="schemas/import/dml/core/005_search_facets.sql"/>
+   </changeSet>
+-->
+	<changeSet author="smyana" id="006_zipcode_dml">
+	 <comment>import zipcode data</comment>
+	 <sqlFile path="schemas/import/dml/core/006_zipcode_dml.sql"/>
+   </changeSet>   
+</databaseChangeLog>

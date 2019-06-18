@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE pipelinemanager
+	PUBLIC "-//Art Technology Group, Inc.//DTD Dynamo Pipeline Manager//EN"
+	'http://www.atg.com/dtds/pipelinemanager/pipelinemanager_1.0.dtd'>
+
+<pipelinemanager>
+
+	<!-- This chain processes a submitOrder message in the OrderFulfiller -->
+	<pipelinechain name="handleSubmitOrder" transaction="TX_REQUIRED" headlink="extractOrderId">
+	
+		<pipelinelink name="extractOrderId" transaction="TX_MANDATORY">
+			<processor jndi="/atg/commerce/fulfillment/processor/ExtractOrderId" />
+			<transition returnvalue="1" link="handleRetrieveOrder" />
+		</pipelinelink>
+		<pipelinelink name="handleRetrieveOrder" transaction="TX_MANDATORY">
+			<processor jndi="/atg/commerce/fulfillment/processor/HandleRetrieveOrder" />
+			<transition returnvalue="1" link="loadSaveOrder" />
+			<transition returnvalue="2" link="loadOrder" />
+		</pipelinelink>
+		<pipelinelink name="loadSaveOrder" transaction="TX_MANDATORY">
+			<processor
+				jndi="/atg/commerce/fulfillment/processor/LoadSaveOrderRepository" />
+			<transition returnvalue="1" link="verifyOrderForFulfillment" />
+		</pipelinelink>
+		<pipelinelink name="loadOrder" transaction="TX_MANDATORY">
+			<processor jndi="/atg/commerce/fulfillment/processor/LoadOrderRepository" />
+			<transition returnvalue="1" link="verifyOrderForFulfillment" />
+		</pipelinelink>
+		<pipelinelink name="verifyOrderForFulfillment"
+			transaction="TX_MANDATORY">
+			<processor jndi="/atg/commerce/fulfillment/processor/VerifyOrderForFulfillment" />
+			<transition returnvalue="1" link="updateOrderRepository" />
+		</pipelinelink>
+		<pipelinelink name="updateOrderRepository" transaction="TX_MANDATORY">
+			<processor jndi="/atg/commerce/fulfillment/processor/UpdateOrderRepository" />
+			<transition returnvalue="1" link="sendModifyOrderNotification" />
+		</pipelinelink>
+		<pipelinelink name="sendModifyOrderNotification"
+			transaction="TX_MANDATORY">
+			<processor jndi="/atg/commerce/fulfillment/processor/SendModifyOrderNotification" />
+		</pipelinelink>
+
+	</pipelinechain>
+
+	<!-- This chain processes a submitOrder message in the OrderFulfiller -->
+	<pipelinechain name="handleSaveOrderToOMS" transaction="TX_REQUIRED" headlink="extractOrderIdOMS">
+
+		<pipelinelink name="extractOrderIdOMS" transaction="TX_MANDATORY">
+			<processor jndi="/atg/commerce/fulfillment/processor/ExtractOrderId" />
+			<transition returnvalue="1" link="handleRetrieveOrderOMS" />
+		</pipelinelink>
+
+		<pipelinelink name="handleRetrieveOrderOMS" transaction="TX_MANDATORY">
+			<processor jndi="/atg/commerce/fulfillment/processor/HandleRetrieveOrder" />
+			<transition returnvalue="1" link="loadOrderfromRepository" />
+			<transition returnvalue="2" link="loadOrderfromRepository" />
+		</pipelinelink>
+
+        <pipelinelink name="loadOrderfromRepository" transaction="TX_MANDATORY">
+			<processor jndi="/atg/commerce/fulfillment/processor/LoadOrderRepository" />
+			<transition returnvalue="1" link="addToOMSOrderRepository" />
+		</pipelinelink>
+	 	 
+		<pipelinelink name="addToOMSOrderRepository" transaction="TX_MANDATORY">
+			<processor jndi="/oms/commerce/processor/AddToOMSOrderRepository" />
+			<transition returnvalue="1" link="addToDashboard" />
+		</pipelinelink>
+		
+		<pipelinelink name="addToDashboard" transaction="TX_MANDATORY">
+			<processor jndi="/oms/dashboard/processor/AddSubmitOrderReportToDashboard" />
+			<transition returnvalue="1" link="splitCommerceItems" />
+		</pipelinelink>
+		
+		<pipelinelink name="splitCommerceItems" transaction="TX_MANDATORY">
+			<processor jndi="/oms/commerce/processor/SplitCommerceItems" />
+			<transition returnvalue="1" link="decideOrderState" />
+		</pipelinelink>
+		
+		<pipelinelink name="decideOrderState" transaction="TX_MANDATORY">
+			<processor jndi="/oms/commerce/processor/DecideOrderState" />
+			<transition returnvalue="1" link="distributeShipping" />
+		</pipelinelink>
+		
+		<!-- Distribute Shipping -->
+		<pipelinelink name="distributeShipping" transaction="TX_MANDATORY">
+			<processor jndi="/oms/commerce/processor/DistributeShipping" />
+			<transition returnvalue="1" link="updateOMSOrderRepository" />
+		</pipelinelink>
+
+		<!-- Create Pay Relationships 
+		<pipelinelink name="createPayRelationships" transaction="TX_MANDATORY">
+			<processor jndi="/oms/commerce/processor/CreatePayRelationships" />
+			<transition returnvalue="1" link="updateOMSOrderRepository" />
+		</pipelinelink>	-->
+		
+		<!-- Check For Fraud State to increase sold count for items -->
+		<!--
+		Change related to BZ: 3147
+		Handling inventory updates only when not a fraud order. So this link may be skipped 		
+		<pipelinelink name="fraudInventoryCheck" transaction="TX_MANDATORY">
+			<processor jndi="/oms/commerce/processor/FraudInventoryCheck" />
+			<transition returnvalue="1" link="updateInventoryForBopisOrder" />
+		</pipelinelink>
+		-->
+		
+		<!-- Update Inventory -->
+		<!--
+		Comment this link because this is a bit too late to mark the item as allocated to the store
+		opens up a window to oversell
+		BZ: 3147 
+		<pipelinelink name="updateInventoryForBopisOrder" transaction="TX_MANDATORY">
+			<processor jndi="/oms/commerce/processor/UpdateInventoryForBopisOrder" />
+			<transition returnvalue="1" link="updateOMSOrderRepository" />
+		</pipelinelink>
+		 -->
+		<pipelinelink name="updateOMSOrderRepository" transaction="TX_MANDATORY">
+			<processor jndi="/oms/commerce/processor/UpdateOMSOrderRepository" />
+			<transition returnvalue="1" link="bopisOrderFraudValidation" />
+		</pipelinelink>
+		
+		<pipelinelink name="bopisOrderFraudValidation" transaction="TX_MANDATORY">
+			<processor jndi="/oms/commerce/processor/BopisOrderFraudValidation" />
+			<transition returnvalue="1" link="bopisOrderAllocation" />
+			<transition returnvalue="2" link="bopisOrderAllocationComplete" />
+		</pipelinelink>
+		
+		<pipelinelink name="bopisOrderAllocation" transaction="TX_MANDATORY">
+			<processor jndi="/oms/commerce/processor/BopisOrderAllocation" />
+		</pipelinelink>
+		
+		<pipelinelink name="bopisOrderAllocationComplete" transaction="TX_MANDATORY">
+			<processor jndi="/oms/commerce/processor/BopisOrderAllocationComplete" />
+		</pipelinelink>
+       
+	</pipelinechain>
+
+	<!-- This chain processes a manual request to move orders from core to oms -->
+	<pipelinechain name="handleSaveOrderToOMSManual" transaction="TX_REQUIRED" headlink="addToOMSOrderRepositoryManual">
+
+		<pipelinelink name="addToOMSOrderRepositoryManual" transaction="TX_MANDATORY">
+			<processor jndi="/oms/commerce/processor/AddToOMSOrderRepository" />
+			<transition returnvalue="1" link="addToDashboardManual" />
+		</pipelinelink>
+		
+		<pipelinelink name="addToDashboardManual" transaction="TX_MANDATORY">
+			<processor jndi="/oms/dashboard/processor/AddSubmitOrderReportToDashboard" />
+			<transition returnvalue="1" link="splitCommerceItemsManual" />
+		</pipelinelink>
+		
+		<pipelinelink name="splitCommerceItemsManual" transaction="TX_MANDATORY">
+			<processor jndi="/oms/commerce/processor/SplitCommerceItems" />
+			<transition returnvalue="1" link="decideOrderStateManual" />
+		</pipelinelink>
+		
+		<pipelinelink name="decideOrderStateManual" transaction="TX_MANDATORY">
+			<processor jndi="/oms/commerce/processor/DecideOrderState" />
+			<transition returnvalue="1" link="distributeShippingManual" />
+		</pipelinelink>
+		
+		<!-- Distribute Shipping -->
+		<pipelinelink name="distributeShippingManual" transaction="TX_MANDATORY">
+			<processor jndi="/oms/commerce/processor/DistributeShipping" />
+			<transition returnvalue="1" link="updateOMSOrderRepositoryManual" />
+		</pipelinelink>
+
+		<!-- Create Pay Relationships 
+		<pipelinelink name="createPayRelationshipsManual" transaction="TX_MANDATORY">
+			<processor jndi="/oms/commerce/processor/CreatePayRelationships" />
+			<transition returnvalue="1" link="updateOMSOrderRepositoryManual" />
+		</pipelinelink>	-->
+		
+		<!-- Check For Fraud State to increase sold count for items -->
+		<!-- Check For Fraud State to increase sold count for items -->
+		<!--
+		Change related to BZ: 3147
+		Handling inventory updates only when not a fraud order. So this link may be skipped 		
+		
+		<pipelinelink name="fraudInventoryCheckManual" transaction="TX_MANDATORY">
+			<processor jndi="/oms/commerce/processor/FraudInventoryCheck" />
+			<transition returnvalue="1" link="updateInventoryForBopisOrderManual" />
+		</pipelinelink>
+		-->		
+		<!-- Update Inventory -->
+		<pipelinelink name="updateInventoryForBopisOrderManual" transaction="TX_MANDATORY">
+			<processor jndi="/oms/commerce/processor/UpdateInventoryForBopisOrder" />
+			<transition returnvalue="1" link="updateOMSOrderRepositoryManual" />
+		</pipelinelink>
+		
+		<pipelinelink name="updateOMSOrderRepositoryManual" transaction="TX_MANDATORY">
+			<processor jndi="/oms/commerce/processor/UpdateOMSOrderRepository" />
+			<transition returnvalue="1" link="bopisOrderFraudValidationManual" />
+		</pipelinelink>
+		
+		<pipelinelink name="bopisOrderFraudValidationManual" transaction="TX_MANDATORY">
+			<processor jndi="/oms/commerce/processor/BopisOrderFraudValidation" />
+			<transition returnvalue="1" link="bopisOrderAllocationManual" />
+			<transition returnvalue="2" link="bopisOrderAllocationCompleteManual" />
+		</pipelinelink>
+		
+		<pipelinelink name="bopisOrderAllocationManual" transaction="TX_MANDATORY">
+			<processor jndi="/oms/commerce/processor/BopisOrderAllocation" />
+		</pipelinelink>
+		
+		<pipelinelink name="bopisOrderAllocationCompleteManual" transaction="TX_MANDATORY">
+			<processor jndi="/oms/commerce/processor/BopisOrderAllocationComplete" />
+		</pipelinelink>
+
+	</pipelinechain>
+
+</pipelinemanager>

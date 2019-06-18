@@ -1,0 +1,12 @@
+<%@ page contentType="text/html; charset=utf-8" %>
+
+<%@ include file="tags.jspf" %>
+<%@ include file="mobile-detect.jspf" %>
+<%@ include file="ajax-detect.jspf" %>
+<%@ include file="proxy-detect.jspf" %>
+
+<fmt:setLocale value="en_US" scope="session"/>
+
+<c:set var="contextPath"  value="${pageContext.servletContext.contextPath}" scope="request" />
+<c:set var="assetVersion" value="@@BUILD_UNIQUE_STRING@@" scope="request"/>
+<c:set var="assetPath" value="${contextPath}/resources" scope="request"/>

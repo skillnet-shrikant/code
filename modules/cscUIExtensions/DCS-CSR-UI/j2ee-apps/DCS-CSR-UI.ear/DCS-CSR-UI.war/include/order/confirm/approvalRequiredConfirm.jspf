@@ -1,0 +1,23 @@
+<%--
+Renders the link to load the order and confirmation text 
+
+@version $Id:
+@updated $DateTime: 2015/01/26 17:26:27 $$Author: jsiddaga $
+--%>
+<ul class="atg_commerce_csr_simpleList">
+
+  <li class="warning"><fmt:message key='confirmOrder.start.approvalRequired.description'/>
+  
+  <li>
+  <p>
+  <fmt:message key='confirmOrder.start.approvalRequired.descriptionOrderNumberLine1'/>
+  <br>
+  <fmt:message key='confirmOrder.start.approvalRequired.descriptionOrderNumberLine2'>
+  <fmt:param> 
+    <strong><a href="#" class="blueU" onclick="atg.commerce.csr.order.viewExistingOrder('${order.id}','${order.stateAsString}');return false;">${fn:escapeXml(order.id)}</a></strong>
+  </fmt:param>
+  </fmt:message>
+  </li>
+  </ul>
+
+<%-- @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/include/order/confirm/approvalRequiredConfirm.jspf#1 $$Change: 946917 $--%>

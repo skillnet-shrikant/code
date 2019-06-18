@@ -1,0 +1,8 @@
+<div class="wish-list-empty">
+	<div class="wish-list-empty-message">
+		<p>
+			There are no items in your wish list.
+		</p>
+		<a href="/" class="button primary">Start Shopping</a>
+	</div>
+</div>

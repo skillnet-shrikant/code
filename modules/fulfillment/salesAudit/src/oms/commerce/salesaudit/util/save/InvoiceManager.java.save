@@ -1,0 +1,2094 @@
+package oms.commerce.salesaudit.util;
+
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Vector;
+import javax.transaction.TransactionManager;
+import com.firstdata.order.MFFGiftCardPaymentGroup;
+import com.mff.commerce.catalog.MFFCatalogTools;
+import com.mff.commerce.order.MFFCommerceItemImpl;
+import com.mff.commerce.order.MFFHardgoodShippingGroup;
+import com.mff.commerce.order.MFFOrderImpl;
+import com.mff.userprofiling.MFFProfileTools;
+import oms.commerce.order.MFFOMSOrderManager;
+import oms.commerce.salesaudit.exception.SalesAuditException;
+import oms.commerce.salesaudit.record.AuxiliaryRecord;
+import oms.commerce.salesaudit.record.Carton;
+import oms.commerce.salesaudit.record.Extract;
+import oms.commerce.salesaudit.record.ExtractSummary;
+import oms.commerce.salesaudit.record.Invoice;
+import oms.commerce.salesaudit.record.InvoiceAddress;
+import oms.commerce.salesaudit.record.LineCarton;
+import oms.commerce.salesaudit.record.LineDiscount;
+import oms.commerce.salesaudit.record.LineSummary;
+import oms.commerce.salesaudit.record.LinePayment;
+import oms.commerce.salesaudit.record.PaymentSummary;
+import oms.commerce.salesaudit.record.SalesAuditConstants;
+import oms.commerce.salesaudit.record.ShippedItem;
+import atg.commerce.order.CommerceItemNotFoundException;
+import atg.commerce.order.CreditCard;
+import atg.commerce.order.HardgoodShippingGroup;
+import atg.commerce.order.InvalidParameterException;
+import atg.commerce.order.Order;
+import atg.commerce.order.PaymentGroup;
+import atg.commerce.order.PaymentGroupNotFoundException;
+import atg.commerce.order.PaymentGroupRelationship;
+import atg.commerce.order.ShippingGroup;
+import atg.commerce.order.ShippingGroupCommerceItemRelationship;
+import atg.commerce.order.ShippingGroupNotFoundException;
+import atg.commerce.pricing.PricingAdjustment;
+import atg.commerce.pricing.TaxPriceInfo;
+import atg.core.util.Address;
+import atg.core.util.ContactInfo;
+import atg.dtm.TransactionDemarcation;
+import atg.dtm.TransactionDemarcationException;
+import atg.nucleus.GenericService;
+import atg.payment.PaymentStatus;
+import atg.payment.creditcard.AuthorizationAddressVerificationStatus;
+import atg.payment.creditcard.CreditCardStatus;
+import atg.repository.MutableRepository;
+import atg.repository.MutableRepositoryItem;
+import atg.repository.RepositoryException;
+import atg.repository.RepositoryItem;
+import atg.repository.RepositoryView;
+import atg.repository.rql.RqlStatement;
+import atg.userprofiling.Profile;
+
+
+public class InvoiceManager 
+  extends GenericService {
+
+  // ***********************************************************************************
+  // 
+  //
+  //                          Add Shipment Invoice Routines
+  //
+  //
+  // ***********************************************************************************
+  
+  /**
+   * Add an invoice record to the invoice repository when an item has been 
+   * shipped by the store.
+   *  
+   * @param pOrder          ATG Order Object
+   * @param pItemsToShip    List of Commerce items to ship
+   * @Param pPaymentGroups  List of payment groups/amounts 
+   * @throws SalesAuditException 
+   */
+  public void addShipmentInvoice (Order pOrder, List<String> pItemsToShip, Map <String, Double> pPaymentGroups) 
+      throws SalesAuditException { 
+    MFFOrderImpl lOrder = (MFFOrderImpl) pOrder;
+    String lOrderNumber = lOrder.getOrderNumber();
+    String lOrderId     = lOrder.getId();
+
+    vlogDebug ("+++++ Begin - Add a new shipment invoice for order {0}/{1}", lOrderNumber, lOrderId);
+    
+    boolean lRollback = true;
+    TransactionDemarcation td = new TransactionDemarcation();
+    try {
+      // Create a transaction
+      td.begin(getTransactionManager(), TransactionDemarcation.REQUIRED);
+    
+      // Create an extract statistics record
+      ExtractStatistics lExtractStatistics = new ExtractStatistics();    
+    
+      // Get a list of the commerce items for a given shipment group
+      Hashtable <String, List<String>> lShippingGroupItem = getItemForShipGroups (pOrder, pItemsToShip);
+      
+      // Output an Invoice record for each shipment group
+      Set<String> lShippingGroupIds = lShippingGroupItem.keySet();
+      for(String lShippingGroupId : lShippingGroupIds) {
+        vlogDebug ("***** Now processing order {0}/{1} - Shipping group {2}", lOrderNumber, lOrderId, lShippingGroupId);
+
+        // Get a list of the Payment groups that will fund each commerce item ... Commerce item ID/List of payments
+        Hashtable <String, List<InvoiceLinePayment>> lInvoiceLinePayments = getLinePaymentsForItems (lOrder, pItemsToShip, pPaymentGroups);
+        
+        // Create Shipping Address
+        //List<String> lCommerceItemIds   = lShippingGroupItem.get(lShippingGroupId);
+        ContactInfo lShippingAddress = (ContactInfo) getShippingAddressForOrder (lOrder, lShippingGroupId);
+        InvoiceAddress lInvoiceShippingAddress = createShippingAddress (lOrder, lShippingGroupId, lShippingAddress);
+      
+        // Create Billing Address
+        //String lCommerceItemId            = lCommerceItemIds.get(0);
+        //List<PaymentGroup> lPaymentGroups = getPaymentGroupsForItem (lOrder, lCommerceItemId);
+        ContactInfo lBillingAddress = (ContactInfo) getBillingAddressForOrder (lOrder, lShippingGroupId);
+        InvoiceAddress lInvoiceBillingAddress = createBillingAddress  (lOrder, lShippingGroupId, lBillingAddress);
+      
+        // Create Shipped Lines
+        List<ShippedItem> lShippedItems = createShippedLines (pOrder, lShippingGroupId, lShippingGroupItem, lExtractStatistics, lInvoiceLinePayments);
+      
+        // Create Invoice
+        Invoice lInvoice = createInvoice ((MFFOrderImpl) pOrder, lShippingGroupId, pItemsToShip, lExtractStatistics, lInvoiceShippingAddress,  lInvoiceBillingAddress, lShippedItems);
+        vlogDebug (lInvoice.toString());
+      }
+      lRollback = false;
+    }
+    catch (TransactionDemarcationException ex) {
+      String lErrorMessage = String.format("Unable to add shipment invoice (1) for order %s/%s", lOrderNumber, lOrderId);
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+    catch (SalesAuditException ex) {
+      String lErrorMessage = String.format("Unable to add shipment invoice (2) for order %s/%s", lOrderNumber, lOrderId);
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+    finally {
+      try {
+        td.end (lRollback);
+      }
+      catch (TransactionDemarcationException ex) {
+        String lErrorMessage = String.format("Unable to add shipment invoice (3) for order %s/%s", lOrderNumber, lOrderId);
+        vlogError (ex, lErrorMessage);
+        throw new SalesAuditException (ex, lErrorMessage);
+      }
+    }
+    vlogDebug ("+++++ End - Add a new shipment invoice for order {0}/{1}", lOrderNumber, lOrderId);
+  }
+
+  // ***********************************************************************************
+  //
+  //                          Add Shipment Add Item Methods
+  //
+  // ***********************************************************************************
+  
+  /**
+   * Create an Invoice item and all of the components that are dependent on the 
+   * invoice.
+   * 
+   * @param pOrder              ATG Order
+   * @param pShippingGroupId    Shipping Group Id
+   * @return                    Invoice Record
+   * @throws SalesAuditException  
+   */
+  protected Invoice createInvoice (MFFOrderImpl pOrder, String pShippingGroupId, List<String> pItemsToShip, ExtractStatistics pExtractStatistics, 
+      InvoiceAddress pInvoiceShippingAddress, InvoiceAddress pInvoiceBillingAddress, List<ShippedItem> pShippedItems) 
+      throws SalesAuditException {
+    String lOrderNumber = pOrder.getOrderNumber();
+    String lOrderId     = pOrder.getId();
+    vlogDebug ("+++++ Begin createShippingAddress for Order: {0}/{1} ShipGroup: {2}", lOrderNumber, lOrderId, pShippingGroupId);
+    
+    // Create Invoice
+    Invoice lInvoice = createInvoiceItem (pOrder, pShippingGroupId, pItemsToShip, pExtractStatistics, pInvoiceShippingAddress, pInvoiceBillingAddress, pShippedItems);
+    
+    vlogDebug ("+++++ End createShippingAddress for Order: {0}/{1} ShipGroup: {2}", lOrderNumber, lOrderId, pShippingGroupId);
+    return lInvoice;
+  }
+  
+  /**
+   * Create an Invoice item.
+   * @param pOrder              ATG Order
+   * @param pShippingGroupId    Shipping Group Id
+   * @return                    Invoice Record 
+   * @throws SalesAuditException
+   */
+  protected Invoice createInvoiceItem (MFFOrderImpl pOrder, String pShippingGroupId, List<String> pItemsToShip, ExtractStatistics pExtractStatistics, InvoiceAddress pInvoiceShippingAddress, InvoiceAddress pInvoiceBillingAddress, List<ShippedItem> pShippedItems) 
+      throws SalesAuditException {
+    String lOrderNumber = pOrder.getOrderNumber();
+    String lOrderId     = pOrder.getId();
+    vlogDebug ("+++++ Begin Create Invoice Item for Order: {0}/{1} ShipGroup: {2}", lOrderNumber, lOrderId, pShippingGroupId);
+    
+    // Get the commerce item
+    MFFHardgoodShippingGroup lMFFHardgoodShippingGroup = (MFFHardgoodShippingGroup) getShippingGroup (pOrder, pShippingGroupId); 
+    MFFCommerceItemImpl lCommerceItem = getCommerceItem (pOrder, pItemsToShip.get(0));
+    MutableRepositoryItem lMutableRepositoryItem = null;
+    try {
+      lMutableRepositoryItem = getInvoiceRepository().createItem (SalesAuditConstants.ITEM_INVOICE);
+    } catch (RepositoryException ex) {
+      String lErrorMessage = String.format("Unable to add Invoice Shipping Address for order %s/%s ShipGroup: %s", lOrderNumber, lOrderId, pShippingGroupId);
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+    Invoice lInvoice = new Invoice (lMutableRepositoryItem);
+    lInvoice.setOrderNumber               (pOrder.getOrderNumber());
+    lInvoice.setOrderDate                 (new Timestamp (lMFFHardgoodShippingGroup.getActualShipDate().getTime())); 
+    lInvoice.setSource                    (SalesAuditConstants.ORDER_SOURCE); 
+    lInvoice.setOrderType                 (SalesAuditConstants.ORDER_TYPE); 
+    lInvoice.setBusinessType              (SalesAuditConstants.BUSINESS_TYPE); 
+    lInvoice.setLoyaltyIdentifier         (null); 
+    lInvoice.setCustomerPurchaseOrder     (null); 
+    lInvoice.setReference                 (pOrder.getId());
+    
+    // Tax Exemption
+    Hashtable <String, String> lTaxExemptionHash = getTaxExemptionCertificate (pOrder);
+    lInvoice.setTaxExemptionCertificate   (lTaxExemptionHash.get(SalesAuditConstants.TAX_EXEMPTION_CERT)); 
+    lInvoice.setTaxExemptionName          (lTaxExemptionHash.get(SalesAuditConstants.TAX_EXEMPTION_NAME));
+    lInvoice.setTaxExemptionType          (lTaxExemptionHash.get(SalesAuditConstants.TAX_EXEMPTION_CODE)); 
+    
+    // Tax
+    Hashtable <String, Double> lOrderTax = getTaxForLines (pOrder, pItemsToShip, pShippingGroupId); 
+    lInvoice.setOrderShipping             (lOrderTax.get(SalesAuditConstants.LINE_SHIPPING)); 
+    lInvoice.setOrderShippingLocalTax     (lOrderTax.get(SalesAuditConstants.LINE_SHIPPING_LOCAL_TAX)); 
+    lInvoice.setOrderShippingCountyTax    (lOrderTax.get(SalesAuditConstants.LINE_SHIPPING_COUNTY_TAX)); 
+    lInvoice.setOrderShippingStateTax     (lOrderTax.get(SalesAuditConstants.LINE_SHIPPING_STATE_TAX)); 
+    lInvoice.setOrderShippingTotal        (lOrderTax.get(SalesAuditConstants.LINE_SHIPPING_TAX)); 
+    lInvoice.setOrderShippingTax          (lOrderTax.get(SalesAuditConstants.LINE_SHIPPING_TAX)); 
+    lInvoice.setOrderShippingExtendedTotal(lOrderTax.get(SalesAuditConstants.LINE_SHIPPING_TAX) + lOrderTax.get(SalesAuditConstants.LINE_SHIPPING)); 
+    lInvoice.setShipVia                   (getShipViaFromMethod(lMFFHardgoodShippingGroup.getShippingMethod())); 
+    lInvoice.setStatus                    (SalesAuditConstants.EXTRACT_STATUS_CREATED); 
+    lInvoice.setLastExtractDate           (null); 
+    lInvoice.setExtract                   (null);
+    lInvoice.setShippingAddress           (pInvoiceShippingAddress);
+    lInvoice.setBillingAddress            (pInvoiceBillingAddress);
+    lInvoice.setShippedItems              (pShippedItems);    
+    
+    // Create order auxiliaries
+    List<AuxiliaryRecord> lAuxiliaryRecords = createOrderAuxiliarys (pOrder);
+    lInvoice.setAuxiliaries(lAuxiliaryRecords);
+    
+    // Create Payments
+    //List<LinePayment> lLinePayments = createLinePayments (pOrder, pShippingGroupId, pItemsToShip, pExtractStatistics);
+    //lInvoice.setPayments(lLinePayments);
+    
+    // Create Cartons
+    List<Carton> lCartons = createCartons (pOrder, pShippingGroupId, pItemsToShip);
+    lInvoice.setCartons(lCartons);
+    
+    // Create Summary
+    LineSummary lLineSummary = createLineSummary (pOrder, pShippingGroupId, pExtractStatistics);
+    lInvoice.setLineSummary(lLineSummary);
+    
+    // Add item to repository
+    try {
+      getInvoiceRepository().addItem(lInvoice.getRepositoryItem());
+    } catch (RepositoryException ex) {      
+      String lErrorMessage = String.format("Unable to add Invoice Shipping Address for Order %s/%s ShipGroup: %s", lOrderNumber, lOrderId, pShippingGroupId);
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+    vlogDebug ("+++++ End Create Invoice Item for Order: {0}/{1} ShipGroup: {2}", lOrderNumber, lOrderId, pShippingGroupId);
+    return lInvoice;
+  }  
+  
+  /**
+   * Create the order auxiliary records.
+   * 
+   * @param pOrder          ATG Order
+   * @return                List of Order auxiliary records
+   * @throws SalesAuditException
+   */
+  private List<AuxiliaryRecord> createOrderAuxiliarys (MFFOrderImpl pOrder) 
+      throws SalesAuditException {
+    
+    String lOrderNumber = pOrder.getOrderNumber();
+    String lOrderId     = pOrder.getId();
+    vlogDebug ("+++++ Begin Create Order Auxiliaries for Order : {0}/{1}", lOrderNumber, lOrderId);
+    
+    AuxiliaryRecord lAuxiliaryRecord = null;
+    List<AuxiliaryRecord> lAuxiliaryRecords = new Vector <AuxiliaryRecord> ();
+    
+    // Sub-market
+    vlogDebug ("+++++ Create Sub-Market Order Auxiliaries for Order : {0}/{1}", lOrderNumber, lOrderId);
+    String lSubMarket = SalesAuditConstants.NO_MARKET_CODE;
+    lAuxiliaryRecord = createAuxiliary (pOrder, SalesAuditConstants.AUXILIARY_TYPE_ORDER, SalesAuditConstants.AUXILIARY_TYPE_ORDER_SUB_MARKET, lSubMarket);
+    lAuxiliaryRecords.add(lAuxiliaryRecord);
+    
+    // Customer Id 
+    vlogDebug ("+++++ Create Customer ID Order Auxiliaries for Order : {0}/{1}", lOrderNumber, lOrderId);
+    String lCustomerId = pOrder.getProfileId(); 
+    lAuxiliaryRecord = createAuxiliary (pOrder, SalesAuditConstants.AUXILIARY_TYPE_ORDER, SalesAuditConstants.AUXILIARY_TYPE_ORDER_CUSTOMER_ID, lCustomerId);
+    lAuxiliaryRecords.add(lAuxiliaryRecord);
+
+    // Base Sales Tax Rate
+    vlogDebug ("+++++ Create Base Tax Rate Order Auxiliaries for Order : {0}/{1}", lOrderNumber, lOrderId);
+    String lBaseTaxRate = getBaseSalesTax(pOrder);
+    lAuxiliaryRecord = createAuxiliary (pOrder, SalesAuditConstants.AUXILIARY_TYPE_ORDER, SalesAuditConstants.AUXILIARY_TYPE_ORDER_BASE_SALES_TAX_RATE, lBaseTaxRate);
+    lAuxiliaryRecords.add(lAuxiliaryRecord);
+    vlogDebug ("+++++ End create Order Auxiliaries for Order : {0}/{1} ShipGroup: {2}", lOrderNumber, lOrderId);
+    return lAuxiliaryRecords;  
+  }
+  
+  /**
+   * Find the base sales tax rate for this order.
+   * 
+   * @param pOrder        ATG Order
+   * @return              Sales Tax rate as String
+   */
+  @SuppressWarnings("unchecked")
+  private String getBaseSalesTax (MFFOrderImpl pOrder) {
+    List <MFFCommerceItemImpl> lCommerceItems = pOrder.getCommerceItems();
+    boolean lRateFound = false;
+    double lBaseTaxRate = 0.00;
+    for (MFFCommerceItemImpl lCommerceItem : lCommerceItems) {
+      if (lRateFound) continue;
+      TaxPriceInfo lTaxPriceInfo = lCommerceItem.getTaxPriceInfo();
+      double lTaxAmount  = lTaxPriceInfo.getAmount();
+      double lLineAmount = lCommerceItem.getPriceInfo().getAmount();
+      if (lTaxAmount > 0 && lLineAmount > 0) {
+        lBaseTaxRate  = lTaxAmount/lLineAmount * 100;
+        lRateFound    = true;
+      }
+    }
+    return formatBigDecimal (lBaseTaxRate).toString();
+  }
+
+  /**
+   * Create the line payments for the shipped lines items.
+   * 
+   * @param pOrder              ATG Order
+   * @param pShippingGroupId    Shipping Group Id
+   * @param pItemsToShip        Items to Ship
+   * @return                    List of line payments
+   * @throws SalesAuditException
+   */
+  @SuppressWarnings("unchecked")
+  private List<LinePayment> createLinePayments (MFFOrderImpl pOrder, String pShippingGroupId, List<String> pItemsToShip, ExtractStatistics pExtractStatistics) 
+      throws SalesAuditException {
+    String lOrderNumber     = pOrder.getOrderNumber();
+    String lOrderId         = pOrder.getId();
+    vlogDebug ("+++++ Begin Create Line Payments for Order : {0}/{1}", lOrderNumber, lOrderId);
+
+    Hashtable <String, LinePayment> lPaymentHash = new Hashtable <String, LinePayment> ();
+    List <LinePayment> lLinePayments = new Vector <LinePayment> ();
+
+    // Get Shipping Group
+    MFFHardgoodShippingGroup lMFFHardgoodShippingGroup = (MFFHardgoodShippingGroup) getShippingGroup (pOrder, pShippingGroupId);
+    Date lShipDate            = lMFFHardgoodShippingGroup.getActualShipDate();
+    Timestamp lShipTimestamp  = new Timestamp (lShipDate.getTime());
+    
+    // Loop through all the items and get payment group(s) for items
+    for (String lItemToShip : pItemsToShip) {
+      vlogDebug ("+++++ Now processing commerce item " + lItemToShip);
+      MFFCommerceItemImpl lCommerceItem = getCommerceItem (pOrder, lItemToShip);
+      List<PaymentGroupRelationship> lPaymentGroupRelationships = lCommerceItem.getPaymentGroupRelationships();
+      //List<PaymentGroup> lPaymentGroups = lCommerceItem.getPaymentGroupRelationships();
+      vlogDebug ("Number of payment relationships" + lPaymentGroupRelationships.size());
+      for (PaymentGroupRelationship lPaymentGroupRelationship : lPaymentGroupRelationships) {
+        PaymentGroup lPaymentGroup = lPaymentGroupRelationship.getPaymentGroup();
+        String lPaymentId = lPaymentGroup.getId();
+        vlogDebug ("+++++ Now processing payment group " + lPaymentId);
+        if (! lPaymentHash.contains(lPaymentId)) {
+          MutableRepositoryItem lMutableRepositoryItem = null;
+          try {
+            lMutableRepositoryItem = getInvoiceRepository().createItem (SalesAuditConstants.ITEM_PAYMENT);
+          } 
+          catch (RepositoryException ex) {
+            String lErrorMessage = String.format("Unable to add Line payment for order %s/%s ShipGroup: %s", lOrderNumber, lOrderId, pShippingGroupId);
+            vlogError (ex, lErrorMessage);
+            throw new SalesAuditException (ex, lErrorMessage);
+          }
+          LinePayment lLinePayment = new LinePayment(lMutableRepositoryItem);
+          lPaymentHash.put(lPaymentId, lLinePayment);
+        }
+        // Credit cards
+        vlogDebug ("***** Payment group is of type " + lPaymentGroup.getClass().getName());
+        if (lPaymentGroup instanceof CreditCard) {
+          CreditCard lCreditCardPaymentGroup = (CreditCard) lPaymentGroup;
+          LinePayment lLinePayment      = lPaymentHash.get(lPaymentId);
+          double lItemPrice             = lCommerceItem.getPriceInfo().getAmount();
+          double lAmount                = lLinePayment.getAmount();          
+          lLinePayment.setAmount                  (lItemPrice + lAmount);
+          lLinePayment.setCardNumber              (lCreditCardPaymentGroup.getCreditCardNumber());
+          lLinePayment.setCardReference           (lCreditCardPaymentGroup.getCardVerificationNumber());
+          lLinePayment.setPaymentDate             (lShipTimestamp);
+          lLinePayment.setPaymentType             (lCreditCardPaymentGroup.getCreditCardType());
+          lLinePayment.setTokenId                 (null);
+          //lLinePayment.setTransactionReference  (lCreditCardPaymentGroup.getAuthorizationStatus());
+          pExtractStatistics.setPaymentCount      (pExtractStatistics.getPaymentCount() + 1);
+          pExtractStatistics.setPaymentTotal      (pExtractStatistics.getPaymentTotal() + lAmount);
+        }
+        if (lPaymentGroup instanceof MFFGiftCardPaymentGroup) {
+          MFFGiftCardPaymentGroup lGiftCardPaymentGroup = (MFFGiftCardPaymentGroup) lPaymentGroup;
+          LinePayment lLinePayment        = lPaymentHash.get(lPaymentId);
+          double lItemPrice               = lCommerceItem.getPriceInfo().getAmount();
+          double lAmount                  = lLinePayment.getAmount();          
+          lLinePayment.setAmount                (lItemPrice + lAmount);
+          lLinePayment.setCardNumber            (lGiftCardPaymentGroup.getCardNumber());
+          lLinePayment.setCardReference         (lGiftCardPaymentGroup.getCardNumber());
+          lLinePayment.setPaymentDate           (lShipTimestamp);
+          lLinePayment.setPaymentType           (SalesAuditConstants.GIFT_CARD_PAYMENT_TYPE);
+          lLinePayment.setTokenId               (null);
+          lLinePayment.setTransactionReference  (null);
+          pExtractStatistics.setPaymentCount    (pExtractStatistics.getPaymentCount() + 1);
+          pExtractStatistics.setPaymentTotal    (pExtractStatistics.getPaymentTotal() + lAmount);
+        }        
+      }
+    }    
+    // Convert Hash into a List and add to repository
+    Set<String> lKeys = lPaymentHash.keySet();
+    for(String lKey: lKeys) {
+      LinePayment lLinePayment = lPaymentHash.get(lKey);
+      lLinePayments.add(lLinePayment);
+      // Add item to repository
+      try {
+        getInvoiceRepository().addItem(lLinePayment.getRepositoryItem());
+      } catch (RepositoryException ex) {      
+        String lErrorMessage = String.format("Unable to add Line payment for Order %s/%s ShipGroup: %s", lOrderNumber, lOrderId, pShippingGroupId);
+        vlogError (ex, lErrorMessage);
+        throw new SalesAuditException (ex, lErrorMessage);
+      }
+    }
+    vlogDebug ("+++++ End Create Line Payments for Order : {0}/{1}", lOrderNumber, lOrderId);
+    return lLinePayments;
+  }
+  
+  /**
+   * Create the cartons for the current order.
+   * 
+   * @param pOrder              ATG Order
+   * @param pShippingGroupId    Shipping group Id
+   * @param pItemsToShip        List of Items to ship
+   * @return                    List of cartons for the order
+   * @throws SalesAuditException
+   */
+  private List<Carton> createCartons (MFFOrderImpl pOrder, String pShippingGroupId, List<String> pItemsToShip) 
+      throws SalesAuditException {
+    String lOrderNumber     = pOrder.getOrderNumber();
+    String lOrderId         = pOrder.getId();
+    vlogDebug ("+++++ Begin Create Line Cartons for Order : {0}/{1}", lOrderNumber, lOrderId);
+
+    Hashtable <String, Carton> lCartonHash = new Hashtable <String, Carton> ();
+    List <Carton> lCartons = new Vector <Carton> ();
+
+    // Get Shipping Group
+    MFFHardgoodShippingGroup lMFFHardgoodShippingGroup = (MFFHardgoodShippingGroup) getShippingGroup (pOrder, pShippingGroupId);
+    Date lShipDate            = lMFFHardgoodShippingGroup.getActualShipDate();
+    String lShipVia           = getShipViaFromMethod(lMFFHardgoodShippingGroup.getShippingMethod());
+    
+    // Loop through all the items and get payment group(s) for items
+    for (String lItemToShip : pItemsToShip) {
+      MFFCommerceItemImpl lCommerceItem     = getCommerceItem (pOrder, lItemToShip);
+      String lTrackingNumber = lCommerceItem.getTrackingNumber();
+      if (lTrackingNumber == null) {
+       vlogInfo ("No tracking number found for order %s/%s", lOrderNumber, lOrderId); 
+       lTrackingNumber = SalesAuditConstants.DEFAULT_TRACKING_NUMBER;
+      }      
+      if (! lCartonHash.contains(lTrackingNumber)) {
+          MutableRepositoryItem lMutableRepositoryItem = null;
+          try {
+            lMutableRepositoryItem = getInvoiceRepository().createItem (SalesAuditConstants.ITEM_CARTON);
+          } 
+          catch (RepositoryException ex) {
+            String lErrorMessage = String.format("Unable to add carton for order %s/%s ShipGroup: %s", lOrderNumber, lOrderId, pShippingGroupId);
+            vlogError (ex, lErrorMessage);
+            throw new SalesAuditException (ex, lErrorMessage);
+          }
+          Carton lCarton = new Carton(lMutableRepositoryItem);
+          lCartonHash.put(lTrackingNumber, lCarton);
+      }
+      // Set values
+      Carton lCarton      = lCartonHash.get(lTrackingNumber);
+      lCarton.setTrackingNumber                 (lTrackingNumber);
+      lCarton.setCartonNumber                   (lCarton.getId());
+      lCarton.setShipDate                       (new Timestamp (lShipDate.getTime()));
+      lCarton.setShipVia                        (lShipVia);
+      lCarton.setFacilityCd                     (lCommerceItem.getFulfillmentStore());
+      lCarton.setWeight                         (0.00);
+      lCarton.setCartonSize                     (null);
+      lCarton.setCartonType                     (null);
+      lCarton.setBillOfLading                   (null);
+      lCarton.setProNum                         (null);
+      lCarton.setManifestNumber                 (lCarton.getId());
+      lCarton.setPickTicket                     (null);
+      lCarton.setReturnLabelNumber              (null);
+      lCarton.setDeliverConfirmationNumber      (null);
+    }    
+    // Convert Hash into a List and add to repository
+    Set<String> lKeys = lCartonHash.keySet();
+    for(String lKey: lKeys) {
+      Carton lCarton = lCartonHash.get(lKey);
+      lCartons.add(lCarton);
+      // Add item to repository
+      try {
+        getInvoiceRepository().addItem(lCarton.getRepositoryItem());
+      } catch (RepositoryException ex) {      
+        String lErrorMessage = String.format("Unable to add carton for Order %s/%s ShipGroup: %s", lOrderNumber, lOrderId, pShippingGroupId);
+        vlogError (ex, lErrorMessage);
+        throw new SalesAuditException (ex, lErrorMessage);
+      }
+    }
+    vlogDebug ("+++++ End Create Line Cartons for Order : {0}/{1}", lOrderNumber, lOrderId);
+    return lCartons;
+  }
+  
+  /**
+   *  Create the summary record for this order
+   *  transaction_total           = Total for this order
+   *  transactions_taxable_total  = Taxable total
+   *  transaction_tax_total       = Tax for this order
+   *  line_count                  = Number of lines
+   *  payment_total               = Payment total
+   *  payment_count               = Number of payments used
+   *  discount_total              = Discount total
+   *  discount_count              = Number of discounts
+   *  giftcard_sold_total         = Gift Cards sold
+   *  giftcard_sold_count         = Gift Cards count
+   *         
+   * @param pOrder
+   * @param pShippingGroupId
+   * @param pItemsToShip
+   * @return
+   * @throws SalesAuditException
+   */
+  private LineSummary createLineSummary (MFFOrderImpl pOrder, String pShippingGroupId, ExtractStatistics pExtractStatistics) 
+      throws SalesAuditException {
+    String lOrderNumber     = pOrder.getOrderNumber();
+    String lOrderId         = pOrder.getId();
+    vlogDebug ("+++++ Begin create line summary for Order: {0}/{1} ShipGroup: {2}", lOrderNumber, lOrderId, pShippingGroupId);
+
+    MutableRepositoryItem lMutableRepositoryItem = null;
+    try {
+      lMutableRepositoryItem = getInvoiceRepository().createItem (SalesAuditConstants.ITEM_LINE_SUMMARY);
+    } catch (RepositoryException ex) {
+      String lErrorMessage = String.format("Unable to add line summary for order %s/%s ShipGroup: %s", lOrderNumber, lOrderId, pShippingGroupId);
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+    LineSummary lLineSummary = new LineSummary (lMutableRepositoryItem); 
+    lLineSummary.setTransactionTotal          (pExtractStatistics.getTransactionTotal());
+    lLineSummary.setTransactionTaxableTotal   (pExtractStatistics.getTransactionTaxableTotal());
+    lLineSummary.setTransactionTaxTotal       (pExtractStatistics.getTransactionTaxTotal());
+    lLineSummary.setLineCount                 (pExtractStatistics.getLineCount());
+    lLineSummary.setPaymentTotal              (pExtractStatistics.getPaymentTotal());
+    lLineSummary.setPaymentCount              (pExtractStatistics.getPaymentCount());
+    lLineSummary.setDiscountTotal             (pExtractStatistics.getDiscountTotal());
+    lLineSummary.setDiscountCount             (pExtractStatistics.getDiscountCount());
+    lLineSummary.setGiftcardSoldTotal         (pExtractStatistics.getGiftcardSoldTotal());
+    lLineSummary.setGiftcardSoldCount         (pExtractStatistics.getGiftcardSoldCount());
+    
+    // Add item to repository
+    try {
+      getInvoiceRepository().addItem(lLineSummary.getRepositoryItem());
+    } catch (RepositoryException ex) {      
+      String lErrorMessage = String.format("Unable to add line summary for Order %s/%s ShipGroup: %s", lOrderNumber, lOrderId, pShippingGroupId);
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+    vlogDebug ("+++++ End create line summary for Order: {0}/{1} ShipGroup: {2}", lOrderNumber, lOrderId, pShippingGroupId);
+    return lLineSummary;
+  }
+  
+  
+  /**
+   * Create a Shipping Address record using the shipping group for the shipped items.
+   * 
+   * @param pOrderId              Order Id
+   * @param pOrderNumber          Order Number
+   * @param pShippingGroup        Shipping group for items being fulfilled
+   * @return                      Invoice Address repository item
+   * @throws SalesAuditException
+   */
+  protected InvoiceAddress createShippingAddress (MFFOrderImpl pOrder, String pShippingGroupId, ContactInfo pAddress) 
+      throws SalesAuditException {
+    String lOrderNumber = pOrder.getOrderNumber();
+    String lOrderId     = pOrder.getId();
+    vlogDebug ("+++++ Begin createShippingAddress for Order: {0}/{1} ShipGroup: {2}", lOrderNumber, lOrderId, pShippingGroupId);
+    
+    MutableRepositoryItem lMutableRepositoryItem = null;
+    try {
+      lMutableRepositoryItem = getInvoiceRepository().createItem (SalesAuditConstants.ITEM_INVOICE_ADDRESS);
+    } catch (RepositoryException ex) {
+      String lErrorMessage = String.format("Unable to add Invoice Shipping Address for order %s/%s ShipGroup: %s", lOrderNumber, lOrderId, pShippingGroupId);
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+    InvoiceAddress lInvoiceAddress = new InvoiceAddress (lMutableRepositoryItem);    
+    lInvoiceAddress.setType                   (SalesAuditConstants.ADDRESS_TYPE_SHIPPING);
+    lInvoiceAddress.setFirstName              (pAddress.getFirstName());
+    lInvoiceAddress.setMiddleName             (pAddress.getMiddleName());
+    lInvoiceAddress.setLastName               (pAddress.getLastName());
+    lInvoiceAddress.setOrganization           (pAddress.getCompanyName());
+    lInvoiceAddress.setCompanyName            (pAddress.getCompanyName());
+    lInvoiceAddress.setHomePhone              (pAddress.getPhoneNumber());
+    lInvoiceAddress.setWorkPhone              (null);
+    lInvoiceAddress.setMobilePhone            (null);
+    lInvoiceAddress.setFax                    (pAddress.getFaxNumber());
+    lInvoiceAddress.setEmail                  (pAddress.getEmail());
+    lInvoiceAddress.setAddress1               (pAddress.getAddress1());
+    lInvoiceAddress.setAddress2               (pAddress.getAddress2());
+    lInvoiceAddress.setAddress3               (pAddress.getAddress3());
+    lInvoiceAddress.setAddress4               (null);
+    lInvoiceAddress.setcity                   (pAddress.getCity());
+    lInvoiceAddress.setprovinceCode           (pAddress.getState());
+    lInvoiceAddress.setProvince               (null);
+    lInvoiceAddress.setPostalCode             (pAddress.getPostalCode());
+    lInvoiceAddress.setCountryCode            (pAddress.getCountry());
+    
+    // Add item to repository
+    try {
+      getInvoiceRepository().addItem(lInvoiceAddress.getRepositoryItem());
+    } catch (RepositoryException ex) {      
+      String lErrorMessage = String.format("Unable to add Invoice Shipping Address for Order %s/%s ShipGroup: %s", lOrderNumber, lOrderId, pShippingGroupId);
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+    vlogDebug ("+++++ End createShippingAddress for Order: {0}/{1} ShipGroup: {2}", lOrderNumber, lOrderId, pShippingGroupId);
+    return lInvoiceAddress;
+  }  
+  
+  
+  
+  /**
+   * Create a billing address item for the given order/shipping group.
+   * 
+   * @param pOrder                ATG Order
+   * @param pShippingGroupId      Shipping Group Id
+   * @param pAddress              Address
+   * @return                      Billing address 
+   * @throws SalesAuditException
+   */
+  protected InvoiceAddress createBillingAddress (MFFOrderImpl pOrder, String pShippingGroupId, ContactInfo pAddress) 
+      throws SalesAuditException {
+    String lOrderNumber = pOrder.getOrderNumber();
+    String lOrderId     = pOrder.getId();
+    vlogDebug ("+++++ Begin createBillingAddress for Order: {0}/{1} ShipGroup: {2}", lOrderNumber, lOrderId, pShippingGroupId);
+    
+    MutableRepositoryItem lMutableRepositoryItem = null;
+    try {
+      lMutableRepositoryItem = getInvoiceRepository().createItem (SalesAuditConstants.ITEM_INVOICE_ADDRESS);
+    } catch (RepositoryException ex) {
+      String lErrorMessage = String.format("Unable to add Invoice Billing Address for order %s/%s ShipGroup: %s", lOrderNumber, lOrderId, pShippingGroupId);
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+    InvoiceAddress lInvoiceAddress = new InvoiceAddress (lMutableRepositoryItem);    
+    lInvoiceAddress.setType                   (SalesAuditConstants.ADDRESS_TYPE_BILLING);
+    lInvoiceAddress.setFirstName              (pAddress.getFirstName());
+    lInvoiceAddress.setMiddleName             (pAddress.getMiddleName());
+    lInvoiceAddress.setLastName               (pAddress.getLastName());
+    lInvoiceAddress.setOrganization           (pAddress.getCompanyName());
+    lInvoiceAddress.setCompanyName            (pAddress.getCompanyName());
+    lInvoiceAddress.setHomePhone              (pAddress.getPhoneNumber());
+    lInvoiceAddress.setWorkPhone              (null);
+    lInvoiceAddress.setMobilePhone            (null);
+    lInvoiceAddress.setFax                    (pAddress.getFaxNumber());
+    lInvoiceAddress.setEmail                  (pAddress.getEmail());
+    lInvoiceAddress.setAddress1               (pAddress.getAddress1());
+    lInvoiceAddress.setAddress2               (pAddress.getAddress2());
+    lInvoiceAddress.setAddress3               (pAddress.getAddress3());
+    lInvoiceAddress.setAddress4               (null);
+    lInvoiceAddress.setcity                   (pAddress.getCity());
+    lInvoiceAddress.setprovinceCode           (pAddress.getState());
+    lInvoiceAddress.setProvince               (null);
+    lInvoiceAddress.setPostalCode             (pAddress.getPostalCode());
+    lInvoiceAddress.setCountryCode            (pAddress.getCountry());
+    
+    // Add item to repository
+    try {
+      getInvoiceRepository().addItem(lInvoiceAddress.getRepositoryItem());
+    } catch (RepositoryException ex) {      
+      String lErrorMessage = String.format("Unable to add Invoice Billing Address for Order %s/%s ShipGroup: %s", lOrderNumber, lOrderId, pShippingGroupId);
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+    vlogDebug ("+++++ End createBillingAddress for Order: {0}/{1} ShipGroup: {2}", lOrderNumber, lOrderId, pShippingGroupId);
+    return lInvoiceAddress;
+  }
+  
+  /**
+   * Create the shipped lines for the list of commerce items in a given shipping group.
+   * 
+   * @param pOrder                ATG Order
+   * @param pShippingGroupId      Shipping Group ID
+   * @param pShippingGroupItem    List of commerce items for the shipping group
+   * @return
+   * @throws SalesAuditException 
+   */
+  public List<ShippedItem> createShippedLines (Order pOrder, String pShippingGroupId, Hashtable <String, List<String>> pShippingGroupItem, ExtractStatistics pExtractStatistics, Hashtable <String, List<InvoiceLinePayment>> pInvoiceLinePayments) 
+      throws SalesAuditException {
+    // List of Shipped Items
+    List <ShippedItem> lShippedItems = new Vector <ShippedItem> ();    
+    
+    List<String> lItemsToShip = pShippingGroupItem.get(pShippingGroupId);
+    for (String lItemToShip : lItemsToShip) {
+      MFFOrderImpl lOrder = (MFFOrderImpl) pOrder;
+      ShippedItem lShippedItem = createShippedItem (lOrder, pShippingGroupId, lItemToShip, pExtractStatistics, pInvoiceLinePayments);
+      lShippedItems.add(lShippedItem);
+    }
+    return lShippedItems;
+  }
+  
+  /**
+   * Create a shipped item for a given order/commerce item.
+   * 
+   * @param pOrder              ATG Order
+   * @param pShippingGroupId    Shipping Group Id
+   * @param pItemToShip         Commerce item to be shipped
+   * @return                    ShippedItem 
+   * @throws SalesAuditException
+   */
+  protected ShippedItem createShippedItem (MFFOrderImpl pOrder, String pShippingGroupId, String pItemToShip, ExtractStatistics pExtractStatistics, Hashtable <String, List<InvoiceLinePayment>> pInvoiceLinePayments) 
+      throws SalesAuditException {
+    String lOrderNumber = pOrder.getOrderNumber();
+    String lOrderId     = pOrder.getId();
+    vlogDebug ("+++++ Begin ShippedItem for Order: {0}/{1} ShipGroup: {2} Item: {3}", lOrderNumber, lOrderId, pShippingGroupId, pItemToShip);
+    
+    // Get the commerce item
+    MFFCommerceItemImpl lCommerceItem = getCommerceItem (pOrder, pItemToShip);
+    String lProductId = (String) lCommerceItem.getPropertyValue("productId");
+        
+    MutableRepositoryItem lMutableRepositoryItem = null;
+    try {
+      lMutableRepositoryItem = getInvoiceRepository().createItem (SalesAuditConstants.ITEM_SHIPPED_ITEM);
+    } catch (RepositoryException ex) {
+      String lErrorMessage = String.format("Unable to add shipped item for order %s/%s ShipGroup: %s Item: %s", lOrderNumber, lOrderId, pShippingGroupId, pItemToShip);
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+    ShippedItem lShippedItem = new ShippedItem (lMutableRepositoryItem);
+    lShippedItem.setExtractLineId             (new Long(lShippedItem.getId()));
+    lShippedItem.setClientLineId              (lCommerceItem.getId());
+    lShippedItem.setSkucode                   (lCommerceItem.getCatalogRefId());
+    lShippedItem.setBarcode                   (lCommerceItem.getCatalogRefId());
+    lShippedItem.setItemNumber                (lCommerceItem.getCatalogRefId());
+    lShippedItem.setColorCode                 (getDynamicProperty (pItemToShip, lProductId, "Color"));
+    lShippedItem.setSizeCode                  (getDynamicProperty (pItemToShip, lProductId, "Size"));
+    lShippedItem.setQuantity                  (lCommerceItem.getQuantity());
+    lShippedItem.setUnitPrice                 (lCommerceItem.getPriceInfo().getSalePrice());
+    lShippedItem.setFacilityCd                (lCommerceItem.getFulfillmentStore());
+    lShippedItem.setShippingAmount            (lCommerceItem.getShipping());
+    
+    // Get the Tax for the line
+    Hashtable <String, Double> lTaxValues = getTaxForLine (lCommerceItem);
+    lShippedItem.setLineLocalTax              (lTaxValues.get(SalesAuditConstants.LINE_LOCAL_TAX));    
+    lShippedItem.setLineCountyTax             (lTaxValues.get(SalesAuditConstants.LINE_COUNTY_TAX));
+    lShippedItem.setLineStateTax              (lTaxValues.get(SalesAuditConstants.LINE_STATE_TAX));
+    lShippedItem.setLineTaxTotal              (lTaxValues.get(SalesAuditConstants.LINE_TAX_TOTAL));
+    lShippedItem.setLineShippingTax           (lTaxValues.get(SalesAuditConstants.LINE_SHIPPING_TAX));
+    lShippedItem.setLineExtendedTotal         (lTaxValues.get(SalesAuditConstants.LINE_EXTENDED_TOTAL));
+    lShippedItem.setExtendedPrice             (lCommerceItem.getPriceInfo().getAmount());
+    lShippedItem.setLineNumber                (new Long(lShippedItem.getId()));
+    
+    // Update Statistics
+    pExtractStatistics.setLineCount(pExtractStatistics.getLineCount() + 1);
+    pExtractStatistics.setTransactionTotal(pExtractStatistics.getTransactionTotal() + lCommerceItem.getPriceInfo().getAmount());
+    pExtractStatistics.setTransactionTaxTotal(pExtractStatistics.getTransactionTaxTotal() + lTaxValues.get(SalesAuditConstants.LINE_TAX_TOTAL));
+    if (lTaxValues.get(SalesAuditConstants.LINE_TAX_TOTAL) > 0) 
+     pExtractStatistics.setTransactionTaxableTotal(pExtractStatistics.getTransactionTaxableTotal() + lCommerceItem.getPriceInfo().getAmount());
+    if (getOmsOrderManager().isGiftCardItem(lCommerceItem)) {
+      pExtractStatistics.setGiftcardSoldCount(pExtractStatistics.getGiftcardSoldCount() + lCommerceItem.getQuantity());
+      pExtractStatistics.setGiftcardSoldTotal(pExtractStatistics.getGiftcardSoldTotal() + lCommerceItem.getPriceInfo().getAmount());
+    }
+    
+    // Create the Line Discounts for this item
+    List<LineDiscount> lLineDiscounts = createLineDiscounts (pOrder, pShippingGroupId, pItemToShip);
+    lShippedItem.setLineDiscounts(lLineDiscounts);    
+    for (LineDiscount lLineDiscount : lLineDiscounts) {
+      pExtractStatistics.setDiscountCount(pExtractStatistics.getDiscountCount() + 1);
+      pExtractStatistics.setDiscountTotal(pExtractStatistics.getDiscountTotal() + lLineDiscount.getAmount());
+    }
+    
+    // Create Payments
+    List<LinePayment> lLinePayments = createLinePayments (pOrder, pShippingGroupId, pItemsToShip, pExtractStatistics, pInvoiceLinePayments);    
+    lShippedItem.setL
+    
+    // Create the line cartons for this item
+    List<LineCarton> lLineCartons = createLineCartons (pOrder, pShippingGroupId, pItemToShip);
+    lShippedItem.setLineCartons(lLineCartons);
+    
+    // Create Auxillaries
+    List <AuxiliaryRecord> lAuxiliaryRecords = createLineAuxiliarys (pOrder, pShippingGroupId, pItemToShip);
+    lShippedItem.setAuxiliaries(lAuxiliaryRecords);
+    
+    // Add item to repository
+    try {
+      getInvoiceRepository().addItem(lShippedItem.getRepositoryItem());
+    } catch (RepositoryException ex) {    
+      String lErrorMessage = String.format("Unable to add shipped item for order %s/%s ShipGroup: %s Item: %s", lOrderNumber, lOrderId, pShippingGroupId, pItemToShip);
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+    vlogDebug ("+++++ End ShippedItem for Order: {0}/{1} ShipGroup: {2} Item: {3}", lOrderNumber, lOrderId, pShippingGroupId, pItemToShip);
+    return lShippedItem;
+  }
+
+  /**
+   * Create the line discounts for the given order
+   * 
+   * @param pOrder            ATG Order
+   * @param pShippingGroupId  Shipping Group Id
+   * @param pItemToShip       Commerce Item ID
+   * @return                  List of Line Discounts
+   * @throws SalesAuditException
+   */
+  @SuppressWarnings("unchecked")
+  private List<LineDiscount> createLineDiscounts (MFFOrderImpl pOrder, String pShippingGroupId, String pItemToShip) 
+      throws SalesAuditException {
+    String lOrderNumber = pOrder.getOrderNumber();
+    String lOrderId     = pOrder.getId();
+    
+    List <LineDiscount> lLineDiscounts = new Vector <LineDiscount> ();
+    
+    vlogDebug ("+++++ Begin Line Discount for Order: {0}/{1} ShipGroup: {2} Item: {3}", lOrderNumber, lOrderId, pShippingGroupId, pItemToShip);
+    
+    // Get the commerce item
+    MFFCommerceItemImpl lCommerceItem = getCommerceItem (pOrder, pItemToShip);
+    
+    // Get Order Discounts
+    if (lCommerceItem.getPriceInfo().getOrderDiscountShare() > 0) {
+      double lOrderDiscountShare = lCommerceItem.getPriceInfo().getOrderDiscountShare();
+      LineDiscount lLineDiscount  = createLineDiscount (pOrder, pShippingGroupId, pItemToShip, null, lOrderDiscountShare);
+      lLineDiscounts.add(lLineDiscount);
+    }
+    List <PricingAdjustment> lPricingAdjustments = lCommerceItem.getPriceInfo().getAdjustments();
+    for (PricingAdjustment lPricingAdjustment : lPricingAdjustments) {
+      if (lPricingAdjustment.getTotalAdjustment() < 0) {
+        LineDiscount lLineDiscount  = createLineDiscount (pOrder, pShippingGroupId, pItemToShip, lPricingAdjustment, 0.00);
+        lLineDiscounts.add(lLineDiscount);
+      }
+    }
+    vlogDebug ("+++++ End Line Discount for Order: {0}/{1} ShipGroup: {2} Item: {3}", lOrderNumber, lOrderId, pShippingGroupId, pItemToShip);
+    return lLineDiscounts; 
+  }
+
+  /**
+   * Create a line discount for a given discount/commerce item
+   * 
+   * @param pOrder              ATG Order
+   * @param pShippingGroupId    Shipping Group Id
+   * @param pItemToShip         Commerce Item to ship
+   * @param pPricingAdjustment  Pricing adjustment  
+   * @return                    Line Discount
+   * @throws SalesAuditException
+   */
+  private LineDiscount createLineDiscount (MFFOrderImpl pOrder, String pShippingGroupId, String pItemToShip, PricingAdjustment pPricingAdjustment, double pOrderDiscountShare) 
+      throws SalesAuditException {
+    String lOrderNumber = pOrder.getOrderNumber();
+    String lOrderId     = pOrder.getId();
+    vlogDebug ("+++++ Begin Line Discount for Order: {0}/{1} ShipGroup: {2} Item: {3}", lOrderNumber, lOrderId, pShippingGroupId, pItemToShip);
+    
+    // Get the commerce item
+    //MFFCommerceItemImpl lCommerceItem = (MFFCommerceItemImpl) getCommerceItem (pOrder, pItemToShip);
+    
+    MutableRepositoryItem lMutableRepositoryItem = null;
+    try {
+      lMutableRepositoryItem = getInvoiceRepository().createItem (SalesAuditConstants.ITEM_LINE_DISCOUNT);
+    } catch (RepositoryException ex) {
+      String lErrorMessage = String.format("Unable to add line discount for order %s/%s ShipGroup: %s Item: %s", lOrderNumber, lOrderId, pShippingGroupId, pItemToShip);
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+    LineDiscount lLineDiscount = new LineDiscount (lMutableRepositoryItem);
+    if (pPricingAdjustment != null) {
+      lLineDiscount.setAmount             (pPricingAdjustment.getTotalAdjustment());
+      lLineDiscount.setDiscountCode       (getItemDiscountCode(pPricingAdjustment));
+      lLineDiscount.setSource             (SalesAuditConstants.DISCOUNT_SOURCE);
+      lLineDiscount.setDiscountType       (SalesAuditConstants.DISCOUNT_TYPE);
+    }
+    else {
+      lLineDiscount.setAmount             (pOrderDiscountShare);
+      lLineDiscount.setDiscountCode       (SalesAuditConstants.DISCOUNT_CODE);
+      lLineDiscount.setSource             (SalesAuditConstants.DISCOUNT_SOURCE);
+      lLineDiscount.setDiscountType       (SalesAuditConstants.DISCOUNT_TYPE);
+    }
+    
+    // Add item to repository
+    try {
+      getInvoiceRepository().addItem(lLineDiscount.getRepositoryItem());
+    } catch (RepositoryException ex) {    
+      String lErrorMessage = String.format("Unable to add line discount for order %s/%s ShipGroup: %s Item: %s", lOrderNumber, lOrderId, pShippingGroupId, pItemToShip);
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+    vlogDebug ("+++++ End Line Discount for Order: {0}/{1} ShipGroup: {2} Item: {3}", lOrderNumber, lOrderId, pShippingGroupId, pItemToShip);
+    return lLineDiscount;
+  }
+  
+  /**
+   * Create the line cartons for the given commerce item
+   * 
+   * @param pOrder              ATG Order
+   * @param pShippingGroupId    Shipping group Id
+   * @param pItemToShip         Commerce Item Id
+   * @return                    List of Cartons
+   * @throws SalesAuditException
+   */
+  private List<LineCarton> createLineCartons (MFFOrderImpl pOrder, String pShippingGroupId, String pItemToShip) 
+      throws SalesAuditException {
+    List <LineCarton> lLineCartons = new Vector <LineCarton> ();
+    LineCarton lLineCarton =  createLineCarton (pOrder, pShippingGroupId, pItemToShip);
+    lLineCartons.add(lLineCarton);
+    return lLineCartons;
+  }
+
+  /**
+   * Create the line carton for the given commerce item
+   * 
+   * @param pOrder              ATG Order
+   * @param pShippingGroupId    Shipping group Id
+   * @param pItemToShip         Commerce Item Id
+   * @return                    List of Cartons
+   * @throws SalesAuditException
+   */
+  private LineCarton createLineCarton (MFFOrderImpl pOrder, String pShippingGroupId, String pItemToShip) 
+      throws SalesAuditException {
+    String lOrderNumber = pOrder.getOrderNumber();
+    String lOrderId     = pOrder.getId();
+    vlogDebug ("+++++ Begin Line Cartons for Order: {0}/{1} ShipGroup: {2} Item: {3}", lOrderNumber, lOrderId, pShippingGroupId, pItemToShip);
+    
+    // Get the commerce item
+    MFFCommerceItemImpl lCommerceItem = getCommerceItem (pOrder, pItemToShip);
+    MFFHardgoodShippingGroup lMFFHardgoodShippingGroup = (MFFHardgoodShippingGroup) getShippingGroup (pOrder, pShippingGroupId); 
+    
+    MutableRepositoryItem lMutableRepositoryItem = null;
+    try {
+      lMutableRepositoryItem = getInvoiceRepository().createItem (SalesAuditConstants.ITEM_LINE_CARTON);
+    } catch (RepositoryException ex) {
+      String lErrorMessage = String.format("Unable to add line carton for order %s/%s ShipGroup: %s Item: %s", lOrderNumber, lOrderId, pShippingGroupId, pItemToShip);
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+    String lTrackingNumber = lCommerceItem.getTrackingNumber();
+    if (lTrackingNumber == null) {
+      vlogInfo ("No tracking number found for order %s/%s", lOrderNumber, lOrderId); 
+      lTrackingNumber = SalesAuditConstants.DEFAULT_TRACKING_NUMBER;
+     }      
+    LineCarton lLineCarton = new LineCarton (lMutableRepositoryItem);
+    lLineCarton.setTrackingNumber             (lTrackingNumber);    
+    lLineCarton.setShipVia                    (getShipViaFromMethod(lMFFHardgoodShippingGroup.getShippingMethod()));
+    lLineCarton.setQuantity                   (lCommerceItem.getQuantity());
+    lLineCarton.setDeliverConfirmationNumber  (null);
+    lLineCarton.setSerialNumber               (null);
+    lLineCarton.setCartonNumber               (lLineCarton.getId());
+    
+    // Add item to repository
+    try {
+      getInvoiceRepository().addItem(lLineCarton.getRepositoryItem());
+    } catch (RepositoryException ex) {    
+      String lErrorMessage = String.format("Unable to add line carton for order %s/%s ShipGroup: %s Item: %s", lOrderNumber, lOrderId, pShippingGroupId, pItemToShip);
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+    vlogDebug ("+++++ End Line carton for Order: {0}/{1} ShipGroup: {2} Item: {3}", lOrderNumber, lOrderId, pShippingGroupId, pItemToShip);
+    return lLineCarton;
+  }
+
+  /**
+   * Get a list of Line Auxiliarys for a shipped line.
+   * 
+   * @param pOrder              ATG Order
+   * @param pShippingGroupId    Shipping Group Id
+   * @param pItemToShip         Commerce Item
+   * @return                    List of Auxiliaries for the line
+   * @throws SalesAuditException
+   */
+  private List<AuxiliaryRecord> createLineAuxiliarys (MFFOrderImpl pOrder, String pShippingGroupId, String pItemToShip) 
+      throws SalesAuditException {
+    
+    String lOrderNumber = pOrder.getOrderNumber();
+    String lOrderId     = pOrder.getId();
+    vlogDebug ("+++++ Create Line Auxiliary Records for Order: {0}/{1} ShipGroup: {2} Item: {3}", lOrderNumber, lOrderId, pShippingGroupId, pItemToShip);
+    
+    // Get the commerce item
+    MFFCommerceItemImpl lCommerceItem = getCommerceItem (pOrder, pItemToShip);
+    String lProductId = (String) lCommerceItem.getPropertyValue("productId");
+    vlogDebug ("***** SKU is 5s product Id is %s ", pItemToShip, lProductId);
+    //MFFHardgoodShippingGroup lMFFHardgoodShippingGroup = (MFFHardgoodShippingGroup) getShippingGroup (pOrder, pShippingGroupId); 
+    
+    AuxiliaryRecord lAuxiliaryRecord = null;
+    List<AuxiliaryRecord> lAuxiliaryRecords = new Vector <AuxiliaryRecord> ();
+    
+    // Taxable
+    vlogDebug ("+++++ Create Taxable Auxiliary Record for Order: {0}/{1} ShipGroup: {2} Item: {3}", lOrderNumber, lOrderId, pShippingGroupId, pItemToShip);
+    String lTaxable = "false";
+    if (lCommerceItem.getTaxPriceInfo().getAmount() > 0)
+      lTaxable = "true";
+    lAuxiliaryRecord = createAuxiliary (pOrder, SalesAuditConstants.AUXILIARY_TYPE_SHIPMENT, SalesAuditConstants.AUXILIARY_TYPE_SHIPMENT_TAXABLE, lTaxable);
+    lAuxiliaryRecords.add(lAuxiliaryRecord);
+    
+    // TODO: Brand 
+    vlogDebug ("+++++ Create Brand Auxiliary Record for Order: {0}/{1} ShipGroup: {2} Item: {3}", lOrderNumber, lOrderId, pShippingGroupId, pItemToShip);
+    String lBrand = "N/A"; 
+    lBrand= getProductProperty (lProductId, "brand");
+    lAuxiliaryRecord = createAuxiliary (pOrder, SalesAuditConstants.AUXILIARY_TYPE_SHIPMENT, SalesAuditConstants.AUXILIARY_TYPE_SHIPMENT_BRAND, lBrand);
+    lAuxiliaryRecords.add(lAuxiliaryRecord);
+
+    // Gift Certificate
+    vlogDebug ("+++++ Create GC Auxiliary Record for Order: {0}/{1} ShipGroup: {2} Item: {3}", lOrderNumber, lOrderId, pShippingGroupId, pItemToShip);
+    String lGiftCertificate = "false";
+    boolean isGiftCardItem = getOmsOrderManager().isGiftCardItem(lCommerceItem);
+    lGiftCertificate = new Boolean (isGiftCardItem).toString();
+    lAuxiliaryRecord = createAuxiliary (pOrder, SalesAuditConstants.AUXILIARY_TYPE_SHIPMENT, SalesAuditConstants.AUXILIARY_TYPE_SHIPMENT_GIFT_CERT, lGiftCertificate);
+    lAuxiliaryRecords.add(lAuxiliaryRecord);
+    
+    // Cost
+    vlogDebug ("+++++ Create Cost Auxiliary Record for Order: {0}/{1} ShipGroup: {2} Item: {3}", lOrderNumber, lOrderId, pShippingGroupId, pItemToShip);
+    lAuxiliaryRecord = createAuxiliary (pOrder, SalesAuditConstants.AUXILIARY_TYPE_SHIPMENT, SalesAuditConstants.AUXILIARY_TYPE_SHIPMENT_GIFT_CERT, lGiftCertificate);
+    lAuxiliaryRecords.add(lAuxiliaryRecord);
+    
+    vlogDebug ("+++++ Create Line Auxiliary Records for Order: {0}/{1} ShipGroup: {2} Item: {3}", lOrderNumber, lOrderId, pShippingGroupId, pItemToShip);
+    return lAuxiliaryRecords;  
+  }
+  
+  /**
+   * Create a Auxiliary Record for a given type, name and value
+   * 
+   * @param pOrder            ATG Order
+   * @param pType             Auxiliary Type
+   * @param pAuxiliaryName    Auxiliary Name
+   * @param pAuxiliaryValue   Auxiliary Value
+   * @return                  Auxiliary Record
+   * @throws SalesAuditException
+   */
+  private AuxiliaryRecord createAuxiliary (MFFOrderImpl pOrder, String pType, String pAuxiliaryName, String pAuxiliaryValue) 
+      throws SalesAuditException {
+    String lOrderNumber = pOrder.getOrderNumber();
+    String lOrderId     = pOrder.getId();
+    vlogDebug ("+++++ Begin Line Auxiliary for Order: {0}/{1} Type: {2} Name: {3} Value: {4}", lOrderNumber, lOrderId, pType, pAuxiliaryName, pAuxiliaryValue);
+    
+    MutableRepositoryItem lMutableRepositoryItem = null;
+    try {
+      lMutableRepositoryItem = getInvoiceRepository().createItem (SalesAuditConstants.ITEM_ANCILLIARY);
+    } catch (RepositoryException ex) {
+      String lErrorMessage = String.format("Unable to add auxiliary for order %s/%s Type: %s Name: %s Value %s", lOrderNumber, lOrderId, pType, pAuxiliaryName, pAuxiliaryValue);
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+    AuxiliaryRecord lAncilliary = new AuxiliaryRecord(lMutableRepositoryItem);
+    lAncilliary.setType                       (pType);
+    lAncilliary.setAuxilliaryName             (pAuxiliaryName);
+    lAncilliary.setAuxilliaryValue            (pAuxiliaryValue);
+    
+    // Add item to repository
+    try {
+      getInvoiceRepository().addItem(lAncilliary.getRepositoryItem());
+    } catch (RepositoryException ex) {    
+      String lErrorMessage = String.format("Unable to add auxiliary for order %s/%s Type: %s Name: %s Value %s", lOrderNumber, lOrderId, pType, pAuxiliaryName, pAuxiliaryValue);
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+    vlogDebug ("+++++ End Line Auxiliary for Order: {0}/{1} Type: {2} Name: {3} Value: {4}", lOrderNumber, lOrderId, pType, pAuxiliaryName, pAuxiliaryValue);
+    return lAncilliary;
+  }
+  
+  // ***********************************************************************************
+  //
+  //                          Add Shipment Support Methods
+  //
+  // ***********************************************************************************
+  
+  /**
+   * Get a list of the items for each of shipping groups that are part of this shipment.  Each
+   * of the shipping groups will be a separate invoice.
+   * 
+   * @param pOrder            ATG Order
+   * @param pItemsToShip      List of commerce items to ship
+   * @return                  Hashtable of shipping groups and commerce items  
+   * @throws SalesAuditException
+   */
+  @SuppressWarnings("unchecked")
+  private Hashtable <String, List<String>> getItemForShipGroups (Order pOrder, List<String> pItemsToShip) 
+      throws SalesAuditException {
+    int lShipmentGroupCount = 0;
+    int lCommerceItemCount  = 0;
+    MFFOrderImpl lOrder = (MFFOrderImpl) pOrder;
+    String lOrderNumber = lOrder.getOrderNumber();
+    String lOrderId     = lOrder.getId();
+    Hashtable <String, List<String>> lShippingGroupItems = new Hashtable <String, List<String>>();
+    
+    for (String lItemToShip : pItemsToShip) {
+      MFFCommerceItemImpl lCommerceItem = getCommerceItem (pOrder, lItemToShip);
+      List <ShippingGroupCommerceItemRelationship> lShippingGroupCommerceItemRelationships = lCommerceItem.getShippingGroupRelationships();
+      for (ShippingGroupCommerceItemRelationship lShippingGroupCommerceItemRelationship : lShippingGroupCommerceItemRelationships) {
+        String lCommerceItemId      = lShippingGroupCommerceItemRelationship.getCommerceItem().getId();
+        String lShippingGroupId     = lShippingGroupCommerceItemRelationship.getShippingGroup().getId();
+        if (lShippingGroupItems.containsKey(lShippingGroupId)) {
+          lCommerceItemCount++;
+          lShippingGroupItems.get(lShippingGroupId).add(lCommerceItemId);
+        }
+        else {
+          lShipmentGroupCount++;
+          lCommerceItemCount++;
+          List<String> lItem = new Vector <String> ();
+          lItem.add(lCommerceItemId);
+          lShippingGroupItems.put(lShippingGroupId, lItem);
+        }
+      }
+    }
+    vlogDebug ("+++++ Order {0}/{1} has {2} shipment groups with {3} Items", lOrderNumber, lOrderId, lShipmentGroupCount, lCommerceItemCount);
+    return lShippingGroupItems; 
+  }
+  
+  /**
+   * Get the list of payment groups that are funding this commerce item.
+   *   
+   * @param pOrder            ATG Order
+   * @param lCommerceItemId   Commerce Item ID
+   * @return                  A list of the payment groups for the item
+   */
+  private List<PaymentGroup> getPaymentGroupsForItem (Order pOrder, String lCommerceItemId) {
+    // TODO : The relationships do not yet exist.  Return all payment groups for the order at this time.
+    
+    return null;
+  }
+
+  /**
+   * Get the shipping address for a given order.
+   * 
+   * @param pOrder                ATG Order
+   * @param pShippingGroupId      Shipping group Id
+   * @return                      Address Object
+   * @throws SalesAuditException
+   */
+  private Address getShippingAddressForOrder (Order pOrder, String pShippingGroupId) 
+      throws SalesAuditException {
+    MFFOrderImpl lOrder = (MFFOrderImpl) pOrder;
+    String lOrderNumber = lOrder.getOrderNumber();
+    String lOrderId     = lOrder.getId();
+
+    ShippingGroup lShippingGroup;
+    try {
+      lShippingGroup = pOrder.getShippingGroup(pShippingGroupId);
+    } catch (ShippingGroupNotFoundException ex) {
+      String lErrorMessage = String.format("Shipping Group %s for Order %s/%s is not found", pShippingGroupId, lOrderNumber, lOrderId);
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (lErrorMessage);
+    } catch (InvalidParameterException ex) {
+      String lErrorMessage = String.format("Shipping Group %s for Order %s/%s - Invalid Parameter", pShippingGroupId, lOrderNumber, lOrderId);
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (lErrorMessage);
+    }
+    if (!(lShippingGroup instanceof HardgoodShippingGroup)) {
+      String lErrorMessage = String.format("Shipping Group %s for Order %s/%s is not the right type", pShippingGroupId, lOrderNumber, lOrderId);
+      vlogError (lErrorMessage);
+      throw new SalesAuditException (lErrorMessage);
+    }
+    Address lAddress = ((HardgoodShippingGroup) lShippingGroup).getShippingAddress();
+    return lAddress;
+  }
+  
+  /**
+   * Get the billing address for the order by extracting the address from the payment groups.  As 
+   * gift cards do not have an address, we will use the shipping address. 
+   * 
+   * @param pOrder              ATG Order
+   * @param pShippingGroupId    Shipping Group ID
+   * @return                    Billing Address
+   * @throws SalesAuditException 
+   */
+  @SuppressWarnings("unchecked")
+  private Address getBillingAddressForOrder (Order pOrder, String pShippingGroupId) 
+      throws SalesAuditException {
+    ShippingGroup lShippingGroup = getShippingGroup (pOrder, pShippingGroupId);
+    
+    Address lBillingAddress   = null;
+    Address lShippingAddress  = null;
+    
+    MFFOrderImpl lOrder = (MFFOrderImpl) pOrder;
+    String lOrderNumber = lOrder.getOrderNumber();
+    String lOrderId     = lOrder.getId();
+    
+    // Pull Shipping Address as default
+    if (lShippingGroup instanceof HardgoodShippingGroup) {
+      lShippingAddress = ((HardgoodShippingGroup) lShippingGroup).getShippingAddress();
+    }
+    
+    List<PaymentGroupRelationship> lPaymentGroupRelationships = lShippingGroup.getPaymentGroupRelationships();
+    for (PaymentGroupRelationship lPaymentGroupRelationship : lPaymentGroupRelationships) {
+      PaymentGroup lPaymentGroup = lPaymentGroupRelationship.getPaymentGroup();
+      if (lPaymentGroup instanceof CreditCard) {
+        Address lAddress = ((CreditCard) lPaymentGroup).getBillingAddress();
+        if (lAddress != null)
+          lBillingAddress = lAddress;
+      }
+      if (lPaymentGroup instanceof MFFGiftCardPaymentGroup) {
+        vlogDebug ("Gift card found for order {0}/{1} - No address available", lOrderNumber, lOrderId);
+      }
+    }
+    if (lBillingAddress == null) 
+      return lShippingAddress;
+    else 
+      return lBillingAddress; 
+  }
+
+  /**
+   * Get the commerce item object for a given commerce item ID.
+   * 
+   * @param pOrder                ATG Order
+   * @param pCommerceItemId       Commerce Item ID
+   * @return                      Commerce Item 
+   * @throws SalesAuditException
+   */
+  protected MFFCommerceItemImpl getCommerceItem(Order pOrder, String pCommerceItemId) 
+      throws SalesAuditException {
+    MFFOrderImpl lOrder = (MFFOrderImpl) pOrder;
+    String lOrderNumber = lOrder.getOrderNumber();
+    String lOrderId     = lOrder.getId();
+
+    MFFCommerceItemImpl lCommerceItem;
+    try {
+      lCommerceItem = (MFFCommerceItemImpl) pOrder.getCommerceItem(pCommerceItemId);
+    } catch (CommerceItemNotFoundException ex) {
+      String lErrorMessage = String.format("Commerce item ID %s not found for Order %s/%s - Item not found", pCommerceItemId, lOrderNumber, lOrderId);
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (lErrorMessage);
+    } catch (InvalidParameterException ex) {
+      String lErrorMessage = String.format("Commerce item ID %s not found for Order %s/%s - Invalid parameter", pCommerceItemId, lOrderNumber, lOrderId);
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (lErrorMessage);
+    }
+    return lCommerceItem;
+  }
+  
+  /**
+   * Get the shipping group for a given shipping group Id.
+   * 
+   * @param pOrder              ATG Order  
+   * @param pShippingGroupId    Shipping Group Id
+   * @return                    Shipping Group Object
+   * @throws SalesAuditException
+   */
+  protected ShippingGroup getShippingGroup (Order pOrder, String pShippingGroupId) 
+      throws SalesAuditException {
+    MFFOrderImpl lOrder = (MFFOrderImpl) pOrder;
+    String lOrderNumber = lOrder.getOrderNumber();
+    String lOrderId     = lOrder.getId();
+
+    ShippingGroup lShippingGroup;
+    try {
+      lShippingGroup = (ShippingGroup) pOrder.getShippingGroup(pShippingGroupId);      
+    } catch (ShippingGroupNotFoundException ex) {
+      String lErrorMessage = String.format("Shipping Group ID %s not found for Order %s/%s - Item not found", pShippingGroupId, lOrderNumber, lOrderId);
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (lErrorMessage);
+    } catch (InvalidParameterException ex) {
+      String lErrorMessage = String.format("Shipping Group ID %s not found for Order %s/%s - Invalid parameter", pShippingGroupId, lOrderNumber, lOrderId);
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (lErrorMessage);
+    }
+    return lShippingGroup;
+  }
+
+  private String getItemDiscountCode (PricingAdjustment pPricingAdjustment) {
+    String lCode          = "";
+
+    /** Return the promotion name and ID **/
+    RepositoryItem lPriceModel    = pPricingAdjustment.getPricingModel();
+    if (lPriceModel != null) 
+      lCode      = (String) lPriceModel.getPropertyValue("id");
+    return lCode;
+  }
+ 
+  
+  /**
+   * Get the value of a SKU property given the SKU Id.
+   * 
+   * @param pSkuId        SKU Id
+   * @param pProperty     Property Name
+   * @return              Property Value
+   */
+  private String getSkuProperty(String pSkuId, String pProperty) {
+    RepositoryItem lSkuItem = null;
+    try {
+      lSkuItem = getCatalogTools().findSKU(pSkuId);
+    } catch (RepositoryException ex) {
+      vlogError ("Unable to get {0} for SKU: {1}", pProperty, pSkuId);
+      return null;
+    }
+    if (lSkuItem.getPropertyValue(pProperty) != null) 
+       return (String) lSkuItem.getPropertyValue(pProperty);
+    else
+      return " ";
+  }
+  
+  /**
+   * Get a property for a given product
+   * 
+   * @param pProductId    Product ID
+   * @param pProperty     Property Name
+   * @return              Property Value
+   */
+  private String getProductProperty(String pProductId, String pProperty) {
+    RepositoryItem lProductItem = null;
+    try {
+      lProductItem = getCatalogTools().findProduct(pProductId);
+    } catch (RepositoryException ex) {
+      vlogError ("Unable to get {0} for Product: {1}", pProperty, pProductId);
+      return null;
+    }
+    if (lProductItem.getPropertyValue(pProperty) != null) 
+       return (String) lProductItem.getPropertyValue(pProperty);
+    else
+      return " ";
+  }
+  
+  /**
+   * Get the Tax for a given item in the order.
+   * 
+   * @param pCommerceItem       Commerce Item
+   * @return                    Hash table of tax values
+   */
+  private Hashtable <String, Double> getTaxForLine (MFFCommerceItemImpl pCommerceItem) {
+    Hashtable <String, Double> lLineTax = new Hashtable <String, Double> ();
+    
+    // Item Tax
+    double lLineLocalTax          = 0.00;
+    double lLineCountyTax         = 0.00;
+    double lLineStateTax          = 0.00;
+    double lLineShipping          = pCommerceItem.getShipping();
+    double lLineShippingLocalTax  = pCommerceItem.getShippingCityTax();
+    double lLineShippingCountyTax = pCommerceItem.getShippingCountyTax();
+    double lLineShippingStateTax  = pCommerceItem.getShippingStateTax();
+    double lLineTotalTax          = 0.00;
+    double lLineShippingTax       = pCommerceItem.getShippingTax();
+    double lLineExtendedTotal     = pCommerceItem.getShippingTax();
+    
+    TaxPriceInfo lTaxPriceInfo = pCommerceItem.getTaxPriceInfo();
+    lLineLocalTax      = roundDouble (lLineLocalTax      + lTaxPriceInfo.getCityTax(), 2);
+    lLineCountyTax     = roundDouble (lLineCountyTax     + lTaxPriceInfo.getCountyTax(), 2);
+    lLineStateTax      = roundDouble (lLineStateTax      + lTaxPriceInfo.getStateTax(), 2);
+    lLineTotalTax      = roundDouble (lLineTotalTax      + lTaxPriceInfo.getAmount(), 2);
+    lLineExtendedTotal = roundDouble (pCommerceItem.getPriceInfo().getAmount() + lLineTotalTax, 2); 
+
+    // Copy values to the hash table
+    lLineTax.put(SalesAuditConstants.LINE_LOCAL_TAX,            lLineLocalTax);
+    lLineTax.put(SalesAuditConstants.LINE_COUNTY_TAX,           lLineCountyTax);
+    lLineTax.put(SalesAuditConstants.LINE_STATE_TAX,            lLineStateTax);
+    lLineTax.put(SalesAuditConstants.LINE_TAX_TOTAL,            lLineTotalTax);        
+    lLineTax.put(SalesAuditConstants.LINE_SHIPPING,             lLineShipping);
+    lLineTax.put(SalesAuditConstants.LINE_SHIPPING_LOCAL_TAX,   lLineShippingLocalTax);
+    lLineTax.put(SalesAuditConstants.LINE_SHIPPING_COUNTY_TAX,  lLineShippingCountyTax);
+    lLineTax.put(SalesAuditConstants.LINE_SHIPPING_STATE_TAX,   lLineShippingStateTax);    
+    lLineTax.put(SalesAuditConstants.LINE_SHIPPING_TAX,         lLineShippingTax);
+    lLineTax.put(SalesAuditConstants.LINE_EXTENDED_TOTAL,       lLineExtendedTotal);
+    return lLineTax;    
+  }
+  
+  private Hashtable <String, Double> getTaxForLines (MFFOrderImpl pOrder, List<String> pItemsToShip, String pShippingGroupId) 
+      throws SalesAuditException {
+    
+    Hashtable <String, Double> lGroupTax = new Hashtable <String, Double> ();
+    lGroupTax.put(SalesAuditConstants.LINE_LOCAL_TAX,           0.00D);
+    lGroupTax.put(SalesAuditConstants.LINE_COUNTY_TAX,          0.00D);
+    lGroupTax.put(SalesAuditConstants.LINE_STATE_TAX,           0.00D);
+    lGroupTax.put(SalesAuditConstants.LINE_SHIPPING,            0.00D);
+    lGroupTax.put(SalesAuditConstants.LINE_SHIPPING_LOCAL_TAX,  0.00D);
+    lGroupTax.put(SalesAuditConstants.LINE_SHIPPING_COUNTY_TAX, 0.00D);
+    lGroupTax.put(SalesAuditConstants.LINE_SHIPPING_STATE_TAX,  0.00D);    
+    lGroupTax.put(SalesAuditConstants.LINE_TAX_TOTAL,           0.00D);
+    lGroupTax.put(SalesAuditConstants.LINE_SHIPPING_TAX,        0.00D);
+    lGroupTax.put(SalesAuditConstants.LINE_EXTENDED_TOTAL,      0.00D);
+    
+    // Get a list of the commerce items for a given shipment group
+    Hashtable <String, List<String>> lShippingGroupItem = getItemForShipGroups (pOrder, pItemsToShip);
+    
+    // Get the list of commerce items for the shipping group
+    List<String> lCommerceItemIds = lShippingGroupItem.get(pShippingGroupId);
+    
+    for (String lCommerceItemId : lCommerceItemIds) {
+      MFFCommerceItemImpl lCommerceItem = getCommerceItem(pOrder, lCommerceItemId);
+      Hashtable <String, Double> lLineTax = getTaxForLine (lCommerceItem);       
+      lGroupTax.put(SalesAuditConstants.LINE_LOCAL_TAX,           lGroupTax.get(SalesAuditConstants.LINE_LOCAL_TAX)             + lLineTax.get(SalesAuditConstants.LINE_LOCAL_TAX));
+      lGroupTax.put(SalesAuditConstants.LINE_COUNTY_TAX,          lGroupTax.get(SalesAuditConstants.LINE_COUNTY_TAX)            + lLineTax.get(SalesAuditConstants.LINE_COUNTY_TAX));
+      lGroupTax.put(SalesAuditConstants.LINE_STATE_TAX,           lGroupTax.get(SalesAuditConstants.LINE_STATE_TAX)             + lLineTax.get(SalesAuditConstants.LINE_STATE_TAX));      
+      lGroupTax.put(SalesAuditConstants.LINE_SHIPPING,            lGroupTax.get(SalesAuditConstants.LINE_SHIPPING)              + lLineTax.get(SalesAuditConstants.LINE_SHIPPING));
+      lGroupTax.put(SalesAuditConstants.LINE_SHIPPING_LOCAL_TAX,  lGroupTax.get(SalesAuditConstants.LINE_SHIPPING_LOCAL_TAX)    + lLineTax.get(SalesAuditConstants.LINE_SHIPPING_LOCAL_TAX));
+      lGroupTax.put(SalesAuditConstants.LINE_SHIPPING_COUNTY_TAX, lGroupTax.get(SalesAuditConstants.LINE_SHIPPING_COUNTY_TAX)   + lLineTax.get(SalesAuditConstants.LINE_SHIPPING_COUNTY_TAX));
+      lGroupTax.put(SalesAuditConstants.LINE_SHIPPING_STATE_TAX,  lGroupTax.get(SalesAuditConstants.LINE_SHIPPING_STATE_TAX)    + lLineTax.get(SalesAuditConstants.LINE_SHIPPING_STATE_TAX));     
+      lGroupTax.put(SalesAuditConstants.LINE_TAX_TOTAL,           lGroupTax.get(SalesAuditConstants.LINE_TAX_TOTAL)             + lLineTax.get(SalesAuditConstants.LINE_TAX_TOTAL));
+      lGroupTax.put(SalesAuditConstants.LINE_SHIPPING_TAX,        lGroupTax.get(SalesAuditConstants.LINE_SHIPPING_TAX)          + lLineTax.get(SalesAuditConstants.LINE_SHIPPING_TAX));
+      lGroupTax.put(SalesAuditConstants.LINE_EXTENDED_TOTAL,      lGroupTax.get(SalesAuditConstants.LINE_EXTENDED_TOTAL)        + lLineTax.get(SalesAuditConstants.LINE_EXTENDED_TOTAL));
+    }
+    
+    Set<String> lKeys = lGroupTax.keySet();
+    for(String lKey: lKeys) {
+      lGroupTax.put(lKey, roundDouble (lGroupTax.get(lKey), 2));
+    }
+    return lGroupTax;
+  }
+
+  /**
+   * Get the tax Exemption Certificate for the order
+   * 
+   * @param pOrder          ATG Order
+   * @return                Hash of Tax Exemption Values
+   */
+  private Hashtable <String, String> getTaxExemptionCertificate (MFFOrderImpl pOrder) {
+    String lTaxExemptionCode = null;
+    MFFOrderImpl lOrder      = (MFFOrderImpl) pOrder;
+    String lOrderNumber      = lOrder.getOrderNumber();
+    String lOrderId          = lOrder.getId();
+    vlogDebug ("Get Tax Exemption data for order %s/%s", lOrderNumber, lOrderId);
+    
+    // Setup the Hash with default values
+    Hashtable <String, String> lTaxExemptionHash = new Hashtable <String, String> ();
+    lTaxExemptionHash.put(SalesAuditConstants.TAX_EXEMPTION_CODE, null);
+    lTaxExemptionHash.put(SalesAuditConstants.TAX_EXEMPTION_CERT, null);
+    lTaxExemptionHash.put(SalesAuditConstants.TAX_EXEMPTION_NAME, null);
+    
+    // Return if the order does not have a Tax exemption code
+    lTaxExemptionCode = pOrder.getTaxExemptionName();
+    if (lTaxExemptionCode == null) {
+      vlogDebug ("Tax Exemption code is null - returning default values");
+      return lTaxExemptionHash;
+    }
+    
+    // Get the tax classification info from the profile
+    getTaxExemptionFromProfile (lTaxExemptionHash, pOrder.getProfileId(), lTaxExemptionCode);
+    
+    return lTaxExemptionHash;
+  }
+  
+  /**
+   * Pull the tax exemption data from the users profile
+   * 
+   * @param pTaxExemptionHash     Hash of tax exemption Values
+   * @param pProfileId            Profile ID 
+   * @param pExemptionCode        Tax Exemption code
+   */
+  private void getTaxExemptionFromProfile (Hashtable <String, String> pTaxExemptionHash, String pProfileId, String pExemptionCode) {
+    // Load the profile for this user    
+    Profile lProfile = new Profile();
+    getProfileTools().locateUserFromId(pProfileId, lProfile);
+    
+    // Find the exempt code
+    Map <String, RepositoryItem> lTaxExemptions = (Map <String, RepositoryItem>) lProfile.getPropertyValue("taxExemptions");
+    for (Map.Entry<String, RepositoryItem> lEntry : lTaxExemptions.entrySet())  {
+      String lExemptionCode = (String) lEntry.getValue().getPropertyValue("classificationCode");
+      if (lExemptionCode.equals(pExemptionCode)) {
+        pTaxExemptionHash.put(SalesAuditConstants.TAX_EXEMPTION_CODE, (String) lEntry.getValue().getPropertyValue("classificationCode"));
+        pTaxExemptionHash.put(SalesAuditConstants.TAX_EXEMPTION_CERT, (String) lEntry.getValue().getPropertyValue("classificationName"));
+        pTaxExemptionHash.put(SalesAuditConstants.TAX_EXEMPTION_NAME, (String) lEntry.getValue().getPropertyValue("taxId"));
+      }
+    }
+  }
+  
+  /**
+   * Get a dynamic property for a given product/SKU
+   * 
+   * @param pSkuId              SKU Id
+   * @param pProductId          Product Id
+   * @param pDynamicProperty    Dynamic property name
+   * @return                    Dynamic property value
+   */
+  private String getDynamicProperty (String pSkuId, String pProductId, String pDynamicProperty) {
+    // Get the list of dynamic attributes for the product
+    RepositoryItem lProductItem = null;
+    try {
+      lProductItem = getCatalogTools().findProduct(pProductId);
+    } catch (RepositoryException ex) {
+      vlogError ("Unable to get dynamic Attributes for Product: {1}", pProductId);
+      return null;
+    }
+    
+    // Check to see if the Dynamic attributes contain color <0=Size, 1=Color>
+    Map <Object, Object> lDynamicAttributes = (Map<Object, Object>) lProductItem.getPropertyValue("dynamicAttributes");
+    String lKey = null;
+    for (Map.Entry<Object, Object> lEntry : lDynamicAttributes.entrySet())  {
+      String lValue = (String) lEntry.getValue();
+      if (lValue.equals (pDynamicProperty)) 
+        lKey = (String) lEntry.getKey();
+    }
+    
+    // Get the dynamic attributes for the SKU
+    RepositoryItem lSkuItem = null;
+    try {
+      lSkuItem = getCatalogTools().findSKU(pSkuId);
+    } catch (RepositoryException ex) {
+      vlogError ("Unable to get dynamicAttributes for SKU: {1}", pSkuId);
+      return null;
+    }
+    
+    // Get color value
+    lDynamicAttributes = (Map<Object, Object>) lSkuItem.getPropertyValue("dynamicAttributes");
+    String lPropertyValue = null;
+    for (Map.Entry<Object, Object> lEntry : lDynamicAttributes.entrySet())  {
+      String lValue = (String) lEntry.getKey();
+      if (lValue.equals (lKey)) 
+        lPropertyValue = (String) lEntry.getValue();
+    }
+    return lPropertyValue;
+  }
+  
+  
+  Hashtable <String, List<InvoiceLinePayment>> getLinePaymentsForItems (MFFOrderImpl pOrder, List<String >pItemsToShip, Map <String, Double> pPaymentAmounts) 
+      throws SalesAuditException {
+    Hashtable <String, List<InvoiceLinePayment>> lPaymentHash = new Hashtable <String, List<InvoiceLinePayment>> ();
+    
+    // Find the payments for each item in the order
+    for (String lItemToShip : pItemsToShip) {
+      List <InvoiceLinePayment> lInvoiceLinePayments = new Vector <InvoiceLinePayment> ();
+      MFFCommerceItemImpl lCommerceItem = getCommerceItem (pOrder, lItemToShip);
+      double lLineAmount                = lCommerceItem.getPriceInfo().getAmount();
+      double lLineRemainder             = lLineAmount;
+      for (Map.Entry<String, Double> lPaymentAmount : pPaymentAmounts.entrySet()) {
+        String lPayGroupId              = lPaymentAmount.getKey();
+        double lPayGroupAmount          = lPaymentAmount.getValue().doubleValue();
+        // This line can be fully funded with this Payment Group
+        if (lLineRemainder > 0) {
+          if (lLineRemainder <= lPayGroupAmount) {
+            InvoiceLinePayment lInvoiceLinePayment = getLinePaymentForItem (pOrder, lItemToShip, lPayGroupId, lLineRemainder);
+            lInvoiceLinePayments.add(lInvoiceLinePayment);
+            double lPGRemainder             = lPayGroupAmount - lLineRemainder;
+            pPaymentAmounts.put(lPayGroupId, lPGRemainder);
+            lLineRemainder                = 0.00D;
+          }
+          // This line can be partially funded by this payment group;  Use remainder of payment group
+          else {
+            InvoiceLinePayment lInvoiceLinePayment = getLinePaymentForItem (pOrder, lItemToShip, lPayGroupId, lPayGroupAmount);
+            pPaymentAmounts.put(lPayGroupId, 0.00D);
+            lLineRemainder = lLineRemainder - lPayGroupAmount;
+          }
+        }
+      }
+      lPaymentHash.put(lItemToShip, lInvoiceLinePayments);
+    }
+    return lPaymentHash;
+  }
+  
+  private InvoiceLinePayment getLinePaymentForItem (MFFOrderImpl pOrder, String pItemToShip, String pPaymentGroupId, double pPaymentGroupAmount) 
+      throws SalesAuditException {
+    
+    // Get Payment Group
+    PaymentGroup lPaymentGroup = getPaymentGroup (pOrder, pPaymentGroupId);
+    
+    // Get Commerce Item
+    MFFCommerceItemImpl lCommerceItem = getCommerceItem (pOrder, pItemToShip);
+    
+    InvoiceLinePayment lInvoiceLinePayment = new InvoiceLinePayment();
+    if (lPaymentGroup instanceof CreditCard) {
+      CreditCard lCreditCardPaymentGroup = (CreditCard) lPaymentGroup;
+      lInvoiceLinePayment.setAmount                 (pPaymentGroupAmount);
+      lInvoiceLinePayment.setCardNumber             (lCreditCardPaymentGroup.getCreditCardNumber());
+      lInvoiceLinePayment.setCardReference          (lCreditCardPaymentGroup.getCardVerificationNumber());
+      lInvoiceLinePayment.setPaymentDate            (new Timestamp (lCommerceItem.getShipDate().getTime()));
+      lInvoiceLinePayment.setPaymentType            (lCreditCardPaymentGroup.getCreditCardType());
+      lInvoiceLinePayment.setTokenId                (null);
+      lInvoiceLinePayment.setTransactionReference   ("null");
+      SimpleDateFormat lDateFormatter = new SimpleDateFormat("MM/dd/yyyy");
+      String dateInString = lCreditCardPaymentGroup.getExpirationMonth() + "/01/" + lCreditCardPaymentGroup.getExpirationYear(); 
+      Date lExpirationDate;
+      try {
+        lExpirationDate = lDateFormatter.parse(dateInString);
+      } catch (ParseException ex) {
+        String lErrorMessage = String.format("Unable to get the expiration date for payment group %s", lCreditCardPaymentGroup.getPaymentId());
+        vlogError (ex, lErrorMessage);
+        throw new SalesAuditException (ex, lErrorMessage);
+      }      
+      lInvoiceLinePayment.setExpirationDate         (new Timestamp(lExpirationDate.getTime()));
+      // TODO : Authorization Number
+      List <CreditCardStatus> lCreditCardStatuses = lCreditCardPaymentGroup.getAuthorizationStatus();
+      for (CreditCardStatus lCreditCardStatus : lCreditCardStatuses) {
+        if (lCreditCardStatus.getTransactionSuccess())
+          lInvoiceLinePayment.setAuthorizationNumber (lCreditCardStatus.getTransactionId());
+      }
+      // TODO : Settlement Number
+      lInvoiceLinePayment.setSettlementNumber       ("54321");
+    }
+    if (lPaymentGroup instanceof MFFGiftCardPaymentGroup) {
+      MFFGiftCardPaymentGroup lGiftCardPaymentGroup = (MFFGiftCardPaymentGroup) lPaymentGroup;
+      double lItemPrice               = lCommerceItem.getPriceInfo().getAmount();
+      lInvoiceLinePayment.setAmount                 (pPaymentGroupAmount);
+      lInvoiceLinePayment.setCardNumber             (lGiftCardPaymentGroup.getCardNumber());
+      lInvoiceLinePayment.setCardReference          (lGiftCardPaymentGroup.getCardNumber());
+      lInvoiceLinePayment.setPaymentDate            (new Timestamp (lCommerceItem.getShipDate().getTime()));
+      lInvoiceLinePayment.setPaymentType            ("GC");
+      lInvoiceLinePayment.setTokenId                (null);
+      lInvoiceLinePayment.setTransactionReference   (null);
+      lInvoiceLinePayment.setExpirationDate         (null);
+      lInvoiceLinePayment.setAuthorizationNumber    (null);
+      lInvoiceLinePayment.setSettlementNumber       ("54321");
+    }        
+    return lInvoiceLinePayment;
+  }
+  
+  private PaymentGroup getPaymentGroup (MFFOrderImpl pOrder, String pPaymentGroupId) 
+      throws SalesAuditException {
+    String lOrderNumber         = pOrder.getOrderNumber();
+    String lOrderId             = pOrder.getId();
+    PaymentGroup lPaymentGroup  = null;
+
+    try {
+      lPaymentGroup = pOrder.getPaymentGroup(pPaymentGroupId);
+    } catch (PaymentGroupNotFoundException ex) {
+      String lErrorMessage = String.format("Unable to get the payment group (1) for order %s/%s", lOrderNumber, lOrderId);
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    } catch (InvalidParameterException ex) {
+      String lErrorMessage = String.format("Unable to get the payment group (2) for order %s/%s", lOrderNumber, lOrderId);
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+    return lPaymentGroup;
+  }
+  
+  
+  
+  
+  // ***********************************************************************************
+  // 
+  //
+  //                          Add Return Invoice Routines
+  //
+  //
+  // ***********************************************************************************  
+  public void addReturnInvoice (MFFOrderImpl pOrder) {
+    vlogDebug ("Add a return invoice");    
+  }
+
+  // ***********************************************************************************
+  // 
+  //
+  //                          Add Appeasement Invoice Routines
+  //
+  //
+  // ***********************************************************************************  
+  public void addAppeasementInvoice (MFFOrderImpl pOrder) {
+    vlogDebug ("Add an appeasement invoice to order");    
+  }
+  
+  // ***********************************************************************************
+  // 
+  //
+  //                          Get a list of invoice records
+  //
+  //
+  // ***********************************************************************************  
+  //public List <RepositoryItem> getInvoiceRecord () {
+  //  vlogDebug ("Get Invoice Records");    
+  //  return null;
+  //}
+  
+  
+  /**
+   * Get the list of invoices that are ready for processing.
+   * 
+   * @return        Array of Invoice Repository items
+   * @throws SalesAuditException
+   */
+  public RepositoryItem [] getInvoicesToProcess (String pRunType, String pFileName) 
+    throws SalesAuditException {   
+    vlogDebug ("Begin - Pull Invoices for the Sales Audit feed");
+    String lQuery = null;
+    RepositoryItem [] lInvoiceItems     = null;
+    if (pRunType.equals(SalesAuditConstants.RUN_TYPE_STANDARD)) {
+      lQuery = "status EQUALS \"created\"";
+      vlogDebug ("Pulling invoices for a standard run - Query: " + lQuery);
+    }
+    else {
+      lQuery = "status EQUALS \"extracted\" AND extract.extractFileName EQUALS " + "\"" + pFileName + "\"";
+      vlogDebug ("Pulling invoices for a re-run - Query: " + lQuery);
+    }
+    try {
+      Object [] lParams         = new String[1];
+      lParams[0]                = SalesAuditConstants.EXTRACT_TO_SALES_AUDIT;
+      RepositoryView lView      = getInvoiceRepository().getView(SalesAuditConstants.ITEM_INVOICE);
+      RqlStatement lStatement   = RqlStatement.parseRqlStatement(lQuery);
+      lInvoiceItems             = lStatement.executeQuery(lView, lParams);
+      if (lInvoiceItems != null)
+        vlogDebug ("Found " + lInvoiceItems.length + " Invoice items for extraction");
+    }
+    catch (RepositoryException ex) {
+      String lErrorMessage = String.format("Unable to get list of invoices");
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+    vlogDebug ("End - Pull Invoices for the Sales Audit feed");
+    return lInvoiceItems;
+  }
+  
+  
+  /**
+   * Get the extract record for the given file name.  This is used during a re-run 
+   * of a given feed.
+   * 
+   * @param pFileName           Extract file Name
+   * @return                    Extract record
+   * @throws SalesAuditException
+   */
+  public Extract getExtractRecordForFile (String pFileName) 
+      throws SalesAuditException {   
+      vlogDebug ("Begin - Get Extract record for filename");
+      String lQuery = null;
+      Extract lExtract = null;
+      RepositoryItem [] lExtracts     = null;
+      lQuery = "extractFileName EQUALS " + "\"" + pFileName + "\"";
+      vlogDebug ("Pulling extract record for file run " + pFileName);
+      try {
+        Object [] lParams         = new String[1];
+        RepositoryView lView      = getInvoiceRepository().getView(SalesAuditConstants.ITEM_EXTRACT);
+        RqlStatement lStatement   = RqlStatement.parseRqlStatement(lQuery);
+        lExtracts                 = lStatement.executeQuery(lView, lParams);
+        vlogDebug ("Found " + lExtracts.length + " extract item for file name");
+      }
+      catch (RepositoryException ex) {
+        String lErrorMessage = String.format("Unable to get extract record");
+        vlogError (ex, lErrorMessage);
+        throw new SalesAuditException (ex, lErrorMessage);
+      }
+      vlogDebug ("Begin - Get Extract record for filename");
+      if (lExtracts != null && lExtracts.length == 1) {
+        lExtract = new Extract ((MutableRepositoryItem) lExtracts[0]);
+      }
+      return lExtract;
+    }
+  
+
+  // ***********************************************************************************
+  // 
+  //
+  //                          Update status of invoice records
+  //
+  //
+  // ***********************************************************************************  
+  
+  /**
+   * Update the status of the invoice records to show they have been extracted.
+   *  
+   * @param pInvoices         List of Invoice repository items
+   * @param pTimestamp        Timestamp of current run
+   * @param pExtract          Extract record for this run
+   * @throws SalesAuditException
+   */
+  public void updateExtractStatus (RepositoryItem [] pInvoices, Timestamp pTimestamp, Extract pExtract) 
+      throws SalesAuditException {    
+    vlogDebug ("+++++ Begin - Update the Extract Status on the invoice records");
+    
+    boolean lRollback         = true;
+    TransactionDemarcation td = new TransactionDemarcation();
+    Invoice lInvoice          = null;
+    try {
+      // Create a transaction
+      td.begin(getTransactionManager(), TransactionDemarcation.REQUIRED);
+      for (int i=0; i< pInvoices.length; i++) {
+        lInvoice = new Invoice ((MutableRepositoryItem) pInvoices[i]);
+        vlogDebug ("Before update of Invoice");
+        vlogDebug (lInvoice.toString());
+        
+        // Set filename and timestamp
+        lInvoice.setLastExtractDate(pTimestamp);
+        lInvoice.setStatus (SalesAuditConstants.EXTRACT_STATUS_EXTRACTED);
+        lInvoice.setExtract(pExtract);
+
+        vlogDebug ("After update of invoice");
+        vlogDebug (lInvoice.toString());
+        getInvoiceRepository().updateItem(lInvoice.getRepositoryItem());
+      }
+      lRollback = false;
+    }
+    catch (TransactionDemarcationException ex) {
+      String lErrorMessage = String.format("updateExtractStatus (1) - Unable to update invoice # %s");
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);        
+    }
+    catch (RepositoryException ex) {
+      String lErrorMessage = String.format("updateExtractStatus (2) - Unable to update invoice # %s", lInvoice.getId());
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+    finally {
+      try {
+        td.end (lRollback);
+      }
+      catch (TransactionDemarcationException ex) {
+        String lErrorMessage = String.format("updateExtractStatus (3) - Unable to update invoice # %s", lInvoice.getId());
+        vlogError (ex, lErrorMessage);
+        throw new SalesAuditException (ex, lErrorMessage);
+      }
+    }
+    vlogDebug ("+++++ End - Update the Extract Status on the invoice records");
+  }
+  
+  public void updateInvoiceStatusToError (Invoice pInvoice, Timestamp pTimestamp) 
+      throws SalesAuditException {    
+    vlogDebug ("+++++ Begin - Update the Extract Status to error on the invoice record");
+    
+    boolean lRollback         = true;
+    TransactionDemarcation td = new TransactionDemarcation();
+    try {
+      // Create a transaction
+      td.begin(getTransactionManager(), TransactionDemarcation.REQUIRED);
+      vlogDebug ("Before update of Invoice");
+      vlogDebug (pInvoice.toString());
+        
+      // Set filename and timestamp
+      pInvoice.setLastExtractDate(pTimestamp);
+      pInvoice.setStatus (SalesAuditConstants.EXTRACT_STATUS_ERROR);
+
+      vlogDebug ("After update of invoice");
+      vlogDebug (pInvoice.toString());
+      getInvoiceRepository().updateItem(pInvoice.getRepositoryItem());
+      lRollback = false;
+    }
+    catch (TransactionDemarcationException ex) {
+      String lErrorMessage = String.format("updateInvoiceStatusToError (1) - Unable to update invoice # %s", pInvoice.getId());
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);        
+    }
+    catch (RepositoryException ex) {
+      String lErrorMessage = String.format("updateInvoiceStatusToError (2) - Unable to update invoice # %s", pInvoice.getId());
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+    finally {
+      try {
+        td.end (lRollback);
+      }
+      catch (TransactionDemarcationException ex) {
+        String lErrorMessage = String.format("updateInvoiceStatusToError (3) - Unable to update invoice # %s", pInvoice.getId());
+        vlogError (ex, lErrorMessage);
+        throw new SalesAuditException (ex, lErrorMessage);
+      }
+    }
+    vlogDebug ("+++++ End - Update the Extract Status to error on the invoice record");
+  }
+
+  // ***********************************************************************************
+  // 
+  //
+  //                          Add Extract Status Routines
+  //
+  //
+  // ***********************************************************************************  
+  
+  /**
+   * Create the extract status record for the current run.
+   * 
+   * @param pExtractStatistics        Statistics for the current run
+   * @param pFileName                 Filename for the current run
+   * @param pRunType                  Type of run
+   * @return                          Extract record
+   * @throws SalesAuditException
+   */
+  public Extract addExtractStatus (ExtractStatistics pExtractStatistics, String pFileName, String pRunType) 
+      throws SalesAuditException {
+    vlogDebug ("Add Extract Summary and Payments");
+    
+    boolean lRollback         = true;
+    TransactionDemarcation td = new TransactionDemarcation();
+    Extract lExtract          = null;
+    try {
+      // Create a transaction
+      td.begin(getTransactionManager(), TransactionDemarcation.REQUIRED);
+    
+      // Create Extract Summary
+      ExtractSummary lExtractSummary = createExtractSummary (pExtractStatistics);
+    
+      // Create Payment Summary
+      List<PaymentSummary> lPaymentSummarys = new Vector <PaymentSummary> ();
+      for (ExtractPaymentSummary lExtractPaymentSummary : pExtractStatistics.getExtractPaymentSummary()) {
+        PaymentSummary lPaymentSummary = createPaymentSummary (lExtractPaymentSummary);
+        lPaymentSummarys.add(lPaymentSummary);
+      }
+      // Create Extract
+      lExtract = createExtract (lExtractSummary, lPaymentSummarys, pFileName, pRunType);
+
+      lRollback = false;
+    }
+    catch (TransactionDemarcationException ex) {
+      String lErrorMessage = String.format("addExtractStatus (1) - Unable to add extract status");
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);        
+    }
+    finally {
+      try {
+        td.end (lRollback);
+      }
+      catch (TransactionDemarcationException ex) {
+        String lErrorMessage = String.format("addExtractStatus (2) - Unable to add extract status");
+        vlogError (ex, lErrorMessage);
+        throw new SalesAuditException (ex, lErrorMessage);
+      }
+    }
+    return lExtract;
+  }
+ 
+  /**
+   * Create the extract record for the current run.
+   * 
+   * @param pExtractSummary       Extract Summary
+   * @param pPaymentSummarys      List of Payments for the file
+   * @param pFileName             Name of the extract file
+   * @param pRunType              Type of run
+   * @return
+   * @throws SalesAuditException
+   */
+  private Extract createExtract (ExtractSummary pExtractSummary, List<PaymentSummary> pPaymentSummarys, String pFileName, String pRunType) 
+      throws SalesAuditException {
+    vlogDebug ("+++++ Begin - create extract");
+    
+    MutableRepositoryItem lMutableRepositoryItem = null;
+    try {
+      lMutableRepositoryItem = getInvoiceRepository().createItem (SalesAuditConstants.ITEM_EXTRACT);
+    } catch (RepositoryException ex) {
+      String lErrorMessage = String.format("Unable to add extract");
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+    Extract lExtract = new Extract(lMutableRepositoryItem);
+    lExtract.setExtractDate                 (new Timestamp(new Date().getTime()));
+    lExtract.setExtractFileName             (pFileName);
+    lExtract.setRunType                     (pRunType);
+    lExtract.setExtractSummary              (pExtractSummary);
+    lExtract.setPaymentSummary              (pPaymentSummarys);
+    vlogDebug   (lExtract.toString());
+  
+    // Add item to repository
+    try {
+      getInvoiceRepository().addItem(lExtract.getRepositoryItem());
+    } catch (RepositoryException ex) {    
+      String lErrorMessage = String.format("Unable to add extract summary");
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+    vlogDebug ("+++++ End - create extract");
+    return lExtract;
+  }
+  
+  /**
+   * Create the extract summary for the current run.
+   * 
+   * @param pExtractStatistics      Extract statistics
+   * @return                        Extract Summary 
+   * @throws SalesAuditException
+   */
+  private ExtractSummary createExtractSummary (ExtractStatistics pExtractStatistics) 
+      throws SalesAuditException {
+    vlogDebug ("+++++ Begin - create extract summary");
+  
+    MutableRepositoryItem lMutableRepositoryItem = null;
+    try {
+      lMutableRepositoryItem = getInvoiceRepository().createItem (SalesAuditConstants.ITEM_EXTRACT_SUMMARY);
+    } catch (RepositoryException ex) {
+      String lErrorMessage = String.format("Unable to add extract summary");
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+    ExtractSummary lExtractSummary = new ExtractSummary(lMutableRepositoryItem);
+    lExtractSummary.setTransactionTotal         (pExtractStatistics.getTransactionTotal());
+    lExtractSummary.setTransactionTaxableTotal  (pExtractStatistics.getTransactionTaxableTotal());
+    lExtractSummary.setTransactionTaxTotal      (pExtractStatistics.getTransactionTaxTotal());
+    lExtractSummary.setLineCount                (pExtractStatistics.getLineCount());
+    lExtractSummary.setTransactionCount         (pExtractStatistics.getTransactionCount());
+    lExtractSummary.setPaymentTotal             (pExtractStatistics.getPaymentTotal());
+    lExtractSummary.setPaymentCount             (pExtractStatistics.getPaymentCount());
+    lExtractSummary.setDiscountTotal            (pExtractStatistics.getDiscountTotal());
+    lExtractSummary.setDiscountCount            (pExtractStatistics.getDiscountCount());
+    lExtractSummary.setGiftcardSoldTotal        (pExtractStatistics.getGiftcardSoldTotal());
+    lExtractSummary.setGiftcardSoldCount        (pExtractStatistics.getGiftcardSoldCount());
+  
+    // Add item to repository
+    try {
+      getInvoiceRepository().addItem(lExtractSummary.getRepositoryItem());
+    } catch (RepositoryException ex) {    
+      String lErrorMessage = String.format("Unable to add extract summary");
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+    vlogDebug ("+++++ End - create extract summary");
+    return lExtractSummary;
+  }
+  
+  /**
+   * Create the payment summary for the current run.
+   * 
+   * @param pExtractPaymentSummary      Payment summary
+   * @return                            Payment summary record 
+   * @throws SalesAuditException
+   */
+  private PaymentSummary createPaymentSummary (ExtractPaymentSummary pExtractPaymentSummary) 
+      throws SalesAuditException {
+    vlogDebug ("+++++ Begin - create payment summary");
+  
+    MutableRepositoryItem lMutableRepositoryItem = null;
+    try {
+      lMutableRepositoryItem = getInvoiceRepository().createItem (SalesAuditConstants.ITEM_PAYMENT_SUMMARY);
+    } catch (RepositoryException ex) {
+      String lErrorMessage = String.format("Unable to add payment summary");
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+    PaymentSummary lPaymentSummary = new PaymentSummary (lMutableRepositoryItem);
+    lPaymentSummary.setPaymentType            (pExtractPaymentSummary.getPaymentType());
+    lPaymentSummary.setCreditTotal            (pExtractPaymentSummary.getCreditTotal());
+    lPaymentSummary.setCreditCount            (pExtractPaymentSummary.getCreditCount());
+    lPaymentSummary.setDebitTotal             (pExtractPaymentSummary.getDebitTotal());
+    lPaymentSummary.setDebitCount             (pExtractPaymentSummary.getDebitCount());
+  
+    // Add item to repository
+    try {
+      getInvoiceRepository().addItem(lPaymentSummary.getRepositoryItem());
+    } catch (RepositoryException ex) {    
+      String lErrorMessage = String.format("Unable to add extract summary");
+      vlogError (ex, lErrorMessage);
+      throw new SalesAuditException (ex, lErrorMessage);
+    }
+
+    vlogDebug ("+++++ End - create payment summary");
+    return lPaymentSummary;
+  }
+  
+  /**
+   * Round a double up.
+   * 
+   * @param pDouble       Double value
+   * @param pPrecision    Rounding Precision
+   * @return              Rounded double
+   */
+  private double roundDouble (double pDouble, int pPrecision) {
+    return (new BigDecimal (pDouble).setScale(pPrecision, BigDecimal.ROUND_HALF_UP).doubleValue());
+  }
+  
+  /**
+   * Format a double into a Big Decimal
+   * @param pDoubleValue        Double value
+   * @return                    Big Decimal
+   */
+  private BigDecimal formatBigDecimal (Double pDoubleValue) {
+    return (new BigDecimal (new Double(roundDouble(pDoubleValue.doubleValue(), 2)).toString()));
+  }
+  
+  private String getShipViaFromMethod (String pShippingMethod) {    
+    vlogDebug ("***** Get Shipping Via for %s from method", pShippingMethod);
+    String lShipVia = "RGND";
+    if (pShippingMethod.equals("Standard"))
+      lShipVia = "RGND";
+    else if (pShippingMethod.equals("SecondDay"))
+      lShipVia = "RSEC";
+    else if (pShippingMethod.equals("OverNight"))
+      lShipVia = "ROVR";
+    vlogDebug ("***** Shipping Via is %s for method %s", lShipVia, pShippingMethod);
+    return lShipVia;
+  }
+
+  // *********************************************************
+  //                  Getter/setters
+  // *********************************************************
+  MutableRepository mInvoiceRepository;
+  public MutableRepository getInvoiceRepository() {
+    return mInvoiceRepository;
+  }
+  public void setInvoiceRepository(MutableRepository pInvoiceRepository) {
+    this.mInvoiceRepository = pInvoiceRepository;
+  }
+  
+  MFFCatalogTools mCatalogTools;
+  public MFFCatalogTools getCatalogTools() {
+    return mCatalogTools;
+  }
+  public void setCatalogTools(MFFCatalogTools pCatalogTools) {
+    this.mCatalogTools = pCatalogTools;
+  }
+  
+  MFFOMSOrderManager  mOmsOrderManager;
+  public MFFOMSOrderManager getOmsOrderManager() {
+    return mOmsOrderManager;  }
+
+  public void setOmsOrderManager(MFFOMSOrderManager pOmsOrderManager) {
+    this.mOmsOrderManager = pOmsOrderManager;
+  } 
+
+  TransactionManager mTransactionManager;
+  public TransactionManager getTransactionManager() {
+    return mTransactionManager;
+  }
+  public void setTransactionManager(TransactionManager pTransactionManager) {
+    this.mTransactionManager = pTransactionManager;
+  }
+  
+  MFFProfileTools mProfileTools;
+  public MFFProfileTools getProfileTools() {
+    return mProfileTools;
+  }
+  public void setProfileTools(MFFProfileTools pProfileTools) {
+    this.mProfileTools = pProfileTools;
+  }  
+  
+}

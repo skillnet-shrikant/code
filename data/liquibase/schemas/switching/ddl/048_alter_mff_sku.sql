@@ -1,0 +1,1 @@
+alter table mff_sku add limit_per_order number;

@@ -1,0 +1,26 @@
+<dsp:importbean bean="/atg/dynamo/droplet/Redirect" />
+<dsp:importbean bean="/atg/dynamo/droplet/Switch" />
+<dsp:importbean bean="/atg/userprofiling/Profile" />
+
+<dsp:droplet name="Switch">
+	<dsp:param bean="Profile.hardLoggedIn" name="value"/>
+	<dsp:oparam name="false">
+		<dsp:droplet name="Switch">
+			<dsp:param bean="Profile.softLoggedInRegistered" name="value"/>
+			<dsp:oparam name="true">
+				<dsp:droplet name="Redirect">
+					<dsp:param name="url" value="${contextPath}/checkout/login.jsp"/>
+				</dsp:droplet>
+			</dsp:oparam>
+			<dsp:oparam name="false">
+				<dsp:getvalueof var="cartCount" bean="/atg/commerce/ShoppingCart.current.totalCommerceItemCount" />
+				<c:if test="${cartCount eq 0}">
+					<dsp:droplet name="Redirect">
+						<dsp:param name="url" value="${contextPath}/checkout/login.jsp"/>
+					</dsp:droplet>
+				</c:if>
+			</dsp:oparam>
+		</dsp:droplet>
+	</dsp:oparam>
+</dsp:droplet>
+

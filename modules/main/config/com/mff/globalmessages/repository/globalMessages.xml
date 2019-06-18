@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE gsa-template 
+ PUBLIC "-//Art Technology Group, Inc.//DTD Dynamo Security//EN"
+   "http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
+<gsa-template >
+	<header>
+		<name>Global Alerts and Messages Repository</name>
+		<author>DMI</author>
+	</header>
+	<item-descriptor name="globalMessages" display-name="Global Alerts and Messages" item-cache-timeout="180000" cache-mode="simple" id-separator=":" id-space-name="ga_id">
+		<table name="global_messages" type="primary" id-column-name="message_id">
+			 <property name="MessageId" data-type="string" column-name="message_id" display-name="Message Id" />
+			 <property name="messageText" data-type="string" column-name="message_text" display-name="Message Text" />
+			 <property name="messageType" data-type="enumerated" column-name="message_type" display-name="Message Type" >
+				 <attribute name="useCodeForValue" value="false"/>
+					 <option code="0" value="Alert" />
+					 <option code="1" value="Message" />
+			 </property>
+			 <property name="messageStartDate" data-type="date" column-name="message_start_time" display-name="Message Start Date" />
+			 <property name="messageEndDate" data-type="date" column-name="message_end_time" display-name="Message Expiry Date" />
+			 <property name="messageDestination" data-type="enumerated" default="Both" column-name="message_destination" display-name="Message Destination (PPS/CSC)" >
+			 	<attribute name="useCodeForValue" value="false"/>
+					 <option code="0" value="Both" />
+					 <option code="1" value="PPS" />
+					 <option code="2" value="CSC" />
+			 </property>
+			 
+		</table>
+	</item-descriptor>
+	
+</gsa-template>
+
+
+

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE pipelinemanager
+	PUBLIC "-//Art Technology Group, Inc.//DTD Dynamo Pipeline Manager//EN"
+	'http://www.atg.com/dtds/pipelinemanager/pipelinemanager_1.0.dtd'>
+
+<pipelinemanager>
+	<!-- ************************************************************* -->
+	<!--  Extend the store shipment pipeline to write the invoice      -->
+	<!--  records for Sales Audit.									   -->	
+	<!-- ************************************************************* -->
+	<pipelinechain name="handleStoreShipment" transaction="TX_REQUIRED">
+		<!-- Creates settlement record -->	
+		<pipelinelink name="createSettlementRecords" transaction="TX_MANDATORY" xml-combine="replace">
+			<processor jndi="/oms/commerce/settlement/processor/CreateSettlementRecordForShippment"/>
+			<transition returnvalue="1" link="createShipmentInvoiceRecord" />
+		</pipelinelink>
+		
+		<!-- Creates invoice record -->	
+		<pipelinelink name="createShipmentInvoiceRecord" transaction="TX_MANDATORY">
+			<processor jndi="/oms/commerce/salesaudit/processor/AddInvoiceForShipping"/>
+			<transition returnvalue="1" link="sendShipStatusEmail" />
+		</pipelinelink>
+	</pipelinechain>	
+</pipelinemanager>

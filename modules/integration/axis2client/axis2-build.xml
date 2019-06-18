@@ -1,0 +1,118 @@
+<!-- Individual Module Build File -->
+<!-- Version: $Id$ -->
+<project name="integration-axis2-build" default="axis-default-target" basedir=".">
+	<path id="axis.classpath">
+			<fileset dir="../axis2client/lib">
+			 	<include name="**/*.jar"/>
+		     </fileset>
+		</path>
+		
+		<path id="axis_client.classpath">
+			<fileset dir="../axis2client/lib">
+		 		<include name="**/*.jar"/>
+	     	</fileset>
+			<fileset dir="lib">
+				<include name="**/*.jar"/>
+			</fileset>
+		</path>
+		
+		<target name="axis-default-target">
+			<echo message="Default-target for axis2 build" />
+		</target>
+		
+		<!-- Provide the service name as command line argument using -Dservicename=INPUT_SERVICE_NAME to the ant command -->
+		<target name="axis-generate-client-service">
+			<echo message="Generates axis2 cilent for the ${servicename} and package name ${packagename}" />
+			<antcall target="axis-wsdl2java">
+				<param name="servicename" value="${servicename}" />
+				<param name="packagename" value="${packagename}" />
+			</antcall>
+			<antcall target="axis2-jar-client">
+				<param name="servicename" value="${servicename}" />
+				<param name="packagename" value="${packagename}" />
+			</antcall>
+			<antcall target="axis-compile-clear">
+				<param name="servicename" value="${servicename}" />
+				<param name="packagename" value="${packagename}" />
+			</antcall>
+		</target>
+		
+		<target name="axis-prepare" >
+			<echo message="Preparing for Axis2 client generation for ${parent}.${child}" />
+			<mkdir dir="./build/axis2/classes/${servicename}" />
+			<mkdir dir="./wsdl2java/${servicename}" />
+		</target>
+		
+		<target name="axis-clean" >
+			<echo message="Cleaning axis2 directories for ${servicename}" />
+			<delete dir="./build/axis2/classes/${servicename}" />
+			<delete dir="./wsdl2java/${servicename}" />
+			<delete file="./${servicename}/lib-external/${module.name}${servicename}service.jar" />
+		</target>
+		
+		<target name="axis-compile">
+			<echo message="Compiling axis2 generated classes for ${servicename}" />
+			<javac srcdir="./wsdl2java/${servicename}" destdir="./build/axis2/classes/${servicename}" deprecation="true" failonerror="true" debug="true">
+				<classpath refid="axis.classpath"/>
+			</javac>
+		</target>
+		
+		<pathconvert property="axis2classpath" refid="axis.classpath" />
+		
+		
+		
+		<target name="axis-wsdl2java" depends="axis-clean,axis-prepare">
+			<echo message="Wsdl2Java for ${servicename}" />
+			<echo> Axis 2 class path is ${axis2classpath} </echo>
+			<property name="servicename" value="${servicename}" />
+			
+			<path id="axis-wsdl-path">
+				<fileset dir="./wsdl/${servicename}">
+					<include name="**/*.wsdl" />
+				</fileset>
+			</path>
+				
+			<pathconvert property="axis2wsdlfile" pathsep="," refid="axis-wsdl-path" />
+			<basename property="axis2wsdlfilename" file="${axis2wsdlfile}" />
+			
+			<!-- Get the wsdl file name -->
+			<echo>Wsdl file is ${axis2wsdlfilename} </echo>
+			
+			<!-- Invoke Wsdl2java -->
+			<java classname="org.apache.axis2.wsdl.WSDL2Java" fork="true">
+				<classpath refid="axis.classpath" />
+				<arg value="-d" />
+				<arg value="xmlbeans"/>
+				<arg value="-uri"/>
+				<arg file="wsdl/${servicename}/${axis2wsdlfilename}"/>
+				<arg value="-s"/>
+				<arg value="-o"/>
+				<arg file="wsdl2java/${servicename}"/>
+				<arg value="-p"/>
+				<arg value="${packagename}"/>
+			</java>
+			
+			<!-- Move the schema folder to classpath -->
+			<move todir="./build/axis2/classes/${servicename}">
+				<fileset dir="./wsdl2java/${servicename}/resources">
+					<include name="**/*schema*/**/*.class"/>
+					<include name="**/*schema*/**/*.xsb"/>
+				</fileset>
+			</move>
+
+		</target>
+		
+		<target name="axis2-jar-client" depends="axis-compile">
+			<echo message="Jar the generated client for ${servicename}" />
+			<property name="servicename" value="${servicename}" />
+			<jar jarfile="./${servicename}/lib-external/${module.name}${servicename}service.jar" >
+				<fileset dir="./build/axis2/classes/${servicename}" />
+			</jar>
+		</target>
+		
+		<target name="axis-compile-clear">
+			<echo message="Clear compiled directories for ${servicename}" />
+			<delete dir="./build/" />
+			<delete dir="./wsdl2java/" />
+		</target>
+</project>

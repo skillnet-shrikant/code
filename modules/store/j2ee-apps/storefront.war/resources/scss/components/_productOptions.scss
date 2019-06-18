@@ -1,0 +1,10 @@
+.product-options {
+    select.option-dropdown {
+        option {
+            color : black;
+            &:disabled {
+                color : grey;
+            }
+        }
+    }
+}

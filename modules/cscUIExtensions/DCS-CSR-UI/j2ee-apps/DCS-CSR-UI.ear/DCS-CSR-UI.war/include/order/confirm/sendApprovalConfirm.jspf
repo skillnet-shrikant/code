@@ -1,0 +1,74 @@
+<%--
+Renders the Update Approval email form
+
+@version $Id:
+@updated $DateTime: 2015/01/26 17:26:27 $$Author: jsiddaga $
+--%>
+
+
+<div class="atg_svc_subPanel">
+  <div class="atg_svc_subPanelHeader" >       
+      <ul class="atg_svc_panelToolBar">
+        <li class="atg_svc_header">
+          <h4 id="atg_commerce_csr_orderconfirm_sendConfirmation"><fmt:message key='confirmOrder.approvalEmailConfirmationMessage.header'/> </h4>
+        </li>       
+       </ul>
+    </div>
+    <c:set var="emailValue" value="${approvalMap.customerEmail}"/>
+    <div>
+      <ul class="atg_commerce_csr_simpleList" style="padding-left:30px">
+      <c:choose>
+        <c:when test="${approvalMap.customerEmail eq null}">
+          <li><fmt:message key='confirmOrder.approvalEmailConfirmationMessage.messageNoEmail'/></li>
+          <li><p><fmt:message key='confirmOrder.approvalEmailConfirmationMessage.message'/></p></li>
+          <li><fmt:message key='confirmOrder.approvalEmailConfirmationMessage.emailAddress'/>* 
+            <input id="atg_commerce_csr_customerEmail" type="text" size="30" maxlength="40" value="<fmt:message key='confirmOrder.approvalEmailConfirmationMessage.emailExample'/>">
+            <input type="submit" value="<fmt:message key='confirmOrder.approvalEmailConfirmationMessage.buttonLabel'/>" onclick="updateEmail();return false;"/>
+           </li>
+          </ul>
+        </c:when>
+        <c:otherwise>
+          <li><fmt:message key='confirmOrder.approvalEmailConfirmationMessage.messageEmail'>
+              <fmt:param> 
+          ${approvalMap.customerEmail}
+              </fmt:param>
+            </fmt:message>
+          </li>
+          <li><p><fmt:message key='confirmOrder.approvalEmailConfirmationMessage.changeMessage'/></p>
+          <li><fmt:message key='confirmOrder.approvalEmailConfirmationMessage.emailAddress'/>*
+            <input id="atg_commerce_csr_customerEmail"  type="text" size="30" maxlength="40" value="${approvalMap.customerEmail}">
+            <input type="submit" value="<fmt:message key='confirmOrder.approvalEmailConfirmationMessage.buttonLabel'/>" onclick="updateEmail();return false;"/>
+          </li>           
+          </ul>
+
+        </c:otherwise>
+      </c:choose>
+      
+      
+      
+    </div>
+    
+    <dsp:form id="atg_commerce_csr_updateCustomerEmail" method="post">
+      <dsp:input type="hidden" priority="-10" value="" bean="/atg/commerce/custsvc/approvals/order/UpdateOrderApprovalCustomerEmail.updateCustomerEmail"/>
+      <dsp:input type="hidden" id="updateEmailApprovalId" bean="/atg/commerce/custsvc/approvals/order/UpdateOrderApprovalCustomerEmail.approvalId" value="${approval.repositoryId}"/>
+      <dsp:input type="hidden" id="updateEmailCustomerEmail" bean="/atg/commerce/custsvc/approvals/order/UpdateOrderApprovalCustomerEmail.customerEmail" value=""/>
+    </dsp:form>
+    
+    <script type="text/javascript">
+      
+      function updateEmail()
+      {
+        dojo.byId("updateEmailCustomerEmail").value=dojo.byId("atg_commerce_csr_customerEmail").value;
+        var theForm = dojo.byId("atg_commerce_csr_updateCustomerEmail");
+      
+        atgSubmitAction({
+          form: theForm,
+          panelStack: ["globalPanels", "cmcConfirmOrderPS"]
+        }); 
+      }
+      
+    </script>
+
+
+</div>
+<%-- @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/include/order/confirm/sendApprovalConfirm.jspf#1 $$Change: 946917 $--%>

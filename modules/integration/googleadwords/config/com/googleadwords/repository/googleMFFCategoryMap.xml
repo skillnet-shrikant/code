@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE gsa-template 
+ PUBLIC "-//Art Technology Group, Inc.//DTD Dynamo Security//EN"
+   "http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
+<gsa-template >
+	<header>
+		<name>Google MFF Category Map Repository</name>
+		<author>DMI</author>
+	</header>
+	<item-descriptor name="googleMffCategoryMap" display-name="Google MFF Category Map" item-cache-timeout="180000" cache-mode="simple" id-separator=":" id-space-name="ga_id">
+		<table name="google_mff_category_map" type="primary" id-column-name="mff_category_id">
+			 <!--
+			 <property name="mffCategory" item-type="category" repository="/atg/commerce/catalog/ProductCatalog" required="false" writable="true" queryable="true" cache-mode="inherit" backing-map-property="false" column-name="mff_category_id" display-name="MFF Category"/>
+			 -->
+			 <property name="mffCategoryId" data-type="string" column-name="mff_category_id" display-name="MFF Category Id" />
+			 <property name="mffCategoryName" data-type="string" column-name="mff_category_name" display-name="MFF Category Name" />
+			 <property name="googleCategoryId" data-type="string" column-name="google_category_id" display-name="Google Category Id" />
+			 <property name="googleCategoryName" data-type="string" column-name="google_category_name" display-name="Google Category Name" />
+		</table>
+	</item-descriptor>
+	
+</gsa-template>
+
+
+

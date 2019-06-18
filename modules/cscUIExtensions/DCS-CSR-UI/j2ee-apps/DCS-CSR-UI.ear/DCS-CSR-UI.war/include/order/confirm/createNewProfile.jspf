@@ -1,0 +1,20 @@
+<%--
+Renders the create new profile of the confirmation page
+
+@version $Id:
+@updated $DateTime: 2015/01/26 17:26:27 $$Author: jsiddaga $
+--%>
+<dsp:importbean bean="/atg/userprofiling/ActiveCustomerProfile" var="activeCustomerProfile"/>
+<%--Create New Account fragment. Show if customer is transient--%>  
+<c:choose>
+  <c:when test="${activeCustomerProfile['transient']}">
+    <dsp:include page="/panels/order/confirm/createProfile.jsp">   
+      <dsp:param name="currentOrder" value="${order}"/>
+    </dsp:include>
+  </c:when>      
+  <c:when test="${CustomerProfileFormHandler.profileSaved}">
+    <dsp:include page="/panels/order/confirm/customerProfileView.jsp">             
+    </dsp:include>
+  </c:when>
+</c:choose>
+<%-- @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/include/order/confirm/createNewProfile.jspf#1 $$Change: 946917 $--%>

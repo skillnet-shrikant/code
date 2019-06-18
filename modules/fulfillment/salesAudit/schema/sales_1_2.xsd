@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Sales Report
+
+    The purpose of this document is to provide information pertaining to orders
+    which have items that have been shipped or returned in the reporting period designated.
+
+    VERSION:        1.2
+    DOCUMENTATION:  http://speedorder.speedfc.com/xmlschemas/docs/sales/1_2/
+    PUBLISHED:      http://speedorder.speedfc.com/xmlschemas/xsds/sales_1_2.xsd
+
+    Copyright (c) 2009 SpeedFC. All rights reserved.
+-->
+<xsd:schema targetNamespace="http://speedorder.speedfc.com/xml/sales" xmlns="http://speedorder.speedfc.com/xml/sales" xmlns:t="http://speedorder.speedfc.com/xml/types" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <!-- include standard field type definitions -->
+    <xsd:import namespace="http://speedorder.speedfc.com/xml/types" schemaLocation="http://speedorder.speedfc.com/xmlschemas/xsds/types_1_2.xsd"/>
+
+    <!-- ////////////////////// SALES ////////////////////// -->
+    <!-- Sales are a listing of orders with shipped order lines and associated payments -->
+    <xsd:element name="sales">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:group ref="t:ReportHeader"/>
+                <xsd:element name="orders" minOccurs="0">
+                    <xsd:complexType>
+                        <xsd:sequence minOccurs="1">
+                            <xsd:element maxOccurs="unbounded" minOccurs="0" name="order" type="SalesOrder"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="summary">
+                    <xsd:annotation>
+                        <xsd:documentation>Initial version: 1.2</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="transactions_total" type="t:numeric19s2">
+                                <xsd:annotation>
+                                    <xsd:documentation>Total amount of all transactions calculated as the sum of shipped lines extended price, minus the sum of returned lines extended price, plus appeasements, plus shipping total.</xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            <xsd:element name="transactions_taxable_total" type="t:numeric19s2" minOccurs="0">
+                                <xsd:annotation>
+                                    <xsd:documentation>Total amount of all transactions calculated as the sum of shipped lines extended price, minus the sum of returned lines extended price, plus appeasements, plus shipping total for taxable items only.</xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            <xsd:element name="transactions_tax_total" type="t:numeric19s2">
+                                <xsd:annotation>
+                                    <xsd:documentation>Total amount of all transaction taxes. Calculated as shipping amount total taxes plus the sum of shipped line taxes, minus the sum of returned lines taxes.</xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            <xsd:element name="transactions_count" type="xsd:integer">
+                                <xsd:annotation>
+                                    <xsd:documentation>Count of all transaction (orders).</xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            <xsd:element name="transaction_lines_count" type="xsd:integer">
+                                <xsd:annotation>
+                                    <xsd:documentation>Count of all lines across all transactions (orders).</xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            <xsd:element name="payments_total" type="t:numeric19s2">
+                                <xsd:annotation>
+                                    <xsd:documentation>Sum of all payment amounts.</xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            <xsd:element name="payments_count" type="xsd:integer">
+                                <xsd:annotation>
+                                    <xsd:documentation>Total number of payments across all transactions (orders).</xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            <xsd:element name="discounts_total" type="t:numeric19s2">
+                                <xsd:annotation>
+                                    <xsd:documentation>Total of all discounts across all transaction lines (order lines).</xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            <xsd:element name="discounts_count" type="xsd:integer">
+                                <xsd:annotation>
+                                    <xsd:documentation>Total number of discounts across all transaction lines (order lines).</xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:element>
+                            <xsd:element name="giftcard_sold_total" type="t:numeric19s2"/>
+                            <xsd:element minOccurs="1" name="giftcard_sold_count" type="xsd:integer"/>
+                            <xsd:element name="payments" minOccurs="0">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element maxOccurs="unbounded" minOccurs="0" name="payment">
+                                            <xsd:complexType>
+                                                <xsd:all>
+                                                  <xsd:element name="credit_total" type="t:numeric19s2"/>
+                                                  <xsd:element name="credit_count" type="xsd:integer"/>
+                                                  <xsd:element name="debit_total" type="t:numeric19s2"/>
+                                                  <xsd:element name="debit_count" type="xsd:integer"/>
+                                                </xsd:all>
+                                                <xsd:attribute name="type" type="t:varchar10" use="required"/>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element minOccurs="0" name="auxiliaries">
+                                <xsd:complexType>
+                                    <xsd:choice>
+                                        <xsd:element maxOccurs="unbounded" name="auxiliary">
+                                            <xsd:complexType>
+                                                <xsd:simpleContent>
+                                                  <xsd:extension base="xsd:string">
+                                                  <xsd:attribute name="name" type="xsd:string"/>
+                                                  </xsd:extension>
+                                                </xsd:simpleContent>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:choice>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+
+            <!-- DOCUMENT VERSION -->
+            <xsd:attribute name="version" type="xsd:string" use="required" fixed="1.2"/>
+            <!-- DOCUMENT VERSION -->
+
+        </xsd:complexType>
+    </xsd:element>
+
+    <!-- ////////////////////// ORDERS ////////////////////// -->
+
+    <!-- ////////////////////// LOCAL TYPE DEFINITIONS ////////////////////// -->
+    <xsd:complexType name="SalesOrder">
+        <xsd:sequence>
+            <xsd:sequence>
+                <xsd:group ref="t:Order"/>
+                <xsd:element minOccurs="0" name="payments">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element maxOccurs="unbounded" minOccurs="1" name="payment" type="t:OrderPayment"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+            <xsd:element name="lines" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element maxOccurs="unbounded" minOccurs="0" name="shipped">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:group ref="t:OrderLine"/>
+                                    <xsd:element minOccurs="0" name="serials">
+                                        <xsd:complexType>
+                                            <xsd:sequence minOccurs="1">
+                                                <xsd:element minOccurs="1" name="serial_number" type="t:varchar30" maxOccurs="unbounded">
+                                                  <xsd:annotation>
+                                                  <xsd:documentation>If the item requires the logging of a serial number upon shipment. The serial number shipped will be provided here.</xsd:documentation>
+                                                  </xsd:annotation>
+                                                </xsd:element>
+                                            </xsd:sequence>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                    <xsd:element name="tracking" minOccurs="0">
+                                        <xsd:annotation>
+                                            <xsd:documentation>Will be available if tracking information is requested.</xsd:documentation>
+                                        </xsd:annotation>
+                                        <xsd:complexType>
+                                            <xsd:sequence minOccurs="1">
+                                                <xsd:element maxOccurs="unbounded" name="carton" minOccurs="1">
+                                                  <xsd:complexType>
+                                                  <xsd:sequence>
+                                                  <xsd:element minOccurs="1" name="tracking_number" type="t:varchar30">
+                                                  <xsd:annotation>
+                                                  <xsd:documentation/>
+                                                  </xsd:annotation>
+                                                  </xsd:element>
+                                                  <xsd:element name="ship_via" type="t:varchar4">
+                                                  <xsd:annotation>
+                                                  <xsd:documentation/>
+                                                  </xsd:annotation>
+                                                  </xsd:element>
+                                                  <xsd:element name="quantity" type="xsd:nonNegativeInteger"/>
+                                                  <xsd:element minOccurs="0" name="deliver_confirmation_number" type="t:varchar50"/>
+                                                  <xsd:element minOccurs="0" name="serials">
+                                                  <xsd:complexType>
+                                                  <xsd:sequence>
+                                                  <xsd:element minOccurs="1" name="serial_number" type="t:varchar30" maxOccurs="unbounded">
+                                                  <xsd:annotation>
+                                                  <xsd:documentation>If the item requires the logging of a serial number upon shipment. The serial number shipped will be provided here.</xsd:documentation>
+                                                  </xsd:annotation>
+                                                  </xsd:element>
+                                                  </xsd:sequence>
+                                                  </xsd:complexType>
+                                                  </xsd:element>
+                                                  </xsd:sequence>
+                                                  <xsd:attribute name="carton_number" type="t:varchar20"/>
+                                                  </xsd:complexType>
+                                                </xsd:element>
+                                            </xsd:sequence>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                </xsd:sequence>
+                                <xsd:attributeGroup ref="t:OrderLineAttribute"/>
+                            </xsd:complexType>
+                        </xsd:element>
+                        <xsd:element maxOccurs="unbounded" minOccurs="0" name="returned">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:group ref="t:OrderLine"/>
+                                    <xsd:element name="reason" type="xsd:string"/>
+                                    <xsd:element minOccurs="0" name="rma" type="xsd:string"/>
+                                    <xsd:element minOccurs="0" name="restocking_fee">
+                                        <xsd:complexType>
+                                            <xsd:sequence>
+                                                <xsd:element name="amount" type="t:numeric7s2"/>
+                                                <xsd:element name="tax" type="t:TaxAmount"/>
+                                            </xsd:sequence>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                </xsd:sequence>
+                                <xsd:attributeGroup ref="t:OrderLineAttribute"/>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="cartons">
+                <xsd:annotation>
+                    <xsd:documentation>If requested, detailed carton information will be made available alongside the shipped lines on an order. Each shipped line will contain a carton_number element which ties to a carton via the  carton/carton_number element.</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element maxOccurs="unbounded" minOccurs="1" name="carton">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:group ref="t:Carton"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="summary">
+                <xsd:annotation>
+                    <xsd:documentation>Initial version: 1.2</xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="transaction_total" type="t:numeric19s2">
+                            <xsd:annotation>
+                                <xsd:documentation>Total transaction amount calculated as the sum of shipped lines extended price, minus the sum of returned lines extended price, plus appeasements, plus shipping total.</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="transactions_taxable_total" type="t:numeric19s2" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>Total amount of all transactions calculated as the sum of shipped lines extended price, minus the sum of returned lines extended price, plus appeasements, plus shipping total for taxable items only.</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="transaction_tax_total" type="t:numeric19s2">
+                            <xsd:annotation>
+                                <xsd:documentation>Total transaction taxes. Calculated as shipping amount total taxes plus the sum of shipped line taxes, minus the sum of returned lines taxes.</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="line_count" type="xsd:integer">
+                            <xsd:annotation>
+                                <xsd:documentation>Count of shipped and returned lines.</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="payment_total" type="t:numeric19s2">
+                            <xsd:annotation>
+                                <xsd:documentation>Sum of all payment amounts.</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="payment_count" type="xsd:integer">
+                            <xsd:annotation>
+                                <xsd:documentation>Count of payments.</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="discount_total" type="t:numeric19s2">
+                            <xsd:annotation>
+                                <xsd:documentation>Total of all discounts across all transaction lines (order lines).</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="discount_count" type="xsd:integer">
+                            <xsd:annotation>
+                                <xsd:documentation>Count of shipped and returned line discounts.</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="giftcard_sold_total" type="t:numeric19s2"/>
+                        <xsd:element minOccurs="1" name="giftcard_sold_count" type="xsd:integer"/>
+                        <xsd:element minOccurs="0" name="auxiliaries">
+                            <xsd:complexType>
+                                <xsd:choice>
+                                    <xsd:element maxOccurs="unbounded" name="auxiliary">
+                                        <xsd:complexType>
+                                            <xsd:simpleContent>
+                                                <xsd:extension base="xsd:string">
+                                                  <xsd:attribute name="name" type="xsd:string"/>
+                                                </xsd:extension>
+                                            </xsd:simpleContent>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                </xsd:choice>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

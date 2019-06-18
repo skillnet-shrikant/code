@@ -1,0 +1,51 @@
+<%-- The odd formatting is deliberate, it eliminates the junk whitespace JSP emits --%>
+<%@ page errorPage="/error.jsp"
+%><%@ page contentType="text/html; charset=UTF-8" isELIgnored="false"
+%><%@ page pageEncoding="UTF-8"
+%><%@ page buffer="16kb" 
+%><%@ taglib prefix="c"         uri="http://java.sun.com/jsp/jstl/core"
+%><%@ taglib prefix="fn"         uri="http://java.sun.com/jsp/jstl/functions"
+%><%@ taglib prefix="caf"       uri="http://www.atg.com/taglibs/caf"
+%><%@ taglib prefix="dspel"     uri="http://www.atg.com/taglibs/daf/dspjspTaglib1_0"
+%><%@ taglib prefix="fmt"       uri="http://java.sun.com/jsp/jstl/fmt"
+%><%@ taglib prefix="fw-beans" uri="http://www.atg.com/taglibs/svc/svcFrameworkBeansTaglib1_0"
+%><%@ taglib prefix="opt-beans" uri="http://www.atg.com/taglibs/svc/svcOptionsBeansTaglib1_0"
+%><%@ taglib prefix="svc-ui" uri="http://www.atg.com/taglibs/svc/svc-uiTaglib1_0"
+%><%@ taglib prefix="svc-agent" uri="http://www.atg.com/taglibs/svc/svc-agentTaglib1_0"
+%><%@ taglib prefix="web-ui" uri="http://www.atg.com/taglibs/web-ui_rt"
+%><%@ taglib prefix="json" uri="http://www.atg.com/taglibs/json"
+%><dspel:page xml="true"
+><svc-ui:setFmtLocale
+/><c:if test="${not atg_agent_topAlreadyRun}"
+><dspel:importbean bean="/atg/svc/repository/service/StateHolderService" scope="request" var="stateHolder"
+/><c:set var="windowId" value='${param[stateHolder.windowIdParameterName]}' scope="request"
+/><dspel:importbean var="profileFormHandler" bean="/atg/userprofiling/InternalProfileFormHandler" scope="request"
+/><dspel:importbean var="agentProfileFormHandler" bean="/atg/agent/userprofiling/AgentProfileFormHandler" scope="request"
+/><dspel:importbean var="profile" bean="/atg/userprofiling/Profile" scope="request"
+/><c:if test="${not agentProfileFormHandler.profile['transient']}"
+><dspel:getvalueof id="login" bean="/atg/userprofiling/Profile.login" scope="request"
+/><dspel:getvalueof id="fName" bean="/atg/userprofiling/Profile.firstName" scope="request"
+/><dspel:getvalueof id="lName" bean="/atg/userprofiling/Profile.lastName" scope="request"
+/></c:if
+><dspel:importbean var="UIConfig" bean="/atg/svc/agent/ui/AgentUIConfiguration" scope="request"
+/><dspel:importbean var="CAFUIConfig" bean="/atg/web/ui/UIConfiguration" scope="request"
+/><c:choose
+><c:when test="${empty UIConfig.styleRoot}"
+><c:set var="styleRoot" value="${UIConfig.contextRoot}" scope="request"
+/></c:when
+><c:otherwise
+><c:set var="styleRoot" value="${UIConfig.styleRoot}" scope="request"
+/></c:otherwise
+></c:choose
+><svc-agent:chatStatus var="chatUiStatus" scope="request"
+/><c:set var="cssPath" value="${pageContext.request.contextPath}${UIConfig.cssLocation}" scope="request" 
+/><c:set var="stylesheetPath" value="${UIConfig.cssLocation}/${UIConfig.contentStylesheet}" scope="request"
+/><c:set var="imageLocation" value="${UIConfig.contextRoot}${UIConfig.imageLocation}" scope="request"
+/><c:set var="commonUILocation" value="${UIConfig.commonUILocation}" scope="request"
+/><c:set var="extensionsRoot" value="${UIConfig.extensionsRoot}" scope="request"
+/><dspel:getvalueof id="thisPage" bean="/OriginatingRequest.requestURI" scope="request"
+/><dspel:getvalueof id="thisURL" bean="/OriginatingRequest.requestURIwithQueryString" scope="request"
+/><c:set var="atg_agent_topAlreadyRun" value="true" scope="request"
+/></c:if
+></dspel:page>
+<%-- @version $Id: //application/service-UI/version/11.2/framework/Agent/src/web-apps/ServiceFramework/include/top.jspf#1 $$Change: 946917 $--%>

@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+ATG-Required: REST 
+ATG-Client-Class-Path: lib/rest.jar
+ATG-Class-Path: lib/rest.jar
+ATG-Config-Path: config
+
+Name: lib/rest.jar
+ATG-Client-Update-File: true

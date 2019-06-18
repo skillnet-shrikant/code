@@ -1,0 +1,1 @@
+alter table mff_site_configuration add enable_listrak number(1) default 0;

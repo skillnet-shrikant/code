@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE gsa-template SYSTEM "dynamosystemresource:/atg/dtds/gsa/gsa_1.0.dtd">
+
+<gsa-template>
+
+  <header>
+    <name>SEO repository extension - MFF</name>
+    <author>KnowledgePath</author>
+    <description>This defines the SEO repository custom extensions and set priority on OOTB properties</description>    
+  </header>
+  
+    <item-descriptor name="SEOTags" item-cache-size="1000" cache-mode="simple" query-cache-size="1000">
+    
+     <table name="das_seo_tag" id-column-name="seo_tag_id" type="primary"> 
+
+      <property display-name-resource="title" data-type="string" 
+      			name="title" column-name="title" category-resource="categoryBasics">
+      			<attribute name="propertySortPriority" value="30"/>
+      </property>  
+      <property display-name-resource="description" data-type="string" 
+      			name="description" column-name="description" category-resource="categoryBasics">
+        		<attribute name="propertySortPriority" value="40"/>
+      </property>  
+      <property display-name-resource="keywords" data-type="string" 
+      			name="keywords" column-name="keywords" category-resource="categoryBasics">
+        		<attribute name="propertySortPriority" value="50"/>
+      </property>
+      <property display-name-resource="displayName" data-type="string" 
+      			name="displayName" column-name="display_name" category-resource="categoryBasics">
+        		<attribute name="propertySortPriority" value="20"/>
+      </property> 
+      <property display-name-resource="contentKey" data-type="string" 
+      			name="key" column-name="content_key" category-resource="categoryBasics">
+        		<attribute name="propertySortPriority" value="10"/>
+      </property>      
+    </table>    
+    
+	<table name="das_seo_sites" id-column-name="seo_tag_id" type="multi">
+      <property display-name-resource="siteConfigurations" data-type="set" component-data-type="string" 
+      			name="sites" column-name="site_id" category-resource="categoryBasics">
+      			<attribute name="propertySortPriority" value="90"/>
+      </property>
+    </table>
+
+	<!--  SEOTags item descriptor custom property -->
+    <table name="mff_seo_tag" id-column-name="seo_tag_id" type="auxiliary">
+		<property name="robotsIndex" display-name="Robots Index" column-name="robots_index"
+				data-type="boolean" default="true" category-resource="categoryBasics">
+				<attribute name="propertySortPriority" value="60"/>	
+		</property> 
+		<property name="robotsFollow" display-name="Robots Follow" column-name="robots_follow"
+				data-type="boolean" default="true" category-resource="categoryBasics">
+				<attribute name="propertySortPriority" value="70"/>
+		</property>  
+		<property name="canonicalURL" display-name="Override Canonical URL" column-name="canonical_url"
+				data-type="string" category-resource="categoryBasics">
+				<attribute name="propertySortPriority" value="80"/>
+		</property>      
+    </table>
+    
+  </item-descriptor>
+
+</gsa-template>

@@ -1,0 +1,485 @@
+<ContentItem type="Page" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://endeca.com/schema/content/2008">
+  <TemplateId>OneColumnPage</TemplateId>
+  <Name>Content</Name>
+  <Property name="HeaderContent">
+    <ContentItemList type="HeaderContent"/>
+  </Property>
+  <Property name="MainContent">
+    <ContentItemList type="MainContent">
+      <ContentItem type="MainContent">
+        <TemplateId>HeroSlideContainer</TemplateId>
+        <Name>HeroSlideContainer</Name>
+        <Property name="HeroSlides">
+          <ContentItemList type="HeroSlide">
+            <ContentItem type="HeroSlide">
+              <TemplateId>HeroSlide</TemplateId>
+              <Name>HeroSlide1</Name>
+              <Property name="imageURL1">
+                <String>/resources/images/prototype/hiking.jpg</String>
+              </Property>
+              <Property name="imageAltText1">
+                <String>Hiking</String>
+              </Property>
+              <Property name="imageH2Text1">
+                <String>Go Exploring</String>
+              </Property>
+              <Property name="imageParaText1">
+                <String>Fleet Farm&lt;sup&gt;&amp;reg;&lt;/sup&gt; has the outdoor gear you need to get you started on your journey!</String>
+              </Property>
+              <Property name="imageButtonLabel1">
+                <String>Shop Now</String>
+              </Property>
+              <Property name="imageButtonHref1">
+                <String>#hiking</String>
+              </Property>
+            </ContentItem>
+            <ContentItem type="HeroSlide">
+              <TemplateId>HeroSlide</TemplateId>
+              <Name>HeroSlide2</Name>
+              <Property name="imageURL1">
+                <String>/resources/images/prototype/lawn-garden.jpg</String>
+              </Property>
+              <Property name="imageAltText1">
+                <String>Lawn &amp;amp; Garden</String>
+              </Property>
+              <Property name="imageH2Text1">
+                <String>Grow Power</String>
+              </Property>
+              <Property name="imageParaText1">
+                <String>Get a thicker, greener lawn with fertilizer from Fleet Farm&lt;sup&gt;&amp;reg;&lt;/sup&gt;!</String>
+              </Property>
+              <Property name="imageButtonLabel1">
+                <String>Shop Lawn &amp;amp; Garden</String>
+              </Property>
+              <Property name="imageButtonHref1">
+                <String>#lawn-and-garden</String>
+              </Property>
+            </ContentItem>
+            <ContentItem type="HeroSlide">
+              <TemplateId>HeroSlide</TemplateId>
+              <Name>HeroSlide3</Name>
+              <Property name="imageURL1">
+                <String>/resources/images/prototype/pet.jpg</String>
+              </Property>
+              <Property name="imageAltText1">
+                <String>Pet</String>
+              </Property>
+              <Property name="imageH2Text1">
+                <String>Treat Them</String>
+              </Property>
+              <Property name="imageParaText1">
+                <String>Pamper your pets with treats and a huge selection of pet supplies from Fleet Farm&lt;sup&gt;&amp;reg;&lt;/sup&gt;!</String>
+              </Property>
+              <Property name="imageButtonLabel1">
+                <String>Shop Pets</String>
+              </Property>
+              <Property name="imageButtonHref1">
+                <String>#pet</String>
+              </Property>
+            </ContentItem>
+          </ContentItemList>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>EmailSignup</TemplateId>
+        <Name>EmailSignup</Name>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>PromoPageWidth</TemplateId>
+        <Name>PromoPageWidth</Name>
+        <Property name="imageURL1">
+          <String>/resources/images/prototype/page-width.jpg</String>
+        </Property>
+        <Property name="imageAltText1">
+          <String>Tractor</String>
+        </Property>
+        <Property name="imageH2Text1">
+          <String>Page Width Promo</String>
+        </Property>
+        <Property name="imageParaText1">
+          <String>This is the text for Page Width Promo!</String>
+        </Property>
+        <Property name="imageButtonLabel1">
+          <String>CTA Link</String>
+        </Property>
+        <Property name="imageButtonHref1">
+          <String>#promo-page-width</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>PromoFullWidth</TemplateId>
+        <Name>PromoFullWidth</Name>
+        <Property name="imageURL1">
+          <String>/resources/images/prototype/full-width.jpg</String>
+        </Property>
+        <Property name="imageAltText1">
+          <String>full-width</String>
+        </Property>
+        <Property name="imageH2Text1">
+          <String>Full Width Promo</String>
+        </Property>
+        <Property name="imageParaText1">
+          <String>This is the text for Full Width Promo!</String>
+        </Property>
+        <Property name="imageButtonLabel1">
+          <String>CTA Link</String>
+        </Property>
+        <Property name="imageButtonHref1">
+          <String>#promo-full-width</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>PromoGridContainer</TemplateId>
+        <Name>PromoGridContainer</Name>
+        <Property name="sectionTitle">
+          <String>TWO PROMO GRID</String>
+        </Property>
+        <Property name="PromoSlots">
+          <ContentItemList type="PromoSlot">
+            <ContentItem type="PromoSlot">
+              <TemplateId>PromoSlot</TemplateId>
+              <Name>PromoSlot1</Name>
+              <Property name="imageURL1">
+                <String>/resources/images/prototype/promo-grass.jpg</String>
+              </Property>
+              <Property name="imageAltText1">
+                <String>Grass</String>
+              </Property>
+              <Property name="imageH2Text1">
+                <String>Promo Title One</String>
+              </Property>
+              <Property name="imageParaText1">
+                <String>This is the text for Promo Tile One!</String>
+              </Property>
+              <Property name="imageButtonLabel1">
+                <String>CTA Link 1</String>
+              </Property>
+              <Property name="imageButtonHref1">
+                <String>#promo</String>
+              </Property>
+            </ContentItem>
+            <ContentItem type="PromoSlot">
+              <TemplateId>PromoSlot</TemplateId>
+              <Name>PromoSlot2</Name>
+              <Property name="imageURL1">
+                <String>/resources/images/prototype/promo-rock.jpg</String>
+              </Property>
+              <Property name="imageAltText1">
+                <String>Rock</String>
+              </Property>
+              <Property name="imageH2Text1">
+                <String>Promo Title Two</String>
+              </Property>
+              <Property name="imageParaText1">
+                <String>This is the text for Promo Tile Two!</String>
+              </Property>
+              <Property name="imageButtonLabel1">
+                <String>CTA Link 2</String>
+              </Property>
+              <Property name="imageButtonHref1">
+                <String>#promo</String>
+              </Property>
+            </ContentItem>
+          </ContentItemList>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>PromoGridContainer</TemplateId>
+        <Name>PromoGridContainer</Name>
+        <Property name="sectionTitle">
+          <String>THREE PROMO GRID</String>
+        </Property>
+        <Property name="PromoSlots">
+          <ContentItemList type="PromoSlot">
+            <ContentItem type="PromoSlot">
+              <TemplateId>PromoSlot</TemplateId>
+              <Name>PromoSlot1</Name>
+              <Property name="imageURL1">
+                <String>/resources/images/prototype/promo-water.jpg</String>
+              </Property>
+              <Property name="imageAltText1">
+                <String>Water</String>
+              </Property>
+              <Property name="imageH2Text1">
+                <String>Promo Title One</String>
+              </Property>
+              <Property name="imageParaText1">
+                <String>This is the text for Promo Tile One!</String>
+              </Property>
+              <Property name="imageButtonLabel1">
+                <String>CTA Link 1</String>
+              </Property>
+              <Property name="imageButtonHref1">
+                <String>#promo</String>
+              </Property>
+            </ContentItem>
+            <ContentItem type="PromoSlot">
+              <TemplateId>PromoSlot</TemplateId>
+              <Name>PromoSlot2</Name>
+              <Property name="imageURL1">
+                <String>/resources/images/prototype/promo-sand.jpg</String>
+              </Property>
+              <Property name="imageAltText1">
+                <String>Sand</String>
+              </Property>
+              <Property name="imageH2Text1">
+                <String>Promo Title Two</String>
+              </Property>
+              <Property name="imageParaText1">
+                <String>This is the text for Promo Tile Two!</String>
+              </Property>
+              <Property name="imageButtonLabel1">
+                <String>CTA Link 2</String>
+              </Property>
+              <Property name="imageButtonHref1">
+                <String>#promo</String>
+              </Property>
+            </ContentItem>
+            <ContentItem type="PromoSlot">
+              <TemplateId>PromoSlot</TemplateId>
+              <Name>PromoSlot3</Name>
+              <Property name="imageURL1">
+                <String>/resources/images/prototype/promo-grass.jpg</String>
+              </Property>
+              <Property name="imageAltText1">
+                <String>Grass</String>
+              </Property>
+              <Property name="imageH2Text1">
+                <String>Promo Title Three</String>
+              </Property>
+              <Property name="imageParaText1">
+                <String>This is the text for Promo Tile Three!</String>
+              </Property>
+              <Property name="imageButtonLabel1">
+                <String>CTA Link 3</String>
+              </Property>
+              <Property name="imageButtonHref1">
+                <String>#promo</String>
+              </Property>
+            </ContentItem>
+          </ContentItemList>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>PromoProductGrid</TemplateId>
+        <Name>PromoProductGrid</Name>
+        <Property name="sectionTitle">
+          <String>PRODUCT GRID</String>
+        </Property>
+        <Property name="recordSelection">
+          <Item class="com.endeca.infront.cartridge.RecordSpotlightSelection" xmlns="http://endeca.com/schema/xavia/2010">
+            <Property name="filterState">
+              <Item class="com.endeca.infront.navigation.model.FilterState">
+                <Property name="featuredRecords">
+                  <List>
+                    <String>0000000060286</String>
+                    <String>0000000208005</String>
+                    <String>0000000000204</String>
+                    <String>0000000039145</String>
+                    <String>0000000202618</String>
+                    <String>0000000065592</String>
+                    <String>0000000047531</String>
+                    <String>0000000034782</String>
+                    <String>0000000053236</String>
+                    <String>0000000083904</String>
+                  </List>
+                </Property>
+              </Item>
+            </Property>
+          </Item>
+        </Property>
+        <Property name="maxNumRecords">
+          <String>8</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>PromoProductSlider</TemplateId>
+        <Name>PromoProductSlider</Name>
+        <Property name="sectionTitle">
+          <String>PRODUCT SLIDER THREE</String>
+        </Property>
+        <Property name="productsPerSlide">
+          <String>3</String>
+        </Property>
+        <Property name="maxNumRecords">
+          <String>8</String>
+        </Property>
+        <Property name="recordSelection">
+          <Item class="com.endeca.infront.cartridge.RecordSpotlightSelection" xmlns="http://endeca.com/schema/xavia/2010">
+            <Property name="filterState">
+              <Item class="com.endeca.infront.navigation.model.FilterState">
+                <Property name="featuredRecords">
+                  <List>
+                    <String>0000000081736</String>
+                    <String>0000000081737</String>
+                    <String>0000000062806</String>
+                    <String>0000000015496</String>
+                    <String>0000000081738</String>
+                    <String>0000000207570</String>
+                    <String>0000000014776</String>
+                    <String>0000000224512</String>
+                  </List>
+                </Property>
+              </Item>
+            </Property>
+          </Item>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>PromoProductSlider</TemplateId>
+        <Name>PromoProductSlider</Name>
+        <Property name="sectionTitle">
+          <String>PRODUCT SLIDER FOUR</String>
+        </Property>
+        <Property name="productsPerSlide">
+          <String>4</String>
+        </Property>
+        <Property name="maxNumRecords">
+          <String>8</String>
+        </Property>
+        <Property name="recordSelection">
+          <Item class="com.endeca.infront.cartridge.RecordSpotlightSelection" xmlns="http://endeca.com/schema/xavia/2010">
+            <Property name="filterState">
+              <Item class="com.endeca.infront.navigation.model.FilterState">
+                <Property name="featuredRecords">
+                  <List>
+                    <String>0000000060286</String>
+                    <String>0000000202768</String>
+                    <String>0000000039053</String>
+                    <String>0000000017755</String>
+                    <String>0000000017757</String>
+                    <String>0000000039054</String>
+                    <String>0000000039162</String>
+                    <String>0000000039163</String>
+                  </List>
+                </Property>
+              </Item>
+            </Property>
+          </Item>
+        </Property>
+      </ContentItem>
+	  <ContentItem type="MainContent">
+		<TemplateId>HeroSlidePromoStack</TemplateId>
+		<Name>HeroSlidePromoStack</Name>
+		<Property name="HeroSlides">
+			<ContentItemList type="HeroSlide">
+				<ContentItem type="HeroSlide">
+				  <TemplateId>HeroSlide</TemplateId>
+				  <Name>HeroSlide1</Name>
+				  <Property name="imageURL1">
+					<String>/resources/images/prototype/hiking.jpg</String>
+				  </Property>
+				  <Property name="imageAltText1">
+					<String>Hiking</String>
+				  </Property>
+				  <Property name="imageH2Text1">
+					<String>Go Exploring</String>
+				  </Property>
+				  <Property name="imageParaText1">
+					<String>Fleet Farm&lt;sup&gt;&amp;reg;&lt;/sup&gt; has the outdoor gear you need to get you started on your journey!</String>
+				  </Property>
+				  <Property name="imageButtonLabel1">
+					<String>Shop Now</String>
+				  </Property>
+				  <Property name="imageButtonHref1">
+					<String>#hiking</String>
+				  </Property>
+				</ContentItem>
+				<ContentItem type="HeroSlide">
+				  <TemplateId>HeroSlide</TemplateId>
+				  <Name>HeroSlide2</Name>
+				  <Property name="imageURL1">
+					<String>/resources/images/prototype/lawn-garden.jpg</String>
+				  </Property>
+				  <Property name="imageAltText1">
+					<String>Lawn &amp;amp; Garden</String>
+				  </Property>
+				  <Property name="imageH2Text1">
+					<String>Grow Power</String>
+				  </Property>
+				  <Property name="imageParaText1">
+					<String>Get a thicker, greener lawn with fertilizer from Fleet Farm&lt;sup&gt;&amp;reg;&lt;/sup&gt;!</String>
+				  </Property>
+				  <Property name="imageButtonLabel1">
+					<String>Shop Lawn &amp;amp; Garden</String>
+				  </Property>
+				  <Property name="imageButtonHref1">
+					<String>#lawn-and-garden</String>
+				  </Property>
+				</ContentItem>
+				<ContentItem type="HeroSlide">
+				  <TemplateId>HeroSlide</TemplateId>
+				  <Name>HeroSlide3</Name>
+				  <Property name="imageURL1">
+					<String>/resources/images/prototype/pet.jpg</String>
+				  </Property>
+				  <Property name="imageAltText1">
+					<String>Pet</String>
+				  </Property>
+				  <Property name="imageH2Text1">
+					<String>Treat Them</String>
+				  </Property>
+				  <Property name="imageParaText1">
+					<String>Pamper your pets with treats and a huge selection of pet supplies from Fleet Farm&lt;sup&gt;&amp;reg;&lt;/sup&gt;!</String>
+				  </Property>
+				  <Property name="imageButtonLabel1">
+					<String>Shop Pets</String>
+				  </Property>
+				  <Property name="imageButtonHref1">
+					<String>#pet</String>
+				  </Property>
+				</ContentItem>
+			</ContentItemList>
+		</Property>
+		<Property name="PromoSlots">
+			<ContentItemList type="PromoSlot">
+				<ContentItem type="PromoSlot">
+				  <TemplateId>PromoSlot</TemplateId>
+				  <Name>PromoSlot1</Name>
+				  <Property name="imageURL1">
+					<String>/resources/images/prototype/promo-grass.jpg</String>
+				  </Property>
+				  <Property name="imageAltText1">
+					<String>Grass</String>
+				  </Property>
+				  <Property name="imageH2Text1">
+					<String>Promo Title One</String>
+				  </Property>
+				  <Property name="imageParaText1">
+					<String>This is the text for Promo Tile One!</String>
+				  </Property>
+				  <Property name="imageButtonLabel1">
+					<String>CTA Link 1</String>
+				  </Property>
+				  <Property name="imageButtonHref1">
+					<String>#promo</String>
+				  </Property>
+				</ContentItem>
+				<ContentItem type="PromoSlot">
+				  <TemplateId>PromoSlot</TemplateId>
+				  <Name>PromoSlot2</Name>
+				  <Property name="imageURL1">
+					<String>/resources/images/prototype/promo-rock.jpg</String>
+				  </Property>
+				  <Property name="imageAltText1">
+					<String>Rock</String>
+				  </Property>
+				  <Property name="imageH2Text1">
+					<String>Promo Title Two</String>
+				  </Property>
+				  <Property name="imageParaText1">
+					<String>This is the text for Promo Tile Two!</String>
+				  </Property>
+				  <Property name="imageButtonLabel1">
+					<String>CTA Link 2</String>
+				  </Property>
+				  <Property name="imageButtonHref1">
+					<String>#promo</String>
+				  </Property>
+				</ContentItem>
+			</ContentItemList>
+		   </Property>
+		</ContentItem>
+    </ContentItemList>
+  </Property>
+</ContentItem>

@@ -1,0 +1,1218 @@
+{
+  "indexConfig" : {
+    "system" : {
+      "attributes" : {
+        "jcr:primaryType" : "endeca:unstructured",
+        "record.id" : {
+          "propertyDataType" : "ALPHA",
+          "jcr:primaryType" : "endeca:property",
+          "isRecordFilterable" : true
+        },
+        "product.repositoryId" : {
+          "propertyDataType" : "ALPHA",
+          "mergeAction" : "UPDATE",
+          "isRollupKey" : true,
+          "jcr:primaryType" : "endeca:property",
+          "isRecordFilterable" : true
+        },
+      	"product.priceRange" : {
+           "jcr:primaryType" : "endeca:dimension",
+           "rangeComparisonType" : "FLOAT",
+           "multiSelectType" : "OR",
+           "sourcePropertyNames" : [ "sku.activePrice" ]
+        },
+	"sku.multi.Action" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Action"]
+	},
+	"sku.multi.Activity" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Activity"]
+	},
+	"sku.multi.Age" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Age"]
+	},
+	"sku.multi.Amps" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Amps"]
+	},
+	"sku.multi.Application" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Application"]
+	},
+	"sku.multi.BarLength" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.BarLength"]
+	},
+	"sku.multi.BasinDepth" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.BasinDepth"]
+	},
+	"sku.multi.BasinLength" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.BasinLength"]
+	},
+	"sku.multi.BasinWidth" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.BasinWidth"]
+	},
+	"sku.multi.BatteryAmpHours" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.BatteryAmpHours"]
+	},
+	"sku.multi.BedMaterial" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.BedMaterial"]
+	},
+	"sku.multi.BladeColor" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.BladeColor"]
+	},
+	"sku.multi.BladeLength" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.BladeLength"]
+	},
+	"sku.multi.BladeMaterial" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.BladeMaterial"]
+	},
+	"sku.multi.BladeWidth" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.BladeWidth"]
+	},
+	"sku.multi.BowlHeight" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.BowlHeight"]
+	},
+	"sku.multi.Brand" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Brand"]
+	},
+	"sku.multi.BulbColor" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.BulbColor"]
+	},
+	"sku.multi.BulbType" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.BulbType"]
+	},
+	"sku.multi.BulletWeight" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.BulletWeight"]
+	},
+	"sku.multi.Caliber" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Caliber"]
+	},
+	"sku.multi.Capacity" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Capacity"]
+	},
+	"sku.multi.CharacterTheme" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.CharacterTheme"]
+	},
+	"sku.multi.ChuckSize" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.ChuckSize"]
+	},
+	"sku.multi.ChuckType" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.ChuckType"]
+	},
+	"sku.multi.ClampStrength" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.ClampStrength"]
+	},
+	"sku.multi.Class" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Class"]
+	},
+	"sku.multi.CoatLength" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.CoatLength"]
+	},
+	"sku.multi.Color" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Color"]
+	},
+	"sku.multi.ConductorMaterial" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.ConductorMaterial"]
+	},
+	"sku.multi.ConnectionType" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.ConnectionType"]
+	},
+	"sku.multi.ConnectorMaterial" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.ConnectorMaterial"]
+	},
+	"sku.multi.ControlStyle" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.ControlStyle"]
+	},
+	"sku.multi.CordlessCorded" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.CordlessCorded"]
+	},
+	"sku.multi.Coverage" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Coverage"]
+	},
+	"sku.multi.Depth" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Depth"]
+	},
+	"sku.multi.Diameter" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Diameter"]
+	},
+	"sku.multi.DietaryNeeds" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.DietaryNeeds"]
+	},
+	"sku.multi.DischargeFlow" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.DischargeFlow"]
+	},
+	"sku.multi.DoorHanding" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.DoorHanding"]
+	},
+	"sku.multi.DriveStyle" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.DriveStyle"]
+	},
+	"sku.multi.EnergyStarQualified" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.EnergyStarQualified"]
+	},
+	"sku.multi.Exclusive" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Exclusive"]
+	},
+	"sku.multi.Exposure" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Exposure"]
+	},
+	"sku.multi.FacedvsUnfaced" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.FacedvsUnfaced"]
+	},
+	"sku.multi.Features" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Features"]
+	},
+	"sku.multi.Fill" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Fill"]
+	},
+	"sku.multi.FilterType" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.FilterType"]
+	},
+	"sku.multi.Finish" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Finish"]
+	},
+	"sku.multi.Fit" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Fit"]
+	},
+	"sku.multi.Flavor" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Flavor"]
+	},
+	"sku.multi.FlowRate" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.FlowRate"]
+	},
+	"sku.multi.Form" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Form"]
+	},
+	"sku.multi.FuelType" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.FuelType"]
+	},
+	"sku.multi.GamingSystem" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.GamingSystem"]
+	},
+	"sku.multi.Gauge" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Gauge"]
+	},
+	"sku.multi.Gender" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Gender"]
+	},
+	"sku.multi.Genre" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Genre"]
+	},
+	"sku.multi.GrassType" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.GrassType"]
+	},
+	"sku.multi.Handedness" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Handedness"]
+	},
+	"sku.multi.HandleLength" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.HandleLength"]
+	},
+	"sku.multi.HandleMaterial" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.HandleMaterial"]
+	},
+	"sku.multi.HeadStyle" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.HeadStyle"]
+	},
+	"sku.multi.HeadType" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.HeadType"]
+	},
+	"sku.multi.HeadWeight" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.HeadWeight"]
+	},
+	"sku.multi.HealthNeed" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.HealthNeed"]
+	},
+	"sku.multi.Height" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Height"]
+	},
+	"sku.multi.Horsepower" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Horsepower"]
+	},
+	"sku.multi.HousingFinish" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.HousingFinish"]
+	},
+	"sku.multi.HousingMaterial" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.HousingMaterial"]
+	},
+	"sku.multi.HxW" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.HxW"]
+	},
+	"sku.multi.ImpactsMinute" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.ImpactsMinute"]
+	},
+	"sku.multi.IndoorOutdoor" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.IndoorOutdoor"]
+	},
+	"sku.multi.InletDiameter" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.InletDiameter"]
+	},
+	"sku.multi.Inseam" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Inseam"]
+	},
+	"sku.multi.InsulationRValue" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.InsulationRValue"]
+	},
+	"sku.multi.JawWidth" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.JawWidth"]
+	},
+	"sku.multi.League" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.League"]
+	},
+	"sku.multi.LegOpening" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.LegOpening"]
+	},
+	"sku.multi.Length" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Length"]
+	},
+	"sku.multi.Lifestage" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Lifestage"]
+	},
+	"sku.multi.LightColor" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.LightColor"]
+	},
+	"sku.multi.Lined" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Lined"]
+	},
+	"sku.multi.LitUnlit" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.LitUnlit"]
+	},
+	"sku.multi.LockType" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.LockType"]
+	},
+	"sku.multi.Magnification" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Magnification"]
+	},
+	"sku.multi.Material" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Material"]
+	},
+	"sku.multi.MaxAirSpeed" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.MaxAirSpeed"]
+	},
+	"sku.multi.MaxAmps" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.MaxAmps"]
+	},
+	"sku.multi.MaxSpeed" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.MaxSpeed"]
+	},
+	"sku.multi.MaximumPSI" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.MaximumPSI"]
+	},
+	"sku.multi.Megapixels" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Megapixels"]
+	},
+	"sku.multi.MoreWaystoShop" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.MoreWaystoShop"]
+	},
+	"sku.multi.Neckline" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Neckline"]
+	},
+	"sku.multi.NumberofBulbsRequired" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.NumberofBulbsRequired"]
+	},
+	"sku.multi.NumberofBurners" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.NumberofBurners"]
+	},
+	"sku.multi.NumberofCircuits" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.NumberofCircuits"]
+	},
+	"sku.multi.NumberofDoors" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.NumberofDoors"]
+	},
+	"sku.multi.NumberofGangs" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.NumberofGangs"]
+	},
+	"sku.multi.NumberofHandles" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.NumberofHandles"]
+	},
+	"sku.multi.NumberofKnockouts" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.NumberofKnockouts"]
+	},
+	"sku.multi.NumberofLevels" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.NumberofLevels"]
+	},
+	"sku.multi.NumberofOutlets" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.NumberofOutlets"]
+	},
+	"sku.multi.NumberofPieces" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.NumberofPieces"]
+	},
+	"sku.multi.NumberofShelves" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.NumberofShelves"]
+	},
+	"sku.multi.NumberofSpaces" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.NumberofSpaces"]
+	},
+	"sku.multi.NumberofSpeeds" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.NumberofSpeeds"]
+	},
+	"sku.multi.NumberofSwitches" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.NumberofSwitches"]
+	},
+	"sku.multi.ObjectiveDiameter" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.ObjectiveDiameter"]
+	},
+	"sku.multi.Oscillation" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Oscillation"]
+	},
+	"sku.multi.PestType" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.PestType"]
+	},
+	"sku.multi.PetSize" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.PetSize"]
+	},
+	"sku.multi.PetType" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.PetType"]
+	},
+	"sku.multi.PieceCount" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.PieceCount"]
+	},
+	"sku.multi.Points" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Points"]
+	},
+	"sku.multi.PowerType" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.PowerType"]
+	},
+	"sku.multi.Price" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Price"]
+	},
+	"sku.multi.PumpType" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.PumpType"]
+	},
+	"sku.multi.Ratings" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Ratings"]
+	},
+	"sku.multi.Reach" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Reach"]
+	},
+	"sku.multi.Retrieval" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Retrieval"]
+	},
+	"sku.multi.RimDiameter" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.RimDiameter"]
+	},
+	"sku.multi.RodLength" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.RodLength"]
+	},
+	"sku.multi.RodPower" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.RodPower"]
+	},
+	"sku.multi.RoomSize" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.RoomSize"]
+	},
+	"sku.multi.ScreenSize" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.ScreenSize"]
+	},
+	"sku.multi.Season" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Season"]
+	},
+	"sku.multi.SeatingCapacity" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.SeatingCapacity"]
+	},
+	"sku.multi.Series" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Series"]
+	},
+	"sku.multi.ShaftType" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.ShaftType"]
+	},
+	"sku.multi.Shape" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Shape"]
+	},
+	"sku.multi.Sheen" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Sheen"]
+	},
+	"sku.multi.Size" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Size"]
+	},
+	"sku.multi.SizeRange" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.SizeRange"]
+	},
+	"sku.multi.SleeveLength" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.SleeveLength"]
+	},
+	"sku.multi.Species" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Species"]
+	},
+	"sku.multi.SprinklerLocation" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.SprinklerLocation"]
+	},
+	"sku.multi.SprinklerType" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.SprinklerType"]
+	},
+	"sku.multi.Style" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Style"]
+	},
+	"sku.multi.Team" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Team"]
+	},
+	"sku.multi.Technology" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Technology"]
+	},
+	"sku.multi.Thickness" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Thickness"]
+	},
+	"sku.multi.ThreadType" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.ThreadType"]
+	},
+	"sku.multi.ThrustLbs" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.ThrustLbs"]
+	},
+	"sku.multi.TineMaterial" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.TineMaterial"]
+	},
+	"sku.multi.TipStyle" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.TipStyle"]
+	},
+	"sku.multi.TipWidth" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.TipWidth"]
+	},
+	"sku.multi.TireAspectRatio" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.TireAspectRatio"]
+	},
+	"sku.multi.Torque" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Torque"]
+	},
+	"sku.multi.Traffic" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Traffic"]
+	},
+	"sku.multi.TransmissionType" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.TransmissionType"]
+	},
+	"sku.multi.TurnRadius" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.TurnRadius"]
+	},
+	"sku.multi.Type" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Type"]
+	},
+	"sku.multi.Usage" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Usage"]
+	},
+	"sku.multi.Velocity" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Velocity"]
+	},
+	"sku.multi.Viscosity" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Viscosity"]
+	},
+	"sku.multi.Voltage" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Voltage"]
+	},
+	"sku.multi.VolumeCapacity" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.VolumeCapacity"]
+	},
+	"sku.multi.WarmthRating" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.WarmthRating"]
+	},
+	"sku.multi.Wash" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Wash"]
+	},
+	"sku.multi.Wattage" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Wattage"]
+	},
+	"sku.multi.Weight" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Weight"]
+	},
+	"sku.multi.WeightCapacity" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.WeightCapacity"]
+	},
+	"sku.multi.WheelSize" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.WheelSize"]
+	},
+	"sku.multi.Width" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.Width"]
+	},
+	"sku.multi.WireColor" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.WireColor"]
+	},
+	"sku.multi.WoodSpecies" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.WoodSpecies"]
+	},
+	"sku.multi.WxL" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.WxL"]
+	},
+	"sku.multi.YardSize" : {
+		"jcr:primaryType" : "endeca:dimension",
+		"isAutogen" : true,
+		"isRecordSearchEnabled" : false,
+		"multiSelectType" : "OR",
+		"sourcePropertyNames" : [ "skuSearchFacet.YardSize"]
+	}
+      },
+      "precedenceRules" : {
+      },
+      "searchIndexConfig" : {
+        "isWildcardEnabledInDimensionSearch" : true,
+        "spellingDictMaxWordLength" : 16,
+        "spellingDictMinNumWordOccurrences" : 4,
+        "spellingDictMinWordLength" : 3
+      }
+    }
+  }
+}

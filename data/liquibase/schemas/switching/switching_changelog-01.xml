@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+<!--
+   <changeSet author="dmi" id="001_test_table">
+      <comment>Create a test table</comment>
+      <sqlFile path="schemas/switching/ddl/001_test_table.sql"/>
+   </changeSet>
+   -->
+   <changeSet author="cgopalan" id="001_mff_category">
+      <comment>extn category table</comment>
+      <sqlFile path="schemas/switching/ddl/001_mff_category.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/switching/rollback/001_drop_mff_category.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="cgopalan" id="002_mff_product">
+      <comment>extn product table</comment>
+      <sqlFile path="schemas/switching/ddl/002_mff_product.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/switching/rollback/002_drop_mff_product.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="cgopalan" id="003_mff_sku">
+      <comment>extn sku table</comment>
+      <sqlFile path="schemas/switching/ddl/003_mff_sku.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/switching/rollback/003_drop_mff_sku.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="cgopalan" id="004_csr_site_config.sql">
+      <comment>CSR site repo addition</comment>
+      <sqlFile path="schemas/switching/ddl/004_csr_site_config.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/switching/rollback/004_drop_csr_site_config.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="cgopalan" id="005_mff_location">
+      <comment>Location extenstion</comment>
+      <sqlFile path="schemas/switching/ddl/005_mff_location.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/switching/rollback/005_drop_mff_location.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="cgopalan" id="006_mff_location_addln_cat">
+      <comment>Location additional categories</comment>
+      <sqlFile path="schemas/switching/ddl/006_mff_location_addln_cat.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/switching/rollback/006_drop_mff_location_addln_cat.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="cgopalan" id="007_alter_mff_location">
+      <comment>Add max_q column to mff_location</comment>
+      <sqlFile path="schemas/switching/ddl/007_alter_mff_location.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="008_alter_dcs_location_store">
+      <comment>Alter col size for hours</comment>
+      <sqlFile path="schemas/switching/ddl/008_alter_dcs_location_store.sql"/>
+   </changeSet>
+   <changeSet author="bnuthalapati" id="009_mff_store_landing_page">
+      <comment>Added mapping for Store landing page</comment>
+      <sqlFile path="schemas/switching/ddl/009_mff_store_landing_page.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/switching/rollback/007_drop_mff_store_landing_page.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="cgopalan" id="010_alter_mff_product">
+      <comment>Alter mff_product table</comment>
+      <sqlFile path="schemas/switching/ddl/010_alter_mff_product.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="011_create_mff_prod_attr">
+      <comment>create mff_prod_attr table</comment>
+      <sqlFile path="schemas/switching/ddl/011_create_mff_prod_attr.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="012_add_mff_prod_attr_constraints">
+      <comment>Add constraints for mff_prod_attr</comment>
+      <sqlFile path="schemas/switching/ddl/012_add_mff_prod_attr_constraints.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="013_alter_mff_sku">
+      <comment>alter mff_sku table</comment>
+      <sqlFile path="schemas/switching/ddl/013_alter_mff_sku.sql"/>
+   </changeSet>
+	<changeSet author="bnuthalapati" id="014_static_content">
+      <comment>Tables for Static content repository.</comment>
+      <sqlFile path="schemas/switching/ddl/014_static_content.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/switching/rollback/008_drop_static_content.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="bnuthalapati" id="015_alter_mff_location">
+      <comment>Added store_hours and special_hours columns.</comment>
+      <sqlFile path="schemas/switching/ddl/015_alter_mff_location.sql"/>
+   </changeSet>
+   <changeSet author="bnuthalapati" id="016_alter_static_content">
+      <comment>Added new column.</comment>
+      <sqlFile path="schemas/switching/ddl/016_alter_static_content.sql"/>
+   </changeSet>
+   <changeSet author="pventrapragada" id="017_alter_static_content">
+      <comment>Changed data type for content_key.</comment>
+      <sqlFile path="schemas/switching/ddl/017_alter_static_content.sql"/>
+   </changeSet>
+    <changeSet author="pventrapragada" id="018_alter_static_content">
+      <comment>Changed data type for Target.</comment>
+      <sqlFile path="schemas/switching/ddl/018_alter_static_content.sql"/>
+   </changeSet>
+    <changeSet author="cgopalan" id="019_drop_selling_points">
+      <comment>Drop unused columns</comment>
+      <sqlFile path="schemas/switching/ddl/019_drop_selling_points.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="020_alter_mff_location">
+      <comment>Adding pps and bopis flags</comment>
+      <sqlFile path="schemas/switching/ddl/020_alter_mff_location.sql"/>
+   </changeSet>
+   <changeSet author="bnuthalapati" id="021_mff_tax_exmp_classification">
+      <comment>Table to hold Tax exemption classification values.</comment>
+      <sqlFile path="schemas/switching/ddl/021_mff_tax_exmp_classification.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/switching/rollback/009_drop_mff_tax_exmp_classification.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="bnuthalapati" id="022_mff_store_landing_page_1">
+      <comment>Dropping and recreating mff_store_landing_page</comment>
+      <sqlFile path="schemas/switching/ddl/022_mff_store_landing_page_1.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="023_alter_mff_product">
+      <comment>Adding col for picker template</comment>
+      <sqlFile path="schemas/switching/ddl/023_alter_mff_product.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="024_drop_unused_prod_columns">
+      <comment>drop unused prod cols</comment>
+      <sqlFile path="schemas/switching/ddl/024_drop_unused_prod_columns.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="025_drop_unused_sku_columns">
+      <comment>drop unused sku cols</comment>
+      <sqlFile path="schemas/switching/ddl/025_drop_unused_sku_columns.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="026_drop_age_rest">
+      <comment>drop unused sku cols</comment>
+      <sqlFile path="schemas/switching/ddl/026_drop_age_rest.sql"/>
+   </changeSet>
+    <changeSet author="cgopalan" id="027_alter_mff_sku">
+      <comment>add ormd sku attrib</comment>
+      <sqlFile path="schemas/switching/ddl/027_alter_mff_sku.sql"/>
+   </changeSet>
+
+ 	<changeSet author="cgopalan" id="028_alter_mff_sku">
+		<comment>add tax code</comment>
+		<sqlFile path="schemas/switching/ddl/028_alter_mff_sku.sql"/>
+	</changeSet>
+ 	<changeSet author="cgopalan" id="029_alter_mff_product">
+		<comment>drop eds</comment>
+		<sqlFile path="schemas/switching/ddl/029_alter_mff_product.sql"/>
+	</changeSet>
+	<changeSet author="bnuthalapati" id="030_create_mff_pps_message">
+		<comment>Table to hold PPS Messages.</comment>
+      	<sqlFile path="schemas/switching/ddl/030_create_mff_pps_message.sql"/>
+      	<rollback>
+      		<sqlFile path="schemas/switching/rollback/010_drop_mff_pps_message.sql"/>
+      	</rollback>
+   </changeSet>
+
+ 	<changeSet author="cgopalan" id="031_alter_mff_sku">
+		<comment>add pps msg ids col</comment>
+		<sqlFile path="schemas/switching/ddl/031_alter_mff_sku.sql"/>
+	</changeSet>
+	<changeSet author="bnuthalapati" id="032_modify_static_content">
+		<comment>Modified mff static content tables.</comment>
+		<sqlFile path="schemas/switching/ddl/032_modify_static_content.sql"/>
+	</changeSet>
+	<changeSet author="bnuthalapati" id="033_modify_static_content">
+		<comment>Modified mff static content tables references.</comment>
+		<sqlFile path="schemas/switching/ddl/033_modify_static_content.sql"/>
+	</changeSet>
+	<changeSet author="bnuthalapati" id="034_modify_static_content">
+		<comment>Modified mff static content tables references.</comment>
+		<sqlFile path="schemas/switching/ddl/034_modify_static_content.sql"/>
+	</changeSet>
+	<changeSet author="bnuthalapati" id="035_modify_tax_exmp">
+		<comment>Added tax exmp code.</comment>
+		<sqlFile path="schemas/switching/ddl/035_modify_tax_exmp.sql"/>
+	</changeSet>
+	<changeSet author="bnuthalapati" id="036_modify_mff_static_left_nav">
+		<comment>Added display order.</comment>
+		<sqlFile path="schemas/switching/ddl/036_modify_mff_static_left_nav.sql"/>
+	</changeSet>
+   <changeSet author="cgopalan" id="035_mff_sku_computed">
+ 	<comment>create mff_sku_computed table.</comment>
+	<sqlFile path="schemas/switching/ddl/035_mff_sku_computed.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="037_alter_mff_sku">
+ 	<comment>alter mff_sku table to include UPCs.</comment>
+	<sqlFile path="schemas/switching/ddl/037_alter_mff_sku.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="038_alter_mff_product">
+ 	<comment>alter mff_product table to include fulfillment and image columns.</comment>
+	<sqlFile path="schemas/switching/ddl/038_alter_mff_product.sql"/>
+   </changeSet>
+   <changeSet author="foldenburg" id="034_create_mff_search_suggest">
+	<comment>Create suggested search term tables</comment>
+	<sqlFile path="schemas/switching/ddl/034_create_mff_search_suggest.sql" />
+	</changeSet>
+	<changeSet author="vsingh" id="039_mff_site_configuration">
+		<comment>Site Configuration Extension</comment>
+		<sqlFile path="schemas/switching/ddl/039_mff_site_configuration.sql" />
+	</changeSet>
+	<changeSet author="bnuthalapati" id="040_alter_mff_content">
+		<comment>Added SEO extensions</comment>
+		<sqlFile path="schemas/switching/ddl/040_alter_mff_content.sql" />
+	</changeSet>
+   <changeSet author="cgopalan" id="041_alter_mff_location">
+ 	<comment>alter mff_location add total_order_per_day</comment>
+	<sqlFile path="schemas/switching/ddl/041_alter_mff_location.sql"/>
+   </changeSet>
+   <changeSet author="bnuthalapati" id="042_alter_mff_location">
+ 	<comment>Adding auto_center_hours and gas_mart_hours</comment>
+	<sqlFile path="schemas/switching/ddl/042_alter_mff_location.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="043_create_mff_cat_child_cat">
+ 	<comment>Adding cat reln table for display order sort</comment>
+	<sqlFile path="schemas/switching/ddl/043_create_mff_cat_child_cat.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="044_alter_mff_category">
+ 	<comment>Add visibility column</comment>
+	<sqlFile path="schemas/switching/ddl/044_alter_mff_category.sql"/>
+   </changeSet>
+   <changeSet author="bnuthalapati" id="045_alter_mff_sku">
+      <comment>Added shipping_surcharge_qnty_range columns.</comment>
+      <sqlFile path="schemas/switching/ddl/045_alter_mff_sku.sql"/>
+   </changeSet>
+   <changeSet author="bnuthalapati" id="046_create_mff_promotion">
+      <comment>Create mff_promotion</comment>
+      <sqlFile path="schemas/switching/ddl/046_create_mff_promotion.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="046_mills_money">
+      <comment>Added flag for mills_money</comment>
+      <sqlFile path="schemas/switching/ddl/046_mills_money.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="047_alter_mff_sku">
+      <comment>Added column for free shipping</comment>
+      <sqlFile path="schemas/switching/ddl/047_alter_mff_sku.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="048_alter_mff_sku">
+      <comment>Added column for limit_per_order</comment>
+      <sqlFile path="schemas/switching/ddl/048_alter_mff_sku.sql"/>
+   </changeSet>
+   <changeSet author="pventrapragada" id="049_alter_mff_product">
+		<comment>Column for Cumulative BV Reviews.</comment>
+      	<sqlFile path="schemas/switching/ddl/049_alter_mff_product.sql"/>
+      	<rollback>
+      		<sqlFile path="schemas/switching/rollback/049_drop_bvreviews_mff_product.sql"/>
+      	</rollback>
+   </changeSet>
+   <changeSet author="pventrapragada" id="050_alter_mff_product">
+		<comment>Column for Grouping BV Reviews.</comment>
+      	<sqlFile path="schemas/switching/ddl/050_alter_mff_product.sql"/>
+      	<rollback>
+      		<sqlFile path="schemas/switching/rollback/050_drop_bvreviews_mff_product.sql"/>
+      	</rollback>
+   </changeSet>
+   <changeSet author="cgopalan" id="051_alter_mff_product">
+      <comment>Added column for MAP display</comment>
+      <sqlFile path="schemas/switching/ddl/051_alter_mff_product.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="052_alter_mff_sku">
+      <comment>BOPIS order limit</comment>
+      <sqlFile path="schemas/switching/ddl/052_alter_mff_sku.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="053_create_mff_promo_shipping">
+      <comment>BOPIS order limit</comment>
+      <sqlFile path="schemas/switching/ddl/053_create_mff_promo_shipping.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="054_create_mff_return_location">
+      <comment>Return store location</comment>
+      <sqlFile path="schemas/switching/ddl/054_create_mff_return_location.sql"/>
+   </changeSet>
+   <changeSet author="bnuthalapati" id="055_create_mff_close_qualif">
+      <comment>Table for Upsell instructions.</comment>
+      <sqlFile path="schemas/switching/ddl/055_create_mff_close_qualif.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/switching/rollback/055_drop_mff_close_qualif.sql"/>
+      </rollback>
+   </changeSet>
+	<changeSet author="tvallapu" id="056_alter_email_length">
+      <comment>Alter columns lengths of email/login fields to 255</comment>
+      <sqlFile path="schemas/switching/ddl/056_alter_email_length.sql"/>
+   </changeSet>
+   <changeSet author="pventrapragada" id="057_google_category_mff_category_map">
+      <comment>Create Google MFF Mapping Table and indexes</comment>
+      <sqlFile path="schemas/switching/ddl/057_google_category_mff_category_map.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/switching/rollback/057_drop_google_category_mff_category_map.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="pventrapragada" id="058_alter_google_category_mff_category_map">
+      <comment>Alter Google MFF Mapping Table and indexes</comment>
+      <sqlFile path="schemas/switching/ddl/058_alter_google_category_mff_category_map.sql"/>
+   </changeSet>
+    <changeSet author="pventrapragada" id="059_grant_google_mff_cat_map_catfeed">
+      <comment>Grant Google-MFF Category Mapping Table access to ATG_CATFEED schema</comment>
+      <sqlFile path="schemas/switching/ddl/059_grant_google_mff_cat_map_catfeed.sql"/>
+   </changeSet>
+    <changeSet author="cgopalan" id="060_alter_mff_product">
+      <comment>Add spl messaging columns</comment>
+      <sqlFile path="schemas/switching/ddl/060_alter_mff_product.sql"/>
+   </changeSet>
+   <changeSet author="smyana" id="061_alter_mff_product_mff_category">
+      <comment>Add tags columns to product n category</comment>
+      <sqlFile path="schemas/switching/ddl/061_alter_mff_product_mff_category.sql"/>
+   </changeSet>   
+   <changeSet author="smyana" id="062_alter_mff_search_suggest">
+      <comment>Add weight n enabled columns to suggested terms</comment>
+      <sqlFile path="schemas/switching/ddl/062_alter_mff_search_suggest.sql"/>
+   </changeSet>
+   <changeSet author="rmariadoss" id="063_mff_seo_tag">
+      <comment>Extend Seo Tag to include new properties</comment>
+      <sqlFile path="schemas/switching/ddl/063_mff_seo_tag.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/switching/rollback/063_mff_seo_tag.sql"/>
+      </rollback>
+   </changeSet>
+    <changeSet author="cgopalan" id="064_mff_prod_video">
+      <comment>create mff_product_video table</comment>
+      <sqlFile path="schemas/switching/ddl/064_mff_prod_video.sql"/>
+   </changeSet>
+    <changeSet author="cgopalan" id="065_alter_mff_prod_video">
+      <comment>create mff_product_video table</comment>
+      <sqlFile path="schemas/switching/ddl/065_alter_mff_prod_video.sql"/>
+   </changeSet>
+   <changeSet author="smyana" id="066_create_mff_store_event.sql">
+      <comment>create mff_store_event table</comment>
+      <sqlFile path="schemas/switching/ddl/066_create_mff_store_event.sql"/>
+   </changeSet>
+    <changeSet author="smyana" id="067_create_mff_store_hours">
+      <comment>create mff_store_hours table</comment>
+      <sqlFile path="schemas/switching/ddl/067_create_mff_store_hours.sql"/>
+   </changeSet>
+    <changeSet author="smyana" id="068_alter_mff_location">
+      <comment>alter mff_location table</comment>
+      <sqlFile path="schemas/switching/ddl/068_alter_mff_location.sql"/>
+   </changeSet>
+    <changeSet author="smyana" id="069_alter_mff_location">
+      <comment>alter mff location table</comment>
+      <sqlFile path="schemas/switching/ddl/069_alter_mff_location.sql"/>
+   </changeSet>
+   <changeSet author="smyana" id="070_alter_mff_location">
+      <comment>alter mff location table</comment>
+      <sqlFile path="schemas/switching/ddl/070_alter_mff_location.sql"/>
+   </changeSet>
+   <changeSet author="smyana" id="071_alter_mff_store_hours">
+      <comment>alter mff store hours table</comment>
+      <sqlFile path="schemas/switching/ddl/071_alter_mff_store_hours.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="072_alter_mff_product">
+      <comment>Alter mff_product table to include event teaser columns</comment>
+      <sqlFile path="schemas/switching/ddl/072_alter_mff_product.sql"/>
+   </changeSet>
+   <changeSet author="smyana" id="072_enable_listrak">
+      <comment>alter site to toggle for listrack</comment>
+      <sqlFile path="schemas/switching/ddl/072_enable_listrak.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="072_alter_mff_location">
+      <comment>add bopis only column</comment>
+      <sqlFile path="schemas/switching/ddl/072_alter_mff_location.sql"/>
+   </changeSet>
+    <changeSet author="cgopalan" id="073_grant_permission">
+      <comment>permission for catfeed schema</comment>
+      <sqlFile path="schemas/switching/ddl/073_grant_permission.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="073_create_mff_info_msg">
+      <comment>create info msg table</comment>
+      <sqlFile path="schemas/switching/ddl/073_create_mff_info_msg.sql"/>
+   </changeSet>   
+   <changeSet author="cgopalan" id="074_alter_mff_product">
+      <comment>create info msg table</comment>
+      <sqlFile path="schemas/switching/ddl/074_alter_mff_product.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="075_alter_mff_promotion">
+      <comment>create info msg table</comment>
+      <sqlFile path="schemas/switching/ddl/075_alter_mff_promotion.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="076_create_ff_prod_redirect">
+      <comment>create ff_prod_redirect table</comment>
+      <sqlFile path="schemas/switching/ddl/076_create_ff_prod_redirect.sql"/>
+   </changeSet>   
+   <changeSet author="cgopalan" id="077_create_ff_prod_config">
+      <comment>create ff_prod_config</comment>
+      <sqlFile path="schemas/switching/ddl/077_create_ff_prod_config.sql"/>
+   </changeSet>   
+   <changeSet author="cgopalan" id="078_alter_ff_prod_redirect.sql">
+      <comment>alter ff_prod_redirect table</comment>
+      <sqlFile path="schemas/switching/ddl/078_alter_ff_prod_redirect.sql"/>
+   </changeSet>   
+   <changeSet author="cgopalan" id="079_alter_ff_prod_redirect">
+      <comment>alter ff_prod_redirect table</comment>
+      <sqlFile path="schemas/switching/ddl/079_alter_ff_prod_redirect.sql"/>
+   </changeSet> 
+   <changeSet author="tvallapu" id="080_global_messages">
+      <comment>create 080_global_messages table</comment>
+      <sqlFile path="schemas/switching/ddl/080_global_messages.sql"/>
+       <rollback>
+      	<sqlFile path="schemas/switching/rollback/080_global_messages.sql"/>
+      </rollback>
+   </changeSet> 
+</databaseChangeLog>

@@ -1,0 +1,69 @@
+<ContentItem type="Page" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://endeca.com/schema/content/2008">
+  <TemplateId>TwoColumnPage</TemplateId>
+  <Name>Two-Column Page</Name>
+  <Property name="HeaderContent">
+    <ContentItemList type="HeaderContent"/>
+  </Property>
+  <Property name="SecondaryContent">
+    <ContentItemList type="SecondaryContent">
+      <ContentItem type="SecondaryContent">
+        <TemplateId>Breadcrumbs</TemplateId>
+        <Name>Breadcrumbs</Name>
+        <Property name="displayNamePropertyAlias">
+          <String>displayName</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Guided Navigation</Name>
+        <Property name="contentPaths">
+          <xavia:List xmlns:xavia="http://endeca.com/schema/xavia/2010">
+            <xavia:String>/content/Shared/Guided Navigation</xavia:String>
+          </xavia:List>
+        </Property>
+        <Property name="templateTypes">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010">
+            <aaa:String>SecondaryContent</aaa:String>
+          </aaa:List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+    </ContentItemList>
+  </Property>
+  <Property name="MainContent">
+    <ContentItemList type="MainContent">
+      <ContentItem type="MainContent">
+        <TemplateId>SearchAdjustments</TemplateId>
+        <Name>Search Adjustments</Name>
+        <Property name="spellSuggestionEnabled">
+          <Boolean>true</Boolean>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ContentSlot-Main</TemplateId>
+        <Name>Results List</Name>
+        <Property name="contentPaths">
+          <xavia:List xmlns:xavia="http://endeca.com/schema/xavia/2010">
+            <xavia:String>/content/Shared/Results List</xavia:String>
+          </xavia:List>
+        </Property>
+        <Property name="templateTypes">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010">
+            <aaa:String>MainContent</aaa:String>
+          </aaa:List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+    </ContentItemList>
+  </Property>
+</ContentItem>

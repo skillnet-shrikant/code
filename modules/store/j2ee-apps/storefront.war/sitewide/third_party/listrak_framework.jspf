@@ -1,0 +1,16 @@
+<dsp:getvalueof var="listrakEnabled" bean="/mff/MFFEnvironment.listrakEnabled"/>
+<c:if test="${listrakEnabled}">
+
+	<!-- Listrak Javascript Framework -->
+	<script type="text/javascript">
+		var biJsHost = (("https:" == document.location.protocol) ? "https://" : "http://");
+		(function (d, s, id, tid, vid) {
+			var js, ljs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return; js = d.createElement(s); js.id = id;
+			js.src = biJsHost + "cdn.listrakbi.com/scripts/script.js?m=" + tid + "&v=" + vid;
+			ljs.parentNode.insertBefore(js, ljs);
+		})(document, 'script', 'ltkSDK', '0KBpYv8sNSCN', '1');
+	</script>
+	<!-- /Listrak Javascript Framework -->
+
+</c:if>

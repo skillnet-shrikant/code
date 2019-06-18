@@ -1,0 +1,60 @@
+// Use the components directory to construct the meat of your CSS.
+// Categorize your styles here based on element in the file name.
+
+// Dropdown box definitions
+.dropdown {
+	position: relative;
+	display: inline-block;
+
+	+ .dropdown {
+		@include rem-size(margin-left, 10px);
+
+		@include media(medium-up) {
+			@include rem-size(margin-left, 20px);
+		}
+	}
+}
+.dropdown-toggle {
+	z-index: 101;
+	.active {
+		border-color: $border-color;
+		background-color: $white;
+	}
+	&.button {
+		width: 100%;
+		@include rem-size(padding, 6px 12px);
+		@include media(medium-up){
+			@include rem-size(padding, 6px 16px);
+		}
+		.icon {
+			color: $black;
+		}
+	}
+}
+.dropdown-menu {
+	display: none;
+	position: absolute;
+	z-index: 100;
+	background-color: $white;
+	border: solid 1px $light-gray;
+}
+.menu-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	> li > a {
+		clear: both;
+		color: $deepest-gray;
+		display: block;
+		white-space: nowrap;
+		//text-transform: uppercase;
+		text-align: right;
+		@include font-size(12px);
+		@include rem-size(padding, 0px 12px);
+		@include rem-size(line-height, 30px);
+		&:hover, &:active {
+			background-color: $light-gray;
+			text-decoration: none;
+		}
+	}
+}

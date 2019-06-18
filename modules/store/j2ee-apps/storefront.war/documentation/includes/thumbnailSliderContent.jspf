@@ -1,0 +1,67 @@
+<div class="thumbnail-slider-container">
+	<div class="thumbnail-slider">
+
+		<div class="product-tile mini">
+			<div class="product-image">
+				<img src="http://placehold.it/250x250">
+			</div>
+			<div class="product-details-container">
+				<div class="product-name">The Product</div>
+				<div class="product-brand">The Brand</div>
+			</div>
+
+		</div>
+		<div class="product-tile mini">
+			<div class="product-image">
+				<img src="http://placehold.it/250x250">
+			</div>
+			<div class="product-details-container">
+				<div class="product-name">The Product</div>
+				<div class="product-brand">The Brand</div>
+			</div>
+
+		</div>
+		<div class="product-tile mini">
+			<div class="product-image">
+				<img src="http://placehold.it/250x250">
+			</div>
+			<div class="product-details-container">
+				<div class="product-name">The Product</div>
+				<div class="product-brand">The Brand</div>
+
+			</div>
+
+		</div>
+		<div class="product-tile mini">
+			<div class="product-image">
+				<img src="http://placehold.it/250x250">
+			</div>
+			<div class="product-details-container">
+				<div class="product-name">The Product</div>
+				<div class="product-brand">The Brand</div>
+			</div>
+
+		</div>
+		<div class="product-tile mini">
+			<div class="product-image">
+				<img src="http://placehold.it/250x250">
+			</div>
+			<div class="product-details-container">
+				<div class="product-name">The Product</div>
+				<div class="product-brand">The Brand</div>
+			</div>
+
+		</div>
+		<div class="product-tile mini">
+			<div class="product-image">
+				<img src="http://placehold.it/250x250">
+			</div>
+			<div class="product-details-container">
+				<div class="product-name">The Product</div>
+				<div class="product-brand">The Brand</div>
+			</div>
+
+		</div>
+
+	</div>
+</div>

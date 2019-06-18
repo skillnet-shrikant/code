@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="var" path="ATG_DIR/DAS/lib/servlet.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DAS/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DCS/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DPS/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DSS/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DAS/lib/resources.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DCS/lib/resources.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DPS/lib/resources.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DSS/lib/resources.jar"/>
+	<classpathentry kind="var" path="ATG_DIR"/>
+	<classpathentry kind="lib" path="lib-external/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="lib-external/gson-2.2.2.jar"/>
+	<classpathentry kind="lib" path="lib-external/commons-dbutils-1.6.jar"/>
+	<classpathentry kind="lib" path="lib-external/recaptcha4j-0.0.8.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DAF/Endeca/Assembler/lib/endeca_navigation-6.4.1.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DAF/Endeca/Assembler/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DAF/Endeca/Base/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DAF/Endeca/Index/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DAF/Search/Index/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DAF/Search/Base/lib/classes.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/MFF Integration"/>
+	<classpathentry kind="var" path="ATG_DIR/DAF/Endeca/Assembler/lib/endeca_assembler-11.0.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib-external/barcode4j.jar"/>
+	<classpathentry kind="lib" path="lib-external/avalon-framework-4.2.0.jar"/>
+	<classpathentry kind="lib" path="lib-external/fontbox-2.0.12.jar"/>
+	<classpathentry kind="lib" path="lib-external/pdfbox-2.0.12.jar"/>
+	<classpathentry kind="lib" path="lib-external/pdfbox-tools-2.0.12.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

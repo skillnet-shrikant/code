@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<process-manager-configuration>
+    <process-editor-server>
+      <server-name>796675-PROD-BEAPP01.millsfleetfarm.com:20150</server-name>
+    </process-editor-server>
+</process-manager-configuration>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE gsa-template 
+ PUBLIC "-//Art Technology Group, Inc.//DTD Dynamo Security//EN"
+   "http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
+<gsa-template>
+  
+  <header>
+    <name>Emplyee Repository</name>
+    <author>DMI</author>
+  </header>
+  
+  <item-descriptor name="employee" cache-mode="disabled">
+  		
+  		<table name="mff_employee" type="primary" id-column-name="employee_id">
+			<property name="employeeId" display-name="Employee Id" column-name="employee_id" data-type="string" />
+  			<property name="somCard" display-name="SOM Card" column-name="som_card" data-type="string" />
+  			<property name="phoneNumber" display-name="Phone Number" column-name="phone_number" data-type="string" />
+  			
+  			<property name="creationDate" display-name="Creation Date" column-name="creation_date" data-type="timestamp" />
+  			<property name="lastUpdateDate" display-name="Last Update Date" column-name="last_update_date" data-type="timestamp" />
+  			
+	    </table>
+   </item-descriptor>  
+</gsa-template>

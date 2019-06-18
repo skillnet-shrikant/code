@@ -1,0 +1,248 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<RECORDS>
+  <RECORD>
+    <PROP NAME="Endeca.Id">
+      <PVAL>product.priceRange:100 - 250</PVAL>
+    </PROP>
+    <PROP NAME="Endeca.Action">
+      <PVAL>UPSERT</PVAL>
+    </PROP>
+    <PROP NAME="dimval.dimension_name">
+      <PVAL>product.priceRange</PVAL>
+    </PROP>
+    <PROP NAME="dimval.display_name">
+      <PVAL>$100 - $250</PVAL>
+    </PROP>
+    <PROP NAME="dimval.parent_spec">
+      <PVAL>/</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.upper_bound">
+      <PVAL>250</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.lower_bound_inclusive">
+      <PVAL>false</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.upper_bound_inclusive">
+      <PVAL>true</PVAL>
+    </PROP>
+    <PROP NAME="dimval.display_order">
+      <PVAL>3</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.lower_bound">
+      <PVAL>100</PVAL>
+    </PROP>
+    <PROP NAME="dimval.spec">
+      <PVAL>100 - 250</PVAL>
+    </PROP>
+  </RECORD>
+  <RECORD>
+    <PROP NAME="Endeca.Id">
+      <PVAL>product.priceRange:25 - 50</PVAL>
+    </PROP>
+    <PROP NAME="Endeca.Action">
+      <PVAL>UPSERT</PVAL>
+    </PROP>
+    <PROP NAME="dimval.dimension_name">
+      <PVAL>product.priceRange</PVAL>
+    </PROP>
+    <PROP NAME="dimval.display_name">
+      <PVAL>$25 - $50</PVAL>
+    </PROP>
+    <PROP NAME="dimval.parent_spec">
+      <PVAL>/</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.upper_bound">
+      <PVAL>50</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.lower_bound_inclusive">
+      <PVAL>true</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.upper_bound_inclusive">
+      <PVAL>false</PVAL>
+    </PROP>
+    <PROP NAME="dimval.display_order">
+      <PVAL>1</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.lower_bound">
+      <PVAL>25</PVAL>
+    </PROP>
+    <PROP NAME="dimval.spec">
+      <PVAL>25 - 50</PVAL>
+    </PROP>
+  </RECORD>
+  <RECORD>
+    <PROP NAME="Endeca.Id">
+      <PVAL>product.priceRange:250 - 500</PVAL>
+    </PROP>
+    <PROP NAME="Endeca.Action">
+      <PVAL>UPSERT</PVAL>
+    </PROP>
+    <PROP NAME="dimval.dimension_name">
+      <PVAL>product.priceRange</PVAL>
+    </PROP>
+    <PROP NAME="dimval.display_name">
+      <PVAL>$250 - $500</PVAL>
+    </PROP>
+    <PROP NAME="dimval.parent_spec">
+      <PVAL>/</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.upper_bound">
+      <PVAL>500</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.lower_bound_inclusive">
+      <PVAL>false</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.upper_bound_inclusive">
+      <PVAL>true</PVAL>
+    </PROP>
+    <PROP NAME="dimval.display_order">
+      <PVAL>4</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.lower_bound">
+      <PVAL>250</PVAL>
+    </PROP>
+    <PROP NAME="dimval.spec">
+      <PVAL>250 - 500</PVAL>
+    </PROP>
+  </RECORD>
+  <RECORD>
+    <PROP NAME="Endeca.Id">
+      <PVAL>product.priceRange:50 - 100</PVAL>
+    </PROP>
+    <PROP NAME="Endeca.Action">
+      <PVAL>UPSERT</PVAL>
+    </PROP>
+    <PROP NAME="dimval.dimension_name">
+      <PVAL>product.priceRange</PVAL>
+    </PROP>
+    <PROP NAME="dimval.display_name">
+      <PVAL>$50 - $100</PVAL>
+    </PROP>
+    <PROP NAME="dimval.parent_spec">
+      <PVAL>/</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.upper_bound">
+      <PVAL>100</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.lower_bound_inclusive">
+      <PVAL>false</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.upper_bound_inclusive">
+      <PVAL>true</PVAL>
+    </PROP>
+    <PROP NAME="dimval.display_order">
+      <PVAL>2</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.lower_bound">
+      <PVAL>50</PVAL>
+    </PROP>
+    <PROP NAME="dimval.spec">
+      <PVAL>50 - 100</PVAL>
+    </PROP>
+  </RECORD>
+  <RECORD>
+    <PROP NAME="Endeca.Id">
+      <PVAL>product.priceRange:500 - 1000</PVAL>
+    </PROP>
+    <PROP NAME="Endeca.Action">
+      <PVAL>UPSERT</PVAL>
+    </PROP>
+    <PROP NAME="dimval.dimension_name">
+      <PVAL>product.priceRange</PVAL>
+    </PROP>
+    <PROP NAME="dimval.display_name">
+      <PVAL>$500 - $1000</PVAL>
+    </PROP>
+    <PROP NAME="dimval.parent_spec">
+      <PVAL>/</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.upper_bound">
+      <PVAL>1000</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.lower_bound_inclusive">
+      <PVAL>false</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.upper_bound_inclusive">
+      <PVAL>true</PVAL>
+    </PROP>
+    <PROP NAME="dimval.display_order">
+      <PVAL>5</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.lower_bound">
+      <PVAL>500</PVAL>
+    </PROP>
+    <PROP NAME="dimval.spec">
+      <PVAL>500 - 1000</PVAL>
+    </PROP>
+  </RECORD>
+  <RECORD>
+    <PROP NAME="Endeca.Id">
+      <PVAL>product.priceRange:Over 1000</PVAL>
+    </PROP>
+    <PROP NAME="Endeca.Action">
+      <PVAL>UPSERT</PVAL>
+    </PROP>
+    <PROP NAME="dimval.dimension_name">
+      <PVAL>product.priceRange</PVAL>
+    </PROP>
+    <PROP NAME="dimval.display_name">
+      <PVAL>Over $1000</PVAL>
+    </PROP>
+    <PROP NAME="dimval.parent_spec">
+      <PVAL>/</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.upper_bound">
+      <PVAL>999999</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.lower_bound_inclusive">
+      <PVAL>false</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.upper_bound_inclusive">
+      <PVAL>false</PVAL>
+    </PROP>
+    <PROP NAME="dimval.display_order">
+      <PVAL>6</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.lower_bound">
+      <PVAL>1000</PVAL>
+    </PROP>
+    <PROP NAME="dimval.spec">
+      <PVAL>Over 1000</PVAL>
+    </PROP>
+  </RECORD>
+  <RECORD>
+    <PROP NAME="Endeca.Id">
+      <PVAL>product.priceRange:Under 25</PVAL>
+    </PROP>
+    <PROP NAME="Endeca.Action">
+      <PVAL>UPSERT</PVAL>
+    </PROP>
+    <PROP NAME="dimval.dimension_name">
+      <PVAL>product.priceRange</PVAL>
+    </PROP>
+    <PROP NAME="dimval.display_name">
+      <PVAL>Under $25</PVAL>
+    </PROP>
+    <PROP NAME="dimval.parent_spec">
+      <PVAL>/</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.upper_bound">
+      <PVAL>25</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.lower_bound_inclusive">
+      <PVAL>true</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.upper_bound_inclusive">
+      <PVAL>false</PVAL>
+    </PROP>
+    <PROP NAME="dimval.display_order">
+      <PVAL>0</PVAL>
+    </PROP>
+    <PROP NAME="dimval.range.lower_bound">
+      <PVAL>0</PVAL>
+    </PROP>
+    <PROP NAME="dimval.spec">
+      <PVAL>Under 25</PVAL>
+    </PROP>
+  </RECORD>
+</RECORDS>

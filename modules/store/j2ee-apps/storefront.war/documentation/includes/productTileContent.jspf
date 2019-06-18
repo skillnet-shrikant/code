@@ -1,0 +1,38 @@
+<div class="product-tile">
+	<div class="product-image">
+		<div class="button button-quickview">Quick View</div>
+		<img src="http://placehold.it/250x250">
+	</div>
+	<div class="swatch-group">
+		<div class="swatch selected" title="Wood">
+			<img src="http://goo.gl/8Jo4u9">
+		</div>
+		<div class="swatch" title="Leather">
+			<img src="http://goo.gl/0BJ9bW">
+		</div>
+		<div class="swatch" title="Tan">
+			<img src="http://goo.gl/UF4uhN">
+		</div>
+		<div class="swatch" title="Earth">
+			<img src="http://goo.gl/iIrmXX">
+		</div>
+	</div>
+	<div class="product-details-container">
+		<div class="product-name">The Product</div>
+		<div class="product-brand">The Brand</div>
+		<div class="price">
+			<span class="original-price">$65.00</span>
+			<span class="sale-price">$39.99</span>
+			<div class="compare-price">Compare at $99.00</div>
+			<div class="savings">you saved 40%</div>
+		</div>
+	</div>
+	<div class="ratings-container">
+		<div class="rating">
+			&#9733;&#9733;&#9733;&#9733;&#9733;
+		</div>
+		<div class="rating-count">
+			26 ratings
+		</div>
+	</div>
+</div>

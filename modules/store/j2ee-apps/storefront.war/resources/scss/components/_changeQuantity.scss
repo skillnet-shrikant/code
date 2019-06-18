@@ -1,0 +1,61 @@
+.change-quantity {
+	@include clearfix;
+
+	.quantity-group {
+		border: 1px solid $base-gray;
+		@include no-select;
+		width: 116px;
+		height: 36px;
+		margin: 0 auto;
+
+		.product & {
+			margin: 0;
+		}
+	}
+
+	.plus-icon, .minus-icon {
+		background: $light-gray;
+		cursor: pointer;
+		float:left;
+		@include rem-size(padding, 7px 10px 3px);
+		@include rem-size(line-height, 24px);
+		.icon {
+			@include font-size(12px);
+			.product & {
+				@include rem-size(line-height, 24px);
+			}
+		}
+	}
+	.plus-icon {
+		border-left: 1px solid $base-gray;
+	}
+	.minus-icon {
+		border-right: 1px solid $base-gray;
+	}
+	.current-quantity {
+		float: left;
+	}
+	.counter {
+		border: none;
+		@include rem-size(width, 48px);
+		@include rem-size(height, 34px);
+		@include rem-size(padding, 8px);
+		text-align: center;
+	}
+	.inactive {
+		@include opacity(0.3);
+		pointer-events: none;
+		cursor: default;
+	}
+}
+.update-qty {
+	display: none;
+	@include rem-size(padding, 0px 0px 0px 65px);
+	@include font-size(14px);
+	text-transform: uppercase;
+
+	@include media(medium-up) {
+		@include rem-size(padding, 5px 0px 0px);
+		text-align: center;
+	}
+}

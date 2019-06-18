@@ -1,0 +1,1 @@
+alter table order_item modify is_gift_card number(1) default 0;

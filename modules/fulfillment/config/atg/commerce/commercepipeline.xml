@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pipelinemanager
+        PUBLIC "-//Art Technology Group, Inc.//DTD Dynamo Pipeline Manager//EN"
+        'http://www.atg.com/dtds/pipelinemanager/pipelinemanager_1.0.dtd'>
+<!-- Author: KnowledgePath Solutions  -->
+<pipelinemanager>   
+	
+   <pipelinechain name="refreshOrder" headlink="loadOrderObjectForRefresh" transaction="TX_REQUIRED">
+   		<pipelinelink name="setProductRefs" transaction="TX_MANDATORY" xml-combine="replace">
+            <processor jndi="/atg/commerce/order/processor/SetProductRefs"/>
+            <transition returnvalue="1" link="setReturnItems"/>
+        </pipelinelink>
+        
+        <!-- this processor will set commerceItem returnItems property  -->
+        <pipelinelink name="setReturnItems" transaction="TX_MANDATORY">
+            <processor jndi="/mff/commerce/processor/SetReturnItems"/>
+            <transition returnvalue="1" link="removeExpiredCommerceItems"/>
+        </pipelinelink>
+   </pipelinechain>
+   
+   <pipelinechain name="confirmReturnRequest" headlink="validateRefundTotal" transaction="TX_REQUIRED">
+		
+		<pipelinelink name="prepareReplacementOrderToSubmit" transaction="TX_MANDATORY" xml-combine="replace">
+            <processor jndi="/atg/commerce/custsvc/returns/processor/PrepareReplacementOrderToSubmit"/>
+        	<transition returnvalue="1" link="createSettlementRecords"/>
+        </pipelinelink>
+        
+        <pipelinelink name="createSettlementRecords" transaction="TX_MANDATORY">
+           <processor jndi="/mff/commerce/returns/processor/ProcessCreateSettlementRecordsForReturnRequest"/>
+        	<transition returnvalue="1" link="settleReturnRequestOnConfirm"/>
+        </pipelinelink>
+        
+		<!-- this processor will save the ReturnRequest in the repository  -->
+		<pipelinelink name="saveReturnRequest" transaction="TX_MANDATORY" xml-combine="replace">
+            <processor jndi="/atg/commerce/custsvc/returns/processor/SaveReturnRequestToRepository"/>
+        	<transition returnvalue="1" link="updateDashboardReport"/>
+        </pipelinelink>
+        
+        <!-- this processor will update prorate repository items in the repository  -->
+        <pipelinelink name="updateDashboardReport" transaction="TX_MANDATORY">
+           <processor jndi="/mff/commerce/processor/UpdateReturnedItemReportToDashboard"/>
+        	<transition returnvalue="1" link="updateProrateItemStatus"/>
+        </pipelinelink>
+        
+        <!-- this processor will update prorate repository items in the repository  -->
+        <pipelinelink name="updateProrateItemStatus" transaction="TX_MANDATORY">
+           <processor jndi="/mff/commerce/processor/UpdateProrateItemStatus"/>
+        	<transition returnvalue="1" link="sendReturnSubmittedEvent"/>
+        </pipelinelink>
+          
+   </pipelinechain>
+</pipelinemanager>

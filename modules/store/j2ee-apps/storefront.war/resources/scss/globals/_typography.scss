@@ -1,0 +1,48 @@
+// Globals folder is reserved for things like mixin declarations, functions & variables.
+// Please do NOT use this folder for declaring Sass code that actually outputs CSS.
+
+// Typography definitions
+
+// Fonts
+/*
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+//@import url('https://fonts.googleapis.com/css?family=Lobster');
+
+// Font weights //
+$light: 300;
+$normal: 400;
+$bold: 700;
+
+// Base font defintions //
+$base-font-family: Montserrat, Arial, Helvetica, sans-serif;
+$condensed-font-family: Oswald, Arial, Helvetica, sans-serif;
+$form-font-family: $base-font-family;
+$base-font-weight: $normal;
+
+// The default font-size is set to 100% of the browser style sheet (usually 16px)
+// for compatibility with browser-based text zoom or user-set defaults.
+
+// Since the typical default browser font-size is 16px, that makes the calculation for grid size.
+// If you want your base font-size to be different and not have it affect the grid breakpoints,
+// set $rem-base to $base-font-size and make sure $base-font-size is a px value.
+$base-font-size: 100% !default;
+
+// $base-line-height is 24px while $base-font-size is 16px
+$base-line-height: 150% !default;
+
+// Headings //
+$header-font-weight: $bold;

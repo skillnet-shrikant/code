@@ -1,0 +1,1 @@
+alter table mff_product add (is_hide_price number(1) default 0);

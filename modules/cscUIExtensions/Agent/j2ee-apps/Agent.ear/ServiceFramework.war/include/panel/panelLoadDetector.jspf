@@ -1,0 +1,19 @@
+<%-- Iterate over target elements for the panel stack instance --%>
+<c:forEach items="${panelStackInstance.panelTargetElements}"
+           var="panelTargetElement">
+
+  <%-- Retrieve panel master definition from instance --%>
+  <fw-beans:panelDefinitionFindByPanelId appId="workspace"
+                                         panelId="${panelTargetElement.panelId}"
+                                         var="panelDefinition"/>
+  <c:if test="${(not empty panelDefinition.onload) or (not empty panelDefinition.onunload)}">
+  var panel        = document.getElementById("<c:out value='${panelTargetElement.targetElementId}'/>");
+  </c:if>  
+  <c:if test="${not empty panelDefinition.onload}">
+    <c:out value="${panelDefinition.onload}"/>();
+  </c:if>
+  <c:if test="${not empty panelDefinition.onunload}">                
+    panel.panelunload  = '<c:out value="${panelDefinition.onunload}"/>';
+  </c:if> 
+</c:forEach>
+<%-- @version $Id: //application/service-UI/version/11.2/framework/Agent/src/web-apps/ServiceFramework/include/panel/panelLoadDetector.jspf#1 $$Change: 946917 $--%>

@@ -1,0 +1,1 @@
+drop table aci_transaction_log;

@@ -1,0 +1,26 @@
+<%--
+This page fragment generates a series of dsp:option tags, one for each
+state or Canadian province we want to let the user select as part of an
+address.  We use embedded Java code for this rather than simply inlineing
+all of the <dsp:option> tags because if we inline all the tags, some JSP
+pages that include this fragment end up generating more than 64K of byte
+code in their service methods, which results in a JVM error at page
+delivery time.
+
+A better approach might be to define a Java bean component in Nucleus
+that returns the array of state information and use a ForEach droplet
+to iterate over the results, rather than embedding the definition of
+the states array in the JSP page.
+--%>
+<dspel:layeredBundle basename="atg.svc.agent.WebAppResources">
+
+<c:set var="countryString" value=" ,common.country.title;USA,common.country.usa;CAN,common.country.canada"/>
+
+  <c:forEach var="country" items="${fn:split(countryString, ';')}">
+    <c:set var="oneCountry" value="${fn:split(country, ',')}"/>
+    <dspel:option value="${oneCountry[0]}">
+      <fmt:message key="${oneCountry[1]}" />
+    </dspel:option>
+  </c:forEach>
+</dspel:layeredBundle>
+<%-- @version $Id: //application/service-UI/version/11.2/framework/Agent/src/web-apps/ServiceFramework/include/countrypicker.jspf#1 $$Change: 946917 $--%>

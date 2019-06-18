@@ -1,0 +1,22 @@
+.dijitTextBox.dijitInlineTable.email {
+  width:300px !important;
+}
+
+#cmcBillingPContent ul.mff_commerce_csr_email {
+    border-top: 1px solid #c2c2c2;
+    padding-top: 15px;
+}
+
+ul.mff_commerce_csr_email label {
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.atg ul.mff_commerce_csr_email span.atg_commerce_csr_fieldTitle {
+    display: block;
+    float: left;
+    margin: 2px 5px 0 10px;
+    min-width: 80px;
+    text-align: left;
+    vertical-align: top;
+}

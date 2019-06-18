@@ -1,0 +1,208 @@
+<ContentItem type="Page" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://endeca.com/schema/content/2008">
+  <TemplateId>GardenCenterPage</TemplateId>
+  <Name>Garden Center Page</Name>
+  <Property name="HeaderContent">
+    <ContentItemList type="HeaderContent"/>
+  </Property>
+  <Property name="SecondaryContent">
+    <ContentItemList type="SecondaryContent">
+      <ContentItem type="SecondaryContent">
+        <TemplateId>GardenCenterLogo</TemplateId>
+        <Name>GardenCenterLogo</Name>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Secondary Content Slot</Name>
+        <Property name="contentPaths">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>/content/Shared/Garden Center Guides Navigation</String>
+          </List>
+        </Property>
+        <Property name="templateTypes">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>SecondaryContent</String>
+          </List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Secondary Content Slot</Name>
+        <Property name="contentPaths">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>/content/Shared/Garden Center Articles Navigation</String>
+          </List>
+        </Property>
+        <Property name="templateTypes">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>SecondaryContent</String>
+          </List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Secondary Content Slot</Name>
+        <Property name="contentPaths">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>/content/Shared/Garden Center Lawns &amp; Gardens Navigation</String>
+          </List>
+        </Property>
+        <Property name="templateTypes">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>SecondaryContent</String>
+          </List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>GardenCenterEmailSignup</TemplateId>
+        <Name>GardenCenterEmailSignup</Name>
+      </ContentItem>
+    </ContentItemList>
+  </Property>
+  <Property name="MainContent">
+    <ContentItemList type="MainContent">
+      <ContentItem type="MainContent">
+        <TemplateId>MainTitleTextBlock</TemplateId>
+        <Name>MainTitleTextBlock</Name>
+        <Property name="mainTitle">
+          <String>Your Buying Guide for Salt Spreaders</String>
+        </Property>
+        <Property name="sectionTitle">
+          <String/>
+        </Property>
+        <Property name="paraText">
+          <String/>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ImageTextBlock</TemplateId>
+        <Name>ImageTextBlock</Name>
+        <Property name="sectionTitle">
+          <String/>
+        </Property>
+        <Property name="imageURL">
+          <String>http://www.fleetfarm.com/content/garden-center/patio/salt-spreaders-medium.jpg</String>
+        </Property>
+        <Property name="imageAltText">
+          <String>utility vehicle clearing snow and spreading salt on a snowy day</String>
+        </Property>
+        <Property name="imageAlignment">
+          <String>left</String>
+        </Property>
+        <Property name="paraText">
+          <String>You're shivering on a cold winter's evening, using your bare hands to throw salt from an old bucket onto your icy driveway. You're starting to lose feeling in your toes and your hands are getting dry, cracked and sore.&lt;br&gt;&lt;br&gt;"There's got to be a better way to do this," you mutter to yourself.&lt;br&gt;&lt;br&gt;Well, in fact, there is. When it comes to winter safety and salt spreading, there are many options available. With so many features and spreading materials on the market, navigating the buying process can be difficult. But whether you're simply deicing your own driveway or you are an ice-management professional, we've compiled some tips to make the purchasing process easy. Next time you're on the hunt for a salt spreader, ask yourself the following questions:</String>
+        </Property>
+        <Property name="sectionHref">
+          <String/>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String>What is your goal?</String>
+        </Property>
+        <Property name="paraText">
+          <String>The type of deicing work you are doing determines what type of spreading system you need. If you'll be working on parking lots or several different large areas, you'll want to pick a large-capacity spreader, such as a hopper spreader. This allows you to work longer without having to refill the unit. If you're only working on driveways, a smaller-capacity handheld salt spreader will do the trick. Additionally, many handheld spreaders are multi-purpose and allow you to spread salt as well as grass seed, fertilizer, sand and feed mixtures. Here's a breakdown of your options:</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String>Handheld spreaders:</String>
+        </Property>
+        <Property name="paraText">
+          <String>These are great for smaller areas like walkways, steps or small driveways. By using a spreader, you'll protect your hands from drying out or cracking, and you'll be able to cast the salt better than you would by simply using a bucket or container. Handheld spreaders can hold up to eight pounds of salt and cast fine types of salt to quickly melt ice buildup.</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String>Walk-behind spreaders:</String>
+        </Property>
+        <Property name="paraText">
+          <String>Walk-behind spreaders are perfect for larger driveways. This type resembles a fertilizer spreader and can carry between 40 and 160 pounds of salt. Fine salts work best with walk-behind spreaders.</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String>Do you want your salt spreader to attach to a vehicle?</String>
+        </Property>
+        <Property name="paraText">
+          <String>A tow behind or tailgate salt spreader works well for both homes and business, but you need to buy the right type of salt spreader for your vehicle. Salt spreaders can be attached to lawn mowers, trucks, cars, ATVs and dump trucks.</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String>Where will you store your spreader?</String>
+        </Property>
+        <Property name="paraText">
+          <String>Consider where you intend to store your spreader. How much room do you have? Large spreaders take up a significant amount of room, so if you don't have space in your garage or shed, you will likely have to find a place to store it. You'll also need room to store the salt, as it can't be left outside. Both your spreader and the material should be in a covered, dry place to avoid any damage.</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String/>
+        </Property>
+        <Property name="paraText">
+          <String>Don't find yourself spending more time in the cold than you have to. Choose the right salt spreader and face Old Man Winter with confidence.</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>PromoProductGrid</TemplateId>
+        <Name>PromoProductGrid</Name>
+        <Property name="sectionTitle">
+          <String>Featured Products</String>
+        </Property>
+        <Property name="recordSelection">
+          <Item class="com.endeca.infront.cartridge.RecordSpotlightSelection" xmlns="http://endeca.com/schema/xavia/2010">
+            <Property name="filterState">
+              <Item class="com.endeca.infront.navigation.model.FilterState">
+                <Property name="featuredRecords">
+                  <List>
+                    <String>0000000250032</String>
+                    <String>0000000208889</String>
+                    <String>0000000038091</String>
+                    <String>0000000207671</String>
+                  </List>
+                </Property>
+              </Item>
+            </Property>
+          </Item>
+        </Property>
+        <Property name="maxNumRecords">
+          <String>4</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>GardenCenterArticlesLink</TemplateId>
+        <Name>GardenCenterViewAll Articles Link</Name>
+      </ContentItem>
+    </ContentItemList>
+  </Property>
+</ContentItem>

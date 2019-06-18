@@ -1,0 +1,58 @@
+<gsa-template xml-combine="append">
+	<item-descriptor name="paymentGroup">
+		<table name="dcspp_pay_group">
+			<property name="type">
+				<option code="101" value="giftCard" />
+			</property>
+		</table>
+	</item-descriptor>
+
+	<item-descriptor name="giftCard"
+		sub-type-value="giftCard" super-type="paymentGroup"
+		item-cache-timeout="180000">
+		<table id-column-name="payment_group_id" name="mff_gift_card">
+			<property column-name="payment_group_id" data-type="string" name="id" />
+			<property column-name="card_number" name="cardNumber" property-type="com.security.repository.property.EncryptionPropertyDescriptor">
+				<attribute name="encryptor" bean="/com/security/crypto/AESEncryptor"/>
+				<attribute name="trace" value="GC num"/>
+			</property>			
+			<property column-name="gc_ean" name="ean" property-type="com.security.repository.property.EncryptionPropertyDescriptor">
+				<attribute name="encryptor" bean="/com/security/crypto/AESEncryptor"/>
+				<attribute name="trace" value="GC ean"/>
+			</property>
+			<property column-name="local_lockId" data-type="string" name="localLockId" />
+			<property column-name="amount" data-type="double" name="balanceAmount" />
+			<property column-name="activation_attempts" display-name="GC activation attempts" data-type="int" default="0" name="activationAttempts" />
+		</table>
+
+	</item-descriptor>
+
+	<item-descriptor name="paymentStatus">
+		<table name="dcspp_pay_status">
+			<property name="type">
+				<option value="giftCardStatus" code="5001" />
+			</property>
+		</table>
+	</item-descriptor>
+
+	<item-descriptor name="giftCardStatus"
+		super-type="paymentStatus" sub-type-value="giftCardStatus"
+		item-cache-timeout="180000">
+    	<attribute name="resourceBundle" value="atg.commerce.OrderRepositoryTemplateResources"/>
+		<attribute name="categoryBasicsPriority" value="10"/>
+		<attribute name="categoryAmountPriority" value="20"/>
+		<attribute name="categoryInfoPriority" value="30"/>
+		
+		<table type="auxiliary" id-column-name="status_id" name="mff_gift_card_status">
+			<property column-name="auth_code" data-type="string" name="authCode" category-resource="categoryInfo"/>
+			<property column-name="local_lockId" data-type="string" name="localLockId" category-resource="categoryInfo"/>
+			<property column-name="response_code" data-type="string" name="responseCode" category-resource="categoryInfo"/>
+			<property column-name="response_code_msg" data-type="string" name="responseCodeMsg" category-resource="categoryInfo"/>
+			<property column-name="lock_amount" data-type="double" name="lockAmount" category-resource="categoryAmount"/>
+			<property column-name="call_type" data-type="string" name="callType" category-resource="categoryBasics"/>
+			<property column-name="prev_balance" data-type="double" name="previousBalance" category-resource="categoryAmount"/>
+			<property column-name="new_balance" data-type="double" name="newBalance" category-resource="categoryAmount"/>
+		</table>
+		
+	</item-descriptor>
+</gsa-template>

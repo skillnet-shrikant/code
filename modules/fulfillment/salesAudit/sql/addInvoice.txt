@@ -1,0 +1,271 @@
+<!-- TODO:Invoice -->
+<add-item item-descriptor="invoice" id="I0001">
+	<set-property name="orderNumber">ORD0001</set-property>
+	<set-property name="orderDate">2016-11-29 01:01:01</set-property>
+	<set-property name="source">Web</set-property>
+	<set-property name="orderType">SALE</set-property>
+	<set-property name="businessType">WEB</set-property>
+	<set-property name="loyaltyIdentifier"></set-property>
+	<set-property name="customerPurchaseOrder"></set-property>
+	<set-property name="reference">123456789</set-property>
+	<set-property name="taxExemptionCertificate"></set-property>
+	<set-property name="taxExemptionName"></set-property>
+	<set-property name="taxExemptionType"></set-property>
+	<set-property name="orderShipping">1.99</set-property>
+	<set-property name="orderShippingLocalTax">0.23</set-property>
+	<set-property name="orderShippingCountyTax">.12</set-property>
+	<set-property name="orderShippingStateTax">0.13</set-property>
+	<set-property name="orderShippingTotal">2.01</set-property>
+	<set-property name="orderShippingTax">1.99</set-property>
+	<set-property name="orderShippingExtendedTotal">2.29</set-property>
+	<set-property name="shipVia">GRND</set-property>
+	<set-property name="status">created</set-property>
+	<set-property name="lastExtractDate"></set-property>		
+	<!-- Extract File -->
+	<!--set-property  name="extract"></set-property> -->		
+	<!-- Shipping and billing address -->
+	<set-property  name="shippingAddress">IA0001</set-property>
+	<set-property  name="billingAddress">IA0002</set-property>		
+	<!-- Line Summary -->
+	<set-property  name="lineSummary">LS00001</set-property>
+	<!-- Shipped Items -->
+	<set-property name="shippedItems">SI00001</set-property>		
+	<!-- Returned Items -->
+	<set-property name="returnedItems">RI00002</set-property>
+	<!-- Appeased Items -->
+	<set-property name="appeasedItems">AP0001</set-property>
+	<!-- Cartons -->
+	<set-property name="cartons">CRT0001</set-property>
+	<!-- Payments -->
+	<set-property name="payments">PAY0001</set-property>
+	<!-- Auxilliarys -->
+	<set-property name="auxilliarys">AUX0001</set-property>
+</add-item>		
+
+<!-- Shipping Address -->
+<add-item item-descriptor="invoiceAddress" id="IA0001">
+	<set-property name="type">0</set-property>
+	<set-property name="firstName">Jeffrey</set-property>
+	<set-property name="middleName">B</set-property>
+	<set-property name="lastName">Vose</set-property>
+	<set-property name="organization">DMI</set-property>
+	<set-property name="companyName">DMI</set-property>
+	<set-property name="homePhone">203-834-2758</set-property>
+	<set-property name="workPhone">203-834-2758</set-property>
+	<set-property name="mobilePhone">203-247-5905</set-property>
+	<set-property name="fax">203-834-2758</set-property>
+	<set-property name="email"><![CDATA[jvose@dminc.com]]></set-property>
+	<set-property name="address1">45 Hulda Hill Rd</set-property>
+	<set-property name="address2"></set-property>
+	<set-property name="address3"></set-property>
+	<set-property name="address4"></set-property>
+	<set-property name="city">Wilton</set-property>
+	<set-property name="provinceCode">CT</set-property>
+	<set-property name="province"></set-property>
+	<set-property name="postalCode">06897</set-property>
+	<set-property name="countryCode">US</set-property>	
+</add-item>
+
+<!-- Billing Address -->
+<add-item item-descriptor="invoiceAddress" id="IA0002">
+	<set-property name="type">0</set-property>
+	<set-property name="firstName">Jeffrey</set-property>
+	<set-property name="middleName">B</set-property>
+	<set-property name="lastName">Vose</set-property>
+	<set-property name="organization">DMI</set-property>
+	<set-property name="companyName">DMI</set-property>
+	<set-property name="homePhone">203-834-2758</set-property>
+	<set-property name="workPhone">203-834-2758</set-property>
+	<set-property name="mobilePhone">203-247-5905</set-property>
+	<set-property name="fax">203-834-2758</set-property>
+	<set-property name="email"><![CDATA[jvose@dminc.com]]></set-property>
+	<set-property name="address1">45 Hulda Hill Rd</set-property>
+	<set-property name="address2"></set-property>
+	<set-property name="address3"></set-property>
+	<set-property name="address4"></set-property>
+	<set-property name="city">Wilton</set-property>
+	<set-property name="provinceCode">CT</set-property>
+	<set-property name="province"></set-property>
+	<set-property name="postalCode">06897</set-property>
+	<set-property name="countryCode">US</set-property>	
+</add-item>
+
+<!-- Appeasement -->
+<add-item item-descriptor="appeasement" id="AP0001">
+	<set-property name="appeaseCode">DISC</set-property>	
+	<set-property name="appeaseDescription">Appeasement</set-property>	
+	<set-property name="reference">Reference</set-property>	
+	<set-property name="appeaseDate">29-Nov-16</set-property>	
+	<set-property name="amount">19.34</set-property>	
+</add-item>
+
+<!-- Order Auxiliary -->
+<add-item item-descriptor="auxilliary" id="AUX0001">
+		<set-property name="type">0</set-property>	
+		<set-property name="auxilliaryName">OrderAuxName</set-property>	
+		<set-property name="auxilliaryValue">OrderAuxValue</set-property>	
+</add-item>
+
+<!-- Payment Auxiliary -->
+<add-item item-descriptor="auxilliary" id="AUX0002">
+		<set-property name="type">1</set-property>	
+		<set-property name="auxilliaryName">PaymentAuxName</set-property>	
+		<set-property name="auxilliaryValue">PaymentAuxValue</set-property>	
+</add-item>
+
+<!-- Shipped Auxiliary -->
+<add-item item-descriptor="auxilliary" id="AUX0003">
+		<set-property name="type">2</set-property>	
+		<set-property name="auxilliaryName">ShippedAuxName</set-property>	
+		<set-property name="auxilliaryValue">ShippedAuxValue</set-property>	
+</add-item>
+
+<!-- Returned Auxiliary -->
+<add-item item-descriptor="auxilliary" id="AUX0004">
+		<set-property name="type">3</set-property>	
+		<set-property name="auxilliaryName">ReturnedAuxName</set-property>	
+		<set-property name="auxilliaryValue">ReturnedAuxValue</set-property>	
+</add-item>
+
+<!-- Carton -->
+<add-item item-descriptor="carton" id="CRT0001">
+	<set-property name="trackingNumber">123456789</set-property>
+	<set-property name="cartonNumber">987654321</set-property>
+	<set-property name="shipDate">2016-11-29 01:01:01</set-property>
+	<set-property name="shipVia">GRND</set-property>
+	<set-property name="facilityCd">0125</set-property>
+	<set-property name="weight">11.25</set-property>
+	<set-property name="cartonSize">Lrg</set-property>
+	<set-property name="cartonType">BOX</set-property>
+	<set-property name="billOfLading">BOL</set-property>
+	<set-property name="pro_num">PRO</set-property>
+	<set-property name="manifestNumber">123456789</set-property>
+	<set-property name="pickTicket">123456789</set-property>
+	<set-property name="returnLabelNumber"></set-property>
+	<set-property name="deliverConfirmationNumber"></set-property>		
+</add-item>
+
+<!-- Line Carton -->
+<add-item item-descriptor="lineCarton" id="LCRT0001">
+	<set-property name="trackingNumber">123456789</set-property>
+	<set-property name="shipVia">GRND</set-property>
+	<set-property name="quantity">1</set-property>
+	<set-property name="deliverConfirmationNumber">123456789</set-property>
+	<set-property name="serialNumber"></set-property>		
+	<set-property name="cartonNumber">987654321</set-property>
+</add-item>
+
+<!-- Line Discount -->
+<add-item item-descriptor="lineDiscount" id="LDCS0001">
+	<set-property name="discountType">DISC</set-property>
+	<set-property name="discountCode">CODE</set-property>
+	<set-property name="source">WEB</set-property>
+	<set-property name="amount">9.38</set-property>		
+</add-item>
+
+<add-item item-descriptor="lineDiscount" id="LDCS0002">
+	<set-property name="discountType">DISC</set-property>
+	<set-property name="discountCode">CODE</set-property>
+	<set-property name="source">WEB</set-property>
+	<set-property name="amount">9.39</set-property>		
+</add-item>
+
+<!-- Payment -->
+<add-item item-descriptor="payment" id="PAY0001">
+	<set-property name="paymentType">VISA</set-property>
+	<set-property name="amount">9.38</set-property>		
+	<set-property name="transactionReference">123456789</set-property>
+	<set-property name="paymentDate">2016-11-29 01:01:01</set-property>
+	<set-property name="cardReference">1234</set-property>
+	<set-property name="cardNumber">123456789</set-property>
+	<set-property name="tokenId"></set-property>
+	<set-property name="auxilliarys">AUX0002</set-property>
+</add-item>
+
+				<option value="lineItem" 		code="0"/>
+				<option value="shippedItem" 	code="1"/>
+				<option value="returnedItem" 	code="2"/>
+
+<!-- Shipped Item -->
+<add-item item-descriptor="shippedItem" id="SI00001">
+	<set-property name="type">shippedItem</set-property>
+	<set-property name="extractLineId">1001</set-property>
+	<set-property name="clientLineId">2001</set-property>		
+	<set-property name="skucode">123456789</set-property>
+	<set-property name="barcode">12345678</set-property>
+	<set-property name="itemNumber">123987654</set-property>
+	<set-property name="colorCode">BLE</set-property>
+	<set-property name="sizeCode">LRG</set-property>		
+	<set-property name="quantity">1</set-property>
+	<set-property name="unitPrice">19.99</set-property>
+	<set-property name="facilityCd">1234</set-property>
+	<set-property name="shippingAmount">2.99</set-property>
+	<set-property name="lineLocalTax">1.23</set-property>
+	<set-property name="lineCountyTax">1.56</set-property>
+	<set-property name="lineStateTax">1.75</set-property>
+	<set-property name="lineTaxTotal">2.29</set-property>
+	<set-property name="lineShippingTax">1.29</set-property>
+	<set-property name="lineExtendedTotal">22.59</set-property>
+	<set-property name="extendedPrice">23.59</set-property>		
+	<!-- Line Discounts -->
+	<set-property name="lineDiscounts">LDCS0001</set-property>		
+	<!-- Line Cartons -->
+	<set-property name="lineCartons">LCRT0001</set-property>		
+	<!-- Auxilliarys -->
+	<set-property name="auxilliarys">AUX0003</set-property>		
+	<set-property name="lineNumber">001</set-property>
+</add-item>	
+
+<!-- Returned Item -->
+<add-item item-descriptor="returnedItem" id="RI00002">
+	<set-property name="type">returnedItem</set-property>
+	<set-property name="extractLineId">1001</set-property>
+	<set-property name="clientLineId">2001</set-property>		
+	<set-property name="skucode">123456789</set-property>
+	<set-property name="barcode">12345678</set-property>
+	<set-property name="itemNumber">123987654</set-property>
+	<set-property name="colorCode">BLE</set-property>
+	<set-property name="sizeCode">LRG</set-property>		
+	<set-property name="quantity">1</set-property>
+	<set-property name="unitPrice">19.99</set-property>
+	<set-property name="facilityCd">1234</set-property>
+	<set-property name="shippingAmount">2.99</set-property>
+	<set-property name="lineLocalTax">1.23</set-property>
+	<set-property name="lineCountyTax">1.56</set-property>
+	<set-property name="lineStateTax">1.75</set-property>
+	<set-property name="lineTaxTotal">2.29</set-property>
+	<set-property name="lineShippingTax">1.29</set-property>
+	<set-property name="lineExtendedTotal">22.59</set-property>
+	<set-property name="extendedPrice">23.59</set-property>		
+	<!-- Line Discounts -->
+	<set-property name="lineDiscounts">LDCS0002</set-property>		
+	<!-- Line Cartons -->
+	<set-property name="lineCartons">LCRT0001</set-property>		
+	<!-- Auxilliarys -->
+	<set-property name="auxilliarys">AUX0004</set-property>		
+	<set-property name="lineNumber">001</set-property>
+	<set-property name="returnReason">01</set-property>
+	<set-property name="rmaNumber">123456</set-property>
+	<set-property name="returnedAmount">12.39</set-property>		
+	<set-property name="restockLocalTax">1.99</set-property>
+	<set-property name="restockCountyTax">1.25</set-property>
+	<set-property name="restockStateTax">1.26</set-property>
+	<set-property name="restockTaxTotal">1.22</set-property>
+	<set-property name="restockShippingTax">1.36</set-property>
+	<set-property name="restockExtendedTotal">12.36</set-property>
+</add-item>	
+
+<!-- TODO:Line Summary -->
+<add-item item-descriptor="lineSummary" id="LS00001">
+	<set-property name="transactionTotal">11.99</set-property>
+	<set-property name="transactionTaxableTotal">11.98</set-property>
+	<set-property name="transactionTaxTotal">11.50</set-property>
+	<set-property name="lineCount">1</set-property>
+	<set-property name="paymentTotal">11.99</set-property>
+	<set-property name="paymentCount">1</set-property>
+	<set-property name="discountTotal">1.99</set-property>
+	<set-property name="discountCount">1</set-property>
+	<set-property name="giftcardSoldTotal">0.00</set-property>		
+	<set-property name="giftcardSoldCount">0</set-property>
+</add-item>	
+

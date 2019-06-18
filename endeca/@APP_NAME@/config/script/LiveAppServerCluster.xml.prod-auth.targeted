@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<spr:beans xmlns:spr="http://www.springframework.org/schema/beans"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:tx="http://www.springframework.org/schema/tx"
+           xmlns:aop="http://www.springframework.org/schema/aop"
+           xmlns="http://www.endeca.com/schema/eacToolkit"
+           xsi:schemaLocation="
+  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+  http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+  http://www.endeca.com/schema/eacToolkit http://www.endeca.com/schema/eacToolkit/eacToolkit.xsd">
+
+  <!--
+    ########################################################################
+    # App Server Clusters
+    #
+  -->
+  <app-server-cluster id="StageAppServerCluster">
+    <app-server ref="StageAppServer" />
+  </app-server-cluster>
+
+  <app-server-cluster id="LiveAppServerCluster">
+    <app-server ref="PRODApp01LiveStore01" />
+    <app-server ref="PRODApp01LiveStore02" />
+    <app-server ref="PRODApp01LiveStore03" />
+    <app-server ref="PRODApp02LiveStore04" />
+    <app-server ref="PRODApp02LiveStore05" />
+    <app-server ref="PRODApp02LiveStore06" />
+    <app-server ref="PRODOms01LiveStore07" />
+    <app-server ref="PRODApp03LiveStore08" />
+    <app-server ref="PRODApp03LiveStore09" />
+    <app-server ref="PRODApp03LiveStore12" />
+    <app-server ref="PRODApp03LiveStore13" />
+    <app-server ref="PRODApp04LiveStore10" />
+    <app-server ref="PRODApp04LiveStore11" />
+    <app-server ref="PRODApp04LiveStore14" />
+    <app-server ref="PRODApp04LiveStore15" />
+  </app-server-cluster>
+
+  <!--
+    ########################################################################
+    # App Servers
+    #
+  -->
+
+  <app-server id="StageAppServer" hostName="172.24.32.247" port="20080">
+    <web-app ref="assemblerAdmin" />
+  </app-server>
+
+  <app-server id="PRODApp01LiveStore01" hostName="172.24.32.244" port="20580">
+    <web-app ref="assemblerAdmin" />
+  </app-server>
+
+  <app-server id="PRODApp01LiveStore02" hostName="172.24.32.244" port="20680">
+    <web-app ref="assemblerAdmin" />
+  </app-server>
+
+  <app-server id="PRODApp01LiveStore03" hostName="172.24.32.244" port="20780">
+    <web-app ref="assemblerAdmin" />
+  </app-server>
+
+  <app-server id="PRODApp02LiveStore04" hostName="172.24.32.246" port="20580">
+    <web-app ref="assemblerAdmin" />
+  </app-server>
+
+  <app-server id="PRODApp02LiveStore05" hostName="172.24.32.246" port="20680">
+    <web-app ref="assemblerAdmin" />
+  </app-server>
+
+  <app-server id="PRODApp02LiveStore06" hostName="172.24.32.246" port="20780">
+    <web-app ref="assemblerAdmin" />
+  </app-server>
+
+  <app-server id="PRODOms01LiveStore07" hostName="172.24.32.252" port="20580">
+    <web-app ref="assemblerAdmin" />
+  </app-server>
+  
+  <app-server id="PRODApp03LiveStore08" hostName="172.24.32.225" port="20580">
+    <web-app ref="assemblerAdmin" />
+  </app-server>
+
+  <app-server id="PRODApp03LiveStore09" hostName="172.24.32.225" port="20680">
+    <web-app ref="assemblerAdmin" />
+  </app-server>
+
+  <app-server id="PRODApp03LiveStore12" hostName="172.24.32.225" port="20780">
+    <web-app ref="assemblerAdmin" />
+  </app-server>
+
+   <app-server id="PRODApp03LiveStore13" hostName="172.24.32.225" port="20880">
+    <web-app ref="assemblerAdmin" />
+  </app-server>
+
+  <app-server id="PRODApp04LiveStore10" hostName="172.24.32.226" port="20580">
+    <web-app ref="assemblerAdmin" />
+  </app-server>
+
+  <app-server id="PRODApp04LiveStore11" hostName="172.24.32.226" port="20680">
+    <web-app ref="assemblerAdmin" />
+  </app-server>
+
+  <app-server id="PRODApp04LiveStore14" hostName="172.24.32.226" port="20780">
+    <web-app ref="assemblerAdmin" />
+  </app-server>
+  
+  <app-server id="PRODApp04LiveStore15" hostName="172.24.32.226" port="20880">
+    <web-app ref="assemblerAdmin" />
+  </app-server>
+
+  <!--
+    ########################################################################
+    # Web Applications
+    #
+  -->
+  <web-app id="assemblerAdmin" contextPath="/dyn/admin/assemblerAdmin"/>
+</spr:beans>
+<!-- @version $Id: //hosting-blueprint/B2CBlueprint/version/11.2/Storefront/deploy/script/LiveAppServerCluster.xml#2 $$Change: 953229 $-->

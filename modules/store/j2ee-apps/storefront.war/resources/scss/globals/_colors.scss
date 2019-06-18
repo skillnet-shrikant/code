@@ -1,0 +1,71 @@
+// Globals folder is reserved for things like mixin declarations, functions & variables.
+// Please do NOT use this folder for declaring Sass code that actually outputs CSS.
+
+// This file reserved for all color presets.
+
+/* Color Palette */
+$black: #000000;
+$deepest-gray: #333333;
+$deep-gray: #666666;
+$medium-gray: #999999;
+$base-gray: #cccccc;
+$light-gray: #e6e6e6;
+$almost-white: #f4f4f4;
+$white: #ffffff;
+$red: #cd1c1f;
+$orange: #fd6316;
+$light-orange: #ffe8dc;
+$green: #83a648;
+$bright-green: #02ca99;
+$medium-green: #188818;
+$deep-blue: #134b5b;
+$darker-blue: #1a2d65;
+$dark-blue: #25408f;
+$blue: #4760a8;
+$bright-blue: #83bfe6;
+
+/* Primaries */
+$primary-color: $orange;
+$secondary-color:  $light-gray;
+$tertiary-color: $deepest-gray;
+
+/* element settings */
+$base-font-color: $black;
+$link-color: $primary-color;
+$disabled-link-color: $medium-gray;
+$sale-color: $red;
+$border-color: $base-gray;
+
+/* Messaging Palette */
+$error-color: $red;
+$info-color: $bright-blue;
+$success-color: $bright-green;
+$warning-color: #ffcf66;
+
+/* buttons */
+$btn-primary: $primary-color;
+$btn-secondary: $secondary-color;
+$btn-tertiary: $tertiary-color;
+
+/* social */
+$facebook: #3b5998;
+$instagram: #517fa4;
+$twitter: #00aced;
+$youtube: #b31217;
+$pinterest: #cb2027;
+
+// Mixin presets //
+@mixin nav-color ($arg1, $arg2) {
+	background-color: $arg1;
+	color: $arg2;
+}
+
+@mixin button-color ($arg1, $arg2) {
+	background-color: $arg1;
+	color: $arg2;
+}
+
+@mixin tile-color ($arg1, $arg2) {
+	background-color: $arg1;
+	color: $arg2;
+}

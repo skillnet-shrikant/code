@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actor-template default-chain-id="orderLookup"
+  xsi:noNamespaceSchemaLocation="http://www.atg.com/xsds/actorChain_1.0.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  
+  <actor-chain id="getOrdersByStoreId" transaction="TX_SUPPORTS">
+    <droplet id="getOrdersByStoreIdDroplet" name="/mff/commerce/order/GetOrdersByStoreIdDroplet"  var="getOrdersParamStack">
+      <input name="storeId" value="${(storeId != null) ? storeId : param.storeId}" />
+      <input name="pageNum" value="${param.pageNum}" />
+      <input name="numberOfRecordsPerPage" value="${param.numberOfRecordsPerPage}" />
+      <input name="orderState" value="${param.orderState}" />
+      <input name="numberOfDays" value="${param.numberOfDays}" />
+      <oparam name="output">
+        <output id="storeOrders" name="storeOrders" value="${getOrdersParamStack.storeOrders}" filter-id="summary"/>
+      </oparam>
+    </droplet>
+   </actor-chain>
+   
+   <actor-chain id="orderLookupOMS" transaction="TX_SUPPORTS">
+	   <droplet var="orderLookupParamStack" name="/mff/commerce/order/OMSOrderLookup" id="orderLookup">
+	      <input name="orderId" value="${(orderId != null) ? orderId : param.orderId}"/>
+	      <input name="orderNumber" value="${(orderNumber != null) ? orderNumber : param.orderNumber}"/>
+		  <oparam name="output">
+	        <output name="result" id="result" value="${orderLookupParamStack.result}" filter-id="detailed"/>
+	      </oparam>
+	    </droplet>
+  	</actor-chain>
+  	
+  	<actor-chain id="orderLookupPOS" transaction="TX_SUPPORTS">
+	   <droplet var="orderLookupParamStack" name="/mff/commerce/order/OMSOrderLookup" id="orderLookup">
+	      <input name="orderId" value="${(orderId != null) ? orderId : param.orderId}"/>
+	      <input name="orderNumber" value="${(orderNumber != null) ? orderNumber : param.orderNumber}"/>
+		  <oparam name="output">
+	        <output name="result" id="result" value="${orderLookupParamStack.result}" filter-id="detailed"/>
+	      </oparam>
+	    </droplet>
+  	</actor-chain>
+
+
+</actor-template>

@@ -1,0 +1,1 @@
+alter table order_item add is_drop_ship number(1) default 0;

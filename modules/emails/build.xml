@@ -1,0 +1,62 @@
+<project name="emails" default="all" basedir=".">
+
+   <!-- Defining property name to access environmental variables -->
+   <property environment="env"/>
+
+   <property file="../../build.properties"/>
+   <!-- Import file with common settings -->
+   <import file="../../common-classpath.xml"/>
+   <property file="module.properties"/>
+
+   <property name="module" value="${module.path}/${module.name}"/>
+
+   <property name="yuicompressor.jar" value="j2ee-apps/emails.war/WEB-INF/lib/yuicompressor-2.4.7.jar"/>
+	
+   <tstamp>
+ 			<!-- used in modules -->
+      <format property="quickdeploy.uniquestring"
+              pattern="yyyyMMdd_hhmm_SSS_z"
+              unit="hour" />
+    </tstamp>
+
+   <target name="build"/>
+   <target name="clean" unless="clean-before-build" >
+   	<!--<antcall target="clean-EAR"/> -->
+   	<antcall target="clean-atg"/>
+   	
+		<!-- Deleting classes directory -->
+		<delete includeemptydirs="true" failonerror="false">
+			<fileset dir="./build/classes" />
+		</delete>
+   	</target>
+   <target name="clean-atg">
+      <delete includeemptydirs="true" failonerror="false" >
+	 <fileset dir="${dynamo.home}/../${module}"/>
+      </delete>
+   </target>
+   <target name="clean-EAR">
+      <delete includeemptydirs="true" failonerror="false" >
+	 	<fileset dir="${store.deploy.path}/${store.ear}/emails.war"/>
+      </delete>
+   </target>
+
+   <target name="deploy">
+      <copy todir="${dynamo.home}/../${module}">
+	 			<fileset dir="."  excludes="build/**,src/**, **/src/**, docroot/**,.classpath,.project,**/*.svn,*.*"/>
+      </copy>
+
+   </target>
+
+   <target name="quick-webdeploy" description="deploys to server's .ear">
+
+      <echo message="Copying to jboss dir : ${store.deploy.path}/${store.ear}/emails.war"/>
+
+      <copy todir="${store.deploy.path}/${store.ear}/emails.war" verbose="true">
+			 <fileset dir="j2ee-apps/emails.war" includes="*.jsp"/>
+			 <fileset dir="j2ee-apps/emails.war" includes="**/*" excludes="META-INF/** build/**,src/**,docroot/**,.classpath,.project,**/*.svn,*.*,sql/**,.externalToolBuilders/**,bin/**" />
+      </copy>
+   </target> 
+
+   <target name="all" depends="deploy" description="Deploys"/>          
+
+</project>

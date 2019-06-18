@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE browse-hierarchy SYSTEM "dynamosystemresource:/atg/dtds/browse-hierarchy/browse-hierarchy_1.0.dtd">
+
+<browse-hierarchy root="home" xml-combine="append">
+
+	<browse-item is-root="false" id="home" xml-combine="append">
+		<browse-item is-root="false" create-allowed="false" show-count="false"
+			multisite="any" bin="false" reference-id="mff_content_repository"/>
+		<browse-item is-root="false" create-allowed="false" show-count="false"
+			multisite="any" bin="false" reference-id="dyn_meta_data"/>
+		<browse-item is-root="false" create-allowed="false" show-count="false"
+			multisite="any" bin="false" reference-id="suggested_terms"/>
+		<browse-item is-root="false" create-allowed="false" show-count="false"
+			multisite="any" bin="false" reference-id="it-managed"/>
+		<browse-item is-root="false" create-allowed="false" show-count="false"
+			multisite="any" bin="false" reference-id="google_mff_cat_map"/>
+		<browse-item is-root="false" create-allowed="false" show-count="false"
+			multisite="any" bin="false" reference-id="rest_api_config"/>
+		<browse-item is-root="false" create-allowed="true" show-count="true"
+			multisite="any" bin="false" reference-id="inactive_prod_redirect"/>
+		<browse-item is-root="false" create-allowed="false" show-count="false"
+			multisite="any" bin="false" reference-id="global_messages"/>
+	</browse-item>
+
+	<browse-item create-allowed="false" label="Product Redirects" bin="false" id="inactive_prod_redirect"
+		show-count="false" multisite="any" icon="/merchExt/icons/bcc-icon-content.png" is-root="false">
+
+			<browse-item create-allowed="false" reference-id="redirects" bin="false"
+					show-count="false" multisite="any" is-root="false"/>
+
+			<browse-item create-allowed="false" reference-id="configs" bin="false"
+					show-count="false" multisite="any" is-root="false"/>
+				
+	</browse-item>
+	
+	<browse-item create-allowed="false" label="Redirects" bin="false" id="redirects"
+		show-count="false" multisite="any" icon="/merchExt/icons/bcc-icon-content.png" is-root="true">
+
+		<list-definition allow-circular-reference="false" visible="true" retriever="query"
+			set-site-context-on-drilldown="false" allow-load="true"
+			show-header="conditionally"
+			id="inactiveProdRedirect"
+			show-count-on-header="false"
+			allow-drilldown="true"
+			child-type="/com/mff/redirects/InactiveProductRedirects:redirect"
+			show-count-on-children="false">
+
+			<retriever-parameter name="query" value="ALL"/>
+		</list-definition>
+
+	</browse-item>
+
+	<browse-item create-allowed="false" label="Configuration" bin="false" id="configs"
+		show-count="false" multisite="any" icon="/merchExt/icons/bcc-icon-content.png" is-root="true">
+
+		<list-definition allow-circular-reference="false" visible="true" retriever="query"
+			set-site-context-on-drilldown="false" allow-load="true"
+			show-header="conditionally"
+			id="prodConfigs"
+			show-count-on-header="false"
+			allow-drilldown="true"
+			child-type="/com/mff/redirects/InactiveProductRedirects:productConfig"
+			show-count-on-children="false">
+
+			<retriever-parameter name="query" value="ALL"/>
+		</list-definition>
+
+	</browse-item>		
+
+	<browse-item create-allowed="false" label="Fleet Static Content" bin="false" id="mff_content_repository"
+		show-count="false" multisite="any" icon="/merchExt/icons/bcc-icon-content.png" is-root="false">
+
+			<browse-item create-allowed="false" reference-id="nav" bin="false"
+					show-count="false" multisite="any" is-root="false"/>
+
+			<browse-item create-allowed="false" reference-id="tax_exempt" bin="false"
+					show-count="false" multisite="any" is-root="false"/>
+
+			<browse-item create-allowed="false" reference-id="static_content" bin="false"
+					show-count="false" multisite="any" is-root="false"/>
+
+			<browse-item create-allowed="false" reference-id="pps_messages" bin="false"
+					show-count="false" multisite="any" is-root="false"/>
+
+			<browse-item create-allowed="false" reference-id="info_messages" bin="false"
+					show-count="false" multisite="any" is-root="false"/>					
+	</browse-item>
+
+	<browse-item create-allowed="false" label="Dynamic Facets" bin="false" id="dyn_meta_data"
+		show-count="false" multisite="any" icon="/merchExt/icons/search.png" is-root="true">
+
+	<list-definition allow-circular-reference="false" visible="true" retriever="query"
+		set-site-context-on-drilldown="false" allow-load="true"
+		show-header="conditionally"
+		id="rootProp"
+		show-count-on-header="false"
+		allow-drilldown="true"
+		child-type="/atg/repository/dynamic/DynamicMetadataRepository:das_gsa_dynamic_prop"
+		show-count-on-children="false">
+
+					<retriever-parameter name="query" value="ALL"/>
+				</list-definition>
+
+	</browse-item>
+
+	<browse-item create-allowed="false" label="Suggested Terms" bin="false" id="suggested_terms"
+		show-count="false" multisite="any" icon="/merchExt/icons/search.png" is-root="true">
+
+	<list-definition allow-circular-reference="false" visible="true" retriever="query"
+		set-site-context-on-drilldown="false" allow-load="true"
+		show-header="conditionally"
+		id="rootTermProp"
+		show-count-on-header="false"
+		allow-drilldown="true"
+		child-type="/mff/search/SuggestedTerms/:suggestedTerm"
+		show-count-on-children="false">
+
+					<retriever-parameter name="query" value="ALL"/>
+				</list-definition>
+
+	</browse-item>
+
+	<browse-item create-allowed="false" label="IT Managed " bin="false" id="it-managed"
+		show-count="false" multisite="any" icon="/merchExt/icons/bcc-icon-content.png" is-root="false">
+
+			<browse-item create-allowed="false" reference-id="zipcodes" bin="false"
+					show-count="false" multisite="any" is-root="false"/>
+
+			<browse-item create-allowed="false" reference-id="fedex-restrictions" bin="false"
+					show-count="false" multisite="any" is-root="false"/>
+
+	</browse-item>
+	
+	<browse-item create-allowed="false" label="Zipcodes" bin="false" id="zipcodes"
+		show-count="false" multisite="any" icon="/merchExt/icons/search.png" is-root="true">
+
+		<list-definition allow-circular-reference="false" visible="true" retriever="query"
+			set-site-context-on-drilldown="false" allow-load="true"
+			show-header="conditionally"
+			id="zip"
+			show-count-on-header="false"
+			allow-drilldown="true"
+			child-type="/com/mff/content/repository/ZipcodeRepository:zipcode"
+			show-count-on-children="false">
+						<retriever-parameter name="query" value="ALL"/>
+		</list-definition>
+
+	</browse-item>
+
+	<browse-item create-allowed="false" label="Overnight Delivery Restrictions" bin="false" id="fedex-restrictions"
+		show-count="false" multisite="any" icon="/merchExt/icons/search.png" is-root="true">
+
+		<list-definition allow-circular-reference="false" visible="true" retriever="query"
+			set-site-context-on-drilldown="false" allow-load="true"
+			show-header="conditionally"
+			id="fedex"
+			show-count-on-header="false"
+			allow-drilldown="true"
+			child-type="/com/mff/content/repository/ZipcodeRepository:fedExOvernightRestricted"
+			show-count-on-children="false">
+						<retriever-parameter name="query" value="ALL"/>
+		</list-definition>
+
+	</browse-item>
+
+
+	<browse-item create-allowed="false" label="Navigation" bin="false" id="nav" show-count="false"
+		multisite="any" icon="/merchExt/icons/bcc-icon-navigation.png" is-root="true">
+
+	<list-definition allow-circular-reference="false" visible="true" retriever="query"
+		set-site-context-on-drilldown="false" allow-load="true"
+		show-header="conditionally"
+		id="rootNavigation"
+		show-count-on-header="false"
+		allow-drilldown="true"
+		child-type="/com/mff/content/repository/MFFContentRepository:mffStaticLeftNav"
+		show-count-on-children="false">
+
+					<retriever-parameter name="query" value="ALL"/>
+				</list-definition>
+	</browse-item>
+
+	<browse-item create-allowed="false" label="Tax Exempt Classification" bin="false" id="tax_exempt" show-count="false"
+		multisite="any" icon="/merchExt/icons/bcc-icon-tax-exempt.png" is-root="true">
+
+	<list-definition allow-circular-reference="false" visible="true" retriever="query"
+		set-site-context-on-drilldown="false" allow-load="true"
+		show-header="conditionally"
+		id="rootTax"
+		show-count-on-header="false"
+		allow-drilldown="true"
+		child-type="/com/mff/content/repository/MFFContentRepository:taxExmpClassification"
+		show-count-on-children="false">
+
+					<retriever-parameter name="query" value="ALL"/>
+				</list-definition>
+	</browse-item>
+
+	<browse-item create-allowed="false" label="Content" bin="false" id="static_content" show-count="false"
+		multisite="any" icon="/merchExt/icons/bcc-icon-content2.png" is-root="true">
+
+	<list-definition allow-circular-reference="false" visible="true" retriever="query"
+		set-site-context-on-drilldown="false" allow-load="true"
+		show-header="conditionally"
+		id="rootStaticContent"
+		show-count-on-header="false"
+		allow-drilldown="true"
+		child-type="/com/mff/content/repository/MFFContentRepository:mffStaticContent"
+		show-count-on-children="false">
+
+					<retriever-parameter name="query" value="ALL"/>
+				</list-definition>
+	</browse-item>
+
+	<browse-item create-allowed="false" label="PPS Messages" bin="false" id="pps_messages" show-count="false"
+		multisite="any" icon="/merchExt/icons/bcc-icon-content1.png" is-root="true">
+
+	<list-definition allow-circular-reference="false" visible="true" retriever="query"
+		set-site-context-on-drilldown="false" allow-load="true"
+		show-header="conditionally"
+		id="rootPPSMessages"
+		show-count-on-header="false"
+		allow-drilldown="true"
+		child-type="/com/mff/content/repository/MFFContentRepository:ppsMessage"
+		show-count-on-children="false">
+
+					<retriever-parameter name="query" value="ALL"/>
+				</list-definition>
+	</browse-item>
+
+	<browse-item create-allowed="false" label="Info Messages" bin="false" id="info_messages" show-count="false"
+		multisite="any" icon="/merchExt/icons/bcc-icon-content1.png" is-root="true">
+
+	<list-definition allow-circular-reference="false" visible="true" retriever="query"
+		set-site-context-on-drilldown="false" allow-load="true"
+		show-header="conditionally"
+		id="rootInfoMessages"
+		show-count-on-header="false"
+		allow-drilldown="true"
+		child-type="/com/mff/content/repository/MFFContentRepository:infoMessage"
+		show-count-on-children="false">
+
+					<retriever-parameter name="query" value="ALL"/>
+				</list-definition>
+	</browse-item>
+		
+	<browse-item create-allowed="false" label="GoogleMffCategoryMap" bin="false" id="google_mff_cat_map"
+		show-count="false" multisite="any" icon="/merchExt/icons/search.png" is-root="true">
+
+		<list-definition allow-circular-reference="false" visible="true" retriever="query"
+			set-site-context-on-drilldown="false" allow-load="true"
+			show-header="conditionally"
+			id="googlemffcatmap"
+			show-count-on-header="false"
+			allow-drilldown="true"
+			child-type="/com/googleadwords/repository/GoogleMFFCategoryMapRepository:googleMffCategoryMap"
+			show-count-on-children="false">
+						<retriever-parameter name="query" value="ALL"/>
+		</list-definition>
+
+	</browse-item>
+	
+	<browse-item create-allowed="false" label="Global Messages" bin="false" id="global_messages"
+		show-count="false" multisite="any" icon="/merchExt/icons/search.png" is-root="true">
+
+		<list-definition allow-circular-reference="false" visible="true" retriever="query"
+			set-site-context-on-drilldown="false" allow-load="true"
+			show-header="conditionally"
+			id="globalmessages"
+			show-count-on-header="false"
+			allow-drilldown="true"
+			child-type="/com/mff/globalmessages/repository/GlobalMessagesRepository:globalMessages"
+			show-count-on-children="false">
+						<retriever-parameter name="query" value="ALL"/>
+		</list-definition>
+
+	</browse-item>
+	
+	
+	<browse-item create-allowed="false" label="Rest Api Configuration" bin="false" id="rest_api_config"
+		show-count="false" multisite="any" icon="/merchExt/icons/bcc-icon-content.png" is-root="true">
+
+			<browse-item create-allowed="false" reference-id="api" bin="false"
+					show-count="false" multisite="any" is-root="false"/>
+
+			<browse-item create-allowed="false" reference-id="apiHeader" bin="false"
+					show-count="false" multisite="any" is-root="false"/>
+
+			<browse-item create-allowed="false" reference-id="apiResponse" bin="false"
+					show-count="false" multisite="any" is-root="false"/>
+
+			<browse-item create-allowed="false" reference-id="apiError" bin="false"
+					show-count="false" multisite="any" is-root="false"/>
+			<browse-item create-allowed="false" reference-id="apiParams" bin="false"
+					show-count="false" multisite="any" is-root="false"/>		
+					
+	</browse-item>
+		
+</browse-hierarchy>

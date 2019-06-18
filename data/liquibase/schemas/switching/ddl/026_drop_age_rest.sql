@@ -1,0 +1,1 @@
+alter table mff_sku drop(age_restriction,usa);

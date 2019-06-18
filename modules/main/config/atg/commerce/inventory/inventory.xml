@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<!DOCTYPE gsa-template PUBLIC "-//Art Technology Group, Inc.//DTD General SQL Adapter//EN" "http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
+
+<gsa-template>
+
+  <header>
+    <name>Inventory Repository Extension - MFF</name>
+    <author>KnowledgePath Solutions Inc</author>
+    <description>This defines the ATG inventory extensions</description>
+  </header>
+
+<!--
+TODO: Inventory 11.2 defn and ensure the replaced item is defined correctly
+-->
+  <!-- 
+  	All inventory properties are moved to mff_inventory table to avoid table joins when looking up inventory records  
+  	'inventory' item descriptor holds the cumulative inventory of all the stores for each sku
+  --> 	
+    
+   <item-descriptor name="inventory" display-property="displayName" version-property="version" id-space-name="inventory" 
+      cache-mode="disabled" display-name-resource="itemDescriptorInventory" xml-combine="replace">
+      
+    <attribute name="resourceBundle" value="atg.commerce.InventoryTemplateResources"/>
+  
+    <attribute name="categoryBasicsPriority" value="10"/>
+    <attribute name="categorySchedulePriority" value="20"/>
+    <attribute name="categoryInventoryLevelsPriority" value="30"/>
+    <attribute name="categoryInventoryWarningPriority" value="40"/>
+    <attribute name="categoryInfoPriority" value="50"/>
+  
+    <table name="ff_inventory" type="primary" id-column-name="inventory_id">
+      <!--  Properties copied from dcs_inventory -->	
+      <property category-resource="categoryInfo" name="version" data-type="int" column-name="version" 
+        cache-mode="disabled" group="stockLevel" display-name-resource="version"
+        backing-map-property="false">
+        <attribute name="uiwritable" value="false"/>
+        <attribute name="propertySortPriority" value="-2"/>
+      </property>
+      <property category-resource="categoryInfo" name="inventoryLock" data-type="string" 
+        column-name="inventory_lock" group="admin" display-name-resource="inventoryLock"
+        backing-map-property="false">
+        <attribute name="propertySortPriority" value="-2"/>
+      </property>
+      <property category-resource="categoryInfo" name="creationDate" data-type="timestamp" 
+        column-name="creation_date" group="admin" display-name-resource="creationDate"
+        backing-map-property="false">
+        <attribute name="uiwritable" value="false"/>
+        <attribute name="useNowForDefault" value="true"/>
+        <attribute name="propertySortPriority" value="-2"/>
+      </property>
+      <property category-resource="categoryBasics" name="locationId" data-type="string" 
+        column-name="location_id" display-name-resource="locationId"
+        backing-map-property="false">
+        <attribute name="propertySortPriority" value="-1"/>
+      </property>
+      <property category-resource="categorySchedule" name="startDate" data-type="timestamp" 
+        column-name="start_date" group="admin" display-name-resource="startDate"
+        backing-map-property="false">
+        <attribute name="propertySortPriority" value="-2"/>
+      </property>
+      <property category-resource="categorySchedule" name="endDate" data-type="timestamp" 
+        column-name="end_date" group="admin" display-name-resource="endDate"
+        backing-map-property="false">
+        <attribute name="propertySortPriority" value="-1"/>
+      </property>
+      <property category-resource="categoryBasics" name="displayName" data-type="string" 
+        column-name="display_name" required="true" group="admin" display-name-resource="name"
+        backing-map-property="false">
+        <attribute name="propertySortPriority" value="-4"/>
+      </property>
+      <property category-resource="categoryBasics" name="description" data-type="string" 
+        column-name="description" group="admin" display-name-resource="description"
+        backing-map-property="false">
+        <attribute name="propertySortPriority" value="-1"/>
+      </property>
+      <property category-resource="categoryBasics" name="catalogRefId" data-type="string" 
+        column-name="catalog_ref_id" required="true" group="admin"
+        editor-class="atg.ui.commerce.SkuItemStringEditor" display-name-resource="catalogRefId"
+        backing-map-property="false">
+        <attribute name="propertySortPriority" value="-3"/>
+      </property>
+      <property category-resource="categoryBasics" name="availabilityStatus" data-type="enumerated" 
+        default="availabilityStatusDerived" column-name="avail_status" 
+      	required="true" group="stockLevel" display-name-resource="availabilityStatus"
+      	backing-map-property="false">
+        <attribute name="useCodeForValue" value="true"/>
+        <option resource="availabilityStatusInstock" code="1000"/>
+        <option resource="availabilityStatusOutOfStock" code="1001"/>
+        <option resource="availabilityStatusPreorderable" code="1002"/>
+        <option resource="availabilityStatusBackorderable" code="1003"/>
+        <option resource="availabilityStatusDerived" code="1004"/>
+	      <option resource="availabilityStatusDiscontinued" code="1005"/>
+        <attribute name="propertySortPriority" value="-2"/>
+      </property>
+      <property category-resource="categoryBasics" name="availabilityDate" data-type="timestamp" 
+        column-name="availability_date" group="availability" display-name-resource="availabilityDate"
+        backing-map-property="false">
+        <attribute name="propertySortPriority" value="-1"/>
+      </property>
+      <property category-resource="categoryInventoryLevels" name="stockLevel" data-type="long" 
+      	column-name="stock_level" cache-mode="disabled" group="stockLevel" display-name-resource="stockLevel"
+      	backing-map-property="false">
+        <attribute name="propertySortPriority" value="-3"/>
+      </property>
+      <property category-resource="categoryInventoryLevels" name="stockLevelWithFraction" data-type="double"
+        column-name="stock_level_with_fraction" cache-mode="disabled" group="stockLevelWithFraction" 
+        display-name-resource="stockLevelWithFraction"  
+        backing-map-property="false" required="false">
+        <attribute name="propertySortPriority" value="-3"/>
+      </property>
+      <property category-resource="categoryInventoryLevels" name="backorderLevel" data-type="long" 
+        column-name="backorder_level" cache-mode="disabled" group="backorderLevel" display-name-resource="backorderLevel"
+        backing-map-property="false">
+        <attribute name="propertySortPriority" value="-2"/>
+      </property>
+      <property category-resource="categoryInventoryLevels" name="backorderLevelWithFraction" data-type="double"
+        column-name="backorder_level_with_fraction" cache-mode="disabled" group="backorderLevelWithFraction" 
+        display-name-resource="backorderLevelWithFraction"  
+        backing-map-property="false" required="false">
+        <attribute name="propertySortPriority" value="-3"/>
+      </property>      
+      <property category-resource="categoryInventoryLevels" name="preorderLevel" data-type="long" 
+        column-name="preorder_level" cache-mode="disabled" group="preorderLevel" display-name-resource="preorderLevel"
+        backing-map-property="false">
+        <attribute name="propertySortPriority" value="-1"/>
+      </property>
+      <property category-resource="categoryInventoryLevels" name="preorderLevelWithFraction" data-type="double"
+        column-name="preorder_level_with_fraction" cache-mode="disabled" group="preorderLevelWithFraction" 
+        display-name-resource="preorderLevelWithFraction"  
+        backing-map-property="false" required="false">
+        <attribute name="propertySortPriority" value="-3"/>
+      </property>      
+      <property category-resource="categoryInventoryWarning" name="stockThreshold" data-type="long" 
+        column-name="stock_thresh" group="threshold" display-name-resource="stockThreshold" backing-map-property="false">
+        <attribute name="propertySortPriority" value="-3"/>
+      </property>
+      <property category-resource="categoryInventoryWarning" name="backorderThreshold" data-type="long" 
+        column-name="backorder_thresh" group="threshold" display-name-resource="backorderThreshold" backing-map-property="false">
+        <attribute name="propertySortPriority" value="-2"/>
+      </property>
+      <property category-resource="categoryInventoryWarning" name="preorderThreshold" data-type="long" 
+        column-name="preorder_thresh" group="threshold" display-name-resource="preorderThreshold" backing-map-property="false">
+        <attribute name="propertySortPriority" value="-1"/>
+      </property>
+  
+    </table>
+    <table name="dcs_inv_atp" type="multi" id-column-name="inventory_id" shared-table-sequence="1">
+      <property name="availableToPromise" data-type="set" component-item-type="availableToPromise"
+                column-name="id" queryable="true" cascade="update"
+                category-resource="categoryBasics" display-name-resource="availableToPromise">
+        <attribute name="propertySortPriority" value="-1"/>
+      </property>
+    </table>
+  </item-descriptor>
+  
+  <item-descriptor name="inventoryTransaction" id-space-name="inventory" cache-mode="disabled" display-name="Inventory Transaction">
+    
+    <table name="ff_inventory_transaction" type="primary" id-column-name="inventory_id">
+       <property category-resource="categoryInfo" name="inventoryLock" data-type="string" column-name="inventory_lock" group="admin" display-name-resource="inventoryLock" backing-map-property="false">
+        <attribute name="propertySortPriority" value="-2"/>
+      </property>		
+       <property column-name="sold" category-resource="categoryInventoryLevels" display-name="Sold" data-type="long" name="sold"
+		group="stockLevel" cache-mode="disabled">
+		<attribute name="propertySortPriority" 	value="-5" />
+	  </property>
+	  <property column-name="allocated" category-resource="categoryInventoryLevels" display-name="Allocated" data-type="long" name="allocated"
+		group="stockLevel" cache-mode="disabled">
+		<attribute name="propertySortPriority" 	value="-5" />
+	  </property>
+	  <property column-name="shipped" category-resource="categoryInventoryLevels" display-name="W1 Shipped" data-type="long" name="shipped"
+		group="stockLevel" cache-mode="disabled">
+		<attribute name="propertySortPriority" 	value="-5" />
+	  </property>  
+	  
+    </table>
+  </item-descriptor>
+ 
+ 
+  <item-descriptor name="storeInventory" id-space-name="storeInventory" display-name="Store Inventory" 
+  	cache-mode="disabled" item-expire-timeout="1800000" query-expire-timeout="1800000">
+  	
+	<table name="ff_store_inventory" type="primary" id-column-name="inventory_id">
+		<property column-name="inventory_id" category-resource="categoryInventoryLevels" 
+		   display-name="Inventory ID" data-type="string" name="inventoryId" group="stockLevel"
+		   required="true" backing-map-property="false">
+		   <attribute name="propertySortPriority" value="-1" />
+		</property>
+		
+		<property column-name="store_id" category-resource="categoryInventoryLevels" 
+		    display-name="Store ID" data-type="string" name="storeId" group="stockLevel"
+	            required="true" backing-map-property="false">
+		    <attribute name="propertySortPriority" value="-2" />
+		</property>
+
+	    <property category-resource="categoryBasics" name="catalogRefId" data-type="string" 
+		  column-name="catalog_ref_id" required="true" group="admin"
+		  editor-class="atg.ui.commerce.SkuItemStringEditor" display-name-resource="catalogRefId"
+		  backing-map-property="false">
+		  <attribute name="propertySortPriority" value="-3"/>
+	    </property>
+	        
+	    <property category-resource="categoryInventoryLevels" name="stockLevel" data-type="long" 
+		  column-name="stock_level" group="stockLevel" display-name-resource="stockLevel"
+		  backing-map-property="false">
+		    <attribute name="propertySortPriority" value="-3"/>
+	    </property>
+
+		<property column-name="eod_stock_level" category-resource="categoryInventoryLevels"
+				display-name="EOD Store Stock Level" data-type="long" name="EODStoreStockLevel" group="stockLevel"
+				cache-mode="disabled">
+				<attribute name="propertySortPriority" 	value="-7" />
+		</property>
+		<property column-name="is_damaged" category-resource="categoryInventoryLevels"
+				display-name="Items damaged" data-type="boolean" name="isDamaged" group="stockLevel"
+				cache-mode="disabled" default="false">
+				<attribute name="propertySortPriority" 	value="-5" />
+		</property>
+		<property name="creationDate" category-resource="categoryInventoryLevels" 
+		       data-type="timestamp" column-name="creation_date" group="stockLevel"  
+		       display-name="Creation Date" backing-map-property="false">
+			<attribute name="uiwritable" value="false"/>
+			<attribute name="useNowForDefault" value="true"/>
+			<attribute name="propertySortPriority" value="-4"/>
+		</property>
+
+		<property name="lastUpdateDate" category-resource="categoryInventoryLevels" 
+		   data-type="timestamp" column-name="last_update_date" group="stockLevel" 
+		   display-name="Last Update Date" backing-map-property="false">
+			<attribute name="uiwritable" value="false"/>
+			<attribute name="propertySortPriority" 	value="-5" />
+		</property>
+		
+		<property category-resource="categoryInventoryLevels" name="inventoryLock" data-type="string" 
+        	column-name="inventory_lock" group="stockLevel" display-name="Inventory Lock"
+        	backing-map-property="false">
+        	<attribute name="propertySortPriority" value="-8"/>
+      	</property>
+	</table>
+    </item-descriptor> 
+    
+    <item-descriptor name="storeInventoryTransaction" id-space-name="storeInventory" display-name="Store Inventory Transaction" 
+  	cache-mode="disabled" item-expire-timeout="1800000" query-expire-timeout="1800000">
+  	
+	<table name="ff_store_inv_transaction" type="primary" id-column-name="inventory_id">
+      <property category-resource="categoryInfo" name="inventoryLock" data-type="string" column-name="inventory_lock" group="admin" display-name-resource="inventoryLock" backing-map-property="false">
+        <attribute name="propertySortPriority" value="-2"/>
+      </property>		
+	  <property column-name="allocated" category-resource="categoryInventoryLevels" display-name="Store Allocated" data-type="long" name="storeAllocated" cache-mode="disabled">
+		<attribute name="propertySortPriority" 	value="-3" />
+	  </property>
+	  <property column-name="shipped" category-resource="categoryInventoryLevels" display-name="Store Shipped" data-type="long" name="storeShipped" cache-mode="disabled">
+		<attribute name="propertySortPriority" 	value="-4" />
+	  </property>  
+<!-- 
+		<property column-name="is_damaged" category-resource="categoryInventoryLevels"
+				display-name="Items damaged" data-type="boolean" name="isDamaged" group="stockLevel"
+				cache-mode="disabled" default="false">
+				<attribute name="propertySortPriority" 	value="-5" />
+		</property>	  
+ -->
+    </table>
+  </item-descriptor>
+    
+    
+</gsa-template>

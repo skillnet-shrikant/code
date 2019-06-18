@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actor-template default-chain-id="addOrderNote" xsi:noNamespaceSchemaLocation="http://www.atg.com/xsds/actorChain_1.0.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <actor-chain id="addOrderNotePPS" transaction="TX_SUPPORTS">
+    <form id="orderNoteFormHandler" name="/atg/commerce/custsvc/order/OrderNoteFormHandler" var="orderNoteFormHandler" handle="addCommentPPS">
+      <input name="orderId" value="${param.orderId}" />
+      <input name="comment" value="${comment == null? param.comment : comment}" />
+      <input name="storeNumber" value="${param.storeNumber}" />
+      <input name="errorURL" value="${errorURL != null ? errorURL : '/model/atg/commerce/custsvc/order/OrderNoteActor/addOrderNote-error-pps'}"/>
+      <input name="successURL" value="${successURL != null ? successURL : '/model/atg/commerce/custsvc/order/OrderNoteActor/addOrderNote-success-pps'}"/>
+    </form>
+  </actor-chain>
+  
+  <actor-chain id="addOrderNote-success-pps" transaction="TX_SUPPORTS">
+  	<output name="response" id="response" value="true"/>
+  </actor-chain>
+  
+  <actor-chain id="addOrderNote-error-pps" transaction="TX_SUPPORTS">
+    <actor id="error" name="/atg/commerce/custsvc/order/OrderNoteActor" chain-id="error" return-model-var="model">
+      <output id="model" add-map-children="true" value="${model}"/>
+    </actor> 
+  </actor-chain>
+
+  <actor-chain id="error" transaction="TX_SUPPORTS">
+    <component id="orderNoteFormHandler" name="/atg/commerce/custsvc/order/OrderNoteFormHandler" component-var="orderNoteFormHandler">
+      <output id="formError" name="formError" value="${orderNoteFormHandler.formError}" />
+      <output id="formExceptions" name="formExceptions" value="${orderNoteFormHandler.formExceptions}" />
+    </component>
+  </actor-chain>
+
+</actor-template>
+

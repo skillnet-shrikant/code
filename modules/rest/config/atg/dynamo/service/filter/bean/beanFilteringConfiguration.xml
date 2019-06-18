@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<bean-filtering>
+ 
+  <bean name="mff.rest.StoreOrder" default-filter="summary">
+    <filter id="summary">
+      <property name="orderId"/>
+      <property name="orderNumber"/>
+      <property name="shippingMethod"/>
+      <property name="bopisOrder"/>
+      <property name="inPicking"/>
+      <property name="items"/>
+      <property name="firstName"/>
+      <property name="lastName"/>
+      <property name="address1"/>
+      <property name="address2"/>
+      <property name="city"/>
+      <property name="shipState"/>
+      <property name="postalCode"/>
+      <property name="county"/>
+      <property name="country"/>  
+      <property name="phoneNumber"/>
+      <property name="contactEmail"/>
+      <property name="orderSubmittedDate"/>
+      <property name="pickUpInstructions"/>
+      <property name="fulfillmentSplit"/>
+      <property name="orderAge"/>
+      <property name="showStoreItemLocation"/>
+    </filter>
+  </bean>
+  
+  <bean name="mff.rest.StoreOrderItem" default-filter="summary">
+    <filter id="summary">
+      <property name="storeId"/>
+      <property name="commerceItemId"/>
+      <property name="inPicking"/>
+      <property name="skuId"/>
+      <property name="quantity"/>
+      <property name="productDescription"/>
+      <property name="skuAttributes"/>
+      <property name="upcs"/>
+      <property name="vpn"/>
+      <property name="ppsMessage"/>
+      <property name="allocationDate"/>
+      <property name="planoGramInfo"/>      
+    </filter>
+  </bean>
+  
+  <bean name="mff.rest.StoreOrderResponse" default-filter="summary">
+    <filter id="summary">
+      <property name="totalNumbeOfPages"/>
+      <property name="currentPageNumber"/>
+	  <property name="requestPageNumber"/>
+	  <property name="numberofRecordsPerPage"/>
+	  <property name="totalRecords"/>
+	  <property name="storeOrder"/>
+    </filter>
+  </bean>
+  
+  <bean name="mff.returns.ReturnResponsePOS" default-filter="summary">
+    <filter id="summary">
+      <property name="orderNumber"/>
+      <property name="returnItems"/>
+    </filter>
+  </bean>
+  
+  <bean name="mff.returns.ReturnResponseItemPOS" default-filter="summary">
+    <filter id="summary">
+      <property name="commerceItemId"/>
+      <property name="returnSuccess"/>
+      <property name="linesReturned"/>
+    </filter>
+  </bean>
+  
+  <bean name="atg.commerce.order.Order" xml-combine="append">
+    <filter id="detailed">
+      <property name="orderNumber"/>
+      <property name="stateAsString"/>
+      <property name="bopisOrder"/>
+      <property name="bopisStore"/>
+      <property name="bopisSignature"/>
+      <property name="bopisPerson"/>
+      <property name="bopisEmail"/>
+      <property name="signatureRequired"/>
+      <property name="returnablePPS"/>
+      <property name="comments" target="repositoryItem.comments"/>
+    </filter>
+  </bean>
+  
+  <bean name="atg.commerce.order.CommerceItem" xml-combine="append">
+  	<filter id="detailed">
+      <property name="stateAsString"/>
+      <property name="trackingNumber"/>
+      <property name="fulfillmentStore"/>
+      <property name="ffl"/>
+      <property name="giftCard" />
+      <property name="giftCardDenomination" />
+      <property name="gwp" />
+      <property name="minimumAge" />
+      <property name="shipDate"/>
+      <property name="productDescription" target="auxiliaryData.productRef.description"/>
+      <property name="upcs" target="auxiliaryData.catalogRef.upcs"/>
+      <property name="ppsMessage" target="auxiliaryData.catalogRef.ppsMessage"/>
+      <property name="skuAttributes" target="auxiliaryData.catalogRef.skuAttributes"/>
+      <property name="vpn" target="auxiliaryData.catalogRef.vpn"/>
+      <property name="returnItems"/>
+    </filter>
+  </bean>
+  
+  <bean name="atg.payment.creditcard.BasicCreditCardInfo" default-filter="summary">
+    <filter id="summary">
+      <property name="nameOnCard"/>
+      <property name="tokenNumber"/>
+    </filter>
+    <filter id="detailed">
+      <property name="nameOnCard"/>
+      <property name="tokenNumber"/>
+    </filter>
+  </bean>
+  
+  <bean name="atg.commerce.order.HardgoodShippingGroup" xml-combine="append">
+    <filter id="detailed">
+      <property name="fulfillmentStore"/>
+      <property name="saturdayDelivery"/>
+    </filter>
+  </bean>
+  
+  <bean name="atg.commerce.order.PaymentGroup" xml-combine="append">
+    <filter id="summary">
+       <property name="giftCardNumber" target="cardNumber"/>
+    </filter>
+    <filter id="detailed">
+      <property name="giftCardNumber" target="cardNumber"/>
+    </filter>
+  </bean>
+  
+  <bean name="com.mff.globalmessages.MessagesResponse" default-filter="messageSummary">
+    <filter id="messageSummary">
+    	<property name="alerts"/>
+      	<property name="messages"/>
+    </filter>
+  </bean>
+    <bean name="com.mff.globalmessages.GlobalAlertMessage" default-filter="messageDetails">
+    <filter id="messageDetails">
+      <property name="messageText"/>
+      <property name="messageType"/>
+      <property name="messageStartDate"/>
+    </filter>
+  </bean>
+  
+  <bean name="mff.allocation.PlanoGramInfoResponse" default-filter="planogramInfo">
+    <filter id="planogramInfo">
+    	<property name="planogramInfo"/>
+      	<property name="showPlanogramInfo"/>
+      	<property name="recordSeparator"/>
+    </filter>
+  </bean>
+  
+  <repository name="/atg/commerce/locations/LocationRepository">
+    <item-descriptor name="store" default-filter="summary" xml-combine="append">
+      <filter id="summary">
+        <property name="locationId"/>
+        <property name="returnStore" target="returnStore.locationId"/>
+      </filter>
+    </item-descriptor>
+  </repository>
+  
+  <repository name="/atg/userprofiling/InternalProfileRepository">
+    <item-descriptor name="accessRight" default-filter="summary">
+      <filter id="summary">
+        <property name="id"/>
+        <property name="name"/>
+        <property name="accessRightDisplayName"/>
+        <property name="description"/>
+      </filter>
+      
+    </item-descriptor>
+  </repository>
+  
+</bean-filtering>
+

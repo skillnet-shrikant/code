@@ -1,0 +1,145 @@
+<!DOCTYPE gsa-template PUBLIC "-//Art Technology Group, Inc.//DTD General SQL Adapter//EN" "http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
+
+<gsa-template>
+
+	<header>
+		<name>MFF Promotion Extensions</name>
+		<author>DMI</author>
+		<description>This definition contains custom properties to pricing models repository</description>
+	</header>
+
+	<item-descriptor name="promotion" expert="true" sub-type-property="type" display-property="displayName" 
+	  		item-cache-size="1000" query-cache-size="1000" version-property="version" id-space-name="mff_promotion">
+
+		<table name="mff_promotion" id-column-name="promotion_id" type="auxiliary" shared-table-sequence="1">
+			<property name="shortDescription" data-type="string"
+				column-name="short_description" category-resource="categoryBasics"
+				display-name="Short Description">
+				<attribute name="propertySortPriority" value="41" />
+			</property>
+			<property name="bopisOnly" data-type="boolean"
+				column-name="is_bopis_only" category-resource="categoryBasics"
+				display-name="Restricted to BOPIS Orders" default="false">
+				<attribute name="propertySortPriority" value="34" />
+			</property>			
+		</table>
+		<table name="dcs_promotion" type="primary" id-column-name="promotion_id">
+	      <property name="type" data-type="enumerated" column-name="promotion_type" hidden="true" category-resource="categoryBasics" display-name-resource="discountType">
+	        <option value="Item Discount" code="0"/>
+	        <option value="Item Discount - Percent Off" code="1"/>
+	        <option value="Item Discount - Amount Off" code="2"/>
+	        <option value="Item Discount - Fixed Price" code="3"/>
+	        <option value="Shipping Discount" code="5"/>
+	        <option value="Shipping Discount - Percent Off" code="6"/>
+	        <option value="Shipping Discount - Amount Off" code="7"/>
+	        <option value="Shipping Discount - Fixed Price" code="8"/>
+	        <option value="Order Discount" code="9"/>
+	        <option value="Order Discount - Percent Off" code="10"/>
+	        <option value="Order Discount - Amount Off" code="11"/>
+	        <option value="Order Discount - Fixed Price" code="12"/>
+	        <option value="Item Discount - Free Item Shipping" code="9999" />
+	        <attribute name="uiwritable" value="false"/>
+	        <attribute name="propertySortPriority" value="100"/>
+	      </property>
+		
+		</table>
+	</item-descriptor>
+	
+	<item-descriptor name="closenessQualifier" item-cache-size="1000" query-cache-size="1000" version-property="version" 
+				id-space-name="closenessQualifier">
+		<attribute name="resourceBundle" value="atg.commerce.PricingModelsTemplateResources"/>
+	    <table name="mff_close_qualif" id-column-name="close_qualif_id" type="auxiliary" shared-table-sequence="1">
+			<property name="upsellInstructions" data-type="string"
+				column-name="upsell_instructions" category-resource="categoryBasics"
+				display-name="Upsell Instructions">
+				<attribute name="propertySortPriority" value="21" />
+			</property>
+		</table>
+    </item-descriptor>
+    
+	<item-descriptor name="freeItemShipping" super-type="Item Discount" sub-type-value="Item Discount - Free Item Shipping" 
+	  		item-cache-size="1000" query-cache-size="1000" version-property="version" id-space-name="mff_promotion" 
+	  		display-name="Item Discount - Free Item Shipping">
+	    
+		    <attribute name="resourceBundle" value="atg.commerce.PricingModelsTemplateResources"/>
+		
+	    <table name="mff_promo_shipping" type="multi" id-column-name="promotion_id" >
+	      <property name="extendToShipMethods" data-type="set" component-data-type="enumerated string" column-name="shipping_method"
+	        category-resource="categoryBasics" display-name="Extend to ship methods">
+	        <attribute name="propertySortPriority" value="35"/>
+	        <attribute name="stringEnumProvider" value="/mff/commerce/shipping/ShippingMethodsStringEnumProvider"/>
+	        <attribute name="i18n" value="true"/>
+	      </property>
+	    </table>
+	
+	</item-descriptor>
+	
+	<item-descriptor id-space-name="mff_promotion" display-name-resource="itemDescriptorItemDiscount" expert="false" 
+		hidden="false" item-cache-size="1000" use-id-for-path="false" sub-type-value="Item Discount" content="false" 
+		writable="true" default="false" folder="false" cache-mode="simple" id-separator=":" name="Item Discount" 
+		query-cache-size="1000" super-type="promotion" version-property="version">
+	</item-descriptor>
+	
+	<item-descriptor id-space-name="mff_promotion" display-name-resource="itemDescriptorItemDiscountPercentOff" expert="false" 
+		hidden="false" item-cache-size="1000" use-id-for-path="false" sub-type-value="Item Discount - Percent Off" content="false" 
+		writable="true" default="false" folder="false" cache-mode="simple" id-separator=":" name="Item Discount - Percent Off" 
+		query-cache-size="1000" super-type="Item Discount" version-property="version">
+	</item-descriptor>
+
+  	<item-descriptor id-space-name="mff_promotion" display-name-resource="itemDescriptorItemDiscountAmountOff" expert="false" hidden="false" 
+  		item-cache-size="1000" use-id-for-path="false" sub-type-value="Item Discount - Amount Off" content="false" writable="true" default="false" 
+  		folder="false" cache-mode="simple" id-separator=":" name="Item Discount - Amount Off" query-cache-size="1000" super-type="Item Discount" 
+  		version-property="version">
+	</item-descriptor>
+	
+	<item-descriptor id-space-name="mff_promotion" display-name-resource="itemDescriptorItemDiscountFixedPrice" expert="false" hidden="false" 
+		item-cache-size="1000" use-id-for-path="false" sub-type-value="Item Discount - Fixed Price" content="false" writable="true" 
+		default="false" folder="false" cache-mode="simple" id-separator=":" name="Item Discount - Fixed Price" query-cache-size="1000" 
+		super-type="Item Discount" version-property="version">
+  	</item-descriptor>
+
+  	<item-descriptor id-space-name="mff_promotion" display-name-resource="itemDescriptorShippingDiscount" expert="false" hidden="false" 
+  		item-cache-size="1000" use-id-for-path="false" sub-type-value="Shipping Discount" content="false" writable="true" default="false" 
+  		folder="false" cache-mode="simple" id-separator=":" name="Shipping Discount" query-cache-size="1000" super-type="promotion" version-property="version">
+  	</item-descriptor>
+  	
+  	<item-descriptor id-space-name="mff_promotion" display-name-resource="itemDescriptorShippingDiscountPercentOff" expert="false" hidden="false" 
+  		item-cache-size="1000" use-id-for-path="false" sub-type-value="Shipping Discount - Percent Off" content="false" 
+  		writable="true" default="false" folder="false" cache-mode="simple" id-separator=":" name="Shipping Discount - Percent Off" 
+  		query-cache-size="1000" super-type="Shipping Discount" version-property="version">
+  	</item-descriptor>
+    
+    <item-descriptor id-space-name="mff_promotion" display-name-resource="itemDescriptorShippingDiscountAmountOff" expert="false" hidden="false" 
+    	item-cache-size="1000" use-id-for-path="false" sub-type-value="Shipping Discount - Amount Off" content="false" writable="true" 
+    	default="false" folder="false" cache-mode="simple" id-separator=":" name="Shipping Discount - Amount Off" query-cache-size="1000" 
+    	super-type="Shipping Discount" version-property="version">
+	</item-descriptor>
+	    
+    <item-descriptor id-space-name="mff_promotion" display-name-resource="itemDescriptorShippingDiscountFixedPrice" expert="false" hidden="false" 
+    	item-cache-size="1000" use-id-for-path="false" sub-type-value="Shipping Discount - Fixed Price" content="false" writable="true" default="false" 
+    	folder="false" cache-mode="simple" id-separator=":" name="Shipping Discount - Fixed Price" query-cache-size="1000" super-type="Shipping Discount" version-property="version"> 
+    </item-descriptor>
+    
+    <item-descriptor id-space-name="mff_promotion" display-name-resource="itemDescriptorOrderDiscount" expert="false" hidden="false" item-cache-size="1000" 
+    	use-id-for-path="false" sub-type-value="Order Discount" content="false" writable="true" default="false" folder="false" cache-mode="simple" 
+    	id-separator=":" name="Order Discount" query-cache-size="1000" super-type="promotion" version-property="version">
+    </item-descriptor>
+    
+    <item-descriptor id-space-name="mff_promotion" display-name-resource="itemDescriptorOrderDiscountPercentOff" expert="false" hidden="false" item-cache-size="1000" 
+    	use-id-for-path="false" sub-type-value="Order Discount - Percent Off" content="false" writable="true" default="false" folder="false" 
+    	cache-mode="simple" id-separator=":" name="Order Discount - Percent Off" query-cache-size="1000" super-type="Order Discount" version-property="version">
+    </item-descriptor>
+   
+   	<item-descriptor id-space-name="mff_promotion" display-name-resource="itemDescriptorOrderDiscountAmountOff" expert="false" hidden="false" 
+   		item-cache-size="1000" use-id-for-path="false" sub-type-value="Order Discount - Amount Off" content="false" writable="true" 
+   		default="false" folder="false" cache-mode="simple" id-separator=":" name="Order Discount - Amount Off" query-cache-size="1000" 
+   		super-type="Order Discount" version-property="version">
+   	</item-descriptor>
+    
+    <item-descriptor id-space-name="mff_promotion" display-name-resource="itemDescriptorOrderDiscountFixedPrice" expert="false" hidden="false" 
+    	item-cache-size="1000" use-id-for-path="false" sub-type-value="Order Discount - Fixed Price" content="false" writable="true" 
+    	default="false" folder="false" cache-mode="simple" id-separator=":" name="Order Discount - Fixed Price" 
+    	query-cache-size="1000" super-type="Order Discount" version-property="version">
+	</item-descriptor>    
+    
+</gsa-template>

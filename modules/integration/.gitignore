@@ -1,0 +1,6 @@
+bin/**
+build/**
+.settings/**
+/bin
+!lib-external/**
+!/lib-external

@@ -1,0 +1,379 @@
+/* Module: Icons
+Sprite is 50px tall (100 for retina). Icons are spaced 50px
+apart from center line of each icon. When you add an icon to
+the sprite, change the width of the background-size for the
+retina-targeted style. Then add the icon class with proper
+background positioning.
+Example use:
+<span class="icon icon-error" aria-hidden="true">error</span>
+========================================================= */
+
+/* ICON FONT */
+
+@font-face {
+	font-family: 'kp-icons';
+	src:url('../fonts/kp-icons.eot?357y0n');
+	src:url('../fonts/kp-icons.eot?357y0n#iefix') format('embedded-opentype'),
+	url('../fonts/kp-icons.woff?357y0n') format('woff'),
+	url('../fonts/kp-icons.ttf?357y0n') format('truetype'),
+	url('../fonts/kp-icons.svg?357y0n#kpicons') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.icon {
+	font-family: 'kp-icons';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	@include font-size (16px);
+	color: $black;
+	cursor: pointer;
+
+	.no-touch {
+		&:hover, &:focus {
+			color: $deep-gray;
+		}
+	}
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* don't underline when wrapped in link */
+a:hover .icon, a:focus .icon {
+	text-decoration: none;
+}
+
+
+
+/* social font */
+.social-icons {
+	@include media(small-only){
+		position: relative;
+		top: 10px;
+	}
+
+	a {
+		text-decoration: none;
+
+		& + a .icon {
+			margin-left: 4px;
+		}
+		&:hover .icon {
+			color: $white;
+		}
+	}
+	.icon {
+		color: $white;
+		padding: 3px;
+	}
+}
+.icon-facebook {
+	background: $facebook;
+
+	a:hover & {
+		background: darken($facebook, 15);
+	}
+	&:before {
+		content: "\ea90";
+	}
+}
+.icon-instagram {
+	background: $instagram;
+
+	a:hover & {
+		background: darken($instagram, 15);
+	}
+	&:before {
+		content: "\ea92";
+	}
+}
+.icon-twitter {
+	background: $twitter;
+
+	a:hover & {
+		background: darken($twitter, 15);
+	}
+	&:before {
+		content: "\ea96";
+	}
+}
+.icon-youtube {
+	background: $youtube;
+
+	a:hover & {
+		background: darken($youtube, 15);
+	}
+	&:before {
+		content: "\ea9d";
+	}
+}
+.icon-pinterest {
+	background: $pinterest;
+
+	a:hover & {
+		background: darken($pinterest, 15);
+	}
+	&:before {
+		content: "\ead1";
+	}
+}
+
+
+
+/* global font */
+.icon-arrow-down:before {
+	content: "\e60f";
+}
+
+.icon-arrow-up:before, .active .icon-arrow-down:before {
+	content: "\e611";
+}
+
+.icon-arrow-left:before {
+	content: "\e600";
+}
+
+.icon-arrow-right:before {
+	content: "\e601";
+}
+
+.icon-cart {
+	@include font-size(22px);
+	@include rem-size(line-height, 20px);
+}
+.icon-cart:before {
+	content: "\e602";
+}
+
+.icon-check:before {
+	content: "\e603";
+}
+
+.icon-remove:before, .icon-close:before {
+	content: "\e604";
+}
+
+.icon-error, .icon-alert {
+	@include font-size (14px);
+	@include rem-size(padding-left, 1px);
+
+	&:before {
+		content: "\e605";
+	}
+}
+.icon-error {
+	color: $error-color;
+	cursor: default;
+}
+.icon-alert {
+	color: $info-color;
+}
+.icon-info {
+	color: $info-color;
+	&:before {
+		content: "\e606";
+	}
+	a:hover &,
+	a:focus & {
+		color: darken($info-color, 15);
+	}
+}
+
+.icon-locator {
+	vertical-align: -3px;
+	@include rem-size(margin-right, 2px);
+}
+.icon-locator:before {
+	content: "\e607";
+}
+
+.store-locator-nav {
+	.icon-store-locator {
+		vertical-align: -3px;
+		@include rem-size(margin-right, 2px);
+
+		&:before {
+			content: url('../../resources/images/store_locator_icon.png');
+		}
+	}
+
+	&:hover {
+		.icon-store-locator {
+			&:before {
+				content: url('../../resources/images/store_locator_hover_icon.png');
+			}
+		}
+	}
+}
+
+.icon-menu {
+	@include font-size(22px);
+
+	.move-right &,
+	.offcanvas-overlap &,
+	.offcanvas-overlap-right & {
+		color: $black;
+		@include font-size(12px);
+		@include rem-size(padding-left, 4px);
+	}
+	&:before {
+		content: "\e609";
+
+		.move-right &,
+		.offcanvas-overlap &,
+		.offcanvas-overlap-right & {
+			content: "\e604";
+		}
+	}
+}
+
+.icon-minus,
+.icon-plus {
+	@include font-size(10px);
+}
+
+.icon-minus:before, .active .icon-plus:before {
+	content: "\e60a";
+}
+
+.icon-plus:before {
+	content: "\e60b";
+}
+
+.icon-print:before {
+	content: "\e60c";
+}
+
+.icon-search:before {
+	content: "\e60d";
+}
+
+.icon-wish-list:before {
+	content: "\e60e";
+	position: relative;
+	top: 3px;
+}
+
+.icon-email:before {
+	content: "\e901";
+	position: relative;
+	top: -1px;
+}
+
+.icon-card {
+	position: relative;
+	top: 4px;
+	@include rem-size(margin-right, 2px);
+
+	&:before {
+		content: "\e900";
+	}
+}
+
+.icon-weekly-ad {
+	position: relative;
+	top: 4px;
+	@include rem-size(margin-right, 2px);
+
+	&:before {
+		content: "\e902";
+	}
+}
+
+.icon-home {
+	position: relative;
+	top: 2px;
+
+	&:before {
+		content: "\e903";
+	}
+}
+
+.icon-phone {
+	position: relative;
+	top: 3px;
+
+	&:before {
+		content: "\e942";
+	}
+}
+
+.icon-profile {
+	position: relative;
+	top: 3px;
+
+	&:before {
+		content: "\e971";
+	}
+}
+
+.icon-truck {
+	position: relative;
+	top: 3px;
+	margin-right: 2px;
+
+	&:before {
+		content: "\f0d1";
+	}
+}
+
+.icon-freight-truck {
+	position: relative;
+	top: 3px;
+	&:before {
+		content: url('../../resources/images/freight_truck.png');
+		.category &, .search & {
+			background: url('../../resources/images/freight_truck.png') no-repeat;
+		    background-size: 27px 15px;
+		    display: inline-block;
+		    width: 27px;
+		    height: 15px;
+		    content: "";
+		}
+	}
+}
+
+.icon-lock {
+	position: relative;
+	top: 3px;
+	margin-right: 2px;
+
+	&:before {
+		content: "\f023";
+	}
+}
+
+.icon-upsells {
+	position: relative;
+	top: 6px;
+	margin-right: 2px;
+
+	&:before {
+		content: url('../../resources/images/upsells.png');
+	}
+}
+
+.icon-available {
+	position: relative;
+	top: 4px;
+	margin-right: 2px;
+
+	&:before {
+		content: url('../../resources/images/available.png');
+	}
+}
+.icon-unavailable {
+	position: relative;
+	top: 3px;
+	margin-right: 2px;
+
+	&:before {
+		content: url('../../resources/images/unavailable.png');
+	}
+}

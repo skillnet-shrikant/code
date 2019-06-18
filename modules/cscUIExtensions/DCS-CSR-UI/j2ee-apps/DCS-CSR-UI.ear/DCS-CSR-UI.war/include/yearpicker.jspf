@@ -1,0 +1,22 @@
+<%--
+This page fragment generates a series of dsp:option tags, one for each
+year.  We use embedded Java code for this rather than simply inlineing
+all of the <dsp:option> tags because if we inline all the tags, some JSP
+pages that include this fragment end up generating more than 64K of byte
+code in their service methods, which results in a JVM error at page
+delivery time.
+
+--%>
+<dsp:layeredBundle basename="atg.commerce.csr.order.WebAppResources">
+  <dsp:importbean bean="/atg/dynamo/service/CurrentDate"/>
+
+  <dsp:getvalueof var="defaultStartYear" bean="CurrentDate.year"/>
+  <c:set var="defaultEndYear" value="2100"/>
+
+  <dsp:option value=""><fmt:message key='common.year.title'/></dsp:option>
+
+  <c:forEach var="year" begin="${(!empty startYear) ? startYear : defaultStartYear}" end="${(!empty endYear) ? endYear : defaultEndYear}">
+    <dsp:option value="${year}"><c:out value="${year}"/></dsp:option>
+  </c:forEach>
+</dsp:layeredBundle>
+<%-- @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/include/yearpicker.jspf#1 $$Change: 946917 $--%>

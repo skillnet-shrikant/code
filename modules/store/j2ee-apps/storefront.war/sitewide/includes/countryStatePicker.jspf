@@ -1,0 +1,17 @@
+<dsp:droplet name="/atg/commerce/util/StateListDroplet">
+	<dsp:param name="userLocale" bean="/atg/dynamo/servlet/RequestLocale.locale" />
+	<dsp:param name="countryCode" value="US" />
+	<dsp:oparam name="output">
+		<dsp:droplet name="/atg/dynamo/droplet/ForEach">
+			<dsp:param name="array" param="states" />
+			<dsp:oparam name="outputStart">
+				<dsp:option value=""><fmt:message key="common.selectState" /></dsp:option>
+			</dsp:oparam>
+			<dsp:oparam name="output">
+				<dsp:getvalueof var="optionKey" param="element.code" />
+				<dsp:getvalueof var="optionValue" param="element.displayName" />
+				<dsp:option value="${optionKey}">${optionValue}</dsp:option>
+			</dsp:oparam>
+		</dsp:droplet>
+	</dsp:oparam>
+</dsp:droplet>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<id-spaces>
+    <id-space name="aci_order_id" seed="100000" batch-size="100" prefix="ACI"/>
+</id-spaces>

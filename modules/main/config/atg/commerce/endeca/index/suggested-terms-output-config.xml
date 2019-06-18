@@ -1,0 +1,14 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE item PUBLIC "-//Art Technology Group, Inc.//DTD Repository Ouput Specifier 1.0//EN" "http://www.atg.com/dtds/search/indexing-dependency-schema.dtd">
+<item item-descriptor-name="suggestedTerm" is-document="true">
+	<properties>
+		<property name="$baseUrl" suppress="true"/>
+		<property name="$url" suppress="true"/>
+		<property name="$itemDescriptor.itemDescriptorName" is-dimension="true" autogen-dimension-values="false" type="string" output-name="record.type"/>
+		<property name="$repositoryId" text-searchable="false" output-name="term.repositoryId"/>
+		<property name="term" text-searchable="true" wildcard-searchable="true" output-name="term" type="string" />
+		<property name="enabled" text-searchable="false" is-dimension="false" type="boolean" />
+		<property name="weight"  text-searchable="false" is-dimension="false" type="integer" output-name="weight"/>
+	</properties>
+
+</item>

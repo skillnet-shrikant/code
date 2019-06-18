@@ -1,0 +1,1 @@
+grant select, update, delete, insert on mff_employee to ATG_CATFEED;

@@ -1,0 +1,1 @@
+alter table mff_item drop activation_attempts;

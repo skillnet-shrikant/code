@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="ATG_DIR/DAS/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DAS/lib/resources.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DAS/lib/servlet.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DCS/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DPS/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DSS/lib/classes.jar"/>
+	<classpathentry kind="lib" path="lib-external/commons-lang3-3.1.jar"/>
+	<classpathentry kind="lib" path="lib-external/jamon-2.74.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DAS/lib/min-ejb3-api.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/Publishing/base/lib/classes.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/MFF Main"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE gsa-template
+        PUBLIC "-//Art Technology Group, Inc.//DTD General SQL Adapter//EN"
+        "http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
+
+<gsa-template>
+  <header>
+    <name>CSC Extensions</name>
+    <author>DMI</author>
+  </header>
+  
+<item-descriptor name="agentComment">
+		<table name="mff_csr_order_cmts" type="auxiliary" id-column-name="comment_id">
+			<property name="storeId" display-name="Store Number" column-name="store_number" data-type="string" />
+		</table>
+	</item-descriptor>
+</gsa-template>

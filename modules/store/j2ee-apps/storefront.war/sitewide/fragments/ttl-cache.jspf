@@ -1,0 +1,2 @@
+<% response.setDateHeader("Expires", (new java.util.Date()).getTime() + (Long)pageContext.getAttribute("timeout")*1000L*60L); %>
+<%-- timeout el variable must be set to use this --%>

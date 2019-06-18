@@ -1,0 +1,291 @@
+// Use the components directory to construct the meat of your CSS.
+// Categorize your styles here based on element in the file name.
+
+// Primary navbar definitions
+$dropdown-width: 200px;
+$dropdown-border-width: 1px;
+$nav-l-r-padding: 10px;
+$dropdown-w-padding-border: $dropdown-width - $dropdown-border-width * 2 + $nav-l-r-padding * 2;
+
+.primary-nav {
+	position: relative;
+	z-index: 102;
+	background: $light-gray;
+	@include rem-size(line-height, 58px);
+	@include clearfix;
+
+	nav {
+		max-width: $row-width;
+		margin: 0 auto;
+		@include rem-size(padding, 0px $nav-l-r-padding);
+	}
+	a {
+		text-decoration: none;
+	}
+}
+
+.primary-nav-item {
+	float: left;
+	position: relative;
+
+	&.department-dropdown {
+		width: 225px;
+	}
+	&.search-form {
+		width: calc(100% - 225px);
+	}
+}
+
+.primary-nav-button {
+	@include font-size(14px);
+	margin: 0;
+	padding: 0;
+	position: relative;
+	z-index: 99;
+
+	.active & {
+		background-color: $white;
+	}
+	.icon {
+		position: absolute;
+		right: 8px;
+		top: 12px;
+	}
+	.nav-link {
+		&:hover, &:focus {
+			.icon {
+				color: $black;
+			}
+		}
+	}
+}
+
+// main department dropdown
+.primary-nav-menu {
+	position: absolute;
+	background: $white;
+	display: none;
+	padding: 0;
+	left: 0;
+	border: 1px solid $border-color;
+	border-top: 0;
+	//max-height: calc(90vh - 158px);
+	overflow: hidden;
+
+	& > ul {
+		max-width: $row-width;
+		margin: 0;
+		padding: 0;
+
+		& > li {
+			display: block;
+
+			&.active .icon-arrow-right {
+				color: $link-color;
+			}
+
+			& > .sub-nav-button {
+				margin: 0;
+				padding: 0;
+				width: 200px;
+			}
+		}
+	}
+	.active > .sub-nav-button a {
+		color: $orange;
+	}
+}
+
+// flyout menu - subcategory flyout menu
+.sub-nav-menu {
+	background-color: $white;
+	width: calc(100vw - #{$dropdown-w-padding-border});
+	max-width: ($row-width - calculateRem($dropdown-w-padding-border));
+	left: -9999px;
+	overflow: hidden;
+	position: absolute;
+	text-align: left;
+	z-index: 99;
+	@include rem-size(padding, 0px 0px 10px);
+	border: 1px solid $border-color;
+	border-top: 0;
+
+	// masonry
+	column-count: 4;
+	-moz-column-count: 4;
+	-webkit-column-count: 4;
+
+	& > ul {
+		padding: 0;
+
+		& > li {
+			display: block;
+			//float: left;
+
+			// masonry
+			width: 100%;
+			break-inside: avoid-column;         /* IE 11 */
+			-webkit-column-break-inside: avoid; /* Chrome, Safari */
+			page-break-inside: avoid;           /* Theoretically FF 20+ */
+			display:table;                      /* Actually FF 20+ */
+		}
+	}
+}
+.sub-nav-title {
+	margin: 0;
+}
+.sub-nav-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.nav-link {
+	@include rem-size(line-height, 20px);
+	@include rem-size(padding, 8px 16px);
+	display: block;
+	font-weight: $normal;
+	text-decoration: none;
+	text-transform: none;
+
+	.icon-arrow-right {
+		position: absolute;
+		left: 176px;
+		top: 10px;
+		@include font-size(12px);
+	}
+
+	//button to dropdown the primary nav menu
+	#department-nav-button & {
+		padding: 0;
+		@include rem-size(line-height, 40px);
+		@include rem-size(margin, 8px 0px);
+		@include rem-size(padding, 0px 16px);
+		font-weight: $bold;
+		border: 1px solid $base-gray;
+		color: $black;
+		background: $white;
+		text-transform: uppercase;
+
+		&:hover, &:focus {
+			color: $black;
+			background: $almost-white;
+			font-weight: $bold !important;
+		}
+	}
+	.sub-nav-button & {
+		@include font-size(12px);
+		color: $black;
+		position: relative;
+	}
+	.sub-nav-title & {
+		@include font-size(12px);
+		color: $black;
+		position: relative;
+		padding-bottom: 0;
+		font-weight: $bold;
+	}
+	.sub-nav-list & {
+		color: $black;
+		@include font-size(11px);
+		@include rem-size(padding, 0px 16px);
+		@include rem-size(line-height, 16px);
+	}
+	&:hover, &:focus {
+		color: $orange;
+	}
+}
+.services-nav {
+	border-top: 1px solid #ccc;
+	margin-top: 8px;
+	padding-top: 8px;
+}
+
+
+
+// search bar
+.keyword-search {
+	z-index: 102;
+}
+.keyword-search-bar,
+.mobile-keyword-search-bar {
+	@include grid-row();
+}
+.keyword-search-form {
+	@include grid-column(12);
+	padding: 0;
+
+	.field-group {
+		margin-bottom: 0;
+	}
+	.icon-search {
+		color: $white;
+	}
+	@include media(medium-up) {
+		@include rem-size(padding-left, 8px);
+		.icon-search {
+			color: $deepest-gray;
+			position: absolute;
+			top: 19px;
+			left: 10px;
+		}
+	}
+
+	.product & {
+		@include rem-size(margin-bottom, 0px);
+	}
+}
+input[type="text"].keyword-search-field {
+	width: calc(100% - 52px);
+	@include rem-size(line-height, 40px);
+	@include rem-size(height, 42px); // ie doesn't recognize line-height on inputs
+	@include rem-size(padding, 0px 12px);
+	@include rem-size(margin, 2px 0px 8px 8px);
+	border-color: $light-gray;
+
+	@include media(small-only) {
+		border-right: 0;
+	}
+	@include media(medium-up) {
+		width: calc(100% - 137px);
+		background: $white;
+		@include rem-size(padding-left, 34px);
+		@include rem-size(margin, 8px 8px 8px 0px);
+	}
+
+	&:focus {
+		@include box-shadow-none();
+	}
+
+}
+.keyword-search-button {
+	@include rem-size(margin, 2px 0px 8px 0px);
+	@include rem-size(padding, 10px 7px 4px 9px);
+	border: 1px solid darken($orange, 6);
+	border-left: 0;
+
+	@include media(small-only) {
+		.field-group &.button {
+			width: auto;
+			.product & {
+				height: 42px;
+				@include rem-size(padding-top, 2px);
+			}
+		}
+	}
+
+	@include media(medium-up) {
+		width: 129px;
+		@include rem-size(margin, 8px 0px);
+		@include rem-size(padding, 0px 24px);
+		@include rem-size(line-height, 42px);
+		border: none;
+
+		.icon {
+			color: $white;
+			position: relative;
+			top: 3px;
+			left: -6px;
+		}
+	}
+}

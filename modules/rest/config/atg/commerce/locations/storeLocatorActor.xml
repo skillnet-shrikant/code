@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actor-template default-chain-id="locateItems"
+  xsi:noNamespaceSchemaLocation="http://www.atg.com/xsds/actorChain_1.0.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+ 	<actor-chain id="getAllStoreLocations" transaction="TX_SUPPORTS">
+	   <droplet var="allStoreLocationsParamStack" name="/com/mff/locator/droplet/AllStoreLocationsDroplet" id="allStoreLocationsDroplet">
+		  <oparam name="output">
+	        <output name="result" id="result" value="${allStoreLocationsParamStack.allStores}"/>
+	      </oparam>
+	    </droplet>
+  	</actor-chain>
+
+</actor-template>

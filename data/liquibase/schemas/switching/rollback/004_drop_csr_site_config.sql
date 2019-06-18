@@ -1,0 +1,1 @@
+drop table csr_site_config;

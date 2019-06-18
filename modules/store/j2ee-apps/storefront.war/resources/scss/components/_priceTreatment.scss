@@ -1,0 +1,79 @@
+.price {
+	font-size: 0; // inline-block whitespace fix
+}
+.regular-price {
+	@include font-size(12px);
+	color: $black;
+}
+// per review with lisa/courtney, all strike-through prices should be inline, then wrap to new line
+// when space runs out
+.original-price {
+	@include font-size(12px);
+	@include rem-size(padding-right, 8px);
+	color: lighten($black, 30);
+	text-decoration: line-through;
+	display: inline-block;
+}
+.sale-price {
+	@include font-size(12px);
+	color: $sale-color;
+	font-weight: $bold;
+	display: inline-block;
+}
+.discontinued-policy-label,
+.addln-shipping-surcharge-label,
+.discontinued-map-pricing-label {
+	@include font-size(11px);
+	font-weight: $normal;
+	display: inline-block;
+	width: 100%;
+	color: $dark-blue;
+	&:hover {
+		color: $darker-blue;
+	}
+	.icon-info {
+		position: relative;
+		top: 3px;
+	}
+}
+.discontinued-map-pricing-label {
+	font-weight: $bold;
+	.category &, .search & {
+		@include font-size(10px);
+	}
+	span {
+		text-transform: uppercase;
+	}
+	a {
+		color: $dark-blue;
+		text-decoration: underline;
+		display: none;
+	}
+}
+.product-details {
+	.product-price {
+		.discontinued-map-pricing-label {
+			@include rem-size(margin, 10px 0px -10px 0px);
+			span {
+				@include font-size(13px);
+			}
+			a {
+				display: inline-block;
+			}
+		}
+	}
+}
+
+.wish-list-content {
+	.order-item {
+		.discontinued-map-pricing-label {
+			a {
+				display: inline-block;
+			}
+		}
+	}
+}
+
+.savings {
+	color: $sale-color;
+}

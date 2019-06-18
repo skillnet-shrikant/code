@@ -1,0 +1,1 @@
+alter table mff_product drop(selling_point_1,selling_point_2,selling_point_3,selling_point_4,selling_point_5);

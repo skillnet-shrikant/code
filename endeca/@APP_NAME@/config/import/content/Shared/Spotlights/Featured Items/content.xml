@@ -1,0 +1,27 @@
+<ContentItem type="MainContent" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://endeca.com/schema/content/2008">
+  <TemplateId>HorizontalRecordSpotlight</TemplateId>
+  <Name>Featured Items</Name>
+  <Property name="title">
+    <String/>
+  </Property>
+  <Property name="maxNumRecords">
+    <String>4</String>
+  </Property>
+  <Property name="recordSelection">
+    <Item class="com.endeca.infront.cartridge.RecordSpotlightSelection" xmlns="http://endeca.com/schema/xavia/2010">
+      <Property name="filterState">
+        <Item class="com.endeca.infront.navigation.model.FilterState">
+          <Property name="featuredRecords">
+            <List/>
+          </Property>
+        </Item>
+      </Property>
+    </Item>
+  </Property>
+  <Property name="showSeeAllLink">
+    <Boolean>false</Boolean>
+  </Property>
+  <Property name="seeAllLinkText">
+    <String/>
+  </Property>
+</ContentItem>

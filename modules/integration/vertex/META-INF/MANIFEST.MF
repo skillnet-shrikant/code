@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+ATG-Required: KP.integration.base
+ATG-Class-Path: lib/vertex.jar lib-external/vertex_client.jar
+ATG-Client-Class-Path: lib/vertex.jar
+ATG-Config-Path: config
+
+Name: lib/vertex.jar
+ATG-Client-Update-File: true

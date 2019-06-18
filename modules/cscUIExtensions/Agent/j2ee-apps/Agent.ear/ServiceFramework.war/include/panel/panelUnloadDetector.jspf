@@ -1,0 +1,13 @@
+var cell       = document.getElementById('<c:out value="${cellId}"/>');
+if (cell) {
+  var childDivs  = cell.getElementsByTagName("div");
+  if (childDivs) {
+    for (var i = 0; i < childDivs.length; i++)
+    {
+      if (childDivs[i].panelunload){
+        eval(childDivs[i].panelunload + "()");
+      }
+    }
+  }
+}
+<%-- @version $Id: //application/service-UI/version/11.2/framework/Agent/src/web-apps/ServiceFramework/include/panel/panelUnloadDetector.jspf#1 $$Change: 946917 $--%>

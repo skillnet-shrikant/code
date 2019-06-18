@@ -1,0 +1,216 @@
+<dsp:page>
+
+	<%-- Imports --%>
+	<dsp:importbean bean="/atg/commerce/order/purchase/CartModifierFormHandler"/>
+	<dsp:importbean bean="/atg/dynamo/droplet/Compare" />
+	<dsp:importbean bean="/atg/dynamo/droplet/IsEmpty" />
+	<dsp:importbean bean="/atg/userprofiling/Profile"/>
+	<dsp:importbean bean="/atg/commerce/catalog/ProductLookup"/>
+	<dsp:importbean bean="/atg/commerce/catalog/SKULookup"/>
+	<dsp:importbean bean="/com/mff/droplet/MFFDynamicAttributesBySkuDroplet"/>
+	<dsp:importbean bean="/com/mff/commerce/order/purchase/LineItemTotalPriceDroplet"/>
+
+	<%-- Page Variables --%>
+	<dsp:getvalueof id="itemId" idtype="java.lang.String" param="commerceItem.catalogrefId" />
+	<dsp:getvalueof id="ciId" idtype="java.lang.String" param="commerceItem.id" />
+	<dsp:getvalueof id="quantity" idtype="java.lang.String" param="commerceItem.quantity" />
+	<dsp:getvalueof var="productId" param="commerceItem.auxiliaryData.productId" />
+	<dsp:getvalueof var="productName" param="commerceItem.auxiliaryData.productRef.description" />
+	<dsp:getvalueof var="productImageRoot" bean="/mff/MFFEnvironment.productImageRoot"/>
+
+	<dsp:droplet name="/com/mff/commerce/order/purchase/IsGWPItemDroplet">
+		<dsp:param name="commerceItem" param="commerceItem"/>
+		<dsp:oparam name="output">
+			<dsp:getvalueof var="isGWPItem" param="result" scope="request" />
+		</dsp:oparam>
+	</dsp:droplet>
+
+	<dsp:droplet name="/com/mff/droplet/ProductUrlGeneratorDroplet">
+		<dsp:param name="productId" value="${productId}"/>
+		<dsp:oparam name="output">
+			<dsp:droplet name="/atg/dynamo/droplet/ProtocolChange">
+				<dsp:param name="inUrl" param="url"/>
+				<dsp:oparam name="output">
+					<dsp:getvalueof var="productUrl" scope="request" param="secureUrl"/>
+				</dsp:oparam>
+			</dsp:droplet>
+		</dsp:oparam>
+	</dsp:droplet>
+
+	<dsp:droplet name="LineItemTotalPriceDroplet">
+		<dsp:param name="commerceItem" param="commerceItem"/>
+		<dsp:oparam name="output">
+			<dsp:getvalueof var="totalLinePrice" param="totalLinePrice"/>
+			<dsp:getvalueof var="itemPromos" param="lineItemPromos"/>
+		</dsp:oparam>
+	</dsp:droplet>
+
+	<div class="order-item" data-ciid="${ciId}">
+		<div class="item-image order-item-section">
+			<dsp:droplet name="/com/mff/browse/droplet/ProductImageDroplet">
+				<dsp:param name="productId" param="commerceItem.auxiliaryData.productId" />
+				<dsp:param name="imageSize" value="s" />
+				<dsp:oparam name="output">
+					<dsp:getvalueof var="defaultImage" param="productImages[0]" />
+					<picture>
+						<!--[if IE 9]><video style="display: none;"><![endif]-->
+						<source srcset="${productImageRoot}/${productId}/th/${defaultImage}" media="(min-width: 768px)">
+						<!--[if IE 9]></video><![endif]-->
+						<img src="${productImageRoot}/${productId}/s/${defaultImage}" alt="${productName}" />
+					</picture>
+				</dsp:oparam>
+				<dsp:oparam name="empty">
+					<picture>
+						<!--[if IE 9]><video style="display: none;"><![endif]-->
+						<source srcset="${productImageRoot}/unavailable/th.jpg" media="(min-width: 768px)">
+						<!--[if IE 9]></video><![endif]-->
+						<img src="${productImageRoot}/unavailable/s.jpg" alt="Image Unavailable" />
+					</picture>
+				</dsp:oparam>
+			</dsp:droplet>
+		</div>
+		<div class="item-details order-item-section">
+			<div class="product-name">
+				${productName}
+			</div>
+			<div class="price">
+				<dsp:droplet name="Compare">
+					<dsp:param name="obj1" param="commerceItem.priceInfo.salePrice" />
+					<dsp:param name="obj2" param="commerceItem.priceInfo.listPrice" />
+					<dsp:oparam name="lessthan">
+						<div class="original-price">
+							<dsp:valueof param="commerceItem.priceInfo.listPrice" converter="currency"/>
+						</div>
+						<div class="sale-price">
+							<dsp:valueof param="commerceItem.priceInfo.salePrice" converter="currency"/>
+						</div>
+					</dsp:oparam>
+					<dsp:oparam name="default">
+						<div class="regular-price">
+							<dsp:valueof param="commerceItem.priceInfo.listPrice" converter="currency"/>
+						</div>
+					</dsp:oparam>
+				</dsp:droplet>
+			</div>
+			<div class="product-sku">
+				<span class="label">SKU:</span>
+				<span>${itemId}</span>
+			</div>
+			<div class="product-selections">
+				<dsp:droplet name="ProductLookup">
+					<dsp:param name="id" param="commerceItem.auxiliaryData.productId"/>
+					<dsp:param name="filterByCatalog" value="false"/>
+					<dsp:param name="filterBySite" value="false"/>
+					<dsp:param name="elementName" value="productItem"/>
+					<dsp:oparam name="output">
+						<dsp:droplet name="SKULookup">
+							<dsp:param name="id" param="commerceItem.catalogrefId"/>
+							<dsp:param name="filterByCatalog" value="false"/>
+							<dsp:param name="filterBySite" value="false"/>
+							<dsp:param name="elementName" value="skuItem"/>
+							<dsp:oparam name="output">
+								<dsp:droplet name="MFFDynamicAttributesBySkuDroplet">
+									<dsp:param name="product" param="productItem" />
+									<dsp:param name="sku" param="skuItem" />
+									<dsp:oparam name="output">
+										<dsp:droplet name="ForEach">
+											<dsp:param name="array" param="dynAttributes"/>
+											<dsp:param name="elementName" value="attributeValue"/>
+											<dsp:oparam name="output">
+												<dsp:getvalueof var="attributeValue" param="attributeValue"/>
+												<c:if test="${not empty attributeValue}">
+													<div class="variant">
+														<span class="label"><dsp:valueof param="key" />:</span>
+														<span>${attributeValue}</span>
+													</div>
+												</c:if>
+											</dsp:oparam>
+										</dsp:droplet>
+									</dsp:oparam>
+								</dsp:droplet>
+							</dsp:oparam>
+						</dsp:droplet>
+					</dsp:oparam>
+				</dsp:droplet>
+				<div class="variant">
+					<span class="label">Qty:</span>
+					<span><dsp:valueof param="commerceItem.quantity"/></span>
+				</div>
+				<div class="promo-line-item-msg hide-for-small">
+					<dsp:droplet name="/atg/dynamo/droplet/ForEach">
+						<dsp:param name="array" value="${itemPromos}"/>
+						<dsp:param name="elementName" value="promoItem"/>
+						<dsp:oparam name="output">
+							<dsp:getvalueof var="promoDisplayName" param="promoItem.displayName" idtype="java.lang.String" />
+								<dsp:getvalueof var="shortDescription" param="promoItem.shortDescription" idtype="java.lang.String" />
+								<dsp:getvalueof var="description" param="promoItem.description" idtype="java.lang.String" />
+								<c:if test="${not empty shortDescription}">
+										<span class="icon icon-check"></span><span class="promo-line-item-desc">${shortDescription}</span>&nbsp;discount applied
+										<c:url value="${contextPath}/checkout/ajax/lineItemPromoDetailsModal.jsp" var="url">
+											<c:param name="p" value="${promoDisplayName}" />
+											<c:param name="d" value="${description}" />
+										</c:url>
+										<a class="view-details modal-trigger" href="${url}" data-target="promo-details-modal" data-size="small">
+											<span class="icon icon-info"></span>
+										</a>
+								</c:if>
+						</dsp:oparam>
+					</dsp:droplet>
+				</div>
+			</div>
+
+			<%-- minimum age --%>
+			<dsp:droplet name="/atg/dynamo/droplet/Switch">
+				<dsp:param name="value" param="commerceItem.minimumAge"/>
+				<dsp:oparam name="18">
+					<div class="product-message">
+						<span class="icon icon-error"></span> You must be at least 18 years old to purchase this item.
+					</div>
+				</dsp:oparam>
+				<dsp:oparam name="21">
+					<div class="product-message">
+						<span class="icon icon-error"></span> You must be at least 21 years old to purchase this item
+					</div>
+				</dsp:oparam>
+			</dsp:droplet>
+
+			<%-- gwp message --%>
+			<%-- Removing this per 2393 --%>
+			<%--
+			<c:if test="${isGWPItem}">
+				<a class="gwp-note modal-trigger" href="/checkout/ajax/gwpDetailsModal.jsp" data-target="promo-details-modal" data-size="small">
+					Free item discount is reflected in the price of the qualifying item. <span class="icon icon-info"></span>
+				</a>
+			</c:if>
+			 --%>
+
+			 <dsp:droplet name="IsEmpty">
+				<dsp:param name="value" param="commerceItem.auxiliaryData.productRef.splMsg"/>
+				<dsp:oparam name="false">
+					<div class="product-special-msg-info">
+						<span class="title"><dsp:valueof param="commerceItem.auxiliaryData.productRef.splMsgTitle" valueishtml="true"/></span>&nbsp;
+						<dsp:a page="${contextPath}/sitewide/ajax/productSpecialMsgModal.jsp" iclass="view-details modal-trigger" data-target="product-special-msg-modal" data-size="small">
+							<dsp:param name="productId" param="commerceItem.auxiliaryData.productRef.id"/>
+							<span class="icon icon-info"></span>
+						</dsp:a>
+					</div>
+				</dsp:oparam>
+			</dsp:droplet>
+
+		</div>
+
+		<div class="item-price-subtotal order-item-section">
+			<span class="label">Total:</span>
+			<%-- 2414 - Display FREE instead of $0.00 for GWP items --%>
+			<c:choose>
+				<c:when test="${totalLinePrice eq 0}">
+					<span class="item-total">FREE</span>
+				</c:when>
+				<c:otherwise>
+					<span class="item-total"><dsp:valueof value="${totalLinePrice}" converter="currency"/></span>
+				</c:otherwise>
+			</c:choose>
+		</div>
+	</div>
+
+</dsp:page>

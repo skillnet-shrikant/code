@@ -1,0 +1,1 @@
+ALTER TABLE mff_item_price ADD (sale_price_promo_id VARCHAR2(40));

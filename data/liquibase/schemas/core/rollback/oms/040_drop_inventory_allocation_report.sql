@@ -1,0 +1,1 @@
+drop table mff_inventory_report;

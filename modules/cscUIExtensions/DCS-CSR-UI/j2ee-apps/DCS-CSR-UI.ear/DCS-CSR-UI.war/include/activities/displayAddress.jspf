@@ -1,0 +1,25 @@
+<dsp:droplet name="/atg/targeting/RepositoryLookup">
+  <dsp:param name="url" value="${addressId}"/>
+  <dsp:oparam name="output">
+    <dsp:tomap var="address" param="element" />
+    <dl>
+    <dt><c:out value="${address.firstName}"/>
+    <dt>
+      <c:out value="${address.lastName}"/>
+    <dt>
+      <c:out value="${address.address1}"/>
+    <dt>
+      <c:out value="${address.address2}"/>
+    <dt>
+      <c:out value="${address.city}"/>
+    <dt>
+      <c:out value="${address.state}"/>
+    <dt>
+      <c:out value="${address.postalCode}"/>
+    <dt>
+      <c:out value="${address.phoneNumber}"/>
+    </dl>
+  </dsp:oparam>
+</dsp:droplet>
+
+<%-- @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/include/activities/displayAddress.jspf#1 $$Change: 946917 $--%>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<spr:beans xmlns:spr="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns="http://www.endeca.com/schema/eacToolkit"
+  xsi:schemaLocation="
+      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+      http://www.endeca.com/schema/eacToolkit http://www.endeca.com/schema/eacToolkit/eacToolkit.xsd">
+
+  <!--
+    ########################################################################
+    # Authoring MDEX Hosts - The machines used to host all MDEX processes
+    # for the 'authoring environment' MDEX cluster.
+    #
+  -->
+  <host id="AuthoringMDEXHost" hostName="@WORKBENCH_MDEX_HOST@" port="@EAC_PORT@" />
+
+  <!--
+    ########################################################################
+    # Authoring Dgraph Cluster - The 'authoring environment' MDEX cluster.
+    #
+  -->
+  <dgraph-cluster id="AuthoringDgraphCluster" getDataInParallel="true" enabled="true" configSnapshotDir="./data/dgraphcluster/AuthoringDgraphCluster/config_snapshots">
+    <dgraph ref="AuthoringDgraph" />
+  </dgraph-cluster>
+
+  <!--
+    ########################################################################
+    # Authoring Dgraph Process Definitions
+    #
+  -->
+  <dgraph id="AuthoringDgraph" host-id="AuthoringMDEXHost" port="@WORKBENCH_MDEX_PORT@"
+          post-startup-script="AuthoringDgraphPostStartup">
+    <properties>
+      <property name="restartGroup" value="A" />
+      <property name="DgraphContentGroup" value="Authoring" />
+    </properties>
+    <log-dir>./logs/dgraphs/AuthoringDgraph</log-dir>
+    <input-dir>./data/dgraphs/AuthoringDgraph/dgraph_input</input-dir>
+    <update-dir>./data/dgraphs/AuthoringDgraph/dgraph_input/updates</update-dir>
+  </dgraph>
+
+  <!--
+    ########################################################################
+    # AuthoringDgraphPostStartup - a script that executes immediately after
+    # each authoring environment dgraph starts up
+    #
+  -->
+  <script id="AuthoringDgraphPostStartup">
+    <bean-shell-script>
+      <![CDATA[
+        compId = invokingObject.getElementId();
+        log.info("Publishing Workbench 'authoring' configuration to MDEX '" + compId + "'");
+        IFCR.pushAuthoringContentToDgraphById(compId);
+      ]]>
+    </bean-shell-script>
+  </script>
+
+</spr:beans>
+<!-- @version $Id: //hosting-blueprint/B2CBlueprint/version/11.2/Storefront/deploy/script/AuthoringDgraphCluster.xml#1 $$Change: 953229 $-->

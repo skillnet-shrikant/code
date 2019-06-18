@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<configurations xmlns="http://endeca.com/itl/cas/2011-12">
+	<crawlConfig>
+		<crawlId>
+			<id>@APP_NAME@-last-mile-crawl</id>
+		</crawlId>
+		<sourceConfig>
+			<moduleId>
+				<id>com.endeca.cas.source.RecordStoreMerger</id>
+			</moduleId>
+			<moduleProperties>
+				<moduleProperty>
+					<key>dataRecordStores</key>
+					<value>@APP_NAME@-data</value>
+				</moduleProperty>
+				<moduleProperty>
+					<key>dimensionValueRecordStores</key>
+					<value>@APP_NAME@-dimvals</value>
+					<value>@APP_NAME@-price</value>
+				</moduleProperty>
+			</moduleProperties>
+			<excludeFilters />
+			<includeFilters />
+		</sourceConfig>
+		<textExtractionConfig>
+			<enabled>false</enabled>
+			<makeLocalCopy>false</makeLocalCopy>
+		</textExtractionConfig>
+		<manipulatorConfigs />
+		<outputConfig>
+			<moduleId>
+				<id>com.endeca.cas.output.Mdex</id>
+			</moduleId>
+			<moduleProperties>
+				<moduleProperty>
+					<key>inputDirectory</key>
+					<value>@ENDECA_APPS_DIR@/@APP_NAME@/config/mdex</value>
+				</moduleProperty>
+				<moduleProperty>
+					<key>outputDirectory</key>
+					<value>@ENDECA_APPS_DIR@/@APP_NAME@/data/cas_output</value>
+				</moduleProperty>
+				<moduleProperty>
+					<key>dimensionValueIdManagerInstanceName</key>
+					<value>@APP_NAME@-dimension-value-id-manager</value>
+				</moduleProperty>
+				<moduleProperty>
+					<key>configRepositoryHost</key>
+					<value>@WORKBENCH_HOST@</value>
+				</moduleProperty>
+				<moduleProperty>
+					<key>configRepositoryPort</key>
+					<value>@WORKBENCH_PORT@</value>
+				</moduleProperty>
+				<!--To use clear text credentials, Uncomment the below section-->
+				<!--
+				<moduleProperty>
+					<key>configRepositoryUserName</key>
+					<value>@WORKBENCH_USER@</value>
+				</moduleProperty>
+				<moduleProperty>
+					<key>configRepositoryPassword</key>
+					<value>@WORKBENCH_PASSWORD@</value>
+                </moduleProperty>
+				-->
+                <moduleProperty>
+					<key>configRepositorySite</key>
+					<value>@APP_NAME@</value>
+				</moduleProperty>
+                <moduleProperty>
+                    <key>JpsConfigPath</key>
+                    <value>@ENDECA_BASE_DIR@/ToolsAndFrameworks/11.2.0/deployment_template/lib/../../server/workspace/credential_store/jps-config.xml</value>
+                </moduleProperty>
+                <moduleProperty>
+                    <key>OcsMapName</key>
+                    <value>endecaToolsAndFrameworks</value>
+                </moduleProperty>
+				<moduleProperty>
+                    <key>OcsKeyName</key>
+                    <value>ifcr</value>
+                </moduleProperty>
+				<moduleProperty>
+                    <key>useSsl</key>
+                    <value>false</value>
+                </moduleProperty>
+			</moduleProperties>
+		</outputConfig>
+	</crawlConfig>
+</configurations>
+<!-- @version $Id: //hosting-blueprint/B2CBlueprint/version/11.2/Storefront/deploy/cas/last-mile-crawl.xml#2 $$Change: 1179550 $-->

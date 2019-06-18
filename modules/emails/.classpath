@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="var" path="ATG_DIR/DAS/lib/servlet.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DAS/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DCS/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DPS/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DSS/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DAS/lib/resources.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DCS/lib/resources.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DPS/lib/resources.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DSS/lib/resources.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="j2ee-apps/emails.war/WEB-INF/lib/dspjspTaglib1_0.jar"/>
+	<classpathentry kind="lib" path="j2ee-apps/emails.war/WEB-INF/lib/json-taglib-0.4.jar"/>
+	<classpathentry kind="lib" path="j2ee-apps/emails.war/WEB-INF/lib/jstl-api-1.2.jar"/>
+	<classpathentry kind="lib" path="j2ee-apps/emails.war/WEB-INF/lib/jstl-impl-1.2.jar"/>
+	<classpathentry kind="lib" path="j2ee-apps/emails.war/WEB-INF/lib/packtag-3.10.jar"/>
+	<classpathentry kind="lib" path="j2ee-apps/emails.war/WEB-INF/lib/yuicompressor-2.4.7.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

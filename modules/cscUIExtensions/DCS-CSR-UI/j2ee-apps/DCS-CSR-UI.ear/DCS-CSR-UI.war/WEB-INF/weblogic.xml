@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<weblogic-web-app xmlns="http://xmlns.oracle.com/weblogic/weblogic-web-app" 
+                               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                               xsi:schemaLocation="http://xmlns.oracle.com/weblogic/weblogic-web-app http://xmlns.oracle.com/weblogic/weblogic-web-app/1.5/weblogic-web-app.xsd">
+  <container-descriptor>
+    <prefer-web-inf-classes>true</prefer-web-inf-classes>
+  </container-descriptor>
+  <!--  <jsp-descriptor>
+  	<precompile>true</precompile>
+  </jsp-descriptor>-->
+  <jsp-descriptor>
+  	<page-check-seconds>0</page-check-seconds>
+  </jsp-descriptor>
+</weblogic-web-app>
+<!-- @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/WEB-INF/weblogic.xml#2 $$Change: 953229 $-->

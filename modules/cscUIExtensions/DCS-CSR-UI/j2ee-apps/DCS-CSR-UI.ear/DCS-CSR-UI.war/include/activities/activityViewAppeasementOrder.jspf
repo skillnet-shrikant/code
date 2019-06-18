@@ -1,0 +1,14 @@
+<dsp:importbean bean="/atg/commerce/custsvc/appeasement/AppeasementItemLookup" />
+<dsp:droplet name="AppeasementItemLookup">
+  <dsp:param name="id" value="${activity[propertyName]}" />
+  <dsp:oparam name="output">
+    <dsp:tomap var="appeasement" param="element" />
+    <strong>
+      <fmt:message key="orderId" />
+    </strong> :
+    <a href="#" class="blueU" onclick="atg.commerce.csr.order.viewExistingOrder('${appeasement.order.id}','${order.stateAsString}');return false;"><c:out value="${appeasement.order.id}"/></a>
+    <br />
+  </dsp:oparam>
+</dsp:droplet>
+
+<%-- @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/include/activities/activityViewAppeasementOrder.jspf#1 $$Change: 1179550 $--%>

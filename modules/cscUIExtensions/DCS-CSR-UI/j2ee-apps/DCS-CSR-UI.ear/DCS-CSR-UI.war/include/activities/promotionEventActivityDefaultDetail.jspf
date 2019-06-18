@@ -1,0 +1,23 @@
+  <tr class="inlineEditor">
+  <td colspan="5">
+    <div class="editArea">
+      <div class="currentActivity">
+        <h5><fmt:message key="activityDetails" /></h5>
+        <dl class="status">
+          <strong><fmt:message key="promotionId" /></strong> :
+          ${activity.promotionId}
+          <br />
+          <strong><fmt:message key="displayName" /></strong> :
+          <c:out escapeXml="true" value="${promotionMap.displayName}"/>
+          <br />
+          <c:if test="${! empty activity.orderId}">
+            <%@ include file="/include/activities/activityOrderLookup.jspf"%>
+            <strong><fmt:message key="orderId" /></strong> :
+            <a href="#" class="blueU" onclick="atg.commerce.csr.order.viewExistingOrder('${activity.orderId}','${order.stateAsString}');return false;"><c:out value="${activity.orderId}"/></a>
+          </c:if>
+        </dl>
+      </div>
+    </div>
+  </td>
+</tr>
+<%-- @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/include/activities/promotionEventActivityDefaultDetail.jspf#2 $$Change: 1192807 $--%>

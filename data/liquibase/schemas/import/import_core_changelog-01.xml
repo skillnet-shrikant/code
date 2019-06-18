@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+<!--		  
+   <changeSet author="cgopalan" id="001_import_zipcode_usa">
+	<comment>imports zip code data</comment>
+	<sqlFile path="schemas/import/dml/core/001_import_zipcode_usa.sql"/>
+   </changeSet> 	  
+-->   
+   <changeSet author="cgopalan" id="002_inventory_levels">
+	<comment>imports zip code data</comment>
+	<sqlFile path="schemas/import/dml/core/002_inventory_levels.sql"/>
+   </changeSet> 
+
+<!--
+   <changeSet author="cgopalan" id="003_search_facets">
+	<comment>test facet data</comment>
+	<sqlFile path="schemas/import/dml/core/003_search_facets.sql"/>
+   </changeSet>
+-->
+   <changeSet author="smyana" id="004_update_mff_zipcode_data">
+	<comment>prepend zeros for zipcodes with leght less than 5</comment>
+	<sqlFile path="schemas/import/dml/core/004_update_mff_zipcode_data.sql"/>
+   </changeSet>
+<!--   
+   <changeSet author="cgopalan" id="005_search_facets">
+	<comment>test facet data</comment>
+	<sqlFile path="schemas/import/dml/core/005_search_facets.sql"/>
+   </changeSet>
+-->
+<changeSet author="pventrapragada" id="001_zipcode_data" runAlways="true" labels="zipcode_import">
+    <loadUpdateData file="schemas/import/csv/core/001_mff_zipcode.csv" tableName="mff_zipcode_usa" primaryKey="ID">
+        <column name="ID" header="ID"/>
+        <column name="ZIPCODE" header="ZIPCODE"/>
+        <column name="DECOMMISSIONED" header="DECOMMISSIONED"/>
+        <column name="CITY" header="CITY"/>
+        <column name="STATE" header="STATE"/>
+        <column name="COUNTY" header="COUNTY"/>
+        <column name="TIMEZONE" header="TIMEZONE"/>
+    </loadUpdateData>
+</changeSet>
+<changeSet author="cgopalan" id="002_tax_mappings" runAlways="true" labels="tax_mappings">
+    <loadUpdateData file="schemas/import/csv/core/002_tax_mappings.csv" tableName="tax_mappings" primaryKey="LEGACY_ID">
+        <column name="LEGACY_ID" header="LEGACY_ID"/>
+        <column name="CURRENT_ID" header="CURRENT_ID"/>
+    </loadUpdateData>
+</changeSet>
+<changeSet author="bnuthalapati" id="008_fedex_overnight_restricted">
+	<comment>Push fedex overnight restricted zipcode.</comment>
+	<sqlFile path="schemas/import/dml/core/008_fedex_overnight_restricted.sql"/>
+   </changeSet>
+ 
+</databaseChangeLog>

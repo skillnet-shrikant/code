@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<!DOCTYPE gsa-template PUBLIC "-//Art Technology Group, Inc.//DTD General SQL Adapter//EN" "http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
+
+<gsa-template>
+
+	<header>
+		<name>Location Repository Extension - MFF</name>
+		<author>KnowledgePath</author>
+		<description>This defines the ATG location extensions to include attributes for MFF stores</description>
+	</header>
+	<!-- ///////////// Start of Location Item Descriptor//////////// -->
+	<item-descriptor display-name-resource="itemDescriptorLocation" expert="false" hidden="false" 
+		use-id-for-path="false" content="false" writable="true" default="false" display-property="name" 
+		folder="false" cache-mode="simple" id-separator=":" name="location" sub-type-property="type" 
+		version-property="version">
+   		<property readable="true" expert="true" display-name="Today Store Hours" hidden="true" item-type="storeHours" required="false" property-type="com.mff.repository.property.TodayStoreHours" writable="false" queryable="false" 
+    		cache-mode="disabled" backing-map-property="false" name="todayStoreHours" category-resource="categoryStoreHours"/>
+    	<property readable="true" expert="true" name="standardStoreHoursList" display-name="Standard Store Hours" data-type="list" component-item-type="storeHours"  required="false" property-type="com.mff.repository.property.StandardStoreHours" writable="false" queryable="false" 
+    		 hidden="true" cache-mode="inherit" cascade="update" backing-map-property="false" category-resource="categoryStoreHours"/>
+    	<property readable="true" expert="true" name="holidayStoreHoursList" display-name="Holiday Store Hours" data-type="list" component-item-type="storeHours"  required="false" property-type="com.mff.repository.property.HolidayStoreHours" writable="false" queryable="false" 
+    		 hidden="true" cache-mode="inherit" cascade="update" backing-map-property="false" category-resource="categoryStoreHours"/>
+    	<property readable="true" expert="true" name="activeStoreEvents" display-name="Active Store Events" data-type="list" component-item-type="storeEvent"  required="false" property-type="com.mff.repository.property.ActiveStoreEvents" writable="false" queryable="false" 
+    		 hidden="true" cache-mode="inherit" cascade="update" backing-map-property="false" category-resource="categoryStoreEvents"/>    	
+	</item-descriptor>
+
+</gsa-template>

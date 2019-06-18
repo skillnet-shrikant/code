@@ -1,0 +1,135 @@
+<!-- Individual Module Build File -->
+<!-- Version: $Id$ -->
+<project name="integration-jsonschema2pojo-build" default="jsonschema2pojo-default-target" basedir=".">
+	
+		<path id="jsonschema2pojo.classpath">
+			<fileset dir="../jsonschema2pojo/lib">
+			 	<include name="**/*.jar"/>
+		     </fileset>
+		</path>
+		<path id="jsonschema2pojo_client.classpath">
+			<fileset dir="../jsonschema2pojo/lib">
+		 		<include name="**/*.jar"/>
+	     	</fileset>
+			<fileset dir="lib">
+				<include name="**/*.jar"/>
+			</fileset>
+		</path>
+		
+		<target name="jsonschema2pojo-default-target">
+			<echo message="Default-target for jsonschema2pojo build" />
+		</target>
+	
+	
+    
+	<!-- Provide the service name as command line argument using -Dservicename=INPUT_SERVICE_NAME and packagename to the ant command -->
+	<target name="generate-pojo-from-json">
+		<echo message="Generates Pojo from Json schema for the ${servicename} and package name ${packagename}" />
+		
+		<!--
+		<antcall target="json2pojo-jar-client">
+			<param name="servicename" value="${servicename}" />
+			<param name="packagename" value="${packagename}" />
+		</antcall>
+		-->
+		<antcall target="json2pojo">
+			<param name="servicename" value="${servicename}" />
+			<param name="packagename" value="${packagename}" />
+		</antcall>
+		
+		
+		<antcall target="json2pojo-compile-clear">
+			<param name="servicename" value="${servicename}" />
+			<param name="packagename" value="${packagename}" />
+		</antcall>
+
+		
+		
+	</target>
+	
+	<pathconvert property="json2pojoclasspath" refid="jsonschema2pojo.classpath" />
+	
+	<taskdef name="jsonschema2pojo" classname="org.jsonschema2pojo.ant.Jsonschema2PojoTask" >
+		<classpath>
+			<fileset dir="../jsonschema2pojo/lib">
+			 	<include name="**/*.jar"/>
+		     </fileset>
+		</classpath>
+	</taskdef>
+	
+	<target name="json2pojo" depends="json2pojo-clean,json2pojo-prepare">
+		<property name="servicename" value="${servicename}" />
+		<property name="packagename" value="${packagename}" />
+		<echo message="json2pojo for ${servicename}" />
+		<echo> json2pojo class path is ${json2pojoclasspath} </echo>
+		<path id="json2pojo-json-path">
+			<fileset dir="./json/${servicename}">
+				<include name="**/*.json" />
+			</fileset>
+		</path>
+		<pathconvert property="json2pojojsonfile" pathsep="," refid="json2pojo-json-path" />
+		<basename property="jsonfilename" file="${json2pojojsonfile}" />
+		<!-- Get the wsdl file name -->
+			<echo>Json file is ${jsonfilename} </echo>
+		
+		
+		<jsonschema2pojo source="./json/${servicename}/${jsonfilename}" targetDirectory="./${servicename}/src/" targetPackage="${packagename}"/>
+		
+		
+	</target>
+	
+	
+	
+	<target name="json2pojo-clean">
+		<property name="servicename" value="${servicename}" />
+		<property name="packagename" value="${packagename}" />
+		<echo message="Cleaning json2pojo-clean directories for ${servicename}" />
+		<!--
+		<delete dir="./build/json2pojo" />
+		-->
+		<delete dir="./json2pojo/${servicename}" />
+	</target>
+	
+			
+	<target name="json2pojo-prepare" >
+		<property name="servicename" value="${servicename}" />
+		<property name="packagename" value="${packagename}" />
+		<echo message="Preparing for json2pojo client generation for ${servicename}" />
+		<!--
+		<mkdir dir="./build/json2pojo/classes/${servicename}" />
+		-->
+		<mkdir dir="./json2pojo/${servicename}" />
+	</target>
+	
+	
+	<target name="json2pojo-compile" depends="json2pojo">
+		<property name="servicename" value="${servicename}" />
+		<property name="packagename" value="${packagename}" />
+		<echo message="Compiling json2pojo generated classes for ${servicename}" />
+		<javac srcdir="./json2pojo/${servicename}" destdir="./build/json2pojo/classes/${servicename}" deprecation="true" failonerror="true" debug="true">
+			<classpath refid="jsonschema2pojo.classpath"/>
+		</javac>
+	</target>
+	
+	
+	<target name="json2pojo-jar-client" depends="json2pojo-compile">
+		<property name="servicename" value="${servicename}" />
+		<property name="packagename" value="${packagename}" />
+		<echo message="Jar the generated client for ${servicename}" />
+		<property name="servicename" value="${servicename}" />
+		<jar jarfile="./${servicename}/lib-external/${module.name}${servicename}serviceclient.jar" >
+			<fileset dir="./build/json2pojo/classes/${servicename}" />
+		</jar>
+	</target>
+		
+	<target name="json2pojo-compile-clear">
+		<property name="servicename" value="${servicename}" />
+		<property name="packagename" value="${packagename}" />
+		<echo message="Clear compiled directories for ${servicename}" />
+		<!--
+		<delete dir="./build/" />
+		-->
+		<delete dir="./json2pojo/" />
+	</target>
+	
+</project>

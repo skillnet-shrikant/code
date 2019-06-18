@@ -1,0 +1,102 @@
+<%--
+Address fields for compose panel - OutboundMessage bean 'msg' should be in scope.
+
+There is a read-only and an editable view of the address panel. Only one should be visible at a time.
+If there are no addresses set initially, then the editable view should be displayed, otherwise render the
+readonly view, and give the agent the ability to toggle to editable view
+
+@version $Id: //application/service-UI/version/11.2/framework/Agent/src/web-apps/ServiceFramework/include/response/addressFields.jspf#1 $$Change: 946917 $
+@updated $DateTime: 2015/01/26 17:26:27 $$Author: jsiddaga $
+--%>
+
+<c:set var="allAddressesEmpty" value="${(empty msg.toAddressList) and (empty msg.ccAddressList) and (empty msg.bccAddressList)}"/>
+
+<c:choose>
+  <c:when test="${allAddressesEmpty}">
+    <c:set var="readonlyStyle" value="display:none;"/>
+    <c:set var="editableStyle" value="display:table-row-group ;"/>
+  </c:when>
+  <c:otherwise>
+    <c:set var="readonlyStyle" value="display:table-row-group ;"/>
+    <c:set var="editableStyle" value="display:none;"/>
+  </c:otherwise>
+</c:choose>
+
+<dl id="readOnlyAddresses_div" class="recipientForm atg-csc-base-table-row-group" style="<c:out value='${readonlyStyle}' />" onclick="ResponseToggleAddressesEditable()">
+
+  <dspel:include page="addressList.jsp">
+    <dspel:param name="addressList" value="${msg.toAddressList}"/>
+    <dspel:param name="labelKey" value="response.compose.address.to.label"/>
+    <dspel:param name="displayEdit" value="true"/>
+  </dspel:include>
+  <dspel:include page="addressList.jsp">
+    <dspel:param name="addressList" value="${msg.ccAddressList}"/>
+    <dspel:param name="labelKey" value="response.compose.address.cc.label"/>
+  </dspel:include>
+  <dspel:include page="addressList.jsp">
+    <dspel:param name="addressList" value="${msg.bccAddressList}"/>
+    <dspel:param name="labelKey" value="response.compose.address.bcc.label"/>
+  </dspel:include>
+
+</dl>
+
+<%-- Editable Input Area - all fields displayed --%>
+<dl id="editableAddresses_div" class="recipientForm atg-csc-base-table-row-group" style="<c:out value="${editableStyle}"/>">
+  <c:set var="escapedAddressList"><c:out value="${msg.toAddressListString}" escapeXml="true" /></c:set>
+  <div class="atg-csc-base-table-row">
+    <dt class="atg-csc-base-table-cell"><fmt:message key="response.compose.address.to.label"/></dt>
+    <dd class="atg-csc-base-table-cell"><dspel:input bean="atg/svc/agent/ui/formhandlers/OutboundMessageFormHandler"
+                     type="text"
+                     id="to"
+                     size="80"
+                     maxlength="254"
+                     value="${escapedAddressList}"/>
+    </dd>
+
+    <c:choose>
+      <c:when test="${msg.channel.ccAddressAllowed or (not empty msg.ccAddressList)}">
+        <c:set var="ccAllowed" value="display:table-row;"/>
+      </c:when>
+      <c:otherwise>
+        <c:set var="ccAllowed" value="display:none;"/>
+      </c:otherwise>
+    </c:choose>
+
+    <c:choose>
+        <c:when test="${msg.channel.bccAddressAllowed or (not empty msg.bccAddressList)}">
+          <c:set var="bccAllowed" value="display:table-row;"/>
+        </c:when>
+        <c:otherwise>
+          <c:set var="bccAllowed" value="display:none;"/>
+        </c:otherwise>
+    </c:choose>
+  </div>
+
+  <div id="cc_div" class="atg-csc-base-table-row" style="<c:out value='${ccAllowed}' />">
+    <c:set var="escapedAddressList"><c:out value="${msg.ccAddressListString}" escapeXml="true" /></c:set>
+    <dt class="atg-csc-base-table-cell"><fmt:message key="response.compose.address.cc.label"/></dt>
+    <dd class="atg-csc-base-table-cell"><dspel:input bean="atg/svc/agent/ui/formhandlers/OutboundMessageFormHandler"
+                     type="text"
+                     id="cc"
+                     size="80"
+                     maxlength="254"
+                     value="${escapedAddressList}"/>
+    </dd>
+  </div>
+
+  <div id="bcc_div" class="atg-csc-base-table-row" style="<c:out value='${bccAllowed}' />">
+    <c:set var="escapedAddressList"><c:out value="${msg.bccAddressListString}" escapeXml="true" /></c:set>
+    <dt class="atg-csc-base-table-cell"><fmt:message key="response.compose.address.bcc.label"/></dt>
+    <dd class="atg-csc-base-table-cell"><dspel:input bean="atg/svc/agent/ui/formhandlers/OutboundMessageFormHandler"
+                     type="text"
+                     id="bcc"
+                     size="80"
+                     maxlength="254"
+                     value="${escapedAddressList}"/>
+    </dd>
+  </div>
+</dl>
+
+
+<!-- $Id: //application/service-UI/version/11.2/framework/Agent/src/web-apps/ServiceFramework/include/response/addressFields.jspf#1 $$Change: 946917 $$DateTime: 2015/01/26 17:26:27 $ -->
+<%-- @version $Id: //application/service-UI/version/11.2/framework/Agent/src/web-apps/ServiceFramework/include/response/addressFields.jspf#1 $$Change: 946917 $--%>

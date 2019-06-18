@@ -1,0 +1,115 @@
+// Use the components directory to construct the meat of your CSS.
+// Categorize your styles here based on element in the file name.
+
+// Button definitions
+
+@mixin button() {
+	display: inline-block;
+	//outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	border: 1px solid transparent;
+	@include font-size(12px);
+	@include rem-size(line-height, $field-line-height);
+	text-transform: uppercase;
+	font-weight: $bold;
+	letter-spacing: 1px;
+	margin-bottom: 0;
+	padding: $field-vertical-padding 24px;
+	vertical-align: middle;
+	white-space: nowrap;
+	position: relative;
+
+	&:hover {
+		text-decoration: none;
+	}
+
+}
+
+
+/*  Default primary and secondary button styles
+------------------------------------------------------------------- */
+
+.button {
+	@include button();
+
+	&.primary {
+		background: $btn-primary;
+		color: $white !important;
+
+		&:hover, &:focus {
+			background: darken($btn-primary, 15);
+		}
+		&.outline {
+			background: $light-orange;
+			color: $orange !important;
+			border: 1px solid $orange;
+			&:hover, &:focus {
+				background: $orange;
+				color: $white !important;
+			}
+		}
+		.icon-check {
+			color: $white;
+			margin-right: 4px;
+			position: relative;
+			top: 2px;
+		}
+	}
+
+	&.secondary {
+		background: $btn-secondary;
+		color: $black !important;
+		&:hover, &:focus {
+			background: darken($btn-secondary, 15);
+		}
+	}
+
+	&.tertiary {
+		background: $btn-tertiary;
+		color: $white !important;
+		&:hover, &:focus {
+			background: darken($btn-tertiary, 15);
+		}
+	}
+
+	&.disabled{
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		box-shadow: none;
+		cursor: not-allowed;
+		@include opacity(0.65);
+		pointer-events: none;
+	}
+
+	&.small {
+		@include font-size(11px);
+		@include rem-size(line-height, 13px);
+		padding: $field-vertical-padding 14px;
+	}
+
+	&.medium {
+		@include font-size(12px);
+		@include rem-size(line-height, 18px);
+		padding: $field-vertical-padding 32px;
+	}
+
+	&.expand {
+		width: 100% !important;
+	}
+
+	@include media(small-only){
+		.field-group & {
+			width: 100%;
+		}
+	}
+}
+
+input.button.primary {
+	margin: 0;
+	//
+	//.modal & {
+	//	@include rem-size(margin-top, 10px);
+	//}
+}

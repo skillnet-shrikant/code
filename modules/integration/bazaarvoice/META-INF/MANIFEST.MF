@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+ATG-Required: KP.integration.base
+ATG-Class-Path: lib/bazaarvoice.jar lib-external/bazaar_voice_schema-stub-classes.jar lib-external/bboss-velocity.jar lib-external/apache-commons-codec-1.4.jar lib-external/apache-commons-lang.jar lib-external/apache-commons-jexl-1.0.jar lib-external/com.jcraft.jsch_0.1.27.jar lib-external/commons-net-ftp-2.0.jar lib-external/httpclient-4.2.5.jar lib-external/httpcore-4.2.4.jar lib-external/xbean.jar lib-external/bv-seo-sdk-4.0.0.jar 
+ATG-Client-Class-Path: lib/bazaarvoice.jar
+ATG-Config-Path: config
+ATG-Web-Module: j2ee-apps/bazaarvoice.war
+ATG-Module-Uri: bazaarvoice.war
+ATG-Context-Root: bv
+
+Name: lib/bazaarvoice.jar
+ATG-Client-Update-File: true
+SHA-Digest: 8R6mzxcTAL694N0L1zqr4sj//CE=
+Digest-Algorithms: SHA MD5
+MD5-Digest: w/zBizAJCz/eA6LpbmHI/w==

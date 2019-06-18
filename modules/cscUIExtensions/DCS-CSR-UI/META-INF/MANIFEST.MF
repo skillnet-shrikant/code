@@ -1,0 +1,2 @@
+Manifest-Version: 1.0
+ATG-EAR-Module: j2ee-apps/DCS-CSR-UI.ear

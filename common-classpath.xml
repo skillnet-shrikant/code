@@ -1,0 +1,46 @@
+<project name="CommonClasspath" basedir=".">
+        <path id="common.classpath">
+                <fileset dir="${dynamo.home}/../DAS/lib">
+                        <include name="**/*.jar" />
+                </fileset>
+                <fileset file="${atg.home}/../DPS/lib/classes.jar" />
+                <fileset file="${atg.home}/../DCS/lib/classes.jar" />
+                <fileset file="${atg.home}/../DSS/lib/classes.jar" />
+                <fileset file="${atg.home}/../Publishing/base/lib/classes.jar" />
+                <fileset file="${atg.home}/lib/assembler.jar" />
+                <fileset file="${atg.home}/../DAF/Endeca/Assembler/lib/classes.jar" />
+                <fileset file="${atg.home}/../DAF/Endeca/Assembler/lib/endeca_assembler_core-11.2.0.jar" />
+                <fileset file="${atg.home}/../DAF/Endeca/Assembler/lib/endeca_navigation-6.5.2.jar" />
+                <fileset file="${atg.home}/../DAF/Endeca/Assembler/lib/endeca_assembler_navigation-11.2.0.jar" />
+                <fileset file="${atg.home}/../DAF/Endeca/Base/lib/classes.jar" />
+                <fileset file="${atg.home}/../DAF/Endeca/Index/lib/classes.jar" />
+                <fileset file="${atg.home}/../DAF/Search/Base/lib/classes.jar" />
+                <fileset file="${atg.home}/../DAF/Search/common/lib/classes.jar" />
+                <fileset file="${atg.home}/../DAF/Search/Query/lib/classes.jar" />
+                <fileset file="${atg.home}/../DAF/Search/Index/lib/classes.jar" />
+				<fileset file="${atg.home}/../DAF/TextSearch/Base/lib/classes.jar" />
+				<fileset file="${atg.home}/../DAF/TextSearch/LiveIndex/lib/classes.jar" />
+				<fileset file="${atg.home}/../DAF/TextSearch/Index/lib/classes.jar" />
+                <fileset file="${atg.home}/../DPS-UI/lib/classes.jar" />
+                <fileset file="${atg.home}/../DCS-UI/lib/classes.jar" />
+                <fileset file="${atg.home}/../AssetUI/lib/classes.jar" />
+
+				<!--
+				<fileset dir="${jboss.home}/modules/system/layers/base/javax">
+					<include name="**/*.jar"/>
+				</fileset>
+
+				<fileset file="${jboss.home}/common/lib/servlet-api.jar" />
+                <fileset file="${jboss.home}/lib/jboss-logging-spi.jar" />
+                <fileset file="${jboss.home}/lib/log4j-boot.jar" />
+				-->
+        </path>
+  <patternset id="resource.files">
+    <include name="**/*.properties" />
+    <include name="**/*.xml" />
+    <include name="**/*.dtd" />
+    <include name="**/*.wsdl" />
+    <include name="**/*.xsd" />
+    <include name="**/*.p12" />
+  </patternset>
+</project>

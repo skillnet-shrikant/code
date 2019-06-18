@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+
+<application
+   xmlns="http://java.sun.com/xml/ns/j2ee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+   http://java.sun.com/xml/ns/j2ee/application_1_4.xsd"
+   version="1.4">
+
+  <display-name>
+    BazaarVoice
+  </display-name>
+
+  <module>
+    <web>
+      <web-uri>
+        bazaarvoice.war
+      </web-uri>
+      <context-root>
+        bv
+      </context-root>
+    </web>
+  </module>
+
+</application>
+<!-- @version $Id: //hosting-blueprint/B2CBlueprint/version/10.0.1/Storefront/j2ee/META-INF/application.xml#1 $$Change: 623719 $-->

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE gsa-template
+        PUBLIC "-//Art Technology Group, Inc.//DTD General SQL Adapter//EN"
+        "http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
+
+<gsa-template>
+
+  <header>
+    <name>Order Dashboard</name>
+    <author>DMI</author>
+    <version>$Id:</version>
+  </header>
+
+  <item-descriptor name="reportitem" cache-mode="simple" display-name="DashBoardRepoItem">
+    <table name="MFF_ORDER_DASHBOARD" type="primary" id-column-name="order_id">
+      <property name="id" column-name="order_id" data-type="string" display-name-resource="orderId">
+        <attribute name="propertySortPriority" value="1"/>
+      </property>
+      <property name="quantity" column-name="quantity" data-type="long" default="0" display-name-resource="quantity">
+        <attribute name="propertySortPriority" value="2"/>
+      </property>
+      <property name="shipped_quantity" column-name="shipped_quantity" data-type="long" default="0" display-name-resource="shipped_quantity">
+        <attribute name="propertySortPriority" value="3"/>
+      </property>
+      <property name="returned_quantity" column-name="returned_quantity" data-type="long" default="0" display-name-resource="returned_quantity">
+        <attribute name="propertySortPriority" value="4"/>
+      </property>
+      <property name="canceled_quantity" column-name="canceled_quantity" data-type="long" default="0" display-name-resource="canceled_quantity">
+        <attribute name="propertySortPriority" value="5"/>
+      </property>
+
+   	  <property name="amount" column-name="amount" data-type="double" default="0.0" display-name-resource="amount">
+        <attribute name="propertySortPriority" value="10"/>
+      </property>
+   	  <property name="canceled_amount" column-name="canceled_amount" data-type="double" default="0.0" display-name-resource="canceled_amount">
+        <attribute name="propertySortPriority" value="11"/>
+      </property>
+         	  <property name="returned_amount" column-name="returned_amount" data-type="double" default="0.0" display-name-resource="returned_amount">
+        <attribute name="propertySortPriority" value="12"/>
+      </property>
+         	  <property name="shipped_amount" column-name="shipped_amount" data-type="double" default="0.0" display-name-resource="shipped_amount">
+        <attribute name="propertySortPriority" value="13"/>
+      </property>
+      <property name="gift_amount" column-name="gift_amount" data-type="double" default="0.0" display-name-resource="gift_amount">
+        <attribute name="propertySortPriority" value="14"/>
+      </property>      
+      <property name="status" data-type="enumerated" column-name="status" display-name="Status" description="The status of Order">
+			<attribute value="false" name="useCodeForValue"/>
+			<option code="0" value="SUBMITTED"/>
+			<option code="1" value="SHIPPED"/>
+			<option code="2" value="CANCELED"/>	
+		</property>
+        <property name="discount_amount" column-name="discount_amount" data-type="double" default="0.0" display-name-resource="discount_amount">
+        <attribute name="propertySortPriority" value="16"/>
+      </property>
+        <property name="shipping_amount" column-name="shipping_amount" data-type="double" default="0.0" display-name-resource="shipping_amount">
+        <attribute name="propertySortPriority" value="17"/>
+      </property>
+        <property name="tax_amount" column-name="tax_amount" data-type="double" default="0.0" display-name-resource="tax_amount">
+        <attribute name="propertySortPriority" value="18"/>
+      </property>
+      <property name="submittedDate" column-name="submitted_date" data-type="timestamp" display-name="Start Date">
+      	<attribute name="propertySortPriority" value="7"/>
+      </property>
+      <property name="modifiedDate" column-name="modified_date" data-type="timestamp" display-name="End Date">
+      	<attribute name="propertySortPriority" value="8"/>
+      </property>
+      
+     </table>  
+  </item-descriptor>  
+  
+  <item-descriptor name="storePerformanceStats" cache-mode="simple"  display-name="DashBoardStatsRepoItem">
+    <table name="MFF_STORE_PERFORMANCE" type="primary" id-column-name="id">
+      <property name="id" column-name="id" data-type="string" display-name-resource="id">
+        <attribute name="propertySortPriority" value="1"/>
+      </property>
+      <property name="storeId" column-name="store_id" data-type="string" display-name-resource="storeId">
+        <attribute name="propertySortPriority" value="1"/>
+      </property>
+      <property name="submittedDate" column-name="submitted_date" data-type="timestamp" default="0" display-name-resource="Submitted Date">
+        <attribute name="propertySortPriority" value="2"/>
+      </property>
+      <property name="ordersAssignedCount" column-name="p_assigned" data-type="long" default="0" display-name-resource="Orders Assigned Count">
+        <attribute name="propertySortPriority" value="3"/>
+      </property>
+      <property name="bopisOrdersAssignedCount" column-name="b_assigned" data-type="long" default="0" display-name-resource="Bopis Orders Assigned Count">
+        <attribute name="propertySortPriority" value="4"/>
+      </property>
+      <property name="openOrdersCount" column-name="p_open" data-type="long" default="0" display-name-resource="Open Orders Count">
+        <attribute name="propertySortPriority" value="5"/>
+      </property>
+
+   	  <property name="bopisOpenOrdersCount" column-name="b_open" data-type="long" default="0" display-name-resource="Bopis Open Orders Count">
+        <attribute name="propertySortPriority" value="6"/>
+      </property>
+   	  <property name="shippedOrderCount" column-name="p_shipped" data-type="long" default="0" display-name-resource="Shipped Order Count">
+        <attribute name="propertySortPriority" value="7"/>
+      </property>
+      <property name="shippedBopisOrderCount" column-name="b_shipped" data-type="long" default="0" display-name-resource="Shipped Bopis Order Count">
+        <attribute name="propertySortPriority" value="8"/>
+      </property>
+      <property name="rejectedOrderCount" column-name="p_rejected" data-type="long" default="0" display-name-resource="Rejected Order Count">
+        <attribute name="propertySortPriority" value="9"/>
+      </property>
+      <property name="rejectedBopisOrderCount" column-name="b_rejected" data-type="long" default="0" display-name-resource="Rejected Bopis Order Count">
+        <attribute name="propertySortPriority" value="10"/>
+      </property>      
+     </table>  
+  </item-descriptor>  
+</gsa-template>

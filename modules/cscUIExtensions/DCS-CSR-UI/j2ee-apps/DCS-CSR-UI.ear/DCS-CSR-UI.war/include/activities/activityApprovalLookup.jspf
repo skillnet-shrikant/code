@@ -1,0 +1,11 @@
+  <dsp:droplet name="/atg/targeting/RepositoryLookup">
+  <dsp:param bean="/atg/commerce/custsvc/approvals/ApprovalsRepository" name="repository"/>
+  <dsp:param name="id" value="${activity.approvalId}"/>
+  <dsp:param name="itemDescriptor" value="${activity.approvalItemDescriptorName}"/>
+  <dsp:param name="elementName" value="approval"/>
+  <dsp:oparam name="output">
+    <dsp:getvalueof var="approval" param="approval"/>
+    <dsp:tomap var="approvalMap" value="${approval}"/>
+  </dsp:oparam>
+  </dsp:droplet>
+<%-- @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/include/activities/activityApprovalLookup.jspf#2 $$Change: 1179550 $--%>

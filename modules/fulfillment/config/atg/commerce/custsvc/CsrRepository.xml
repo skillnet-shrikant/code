@@ -1,0 +1,33 @@
+<gsa-template xml-combine="append">
+
+  <item-descriptor name="returnRequest">
+  	<table shared-table-sequence="1" name="csr_exch" id-column-name="id" type="primary">
+ 		<property name="originOfReturn" column-name="origin_of_return" xml-combine="append">
+       		<option code="3" value="pos"/>
+       		<option code="4" value="pps"/>
+     	</property>
+  	</table>
+  </item-descriptor>
+  
+  <item-descriptor name="returnItem">
+  	<table name="mff_exch_item" id-column-name="id" type="auxiliary">
+ 		<property name="comments" column-name="comments" display-name-resource="comments" data-type="string" cache-mode="inherit" required="false" writable="true" queryable="true" backing-map-property="false" />
+ 		<property name="storeId" column-name="store_id" data-type="string" cache-mode="inherit" required="false" writable="true" queryable="true" backing-map-property="false" />
+  	</table>
+  	<table name="mff_exch_prorate_items" type="multi" id-column-names="exch_item_id">
+       	<property name="proRatedItemIds" column-names="prorate_item_id" data-type="set" component-data-type="string" display-name="Prorate Item Ids"/>
+	</table>
+  </item-descriptor>
+  <item-descriptor name="refundMethod">
+    <table shared-table-sequence="1" name="csr_exch_method" id-column-name="id" type="primary">
+      <property name="methodType">
+        <option code="3" value="giftCard"/>
+      </property>
+    </table>
+  </item-descriptor>
+    <item-descriptor sub-type-value="giftCard" super-type="refundMethod" name="giftCard">
+    	<table name="mff_gc_exch_method" id-column-name="exchange_method_id" type="auxiliary">
+    		<property name="paymentGroupId" column-name="payment_group_id" data-type="string"/>
+    	</table>
+    </item-descriptor>  
+</gsa-template>

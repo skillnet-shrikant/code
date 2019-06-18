@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+ATG-Required: DCS.TextSearch.Order.Index KP.RS.main KP.integration.dashboard
+ATG-Class-Path: lib/fulfillment.jar
+ATG-Client-Class-Path: lib/fulfillment.jar
+ATG-Config-Path: config
+
+Name: lib/fulfillment.jar
+ATG-Client-Update-File: true

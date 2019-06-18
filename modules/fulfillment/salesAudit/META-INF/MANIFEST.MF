@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+ATG-Required: KP.OMS.fulfillment KP.OMS.fulfillment.settlement
+ATG-Class-Path: lib/salesAudit.jar 
+ATG-Client-Class-Path: lib/salesAudit.jar 
+ATG-Config-Path: config
+
+Name: lib/salesAudit.jar
+ATG-Client-Update-File: true

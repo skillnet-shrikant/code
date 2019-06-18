@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<id-spaces>
+    <id-space name="mff_web_order_num" seed="4000000" batch-size="100" prefix="MW"/>
+    <id-space name="mff_csc_order_num" seed="4000000" batch-size="100" prefix="MC"/>
+    <id-space name="mff_bopis_order_num" seed="4000000" batch-size="100" prefix="MB"/>
+    <id-space name="mff_promotion" batch-size="10000" seed="1" prefix="p" />
+</id-spaces>

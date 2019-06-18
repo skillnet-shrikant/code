@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<!DOCTYPE gsa-template PUBLIC "-//Art Technology Group, Inc.//DTD General SQL Adapter//EN" "http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
+
+<gsa-template>
+
+	<header>
+		<name>Price List Extension - MFF</name>
+		<author>KnowledgePath</author>
+		<description>This defines the ATG price list extensions </description>
+	</header>
+	
+	<item-descriptor name="price" item-expire-timeout="1800000" query-expire-timeout="1800000" query-cache-size="220000" item-cache-size="220000">
+		<table name="mff_price" type="auxiliary" id-column-name="price_id" >
+			<property name="promoId" data-type="string"
+				column-name="promo_id" >
+			</property>
+		</table>
+	</item-descriptor>
+</gsa-template>

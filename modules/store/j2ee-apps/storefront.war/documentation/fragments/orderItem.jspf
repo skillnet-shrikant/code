@@ -1,0 +1,55 @@
+<div class="order-item">
+	<div class="item-image">
+		<img src="http://placehold.it/125x125/?text=Cool+Product"/>
+	</div>
+	<div class="item-details">
+		<div class="product-name">
+			Made In Italy Leather Petite 2jours Shopper
+		</div>
+		<div class="product-brand">
+			FENDI
+		</div>
+		<div class="price">
+			<div class="regular-price">$99.00</div>
+			<div class="savings">Saved $20.00 (20)%</div>
+		</div>
+		<div class="product-sku">
+			<span class="label">style:</span> 123123123
+		</div>
+		<div class="product-selections">
+			<div class="variant"><span class="label">size:</span> 5</div>
+			<div class="variant"><span class="label">color:</span> blue</div>
+			<div class="quantity"><span class="label">qty:</span> 1</div>
+		</div>
+
+		<div class="item-actions">
+			<div class="item-action"><a href="" class="item-edit">Edit</a></div>
+			<div class="item-action"><a href="" class="item-save">Save for later</a></div>
+			<div class="item-action"><a href="" class="item-remove">Remove</a></div>
+		</div>
+	</div>
+	<div class="item-price-unit">
+		$29.99
+	</div>
+
+	<div class="item-quantity">
+		<div class="change-quantity" data-quantify>
+			<div class="quantity-group">
+				<div class="minus-icon inactive">
+					<span class="icon icon-minus"></span>
+				</div>
+				<div class="current-quantity"><input type="text" class="counter" value="1" /></div>
+				<div class="plus-icon">
+					<span class="icon icon-plus"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="item-price-subtotal">
+		<div class="price">
+			<div class="regular-price">$99.00</div>
+			<div class="savings">Saved $20.00 (20)%</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,301 @@
+/* Keep documentation styles separate from production styles */
+
+.docs-section {
+	margin-bottom: 6rem;
+}
+.docs-example {
+	border:solid 1px $base-gray;
+	padding:15px;
+	&.facet-example {
+		overflow: auto;
+	}
+	h4 {
+		@include font-size(12px);
+		color: $medium-gray;
+		margin-top:0;
+		text-transform: uppercase;
+	}
+}
+
+// for documentation page side nav utility & style
+.side-nav {
+	display: none;
+	padding: 20px 0;
+	position: fixed;
+	width: 12%;
+	max-width:300px;
+
+	@include media(large-up) {
+		display: block;
+	}
+	ul {
+		@include unlist();
+	}
+	h4 {
+		margin-bottom:0;
+	}
+	a {
+		@include font-size(14px);
+		display: block;
+		text-decoration: none;
+		padding: 5px 15px;
+		color: $black !important;
+		&:hover{
+			background: $light-gray;
+		}
+	}
+}
+.sidenav-active {
+	background: $base-gray;
+	font-style: italic;
+}
+
+/* for outputting code examples */
+pre {
+	background: $light-gray !important;
+	border: none !important;
+	overflow-y: hidden !important;
+	padding: 10px !important;
+	font-family: courier, monospace, sans-serif;
+	@include font-size(13px);
+	// white-space: pre-wrap;       /* CSS 3 */
+	//    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+	//    white-space: -pre-wrap;      /* Opera 4-6 */
+	//    white-space: -o-pre-wrap;    /* Opera 7 */
+	//    word-wrap: break-word;
+}
+
+code {
+	background: $light-gray;
+	display: inline-block;
+	padding: 2px 5px 2px;
+	font-family: courier, monospace, sans-serif;
+}
+
+/* Mixin examples */
+.big-font-example {
+	@include font-size(22px);
+}
+.small-font-example {
+	@include font-size(10px);
+}
+
+.line-height-example {
+	@include rem-size(line-height, 16px);
+}
+
+
+.transition-example {
+	width:150px;
+	height:150px;
+	margin: 0 auto;
+	@include transition(background-color, 0.5s, ease-in-out);
+	background-color: red;
+	text-align:center;
+	&:hover {
+		background-color: orange;
+	}
+	span {
+		line-height:150px;
+		@include font-size(10px);
+		color:white;
+	}
+}
+.box-shadow-example {
+	width:150px;
+	height:150px;
+	margin: 0 auto;
+	&.outset {
+		background-color: cornflowerblue;
+		@include box-shadow(1px, 3px, 10px, $medium-gray);
+	}
+	&.inset {
+		background-color: seagreen;
+		@include box-shadow(1px, 3px, 10px,  $deepest-gray, true);
+	}
+}
+.rounded-example {
+	width:150px;
+	height:150px;
+	margin: 0 auto;
+	background-color: olivedrab;
+	@include rounded(20px);
+}
+.text-shadow-example {
+	@include font-size(22px);
+	@include text-shadow(1px, 1px, 3px, rgba(150, 150, 150, .5));
+}
+
+/* Media Query example */
+.mq-demo-box {
+	//small and up styles
+	color: $white;
+	background-color: red;
+	@include media(medium-up) {
+		background-color: $bright-blue;
+	}
+	@include media(large-up) {
+		color: $black;
+		background-color: $orange;
+	}
+}
+
+/* Dropdown Example */
+#dropdown-docs {
+	.dropdown-menu {
+		min-width: 170px;
+	}
+	.dropdown-toggle {
+		width:200px;
+	}
+}
+
+
+/* Accordion Example */
+#accordion-docs .accordion {
+	.accordion-container {
+		border-top:solid 1px black;
+		margin-top:-1px;
+	}
+	.accordion-title {
+		font-weight:bold;
+		border-bottom:solid 1px black;
+		padding:10px 5px;
+	}
+	.accordion-body {
+		background-color: $almost-white;
+	}
+	.accordion-body-content {
+		padding: 10px 10px 10px 30px;
+	}
+	.icon-plus {
+		margin-right:5px;
+	}
+}
+
+//Totals Demo
+.demo-total-wrapper {
+	width:300px
+}
+
+// Promo Code Demo
+.promo-code-container {
+	width:100%;
+	border: 1px solid lighten($black, 65);
+	background: lighten($black, 85);
+	padding:10px;
+	.promo-code {
+		padding: 5px 0 0 10px;
+	}
+}
+
+// Product tile doc
+#product-tile-docs .product-tile {
+	width:250px;
+}
+
+//show modal in page
+#added-to-cart-modal-docs .modal-window {
+	position:relative;
+}
+
+//Block Grid Demo
+
+.custom-block-grid {
+	@include block-grid(
+	$per-row: 2,
+	$spacing: 20px,
+	$base-style: true
+	);
+	@include media(medium-up) {
+		@include block-grid(
+		$per-row: 4,
+		$spacing: 20px,
+		$base-style: false
+		);
+	}
+	@include media(large-up) {
+		@include block-grid(
+		$per-row: 5,
+		$spacing: 15px,
+		$base-style: false
+		);
+	}
+}
+
+// Grid Demo
+
+
+.grid-demo {
+	@include grid-row();
+
+}
+.grid-column-first {
+	background: none repeat scroll 0 0 $light-gray;
+	border: 1px solid $base-gray;
+	@include grid-column(12);
+	@include media(medium-up) {
+		width:50%
+	}
+	@include media(large-up) {
+		width:33.333%
+	}
+}
+.grid-column-second {
+	background: none repeat scroll 0 0 $light-gray;
+	border: 1px solid $base-gray;
+	@include grid-column(12);
+	@include media(medium-up) {
+		width:50%
+	}
+	@include media(large-up) {
+		width:33.333%
+	}
+}
+.grid-column-third {
+	background: none repeat scroll 0 0 $light-gray;
+	border: 1px solid $base-gray;
+	@include grid-column(12);
+
+	@include media(large-up) {
+		width:33.333%
+	}
+}
+
+//Mini Cart demo
+.mini-cart.demo .mini-cart-expanded {
+	display: block !important;
+	position:relative;
+}
+.mini-cart.demo .mini-cart-header > a{
+	background-color: $white;
+	border-color:$base-gray;
+}
+
+/* sprites */
+.example-white-icons {
+	background-color:  $deepest-gray;
+	.icon:before {
+		color: $white;
+	}
+}
+
+.example-midline {
+	.icon{
+		@include align-icon-middle;
+	}
+}
+
+// Cart Items Demo
+.docs-example {
+	.order-item {
+		padding-left: 10px;
+		.order-item-img {
+			margin-right: 10px;
+		}
+		.item-total-price-container {
+			width: 23%;
+		}
+	}
+}
+

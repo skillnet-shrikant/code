@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE pipelinemanager
+	PUBLIC "-//Art Technology Group, Inc.//DTD Dynamo Pipeline Manager//EN"
+	'http://www.atg.com/dtds/pipelinemanager/pipelinemanager_1.0.dtd'>
+
+<pipelinemanager>
+
+	<pipelinechain name="screenOrderForFraudCheckProcessorChain"
+		transaction="TX_REQUIRES_NEW" headlink="createFraudCheckRequest" resultclassname="com.aci.pipeline.result.AciPipelineResult">
+
+		<pipelinelink name="createFraudCheckRequest" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/CreateAciRequestProcessor" />
+			<transition returnvalue="1" link="processAddOrderInfoForFraud" />
+		</pipelinelink>
+
+		<pipelinelink name="processAddOrderInfoForFraud" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddOrderInfoProcessor" />
+			<transition returnvalue="1" link="processAddPaymentInfoForFraud" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddPaymentInfoForFraud" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddPaymentInfoProcessor" />
+			<transition returnvalue="1" link="processAddCreditCardInfoForFraud" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddCreditCardInfoForFraud" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddCreditCardInfoForFraudProcessor" />
+			<transition returnvalue="1" link="processAddGiftCardInfoForFraud" />
+		</pipelinelink>
+
+		<pipelinelink name="processAddGiftCardInfoForFraud" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddGiftCardInfoForFraudProcessor" />
+			<transition returnvalue="1" link="processAddBillingAddressInfoForFraud" />
+		</pipelinelink>
+
+		<pipelinelink name="processAddBillingAddressInfoForFraud" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddBillingAddressInfoProcessor" />
+			<transition returnvalue="1" link="processAddShippingInfoForFraud" />
+		</pipelinelink>
+
+		<pipelinelink name="processAddShippingInfoForFraud" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddShippingInfoProcessor" />
+			<transition returnvalue="3" link="processAddHardgoodOnlyShippingInfoForFraud" />
+			<transition returnvalue="4" link="processAddElectronicgoodOnlyShippingInfoForFraud" />
+			<transition returnvalue="5" link="processAddMultipleShippingInfoForFraud" />
+			<transition returnvalue="6" link="processAddCommerceItemsInfoForFraud" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddHardgoodOnlyShippingInfoForFraud" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddHardgoodOnlyShippingInfoProcessor" />
+			<transition returnvalue="1" link="processAddCommerceItemsInfoForFraud" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddElectronicgoodOnlyShippingInfoForFraud" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddElectronicgoodOnlyShippingInfoProcessor" />
+			<transition returnvalue="1" link="processAddCommerceItemsInfoForFraud" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddMultipleShippingInfoForFraud" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddMultipleShippingInfoProcessor" />
+			<transition returnvalue="1" link="processAddCommerceItemsInfoForFraud" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddCommerceItemsInfoForFraud" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddCommerceItemsInfoProcessor" />
+			<transition returnvalue="1" link="processAddGiftWrapGiftMessageInfoForFraud" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddGiftWrapGiftMessageInfoForFraud" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddGiftWrapGiftMessageInfoProcessor" />
+			<transition returnvalue="1" link="processAddPromoCodeInfoForFraud" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddPromoCodeInfoForFraud" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddPromoCodeInfoProcessor" />
+			<transition returnvalue="1" link="processAddPricingInfoForFraud" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddPricingInfoForFraud" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddPricingInfoProcessor" />
+			<transition returnvalue="1" link="processValidateAciRequestForFraud" />
+		</pipelinelink>
+		
+		<pipelinelink name="processValidateAciRequestForFraud" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/ValidateAciRequestProcessor" />
+			<transition returnvalue="1" link="processValidateAddressAciRequestForFraud" />
+		</pipelinelink>
+		
+		<pipelinelink name="processValidateAddressAciRequestForFraud" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/ValidateAddressAciRequestProcessor" />
+			<transition returnvalue="1" link="processSendAciRequestForFraud" />
+		</pipelinelink>
+		
+		<pipelinelink name="processSendAciRequestForFraud" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/SendAciRequestProcessor" />
+			<transition returnvalue="1" link="processAciTransactionResponseForFraud" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAciTransactionResponseForFraud" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/ProcessAciFraudResponseProcessor" />
+		</pipelinelink>
+		
+	</pipelinechain>
+	
+	<pipelinechain name="authorizeCreditCardProcessorChain"
+		transaction="TX_REQUIRED" headlink="createCCAuthorizeRequest" resultclassname="com.aci.pipeline.result.AciPipelineResult">
+
+		<pipelinelink name="createCCAuthorizeRequest" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/CreateAciRequestProcessor" />
+			<transition returnvalue="1" link="processAddCreditCardOnlyInfoForCCAuthorize" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddCreditCardOnlyInfoForCCAuthorize" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddCreditCardInfoForRCSProcessor" />
+			<transition returnvalue="1" link="processAddBillingAddressInfoForCCAuthorize" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddBillingAddressInfoForCCAuthorize" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddBillingAddressInfoProcessor" />
+			<transition returnvalue="1" link="processValidateAddressAciRequestForCCAuthorize" />
+		</pipelinelink>
+
+		<pipelinelink name="processValidateAddressAciRequestForCCAuthorize" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/ValidateAddressAciRequestProcessor" />
+			<transition returnvalue="1" link="processSendAciRequestForCCAuthorize" />
+		</pipelinelink>
+		
+		<pipelinelink name="processSendAciRequestForCCAuthorize" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/SendAciRequestProcessor" />
+			<transition returnvalue="1" link="processAciTransactionResponseForCCAuthorize" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAciTransactionResponseForCCAuthorize" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/ProcessAciCCResponseProcessor" />
+		</pipelinelink>
+		
+	</pipelinechain>
+	
+	<pipelinechain name="tokenizeCreditCardProcessorChain"
+		transaction="TX_REQUIRED" headlink="createCCTokenizeRequest" resultclassname="com.aci.pipeline.result.AciPipelineResult">
+
+		<pipelinelink name="createCCTokenizeRequest" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/CreateAciRequestProcessor" />
+			<transition returnvalue="1" link="processAddCreditCardOnlyInfoForCCTokenize" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddCreditCardOnlyInfoForCCTokenize" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddCreditCardInfoForRCSProcessor" />
+			<transition returnvalue="1" link="processAddBillingAddressInfoForCCTokenize" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddBillingAddressInfoForCCTokenize" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddBillingAddressInfoProcessor" />
+			<transition returnvalue="1" link="processValidateAddressAciRequestForCCTokenize" />
+		</pipelinelink>
+
+		<pipelinelink name="processValidateAddressAciRequestForCCTokenize" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/ValidateAddressAciRequestProcessor" />
+			<transition returnvalue="1" link="processSendAciRequestForCCTokenize" />
+		</pipelinelink>
+		
+		<pipelinelink name="processSendAciRequestForCCTokenize" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/SendAciRequestProcessor" />
+			<transition returnvalue="1" link="processAciTransactionResponseForCCTokenize" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAciTransactionResponseForCCTokenize" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/ProcessAciCCResponseProcessor" />
+		</pipelinelink>
+		
+	</pipelinechain>
+	
+	<pipelinechain name="authReversalCreditCardProcessorChain"
+		transaction="TX_REQUIRED" headlink="createCCAuthReversalRequest" resultclassname="com.aci.pipeline.result.AciPipelineResult">
+
+		<pipelinelink name="createCCAuthReversalRequest" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/CreateAciRequestProcessor" />
+			<transition returnvalue="1" link="processAddCreditCardOnlyInfoForCCAuthReversal" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddCreditCardOnlyInfoForCCAuthReversal" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddCreditCardInfoForRCSAuthReversalProcessor" />
+			<transition returnvalue="1" link="processSendAciRequestForCCAuthReversal" />
+		</pipelinelink>
+		
+		<pipelinelink name="processSendAciRequestForCCAuthReversal" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/SendAciRequestProcessor" />
+			<transition returnvalue="1" link="processAciTransactionResponseForCCAuthReversal" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAciTransactionResponseForCCAuthReversal" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/ProcessAciCCResponseProcessor" />
+		</pipelinelink>
+		
+	</pipelinechain>
+	
+	<!--
+	<pipelinechain name="creditCreditCardProcessorChain"
+		transaction="TX_REQUIRED" headlink="createCCCreditRequest">
+
+		<pipelinelink name="createCCCreditRequest" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/CreateAciRequestProcessor" />
+			<transition returnvalue="1" link="processAddOrderInfoForCCCredit" />
+		</pipelinelink>
+
+		<pipelinelink name="processAddOrderInfoForCCCredit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddOrderInfoProcessor" />
+			<transition returnvalue="1" link="processAddGiftCardOnlyInfoForCCCredit" />
+		</pipelinelink>
+
+		<pipelinelink name="processAddGiftCardOnlyInfoForCCCredit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddGiftCardOnlyInfoProcessor" />
+			<transition returnvalue="1" link="processAddBillingAddressInfoForCCCredit" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddBillingAddressInfoForCCCredit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddBillingAddressInfoProcessor" />
+			<transition returnvalue="1" link="processAddShippingInfoForCCCredit" />
+		</pipelinelink>
+
+		<pipelinelink name="processAddShippingInfoForCCCredit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddShippingInfoProcessor" />
+			<transition returnvalue="3" link="processAddHardgoodOnlyShippingInfoForCCCredit" />
+			<transition returnvalue="4" link="processAddElectronicgoodOnlyShippingInfoForCCCredit" />
+			<transition returnvalue="5" link="processAddMultipleShippingInfoForCCCredit" />
+			<transition returnvalue="6" link="processAddCommerceItemsInfoForCCCredit" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddHardgoodOnlyShippingInfoForCCCredit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddHardgoodOnlyShippingInfoProcessor" />
+			<transition returnvalue="1" link="processAddCommerceItemsInfoForCCCredit" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddElectronicgoodOnlyShippingInfoForCCCredit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddElectronicgoodOnlyShippingInfoProcessor" />
+			<transition returnvalue="1" link="processAddCommerceItemsInfoForCCCredit" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddMultipleShippingInfoForCCCredit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddMultipleShippingInfoProcessor" />
+			<transition returnvalue="1" link="processAddCommerceItemsInfoForCCCredit" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddCommerceItemsInfoForCCCredit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddCommerceItemsInfoProcessor" />
+			<transition returnvalue="1" link="processAddGiftWrapGiftMessageInfoForCCCredit" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddGiftWrapGiftMessageInfoForCCCredit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddGiftWrapGiftMessageInfoProcessor" />
+			<transition returnvalue="1" link="processAddPromoCodeInfoForCCCredit" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddPromoCodeInfoForCCCredit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddPromoCodeInfoProcessor" />
+			<transition returnvalue="1" link="processAddPricingInfoForCCCredit" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddPricingInfoForCCCredit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddPricingInfoProcessor" />
+			<transition returnvalue="1" link="processValidateAciRequestForCCCredit" />
+		</pipelinelink>
+		
+
+		<pipelinelink name="processValidateAciRequestForCCCredit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/ValidateAciRequestProcessor" />
+			<transition returnvalue="1" link="processValidateAddressAciRequestForCCCredit" />
+		</pipelinelink>
+		
+		<pipelinelink name="processValidateAddressAciRequestForCCCredit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/ValidateAddressAciRequestProcessor" />
+			<transition returnvalue="1" link="processSendAciRequestForCCCredit" />
+		</pipelinelink>
+		
+		<pipelinelink name="processSendAciRequestForCCCredit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/SendAciRequestProcessor" />
+			<transition returnvalue="1" link="processAciTransactionResponseForCCCredit" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAciTransactionResponseForCCCredit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/ProcessAciCCResponseProcessor" />
+		</pipelinelink>
+		
+	</pipelinechain>
+
+	<pipelinechain name="debitCreditCardProcessorChain"
+		transaction="TX_REQUIRED" headlink="createCCDebitRequest">
+
+		<pipelinelink name="createCCDebitRequest" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/CreateAciRequestProcessor" />
+			<transition returnvalue="1" link="processAddOrderInfoForCCDebit" />
+		</pipelinelink>
+
+		<pipelinelink name="processAddOrderInfoForCCDebit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddOrderInfoProcessor" />
+			<transition returnvalue="1" link="processAddGiftCardOnlyInfoForCCDebit" />
+		</pipelinelink>
+
+		<pipelinelink name="processAddGiftCardOnlyInfoForCCDebit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddGiftCardOnlyInfoProcessor" />
+			<transition returnvalue="1" link="processAddBillingAddressInfoForCCDebit" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddBillingAddressInfoForCCDebit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddBillingAddressInfoProcessor" />
+			<transition returnvalue="1" link="processAddShippingInfoForCCDebit" />
+		</pipelinelink>
+
+		<pipelinelink name="processAddShippingInfoForCCDebit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddShippingInfoProcessor" />
+			<transition returnvalue="3" link="processAddHardgoodOnlyShippingInfoForCCDebit" />
+			<transition returnvalue="4" link="processAddElectronicgoodOnlyShippingInfoForCCDebit" />
+			<transition returnvalue="5" link="processAddMultipleShippingInfoForCCDebit" />
+			<transition returnvalue="6" link="processAddCommerceItemsInfoForCCDebit" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddHardgoodOnlyShippingInfoForCCDebit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddHardgoodOnlyShippingInfoProcessor" />
+			<transition returnvalue="1" link="processAddCommerceItemsInfoForCCDebit" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddElectronicgoodOnlyShippingInfoForCCDebit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddElectronicgoodOnlyShippingInfoProcessor" />
+			<transition returnvalue="1" link="processAddCommerceItemsInfoForCCDebit" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddMultipleShippingInfoForCCDebit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddMultipleShippingInfoProcessor" />
+			<transition returnvalue="1" link="processAddCommerceItemsInfoForCCDebit" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddCommerceItemsInfoForCCDebit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddCommerceItemsInfoProcessor" />
+			<transition returnvalue="1" link="processAddGiftWrapGiftMessageInfoForCCDebit" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddGiftWrapGiftMessageInfoForCCDebit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddGiftWrapGiftMessageInfoProcessor" />
+			<transition returnvalue="1" link="processAddPromoCodeInfoForCCDebit" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddPromoCodeInfoForCCDebit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddPromoCodeInfoProcessor" />
+			<transition returnvalue="1" link="processAddPricingInfoForCCDebit" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAddPricingInfoForCCDebit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/AddPricingInfoProcessor" />
+			<transition returnvalue="1" link="processValidateAciRequestForCCDebit" />
+		</pipelinelink>
+		<pipelinelink name="processValidateAciRequestForCCDebit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/ValidateAciRequestProcessor" />
+			<transition returnvalue="1" link="processValidateAddressAciRequestForCCDebit" />
+		</pipelinelink>
+		
+		<pipelinelink name="processValidateAddressAciRequestForCCDebit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/ValidateAddressAciRequestProcessor" />
+			<transition returnvalue="1" link="processSendAciRequestForCCDebit" />
+		</pipelinelink>
+		
+		<pipelinelink name="processSendAciRequestForCCDebit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/SendAciRequestProcessor" />
+			<transition returnvalue="1" link="processAciTransactionResponseForCCDebit" />
+		</pipelinelink>
+		
+		<pipelinelink name="processAciTransactionResponseForCCDebit" transaction="TX_MANDATORY">
+			<processor jndi="/com/aci/pipeline/processor/ProcessAciCCResponseProcessor" />
+		</pipelinelink>
+		
+	</pipelinechain>
+	 -->
+
+</pipelinemanager>

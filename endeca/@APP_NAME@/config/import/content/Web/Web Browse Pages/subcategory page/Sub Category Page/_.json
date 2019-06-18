@@ -1,0 +1,15 @@
+{
+    "userSegments": [],
+    "ecr:lastModifiedBy": "admin",
+    "priority": 30,
+    "triggers": [{"exactLocation": false}],
+    "previewable": true,
+    "ecr:type": "content-item",
+    "workflowNote": "",
+    "workflowState": "ACTIVE",
+    "ecr:lastModified": "2016-08-12T12:27:00.677Z",
+    "startTime": "",
+    "endTime": "",
+    "mdexMerchRuleID": 5,
+    "ecr:createDate": "2016-08-12T12:27:00.677Z"
+}

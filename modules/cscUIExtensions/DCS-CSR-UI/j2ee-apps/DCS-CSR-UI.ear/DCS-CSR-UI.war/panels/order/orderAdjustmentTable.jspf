@@ -1,0 +1,150 @@
+<%-- 
+    This file is used to show the appeasement section when editing the shopping cart.
+    Called in //application/DCS-CSR-UI/main/src/web-apps/DCS-CSR-UI/panels/order/cart.jsp
+--%>
+
+ <%-- Order Adjustments --%>
+ <dsp:droplet name="/atg/commerce/custsvc/returns/IsReturnActive">
+   <dsp:oparam name="false">
+     <c:if test="${adjustPricePriv}">
+       <c:set var="manualadjustmentopenstate" value="${false}"/>
+       <c:if test="${fn:length(cart.current.manualAdjustments) > 0 }">
+         <c:set var="manualadjustmentopenstate" value="${true}"/>
+       </c:if>
+       <div class="dijitTitlePane atg_commerce_csr_togglePanel atg_commerce_csr_orderAdjustments" dojoType="dijit.TitlePane" open="${manualadjustmentopenstate}" title="<fmt:message key='cart.adjustments.addOrderAdjustment' />">
+       <div class="atg_commerce_csr_orderAdjustmentPanel">
+         <%-- Add Manual Adjustments Form --%> 
+         <dsp:form formid="adjustmentsForm" method="post" id="adjustmentsForm">
+         <dsp:input type="hidden" value="${thisURL}" bean="ManualAdjustmentsFormHandler.addAdjustmentSuccessURL" />
+         <dsp:input type="hidden" value="${thisURL}" bean="ManualAdjustmentsFormHandler.addAdjustmentErrorURL" />
+         <ul class="atg-csc-base-table">
+           <li class="atg-csc-base-table-row"><label for="reasonSelect" class="atg-csc-base-table-cell atg-base-table-product-catalog-search-label"><fmt:message key="cart.adjustments.reason" /></label> 
+             <div class="atg-csc-base-table-cell">
+               <dsp:select name="selectName" id="reasonSelect"
+                 bean="ManualAdjustmentsFormHandler.adjustmentReasonCode"
+                 iclass="atg-base-table-product-catalog-search-input">
+                 <dsp:droplet name="PossibleValues">
+                   <dsp:param name="repository" value="${mafh.orderManager.orderTools.orderRepository}" />
+                   <dsp:param name="itemDescriptorName" value="manualPricingAdjustment" />
+                   <dsp:param name="propertyName" value="reasonCode" />
+                   <dsp:param name="returnValueObjects" value="true" />
+                   <dsp:oparam name="output">
+                     <dsp:getvalueof var="values" param="values" />
+                     <dsp:getvalueof var="displayValues" param="displayValues" />
+                     <c:forEach items="${values}" var="option">
+                       <dsp:option value="${option.settableValue}">${fn:escapeXml(option.localizedLabel)}</dsp:option>
+                     </c:forEach>
+                   </dsp:oparam>
+                 </dsp:droplet>
+               </dsp:select>
+             </div>
+           </li>
+
+           <dsp:droplet name="/atg/commerce/pricing/CurrencyDecimalPlacesDroplet">
+             <dsp:param name="currencyCode" value="${currencyCode}"/>
+             <dsp:oparam name="output">
+               <dsp:getvalueof var="currencyDecimalPlaces" param="currencyDecimalPlaces"/>
+             </dsp:oparam>
+           </dsp:droplet>
+
+           <li class="atg-csc-base-table-row">
+             <label for="amountTxt" class="atg-csc-base-table-cell atg-base-table-product-catalog-search-label">
+              <fmt:message key="cart.adjustments.amount" /> : </label>
+               <div class="atg-csc-base-table-cell atg-base-table-product-catalog-search-input-padding">
+                 <dsp:input id="amountTxt" type="text" maxlength="10" bean="ManualAdjustmentsFormHandler.adjustmentAmount">
+                   <dsp:tagAttribute name="dojoType" value="atg.widget.validation.CurrencyTextboxEx" />
+                   <dsp:tagAttribute name="constraints" value="{places:${currencyDecimalPlaces}}"/>
+                 </dsp:input>
+             <dsp:input type="radio" value="amountIncrease" name="adjustmentTypeRadio" bean="ManualAdjustmentsFormHandler.adjustmentType" /> <label for="debitRadio"> <fmt:message
+             key="cart.adjustments.debit" /> </label> <dsp:input type="radio" value="amountOff" name="adjustmentTypeRadio" default="true" bean="ManualAdjustmentsFormHandler.adjustmentType" /> <label for="creditRadio"> <fmt:message
+             key="cart.adjustments.credit" /> </label></div></li>
+
+           <li class="atg-csc-base-table-row"><label for="commentsTxt" class="label atg_messaging_emptyIndicator atg-csc-base-table-cell atg-base-table-product-catalog-search-label" id="commentsAlert"> <fmt:message key="cart.adjustments.comments" /> </label>
+           <div class="atg-csc-base-table-cell atg-base-table-product-catalog-search-input-padding"><fmt:message
+             key="cart.adjustments.commentTooLong" var="noteTooLongMessage" /> <dsp:input id="commentsTxt" bean="ManualAdjustmentsFormHandler.adjustmentNote">
+             <dsp:tagAttribute name="dojoType" value="atg.widget.validation.TextArea" />
+             <dsp:tagAttribute name="cols" value="50" />
+             <dsp:tagAttribute name="rows" value="5" />
+             <dsp:tagAttribute name="maxlength" value="254" />
+             <dsp:tagAttribute name="rangeMessage" value="${noteTooLongMessage}" />
+             <dsp:tagAttribute name="inlineIndicator" value="commentsAlert" />
+           </dsp:input> <dsp:input type="hidden" value="<fmt:message key='cart.adjustments.addAdjustment'/>" bean="ManualAdjustmentsFormHandler.addAdjustment" /> <input type="submit" id="adjustmentSubmitButton"
+             class="atg_commerce_csr_adjustmentSubmitButton " value="<fmt:message key='cart.adjustments.addAdjustment'/>"
+             onClick="atgSubmitAction({
+                   panelStack : 'cmcShoppingCartPS',
+                   form : document.getElementById('adjustmentsForm')});
+                   return false;"></div></li>
+         </ul>
+       </dsp:form></div>
+
+       <%-- Appeasement Table --%>
+       <table class="atg_dataTable atg_commerce_csr_innerTable">
+         <thead>
+           <tr>
+             <th><fmt:message key="cart.adjustments.reasonHeader" /></th>
+             <th><fmt:message key="cart.adjustments.comments" /></th>
+             <th><fmt:message key="cart.adjustments.amount" /></th>
+             <c:if test="${!empty order.manualAdjustments}">
+               <th><fmt:message key="cart.adjustments.actions" /></th>
+             </c:if>
+             <th class="atg_iconCell"></th>
+           </tr>
+         </thead>
+         <tbody>
+           <c:forEach items="${order.manualAdjustments}" var="adjustment">
+             <dsp:tomap var="adj" value="${adjustment}" />
+             <tr>
+               <c:set var="enumeratedOptionPossibleValue" value="${displayValues[adj.reasonCode]}"/>
+               <td>${enumeratedOptionPossibleValue.localizedLabel}</td> <td> <div class="atg_commerce_csr_orderAdjustmentComment">${fn:escapeXml(adj.notes)}
+               </div>
+               </td>
+               <td><csr:formatNumber value="${adj.amount}" type="currency" currencyCode="${currencyCode}" /> <c:choose>
+                 <c:when test="${adj.adjustmentType == 'amountOff'}">
+                   <fmt:message key="cart.adjustments.credit" />
+                 </c:when>
+                 <c:when test="${adj.adjustmentType == 'amountIncrease'}">
+                   <fmt:message key="cart.adjustments.debit" />
+                 </c:when>
+               </c:choose></td>
+               <td class="atg_iconCell"><a class="atg_tableIcon atg_propertyDelete" title="<fmt:message key='cart.adjustments.deleteAdjustment'/>" href="#"
+                 onclick="atg.commerce.csr.cart.deleteManualAdjustment(
+                     '${adj.repositoryId}', '${adj.reasonCode}');return false;"> <fmt:message key="cart.adjustments.deleteAdjustment" /> </a></td>
+             </tr>
+           </c:forEach>
+         </tbody>
+         <tfoot>
+           <tr>
+             <td><fmt:message key="cart.adjustments.netAdjustment" /></td>
+             <td class="atg_commerce_csr_emptyCell"></td>
+             <td><%-- always display a non-negative amount --%> <csr:formatNumber value="${order.priceInfo.manualAdjustmentTotal < 0 ? -order.priceInfo.manualAdjustmentTotal : order.priceInfo.manualAdjustmentTotal}" type="currency"
+               currencyCode="${currencyCode}" /> <c:choose>
+               <c:when test="${order.priceInfo.manualAdjustmentTotal <= 0}">
+                 <fmt:message key="cart.adjustments.credit" />
+               </c:when>
+               <c:when test="${order.priceInfo.manualAdjustmentTotal >= 0}">
+                 <fmt:message key="cart.adjustments.debit" />
+               </c:when>
+             </c:choose></td>
+             <td class="atg_commerce_csr_emptyCell"></td>
+           </tr>
+         </tfoot>
+       </table>
+       </div>
+     </c:if>
+   </dsp:oparam>
+ </dsp:droplet>
+
+ <%-- Appeasement Total --%> 
+ <div class="atg_commerce_csr_appeasementTotal">
+     <dsp:droplet name="GetTotalAppeasementsForOrderDroplet">
+       <dsp:param name="order" value="${order}" />
+       <dsp:param name="elementName" value="totalAppeasements" />
+       <dsp:oparam name="output">
+         <dsp:getvalueof var="totalAppeasements" param="totalAppeasements" />
+         <label class="atg_commerce_csr_orderSummaryTotal"> <fmt:message key='view.order.appeasementTotal' />: </label>
+         <csr:formatNumber value="${totalAppeasements}" type="currency" currencyCode="${currencyCode}" />
+       </dsp:oparam>
+     </dsp:droplet>
+ </div>
+           
+<%-- @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/panels/order/orderAdjustmentTable.jspf#2 $$Change: 1179550 $--%>

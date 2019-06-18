@@ -1,0 +1,8 @@
+{
+    "displayName": "@APP_NAME@ Home",
+    "description": "Fleet Farm",
+    "linkServiceUrl": "http://@PREVIEW_HOST@:@PREVIEW_PORT@/link.json?pushSite=@APP_NAME@",
+    "urlPattern": "",
+    "ecr:createDate": "2016-07-22T21:49:16.727Z",
+    "ecr:type": "site-home"
+}

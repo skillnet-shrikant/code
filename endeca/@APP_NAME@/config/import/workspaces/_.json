@@ -1,0 +1,5 @@
+{
+    "ecr:createDate": "2016-07-22T21:50:43.242Z",
+    "ecr:type": "workspace-root",
+    "ecr:permissions": {"endeca:siteGroup:@APP_NAME@": "all"}
+}

@@ -1,0 +1,96 @@
+<ContentItem type="Page" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://endeca.com/schema/content/2008">
+  <TemplateId>GardenCenterPage</TemplateId>
+  <Name>Garden Center Page</Name>
+  <Property name="HeaderContent">
+    <ContentItemList type="HeaderContent"/>
+  </Property>
+  <Property name="SecondaryContent">
+    <ContentItemList type="SecondaryContent">
+      <ContentItem type="SecondaryContent">
+        <TemplateId>GardenCenterLogo</TemplateId>
+        <Name>GardenCenterLogo</Name>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Secondary Content Slot</Name>
+        <Property name="contentPaths">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>/content/Shared/Garden Center Guides Navigation</String>
+          </List>
+        </Property>
+        <Property name="templateTypes">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>SecondaryContent</String>
+          </List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Secondary Content Slot</Name>
+        <Property name="contentPaths">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>/content/Shared/Garden Center Articles Navigation</String>
+          </List>
+        </Property>
+        <Property name="templateTypes">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>SecondaryContent</String>
+          </List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Secondary Content Slot</Name>
+        <Property name="contentPaths">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>/content/Shared/Garden Center Lawns &amp; Gardens Navigation</String>
+          </List>
+        </Property>
+        <Property name="templateTypes">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>SecondaryContent</String>
+          </List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>GardenCenterEmailSignup</TemplateId>
+        <Name>GardenCenterEmailSignup</Name>
+      </ContentItem>
+    </ContentItemList>
+  </Property>
+  <Property name="MainContent">
+    <ContentItemList type="MainContent">
+      <ContentItem type="MainContent">
+        <TemplateId>MainTitleTextBlock</TemplateId>
+        <Name>MainTitleTextBlock</Name>
+        <Property name="mainTitle">
+          <String>Coming Soon</String>
+        </Property>
+        <Property name="sectionTitle">
+          <String/>
+        </Property>
+        <Property name="paraText">
+          <String/>
+        </Property>
+      </ContentItem>
+    </ContentItemList>
+  </Property>
+</ContentItem>

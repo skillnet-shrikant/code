@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<!DOCTYPE gsa-template PUBLIC "-//Art Technology Group, Inc.//DTD General SQL Adapter//EN" "http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
+
+<gsa-template>
+
+	<header>
+		<name>Location Repository Extension - MFF</name>
+		<author>KnowledgePath</author>
+		<description>This defines the ATG location extensions to include attributes for MFF stores</description>
+	</header>
+	<!-- ///////////// Start of Location Item Descriptor//////////// -->
+	<item-descriptor display-name-resource="itemDescriptorLocation" expert="false" hidden="false" 
+		use-id-for-path="false" content="false" writable="true" default="false" display-property="name" 
+		folder="false" cache-mode="simple" id-separator=":" name="location" sub-type-property="type" 
+		version-property="version">
+    	
+    	<table name="mff_location" type="auxiliary" id-column-name="location_id" >
+			<property name="description" data-type="big string"
+				column-name="description" >
+			</property>
+			<property name="label" data-type="string"
+				column-name="label" >
+			</property>
+
+      		<property readable="true" display-name="Address 4" expert="false" 
+      			hidden="false" data-type="string" required="false" writable="true" 
+      			queryable="true" cache-mode="inherit" backing-map-property="false" name="address4" 
+      			column-name="address_4" category-resource="categoryDetails">
+        			<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+        			<attribute name="propertySortPriority" value="51"/>
+      		</property>
+      		<property readable="true" display-name="Address 5" expert="false" 
+      			hidden="false" data-type="string" required="false" writable="true" 
+      			queryable="true" cache-mode="inherit" backing-map-property="false" name="address5" 
+      			column-name="address_5" category-resource="categoryDetails">
+        			<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+        			<attribute name="propertySortPriority" value="52"/>
+      		</property>
+      		<property readable="true" display-name="Additional Phones" expert="false" 
+      			hidden="false" data-type="string" required="false" writable="true" 
+      			queryable="true" cache-mode="inherit" backing-map-property="false" name="addlnPhones" 
+      			column-name="addln_phones" category-resource="categoryDetails">
+					<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+        			<attribute name="propertySortPriority" value="121"/>
+      		</property>      		
+      		<property readable="true" display-name="website" expert="false" 
+      			hidden="false" data-type="string" required="false" writable="true" 
+      			queryable="true" cache-mode="inherit" backing-map-property="false" name="website" 
+      			column-name="website" category-resource="categoryDetails">
+        			<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+        			<attribute name="propertySortPriority" value="141"/>
+      		</property>
+      		<property readable="true" display-name="Primary Category" expert="false" 
+      			hidden="false" data-type="string" required="false" writable="true" 
+      			queryable="true" cache-mode="inherit" backing-map-property="false" name="primaryCategory" 
+      			column-name="primary_category" category-resource="categoryDetails">
+        			<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+        			<attribute name="propertySortPriority" value="142"/>
+      		</property>
+	      	<property name="storeHours" category="Locations" display-name="Store Hours" data-type="big string" column-name="store_hours" category-resource="categoryDetails">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="143"/>
+	      	</property>
+	      	<property name="serviceCenterHours" category="Locations" display-name="Service Center Hours" data-type="string" column-name="service_center_hours" category-resource="categoryDetails">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="145"/>
+	      	</property>
+	      	<property name="gasMartHours" category="Locations" display-name="Gas Mart Hours" data-type="string" column-name="gas_mart_hours" category-resource="categoryDetails">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="150"/>
+	      	</property>
+			<property name="specialHours" category="Locations" display-name="Special Hours" data-type="big string" column-name="special_hours" category-resource="categoryDetails">
+				<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+				<attribute name="propertySortPriority" value="155"/>
+			</property>
+			<property name="isPickup" category="Locations" display-name="Store Accepts BOPIS Orders" data-type="boolean" column-name="is_pickup" default="true" category-resource="categoryDetails">
+				<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+				<attribute name="propertySortPriority" value="160"/>
+			</property>
+			<property name="isPickPackShip" category="Locations" display-name="Store is an IDS Fulfillment Location" data-type="boolean" default="true" column-name="is_pps" category-resource="categoryDetails">
+				<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+				<attribute name="propertySortPriority" value="165"/>
+			</property>
+			<property name="isBOPISOnly" category="Locations" display-name="Store Inventory Not Visible for PPS Orders" data-type="boolean" column-name="is_bopis_only" default="true" category-resource="categoryDetails">
+				<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+				<attribute name="propertySortPriority" value="160"/>
+			</property>			
+			<property name="maxQueueSize" category="Locations" display-name="Max Queue Size" data-type="int" column-name="max_queue_size" category-resource="categoryDetails">
+				<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+				<attribute name="propertySortPriority" value="170"/>
+			</property>
+			<property name="totalOrdersPerDay" category="Locations" display-name="Total Num of Orders Per Day" data-type="int" column-name="total_orders_per_day" category-resource="categoryDetails">
+				<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+				<attribute name="propertySortPriority" value="175"/>
+			</property>
+			<!-- /////Adding Custom properties to maintain store page data start////  -->
+			<property name="pageStoreName" category="Locations" display-name="Store Name" data-type="string" column-name="page_store_name"  category-resource="categoryStoreHeader">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="150"/>
+	      	</property>
+			<property name="pageStoreAddress" category="Locations" display-name="Store Address" data-type="string" column-name="page_store_address" category-resource="categoryStoreHeader">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="155"/>
+	      	</property>
+			<property name="pagePhoneNumber" category="Locations" display-name="Phone Number" data-type="string" column-name="page_phone_number" category-resource="categoryStoreHeader">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="160"/>
+	      	</property>
+			<property name="pageStoreHoursHeader" category="Locations" display-name="Store Hours Header" data-type="string" column-name="page_store_hours_header" category-resource="categoryStoreHours">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="150"/>
+	      	</property>
+			<property name="pageNearbyLocationsHeader" category="Locations" display-name="Nearby Locations Header" data-type="string" column-name="page_nearby_location_header" category-resource="categoryNearbyLocations">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="150"/>
+	      	</property>
+			<property name="pageWeeklyAdEnabled" category="Locations" display-name="Weekly Ad" data-type="boolean" column-name="page_WeeklyAd_Enabled" default="true" category-resource="categoryStoreResources">
+				<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+				<attribute name="propertySortPriority" value="150"/>
+			</property>
+			<property name="pageWeeklyAdHeader" category="Locations" display-name="WeeklyAd Header" data-type="string" column-name="page_WeeklyAd_header" category-resource="categoryStoreResources">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="155"/>
+	      	</property>
+			<property name="pageWeeklyAdBody" category="Locations" display-name="WeeklyAd Body" data-type="big string" column-name="page_WeeklyAd_body" category-resource="categoryStoreResources">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="160"/>
+	      	</property>
+			<property name="pageTextPromotionsEnabled" category="Locations" display-name="Text Promotions" data-type="boolean" column-name="page_Text_Promotions_Enabled" default="true" category-resource="categoryStoreResources">
+				<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+				<attribute name="propertySortPriority" value="170"/>
+			</property>
+			<property name="pageTextPromotionsHeader" category="Locations" display-name="Text Promotions Header" data-type="string" column-name="page_Text_Promotions_header" category-resource="categoryStoreResources">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="175"/>
+	      	</property>
+			<property name="pageTextPromotionsBody" category="Locations" display-name="Text Promotions Body" data-type="big string" column-name="page_Text_Promotions_body" category-resource="categoryStoreResources">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="180"/>
+	      	</property>
+			<property name="pageEmailPromotionsEnabled" category="Locations" display-name="Email Promotions" data-type="boolean" column-name="page_Email_Promotions_Enabled" default="true" category-resource="categoryStoreResources">
+				<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+				<attribute name="propertySortPriority" value="190"/>
+			</property>
+			<property name="pageEmailPromotionsHeader" category="Locations" display-name="Email Promotions Header" data-type="string" column-name="page_Email_Promotions_header" category-resource="categoryStoreResources">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="195"/>
+	      	</property>
+			<property name="pageEmailPromotionsBody" category="Locations" display-name="Email Promotions Body" data-type="big string" column-name="page_Email_Promotions_body" category-resource="categoryStoreResources">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="200"/>
+	      	</property>
+			<property name="pageConnectOnFBEnabled" category="Locations" display-name="Connect on Facebook" data-type="boolean" column-name="page_connecton_fb_Enabled" default="true" category-resource="categoryStoreResources">
+				<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+				<attribute name="propertySortPriority" value="210"/>
+			</property>
+			<property name="pageConnectOnFBHeader" category="Locations" display-name="Connect on Facebook Header" data-type="string" column-name="page_connecton_fb_header" category-resource="categoryStoreResources">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="215"/>
+	      	</property>
+			<property name="pageConnectOnFBBody" category="Locations" display-name="Connect on Facebook Body" data-type="big string" column-name="page_connecton_fb_body" category-resource="categoryStoreResources">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="220"/>
+	      	</property>
+			<property name="pageCatalogSignupEnabled" category="Locations" display-name="Catalog Signup" data-type="boolean" column-name="page_catalog_signup_Enabled" default="true" category-resource="categoryStoreResources">
+				<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+				<attribute name="propertySortPriority" value="230"/>
+			</property>
+			<property name="pageCatalogSignupHeader" category="Locations" display-name="Catalog Signup Header" data-type="string" column-name="page_catalog_signup_header" category-resource="categoryStoreResources">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="235"/>
+	      	</property>
+			<property name="pageCatalogSignupBody" category="Locations" display-name="Catalog Signup Body" data-type="big string" column-name="page_catalog_signup_body" category-resource="categoryStoreResources">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="240"/>
+	      	</property>
+	      	<property name="pageStoreServiceHeader" category="Locations" display-name="Store Service Header" data-type="string" column-name="page_store_service_header" category-resource="categoryStoreServices">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="105"/>
+	      	</property>
+			<property name="pageGasMartEnabled" category="Locations" display-name="Gas Mart" data-type="boolean" column-name="page_gas_mart_Enabled" default="true" category-resource="categoryStoreServices">
+				<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+				<attribute name="propertySortPriority" value="110"/>
+			</property>
+			<property name="pageGasMartHeader" category="Locations" display-name="Gas Mart Header" data-type="string" column-name="page_gas_mart_header" category-resource="categoryStoreServices">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="115"/>
+	      	</property>
+			<property name="pageGasMartBody" category="Locations" display-name="Gas Mart Body" data-type="big string" column-name="page_gas_mart_body" category-resource="categoryStoreServices">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="120"/>
+	      	</property>
+			<property name="pageCStoreEnabled" category="Locations" display-name="C-Store" data-type="boolean" column-name="page_cstore_Enabled" default="true" category-resource="categoryStoreServices">
+				<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+				<attribute name="propertySortPriority" value="130"/>
+			</property>
+			<property name="pageCStoreHeader" category="Locations" display-name="C-Store Header" data-type="string" column-name="page_cstore_header" category-resource="categoryStoreServices">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="135"/>
+	      	</property>
+			<property name="pageCStoreBody" category="Locations" display-name="C-Store Body" data-type="big string" column-name="page_cstore_body" category-resource="categoryStoreServices">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="140"/>
+	      	</property>
+			<property name="pageCarWashEnabled" category="Locations" display-name="Car Wash" data-type="boolean" column-name="page_car_wash_Enabled" default="true" category-resource="categoryStoreServices">
+				<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+				<attribute name="propertySortPriority" value="150"/>
+			</property>
+			<property name="pageCarWashHeader" category="Locations" display-name="Car Wash Header" data-type="string" column-name="page_car_wash_header" category-resource="categoryStoreServices">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="155"/>
+	      	</property>
+			<property name="pageCarWashBody" category="Locations" display-name="Car Wash Body" data-type="big string" column-name="page_car_wash_body" category-resource="categoryStoreServices">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="160"/>
+	      	</property>
+			<property name="pageAutoServiceCenterEnabled" category="Locations" display-name="Auto Service Center" data-type="boolean" column-name="page_auto_center_Enabled" default="true" category-resource="categoryStoreServices">
+				<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+				<attribute name="propertySortPriority" value="170"/>
+			</property>
+			<property name="pageAutoServiceCenterHeader" category="Locations" display-name="Auto Service Center Header" data-type="string" column-name="page_auto_center_header" category-resource="categoryStoreServices">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="175"/>
+	      	</property>
+			<property name="pageAutoServiceCenterBody" category="Locations" display-name="Auto Service Center Body" data-type="big string" column-name="page_auto_center_body" category-resource="categoryStoreServices">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="180"/>
+	      	</property>
+			<property name="pageGardenCenterEnabled" category="Locations" display-name="Garden Center" data-type="boolean" column-name="page_garden_center_Enabled" default="true" category-resource="categoryStoreServices">
+				<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+				<attribute name="propertySortPriority" value="190"/>
+			</property>
+			<property name="pageGardenCenterHeader" category="Locations" display-name="Garden Center Header" data-type="string" column-name="page_garden_center_header" category-resource="categoryStoreServices">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="195"/>
+	      	</property>
+			<property name="pageGardenCenterBody" category="Locations" display-name="Garden Center Body" data-type="big string" column-name="page_garden_center_body" category-resource="categoryStoreServices">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="200"/>
+	      	</property>
+			<property name="pageStoreEventsHeader" category="Locations" display-name="Store Events Header" data-type="string" column-name="page_store_events_header" category-resource="categoryStoreEvents">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="150"/>
+	      	</property>
+			<property name="pageStoreNoEventsMessage" category="Locations" display-name="Store No Events Message" data-type="string" column-name="page_store_no_events_message" category-resource="categoryStoreEvents">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="155"/>
+	      	</property>
+			<property name="pageCareerHeader" category="Locations" display-name="Career Header" data-type="string" column-name="page_career_header" category-resource="categoryStoreCareer">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="150"/>
+	      	</property>
+	      	<property name="pageCareerImage" category="Locations" display-name="Career Image Path" data-type="string" column-name="page_store_career_image" category-resource="categoryStoreCareer">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="150"/>
+	      	</property>
+			<property name="pageCareerBody" category="Locations" display-name="Career Body" data-type="big string" column-name="page_store_career_body" category-resource="categoryStoreCareer">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="200"/>
+	      	</property>
+			<property name="pageStoreDetailHeader" category="Locations" display-name="Store Detail Header" data-type="string" column-name="page_store_detail_header" category-resource="categoryStoreDetails">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="150"/>
+	      	</property>
+			<property name="pageStoreDetailBody" category="Locations" display-name="Store Detail Body" data-type="big string" column-name="page_Store_Detail_body" category-resource="categoryStoreDetails">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="200"/>
+	      	</property>
+			<property name="pageComingSoonEnabled" category="Locations" display-name="Coming Soon" data-type="boolean" column-name="page_coming_soon_Enabled" default="false" category-resource="categoryComingSoon">
+				<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+				<attribute name="propertySortPriority" value="1"/>
+			</property>
+			
+			<!-- /////Adding Custom properties to maintain store page data end////  -->						
+		</table>
+	    <table name="mff_location_addln_cat" type="multi" id-column-names="location_id"
+	                 multi-column-name="seq_num">
+	        <property name="addlnCategories" column-names="category" data-type="array"
+	                  component-data-type="string"/>
+	    </table>	
+	    <table name="mff_store_landing_page" type="auxiliary" id-column-name="location_id">
+	        <property name="storeLandingPage" category="Locations" display-name="Store Landing Page" repository="/atg/content/ContentManagementRepository" item-type="article" column-name="store_landing_page" category-resource="categoryRelatedContent">
+		        <attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+			</property>
+	    </table>
+	    
+	    <table shared-table-sequence="1" name="dcs_location_rltd_article" id-column-name="location_id" type="multi" multi-column-name="sequence_num">
+	      <property readable="true" display-name="Store Content Pages" expert="false" hidden="false" data-type="list" repository="/atg/content/ContentManagementRepository" component-item-type="article" required="false" writable="true" queryable="true" cache-mode="inherit" backing-map-property="false" name="relatedArticles" column-name="related_article_id" category-resource="categoryRelatedContent" xml-combine="replace">
+	        <attribute name="references" value="true"/>
+	        <attribute name="propertySortPriority" value="10"/>
+	        <attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      </property>
+	    </table>		
+
+	    <table shared-table-sequence="1" name="mff_return_location" id-column-name="location_id" type="auxiliary">
+	      <property readable="true" display-name="Return Store" expert="false" hidden="false" required="false" writable="true" 
+	      	queryable="true" item-type="store" cache-mode="inherit" backing-map-property="false" name="returnStore" column-name="return_location_id" category-resource="categoryDetails">
+	        <attribute name="propertySortPriority" value="-1"/>
+	        <attribute name="references" value="true"/>
+	      </property>
+	    </table>
+	    <table name="mff_store_rltd_event" type="multi" id-column-name="location_id" multi-column-name="sequence_num">
+    		<property name="storeEvents" display-name="Store Events" data-type="list" component-item-type="storeEvent" column-name="event_id" category-resource="categoryStoreEvents">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="160"/>
+	      	</property>
+   		</table>
+   		<table name="mff_store_rltd_hours" type="multi" id-column-name="location_id" multi-column-name="sequence_num">
+    		<property name="storeHoursList" display-name="Store Hours" data-type="list" component-item-type="storeHours" column-name="store_hours_id" category-resource="categoryStoreHours">
+	      		<attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	      		<attribute name="propertySortPriority" value="155"/>
+	      	</property>
+   		</table>
+	</item-descriptor>
+	
+	<item-descriptor display-name-resource="itemDescriptorStore" expert="false" hidden="false" use-id-for-path="false" sub-type-value="store" content="false" writable="true" default="false" display-property="name" folder="false" cache-mode="simple" id-separator=":" name="store" super-type="location">
+	    <attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	    <table shared-table-sequence="1" name="dcs_location_store" id-column-name="location_id" type="auxiliary">
+	    <property readable="true" display-name-resource="hours" expert="false" hidden="false" data-type="string" required="false" writable="true" queryable="true" cache-mode="inherit" backing-map-property="false" name="hours" column-name="hours" category-resource="categoryDetails" xml-combine="remove">
+	        <attribute name="resourceBundle" value="atg.commerce.LocationRepositoryTemplateResources"/>
+	        <attribute name="propertySortPriority" value="110"/>
+	    </property>
+	    </table>
+  	</item-descriptor>
+  	
+  	<item-descriptor name="storeEvent" display-property="eventDescription" cache-mode="simple" display-name="Store Event">
+		<table name="mff_store_event" type="primary" id-column-name="event_id">
+			<property name="id" column-name="event_id" data-type="string" />
+			<property name="eventDescription" display-name="Description" column-name="event_description" data-type="string" required="true">
+				<attribute name="propertySortPriority" value="105"/>
+		    </property>
+			<property name="eventShortDetail" display-name="Short Detail" column-name="event_short_detail" data-type="string" required="true">
+				<attribute name="propertySortPriority" value="110"/>
+		    </property>
+			<property name="eventLongDetail" display-name="Long Detail" column-name="event_long_detail" data-type="big string" required="false">
+				<attribute name="propertySortPriority" value="115"/>
+		    </property>
+			<property name="eventDate" display-name="Date" column-name="event_date" data-type="date" required="true">
+				<attribute name="propertySortPriority" value="100"/>
+		    </property>
+			<property name="eventStartTime" display-name="Event Start Time" column-name="event_start_time" data-type="timestamp" required="true">
+				<attribute name="propertySortPriority" value="120"/>
+		    </property>
+			<property name="eventEndTime" display-name="Event End Time" column-name="event_end_time" data-type="timestamp" required="true">
+				<attribute name="propertySortPriority" value="125"/>
+		    </property>
+			<property name="eventDisplayStartTime" display-name="Delay Display Until" column-name="event_display_start_time" data-type="timestamp" required="false">
+				<attribute name="propertySortPriority" value="130"/>
+		    </property>
+		</table>
+	</item-descriptor>
+	
+	<item-descriptor name="storeHours" display-property="dayType" cache-mode="simple" display-name="Store Hours" >
+		<table name="mff_store_hours" type="primary" id-column-name="store_hours_id">
+			<property name="id" column-name="store_hours_id" data-type="string" />
+			 <property name="dayType" column-name="day_type" data-type="enumerated" required="true">
+			 	<attribute name="useCodeForValue" value="false"/>
+		        <option value="Sunday" code="101"/>
+		        <option value="Monday" code="102" />
+		        <option value="Tuesday" code="103"/>
+		        <option value="Wednesday" code="104"/>
+		        <option value="Thursday" code="105"/>
+		        <option value="Friday" code="106"/>
+		        <option value="Saturday" code="107"/>
+		        <option value="Holiday" code="100"/>
+		      </property>
+			<property name="holidayDescription" column-name="holiday_description" data-type="big string" required="false">
+				<attribute name="propertySortPriority" value="120"/>
+		    </property>
+			<property name="holidayDate" column-name="holiday_date" data-type="date" required="false">
+				<attribute name="propertySortPriority" value="115"/>
+		    </property>
+			<property name="openingTime" column-name="opening_time" data-type="timestamp" required="true">
+				<attribute name="propertySortPriority" value="105"/>
+		    </property>
+			<property name="closingTime" column-name="closing_time" data-type="timestamp" required="true">
+				<attribute name="propertySortPriority" value="110"/>
+		    </property>
+		    <property name="isClosed" display-name="Is Closed" data-type="boolean" column-name="is_closed" default="false" >
+				<attribute name="propertySortPriority" value="102"/>
+			</property>
+		</table>
+	</item-descriptor>
+	
+	
+
+</gsa-template>

@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<!DOCTYPE gsa-template PUBLIC "-//Art Technology Group, Inc.//DTD General SQL Adapter//EN" "http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
+
+<gsa-template>
+
+	<header>
+		<name>Product Catalog Repository Extension - MFF</name>
+		<author>KnowledgePath</author>
+		<description>This defines the ATG product catalog custom extensions </description>
+	</header>
+<!--
+TODO: Add resource bundles to all items
+TODO: Check on setting up views for childSKUs
+TODO: Check whether grouping of collection attributes like sellingPoints impacts performance of import
+TODO: date related props... created_date, last_modified_date
+-->
+	<!-- ///////////// Start of Category Item Descriptor//////////// -->
+	<item-descriptor name="category" cache-mode="simple" 
+	        item-expire-timeout="86400000" query-expire-timeout="86400000" item-cache-size="2100">
+		<table name="mff_category" type="auxiliary" id-column-name="category_id" >
+			<property name="level" data-type="int"
+				column-name="cat_level" >
+			</property>
+			<property name="Template" data-type="string"
+				column-name="template_id" >
+			</property>
+			<property name="tags" data-type="string"
+				column-name="tags" >
+			</property>
+			<property readable="true" display-name="Visibility" 
+				hidden="false" data-type="enumerated" 
+				required="false" writable="true" 
+				queryable="true" default="All Locations" 
+				cache-mode="inherit" 
+				backing-map-property="false" 
+				name="visibility" column-name="visibility" 
+				category="categoryInfo">
+			        <attribute name="useCodeForValue" value="false"/>
+			        <option code="300" value="All Locations"/>
+			        <option code="301" value="Left Only"/>
+			        <option code="302" value="Nav Only"/>
+			        <option code="303" value="None"/>
+			</property>			
+		</table>
+    	<table shared-table-sequence="1" name="mff_cat_chldcat" 
+			id-column-name="category_id" type="multi" multi-column-name="sequence_num">
+      		<property readable="true" display-name="Reordered Child Categories" expert="false" hidden="false" 
+      			data-type="list" component-item-type="category" required="false" writable="true" queryable="true" 
+      			cache-mode="inherit" backing-map-property="false" name="reorderedChildCategories" 
+      			column-name="child_cat_id" category-resource="categoryCategorization">
+        		<attribute name="propertySortPriority" value="-9"/>
+        		<attribute name="references" value="true"/>
+        		<attribute name="prohibitDuplicates" value="true"/>
+      		</property>
+    	</table>
+        <table shared-table-sequence="2" name="mff_cat_chldcat" id-column-name="child_cat_id" type="multi">
+      			<property readable="true" display-name-resource="sortedParentCategories" expert="false" hidden="true" 
+      				data-type="set" component-item-type="category" required="false" writable="false" 
+      				queryable="true" cache-mode="inherit" backing-map-property="false" name="reorderedParentCategories" 
+      				column-name="category_id" category-resource="categoryCategorization">
+        			<attribute name="deployable" data-type="boolean" value="false"/>
+      			</property>
+    	</table>
+    	<property readable="true" expert="true" display-name="Display Ordered Categories" hidden="false" 
+    		cascade="update" data-type="list" component-item-type="category" 
+    		required="false" property-type="com.mff.repository.property.DisplayOrderedCategories" writable="false" queryable="false" 
+    		cache-mode="inherit" backing-map-property="false" name="displayOrderedCategories" category-resource="categoryCategorization">
+    	</property>    	
+	</item-descriptor>
+	<!-- ///////////// End of Category Item Descriptor//////////// -->
+
+	<!-- ///////////// Start of Product Item Descriptor//////////// -->
+	<item-descriptor name="product" display-property="displayName"
+		cache-mode="simple" item-expire-timeout="1800000" query-expire-timeout="1800000" item-cache-size="60000">
+
+		<table name="mff_product" id-column-name="product_id" type="auxiliary"
+			xml-combine="append">
+			<property name="tags" data-type="string"
+				column-name="tags" >
+			</property>
+			<property name="numAltImages" display-name="Number of Alt Images"
+				column-name="num_alt_images" data-type="int" default="0">
+			</property>
+			<property name="numImages" display-name="Number of Images"
+				column-name="num_images" data-type="int" default="0">
+			</property>			
+			<property name="sellingPoints" display-name="Selling Points"
+				column-name="selling_points" data-type="big string">
+			</property>					
+			<property name="inStoreOnly" description="In Store Only"
+				display-name="In Store Only" column-name="is_in_store_only"
+				data-type="boolean" category-resource="categoryBasics" default="false">
+			</property>	
+			<property name="madeInUsa" description="Made In USA"
+				display-name="Made in USA" column-name="is_made_in_usa"
+				data-type="boolean" category-resource="categoryBasics" default="false">
+			</property>
+			<property name="chokingHazards" description="Choking Hazards"
+				display-name="Choking Hazards" column-name="choking_hazard"
+				data-type="string" category-resource="categoryBasics">
+			</property>			
+			<property name="minimumAge" display-name="Minimum Age"
+				column-name="minimum_age" data-type="int">
+			</property>
+			<property name="ffl" description="Federal Firearm License"
+				display-name="Federal Firearm Licence Required" column-name="is_ffl"
+				data-type="boolean" category="Administrable" default="false">
+			</property>	
+			<property name="hidePrice" description="Hide Price"
+				display-name="Hide Price" column-name="is_hide_price"
+				data-type="boolean" category-resource="categoryBasics" default="false">
+			</property>	
+			<property name="pickerTemplate" description="Picker Layout"
+				display-name="Picker Layout" column-name="picker_template"
+				data-type="string" category-resource="categoryBasics">
+			</property>				
+			<property name="fulfillmentMethod" description="Fulfillment Method"
+				display-name="Fulfillment Method" column-name="fulfillment_method"
+				data-type="int" category-resource="categoryBasics">
+			</property>
+			<property name="bvReviews" description="BV Reviews"
+				display-name="BV Reviews" column-name="bv_reviews"
+				data-type="double" category-resource="categoryBasics">
+				<attribute name="deployable" data-type="boolean" value="false"/>
+			</property>
+			<property name="bvReviewsGroup" description="BV Reviews Groups"
+				display-name="BV Reviews Group" column-name="bv_reviews_group"
+				data-type="int" category-resource="categoryBasics">
+				<attribute name="deployable" data-type="boolean" value="false"/>
+			</property>
+			<property name="splMsgTitle" description="Special Message Title"
+				display-name="PDP Special Message Title" column-name="spl_msg_title"
+				data-type="big string" category="Administrable">
+				<attribute name="propertySortPriority" value="-10"/>
+			</property>
+			<property name="splMsg" description="Special Message"
+				display-name="PDP Special Message" column-name="spl_msg"
+				data-type="big string" category="Administrable">
+				<attribute name="propertySortPriority" value="-9"/>
+			</property>
+			<property name="teaserStartDate" description="Event start date"
+				display-name="Event Start Date" column-name="teaser_startdate"
+				data-type="timestamp" category="categoryBasics">
+				<attribute name="propertySortPriority" value="-8"/>
+			</property>
+			<property name="teaserEndDate" description="Event End Date"
+				display-name="Event End Date" column-name="teaser_enddate"
+				data-type="timestamp" category="categoryBasics">
+				<attribute name="propertySortPriority" value="-7"/>
+			</property>
+			<property name="teaserPDPMessage" description="Override for Event Message on PDP"
+				display-name="Override Event Message on PDP" column-name="ovr_teaser_pdp_message"
+				data-type="big string" category="Administrable">
+				<attribute name="propertySortPriority" value="-6"/>
+			</property>
+			<property name="teaserPLPMessage" description="Override for Event Message on PLP"
+				display-name="Override Event Message on PLP" column-name="ovr_teaser_plp_message"
+				data-type="big string" category="Administrable">
+				<attribute name="propertySortPriority" value="-5"/>
+			</property>			
+		</table>
+		
+    	<table shared-table-sequence="1" name="mff_product_attr" id-column-name="product_id" type="multi" multi-column-name="attribute_name">
+      		<property readable="true" display-name="Pickers" expert="false" hidden="false" data-type="map" component-data-type="string" 
+      			required="false" writable="true" queryable="true" cache-mode="inherit" 
+      			backing-map-property="false" name="dynamicAttributes" column-name="attribute_value" 
+      			category-resource="categoryMiscellaneous">
+        		<attribute name="propertySortPriority" value="-4"/>
+      		</property>
+    	</table>
+    	
+	    <table name="mff_product_video" type="multi" id-column-names="product_id"
+	                 multi-column-name="seq_num">
+	        <property name="videos" display-name="Video IDs" column-names="video_id" data-type="list"
+	                  component-data-type="string" category="Administrable"/>
+	    </table>
+	        	
+    	<property readable="true" expert="true" display-name="Seo Description" hidden="false" 
+    		data-type="String" required="false" property-type="com.mff.repository.property.SeoDescription" writable="false" queryable="false" 
+    		name="seoDescription" >
+    	</property>
+    	<property readable="true" expert="true" display-name="repositoryIdWithoutZeros" hidden="true" 
+    		data-type="String" required="false" property-type="com.mff.repository.property.RepositoryIdWithoutZeros" writable="false" queryable="false" 
+    		name="repositoryIdWithoutZeros" >
+    	</property>		
+	</item-descriptor>
+	<!-- ///////////// End of Product Item Descriptor//////////// -->
+	<!-- ///////////// Start of SKU Item Descriptor//////////// -->
+	<item-descriptor name="sku" display-property="displayName"
+		cache-mode="simple" item-expire-timeout="1800000" query-expire-timeout="1800000" item-cache-size="100000">
+		
+		 
+		<table name="dcs_sku" type="primary" id-column-name="sku_id">
+			<property name="computedProperties" description="Computed Properties"
+				display-name="Computed Properties" column-name="sku_id"
+				item-type="computedSkuProperties" category-resource="categoryBasics"
+				writable="false" />
+
+		</table>
+ 
+		<table name="mff_sku" id-column-name="sku_id" type="auxiliary">
+
+			<property name="taxCode" description="Tax Code"
+				display-name="Tax Code" column-name="tax_code"
+				data-type="string" category="Tax">
+			</property>
+
+			<!--  Dimensions -->
+			<property name="skuLength" description="SKU Length"
+				display-name="SKU Length" column-name="sku_length"
+				data-type="double" category="Dimensions">
+			</property>
+			<property name="girth" description="Girth"
+				display-name="Girth" column-name="girth"
+				data-type="double" category="Dimensions">
+			</property>
+			<property name="width" description="Width"
+				display-name="Width" column-name="width"
+				data-type="double" category="Dimensions">
+			</property>
+			<property name="weight" description="Weight"
+				display-name="Weight" column-name="weight"
+				data-type="double" category="Dimensions">
+			</property>
+			<property name="cube" description="Cube"
+				display-name="Cube" column-name="is_cube"
+				data-type="double" category="Dimensions">				
+			</property>
+			<property name="skuDepth" description="SKU Depth"
+				display-name="SKU Depth" column-name="sku_depth"
+				data-type="double" category="Dimensions">					
+			</property>
+			
+			<!-- Checkout Restrictions -->									
+			<property name="restrictedLocations" description="Restricted at Locations"
+				display-name="Restricted at Locations" column-name="restricted_locations"
+				data-type="string" category="Checkout Restrictions">	
+			</property>			
+
+			<property name="limitPerOrder" description="Max limit"
+				display-name="Max limit" column-name="limit_per_order"
+				data-type="int" category="Checkout Restrictions">	
+			</property>
+
+			<property name="bopisLimitPerOrder" description="BOPIS Max limit"
+				display-name="BOPIS Max limit" column-name="bopis_limit_per_order"
+				data-type="int" category="Checkout Restrictions">	
+			</property>
+											
+			<!--  Shipping Instructions -->
+			<property name="restrictAir" description="Restrict Air"
+				display-name="Restrict Air" column-name="restrict_air"
+				data-type="boolean" category="Shipping Instructions">
+			</property>
+			<property name="oversized" description="Oversized"
+				display-name="Oversized" column-name="oversized"
+				data-type="boolean" category="Shipping Instructions">
+			</property>	
+			<property name="longLight" description="Long Light"
+				display-name="Long Light" column-name="long_light"
+				data-type="boolean" category="Shipping Instructions">	
+			</property>
+			<property name="freeShipping" description="Free Shipping"
+				display-name="Free Shipping" column-name="free_shipping"
+				data-type="boolean" category="Shipping Instructions">	
+			</property>
+									
+			<!--  Special instructions -->
+			<property name="refrigerate" description="refrigerate"
+				display-name="Refrigerate" column-name="refrigerate"
+				data-type="boolean" category="Special Instructions">
+			</property>	
+			<property name="hazardous" description="Hazardous"
+				display-name="hazardous" column-name="hazardous"
+				data-type="boolean" category="Special Instructions">
+			</property>	
+			<property name="dateSensitive" description="Date Sensitive"
+				display-name="Date Sensitive" column-name="date_sensitive"
+				data-type="boolean" category="Special Instructions">
+			</property>							
+			<property name="consumable" description="Consumable"
+				display-name="Consumable" column-name="consumable"
+				data-type="boolean" category="Special Instructions">				
+			</property>
+			<property name="vacinne" description="Vacinne"
+				display-name="Vacinne" column-name="vacinne"
+				data-type="boolean" category="Special Instructions">	
+			</property>
+			<property name="freightClass" description="Freight Class"
+				display-name="Freight Class" column-name="freight_class"
+				data-type="string" category="Special Instructions">				
+			</property>	
+			<property name="freezable" description="Freezable"
+				display-name="Freezable" column-name="freezable"
+				data-type="boolean" category="Special Instructions">	
+			</property>	
+
+			<property name="ormd" description="ORMD"
+				display-name="ORMD" column-name="ormd"
+				data-type="boolean" category="Special Instructions">
+			</property>	
+
+			<property name="ppsMsgIds" description="PPS Message Ids"
+				display-name="PPS Message Ids" column-name="pps_msg_ids"
+				data-type="string" category="Special Instructions">
+			</property>	
+									
+			<!--  LTL  -->
+			<property name="ltlFuelSurcharge" description="LTL Fuel Surcharge"
+				display-name="LTL Fuel Surcharge" column-name="ltl_fuel_surcharge"
+				data-type="boolean" category="LTL">
+			</property>
+			<property name="ltlLiftGate" description="ltl_lift_gate"
+				display-name="LTL Lift Gate" column-name="ltl_lift_gate"
+				data-type="boolean" category="LTL">
+			</property>
+			<property name="ltlResDelivery" description="LTL Res Delivery"
+				display-name="LTL Res Delivery" column-name="ltl_res_delivery"
+				data-type="boolean" category="LTL">				
+			</property>
+			<property name="ltl" description="LTL"
+				display-name="LTL" column-name="ltl"
+				data-type="boolean" category="LTL">	
+			</property>	
+
+			<!-- Fulfillment -->
+			<property name="upcs" description="UPCs"
+				display-name="UPCs" column-name="upcs"
+				data-type="string" category="Fulfillment">	
+			</property>
+			
+			<property name="upc1" description="UPC 1"
+				display-name="UPC 1" column-name="upc_1"
+				data-type="string" category="Fulfillment">	
+			</property>				
+			<property name="upc2" description="UPC 2"
+				display-name="UPC 2" column-name="upc_2"
+				data-type="string" category="Fulfillment">	
+			</property>	
+			<property name="upc3" description="UPC 3"
+				display-name="UPC 3" column-name="upc_3"
+				data-type="string" category="Fulfillment">	
+			</property>
+			<property name="vpn" description="vpn"
+				display-name="VPN" column-name="vpn"
+				data-type="string" category="Fulfillment">				
+			</property>		
+			<property name="eds" description="eds"
+				display-name="EDS" column-name="eds"
+				data-type="boolean" category="Fulfillment">				
+			</property>	
+			
+			<!--  Display Icons -->
+
+			<property name="clearance" description="Clearance"
+				display-name="clearance" column-name="clearance"
+				data-type="boolean" category="Icons">				
+			</property>
+			
+			<property name="shippingSurchargeQntyRange" description="Quantity range for Shipping Surcharge"
+				display-name="Quantity range for Shipping Surcharge" column-name="shipping_surcharge_qnty_range"
+				data-type="string" category="Shipping Surcharges">	
+			</property>	
+
+		</table>
+		
+		<property name="ppsMessage" display-name="PPS Message" data-type="string" category="Special Instructions" hidden="false" writable="false" 
+				property-type="com.mff.commerce.catalog.PPSMessagePropertyDescriptor">
+		</property>	
+		
+		<property name="skuAttributes" display-name="Sku Attributes" data-type="map" component-data-type="string" hidden="false" writable="false" 
+				property-type="com.mff.commerce.catalog.SkuAttributesPropertyDescriptor">
+		</property>	
+		 
+		 <property name="onlineAvailable" data-type="boolean"
+			writable="false" display-name="Online Available">
+			<derivation>
+				<expression>computedProperties.onlineAvailable</expression>
+			</derivation>
+		</property>
+		<property readable="true" expert="true" display-name="repositoryIdWithoutZeros" hidden="true" 
+    		data-type="String" required="false" property-type="com.mff.repository.property.RepositoryIdWithoutZeros" writable="false" queryable="false" 
+    		name="repositoryIdWithoutZeros" >
+    	</property>		
+	</item-descriptor>
+	<item-descriptor name="configurableSku" cache-mode="simple" item-expire-timeout="1800000" query-expire-timeout="1800000" item-cache-size="100000">
+	</item-descriptor>    
+
+		
+	<item-descriptor name="computedSkuProperties"
+		display-property="id"
+		cache-mode="simple" item-expire-timeout="1800000" query-expire-timeout="1800000"
+		versionable="false">
+		<attribute name="skip-backing-map-generation" value="true"/>
+		<table name="mff_sku_computed" type="primary" id-column-name="sku_id">
+			<property name="id" column-name="sku_id" data-type="string" />
+			<property name="onlineAvailable" data-type="boolean"
+				writable="false" column-name="online_available" display-name="Online Available">
+				<attribute name="propertySortPriority" value="-20" />
+				
+			</property>
+		</table>
+	</item-descriptor>
+ 
+</gsa-template>

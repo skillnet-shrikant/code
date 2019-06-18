@@ -1,0 +1,746 @@
+/* =========================================================
+/* Cart
+   ========================================================= */
+// cart
+.cart .section-title h1 {
+	border: none;
+}
+.keep-shopping-btn,
+.express-checkout-btn {
+	@include rem-size(margin, 10px 0px 0px);
+}
+
+// cart empty
+.cart-empty {
+	@include grid-row();
+	.cart-empty-message {
+		border-top: solid 1px $base-gray;
+		@include rem-size(padding, 0px 10px 30px);
+		> p {
+			font-weight: $bold;
+			@include rem-size(font-size, 18px);
+			@include rem-size(margin, 30px 0px);
+			@include media(small-only) {
+				@include rem-size(font-size, 16px);
+			}
+		}
+	}
+}
+
+// promo form and financial stack
+.promo-and-totals {
+	@include grid-row();
+
+	.promo-code-container {
+		@include grid-column(12);
+		@include media(medium-up) {
+			width: 60%;
+			@include rem-size(padding-right, 20px);
+		}
+	}
+	.totals-container {
+		@include grid-column(12);
+		@include media(medium-up) {
+			width: 40%;
+		}
+	}
+}
+
+// proceed to checkout and keep shopping buttons
+.order-item-actions {
+	@include grid-row();
+
+	.cart-buttons {
+		@include grid-column();
+		@include rem-size(padding, 10px 10px 20px);
+		width: 100%;
+
+		.button {
+			width: 100%;
+			& ~ .button {
+				@include rem-size(margin-top, 10px);
+			}
+		}
+		@include media(medium-up) {
+			float: right;
+			width: 40%;
+		}
+	}
+}
+
+
+
+/* =========================================================
+/* Checkout
+   ========================================================= */
+
+// header
+.checkout:not(.orderConfirmation)  {
+	.desktop-header {
+		border-bottom: 1px solid $light-gray;
+	}
+	.utility-nav {
+		@include rem-size(margin, 39px 0px 0px);
+	}
+	.checkout-header-item {
+		width: 100%;
+		text-align: right;
+	}
+	.masthead-mobile {
+		.masthead-mobile-link-menu {
+			display: none;
+		}
+		.masthead-logo a {
+			display: inline;
+			float: left;
+			@include rem-size(padding-left, 8px);
+		}
+		.checkout-header-item {
+			width: auto;
+			float: right;
+			@include font-size(12px);
+			@include rem-size(line-height, 14px);
+			@include rem-size(padding-right, 8px);
+		}
+		.icon-lock {
+			@include font-size(22px);
+		}
+	}
+}
+
+// login
+.guest-checkout-form {
+	@include grid-column(12);
+	background: $light-gray;
+	@include rem-size(padding-bottom, 8px);
+	@include rem-size(margin-top, 10px);
+
+	@include media(medium-up){
+		width: calc(50% - 10px);
+		@include rem-size(padding, 4px 28px 28px);
+		@include rem-size(margin, 0px 10px 0px 0px);
+	}
+}
+
+// checkout progress
+.checkout-progress {
+	font-weight: $bold;
+	@include grid-row();
+	@include rem-size(padding, 0px 10px);
+	@include rem-size(line-height, 40px);
+	overflow: hidden;
+
+	&.fixed-progress {
+		position: fixed;
+		top: 0;
+		z-index: 1;
+		background: $white;
+		@include rem-size(padding, 6px);
+		border-bottom: 1px solid $light-gray;
+	}
+}
+.checkout-progress-steps {
+	@include grid-column(12);
+	padding: 0;
+}
+.checkout-progress-shipping,
+.checkout-progress-payment,
+.checkout-progress-review {
+	float: left;
+	text-align: center;
+	color: $black;
+	background: $base-gray;
+	width: calc((30%) - (8px / 3));
+	@include font-size(11px);
+
+	@include media(medium-up){
+		width: calc((100% / 3) - (20px / 3));
+		@include font-size(14px);
+	}
+
+	&.in-progress {
+		background: $orange;
+		color: $white;
+
+		span {
+			background: $white;
+			color: $orange;
+		}
+	}
+	&.complete:hover {
+		cursor: pointer;
+		text-decoration: underline;
+	}
+	span {
+		position: relative;
+		top: -1px;
+		background: $black;
+		color: $white;
+		@include rem-size(margin-right, 4px);
+		@include rem-size(padding, 3px 6px 2px);
+		@include font-size(12px);
+		font-weight: $normal;
+		border-radius: 20px;
+	}
+}
+.checkout-progress-shipping {
+	width: calc((40%) - (8px / 3));
+	@include rem-size(margin-right, 2px);
+
+	@include media(medium-up){
+		width: calc((100% / 3) - (20px / 3));
+		@include rem-size(margin-right, 5px);
+	}
+}
+.checkout-progress-payment {
+	@include rem-size(margin, 0px 2px);
+
+	@include media(medium-up){
+		@include rem-size(margin, 0px 5px);
+	}
+}
+.checkout-progress-review {
+	@include rem-size(margin-left, 2px);
+
+	@include media(medium-up){
+		@include rem-size(margin-left, 5px);
+	}
+}
+
+// checkout steps
+.checkout-columns {
+	@include grid-row();
+	@include rem-size(padding-bottom, 20px);
+}
+.checkout-left-column,
+.checkout-right-column {
+	@include grid-column(12);
+
+	@include media(medium-up) {
+		width: 50%;
+	}
+}
+.checkout-title {
+	background: $light-gray;
+	@include rem-size(margin-top, 16px);
+	float: left;
+	width: 100%;
+
+	h2 {
+		display: inline-block;
+		@include font-size(16px);
+		@include rem-size(padding, 10px);
+		margin: 0;
+	}
+}
+.checkout-shipping,
+.checkout-payment,
+.checkout-review {
+	float: left;
+	width: 100%;
+}
+.shipping-address,
+.payment-info {
+	@include grid-row();
+}
+.shipping-address,
+.shipping-method,
+.shipping-review-panel,
+.shipping-address-review-panel,
+.bopis-review-panel,
+.bopis-person-form,
+.gift-card-info,
+.gift-card-review-panel,
+.payment-info,
+.payment-info-review-panel {
+	@include grid-column(12);
+
+	h3 {
+		@include font-size(16px);
+		border-bottom: 1px solid $border-color;
+	}
+	h4 {
+		@include font-size(14px);
+		border-bottom: none;
+	}
+	p {
+		margin: 0;
+		@include font-size(12px);
+		word-wrap: break-word;
+	}
+	p.note {
+		color: $medium-gray;
+		@include rem-size(margin-top, -10px);
+	}
+	.ship-method-note {
+		margin-bottom: 0;
+   	 	min-height: 1.25rem;
+    	padding-left: 1.25rem;
+    	font-weight: $bold;
+		color: $blue;
+	}
+	.radio,
+	.checkbox {
+		margin: 0;
+	}
+}
+.shipping-method,
+.address-name,
+.billing-address,
+.checkout-payment,
+.payment-name,
+.checkout-review {
+	display: none;
+}
+.billing-address.ffl-order {
+	display: block;
+}
+.shipping-review-panel,
+.shipping-address-review-panel,
+.gift-card-review-panel,
+.payment-info-review-panel,
+.bopis-review-panel,
+.bopis-person-form {
+	@include grid-row();
+}
+.edit-shipping,
+.edit-shipping-address,
+.edit-bopis-person,
+.edit-payment {
+	@include rem-size(padding-right, 10px);
+	@include rem-size(line-height, 44px);
+	@include font-size(12px);
+	text-decoration: underline;
+	color: $black;
+	float: right;
+
+	&:hover {
+		color: $black;
+		font-weight: $bold;
+	}
+}
+.edit-shipping-address {
+	display: none;
+}
+.shipping-method-review,
+.shipping-address-review,
+.bopis-person-review,
+.credit-card-review,
+.billing-address-review,
+.email-address-review {
+	@include grid-column(12);
+	padding: 0;
+
+	h3 {
+		@include rem-size(margin-bottom, 4px);
+	}
+	a:not(.modal-trigger) {
+		display: block;
+	}
+	a {
+		@include font-size(12px);
+		text-decoration: underline;
+	}
+	@include media(medium-up){
+		width: 50%;
+	}
+}
+@include media(medium-up){
+	.shipping-method-review,
+	.shipping-address-review,
+	.credit-card-review {
+		@include rem-size(padding-right, 10px);
+	}
+	.shipping-method-review.shipping-address-review {
+
+	}
+	.email-address-review {
+		width: 100%;
+	}
+}
+#bopis-person-form .alert-box {
+	float: left;
+}
+.bopis-person-form {
+	label[for="pick-up-other"] {
+		@include rem-size(padding, 10px 0px 10px 20px);
+	}
+	.label {
+		width: auto;
+		@include rem-size(line-height, 28px);
+	}
+	p {
+		@include rem-size(line-height, 18px);
+	}
+	.pick-up-other-form {
+		display: none;
+
+		label {
+			padding: 0;
+		}
+	}
+}
+.restricted-message {
+	h4 {
+		@include rem-size(margin, 8px 0px);
+
+		.gift-card-info & {
+			@include rem-size(margin, 16px 0px 8px);
+		}
+	}
+	.icon {
+		position: relative;
+		top: 2px;
+	}
+	p {
+		@include rem-size(line-height, 18px);
+		@include rem-size(margin, 0px 0px 16px);
+	}
+}
+.shipping-faq-link {
+	float: right;
+	@include rem-size(margin-top, -40px);
+	@include font-size(12px);
+	text-decoration: underline;
+}
+.shipping-address-section .radio {
+	@include rem-size(margin-top, 20px);
+	@include rem-size(margin-bottom, 20px);
+
+	input[type="radio"] {
+		@include rem-size(margin-top, 15px);
+		height: auto;
+	}
+	&.shipping-address-new {
+		.label {
+			text-transform: uppercase;
+			font-weight: $bold;
+			@include font-size(16px);
+			width: auto;
+		}
+		input[type="radio"] {
+			@include rem-size(margin, 5px 0px 0px -20px);
+
+			@include media(medium-up) {
+				@include rem-size(margin-top, 4px);
+			}
+		}
+		.checkbox {
+			@include rem-size(padding-left, 20px);
+		}
+	}
+}
+.saved-card-cvv {
+	display: none;
+
+	label {
+		display: inline-block;
+		padding: 0;
+		top: 2px;
+		width: 60px;
+	}
+	input {
+		display: inline;
+		width: 33.333%;
+	}
+	.field-error-text {
+		margin-left: 64px;
+	}
+	input[name="payment-method"]:checked ~ .card & {
+		display: block;
+	}
+}
+.payment-method-section .radio {
+	@include rem-size(margin-top, 20px);
+	@include rem-size(margin-bottom, 20px);
+
+	input[type="radio"] {
+		margin-top: 0;
+		top: calc(50% - 12px);
+	}
+	.card-wrapper {
+		max-width: 350px;
+		margin-bottom: 0;
+	}
+	&.payment-method-new {
+		.label {
+			text-transform: uppercase;
+			font-weight: $bold;
+			@include font-size(16px);
+			width: auto;
+		}
+		input[type="radio"] {
+			@include rem-size(margin, 5px 0px 0px -20px);
+			top: 0;
+
+			@include media(medium-up) {
+				@include rem-size(margin-top, 4px);
+			}
+		}
+		.checkbox {
+			@include rem-size(padding-left, 20px);
+		}
+	}
+}
+.new-shipping-address,
+.new-payment-method {
+	display: none;
+
+	label {
+		padding: 0;
+	}
+}
+.cc-images {
+	margin: 16px auto;
+	width: 320px;
+	display: block;
+}
+.place-order-btn {
+	@include media(medium-up){
+		@include rem-size(margin, 20px 0px);
+	}
+	&.hide-for-medium-up {
+		@include rem-size(margin-top, 32px);
+	}
+}
+@include media(small-only){
+	input.button.primary.place-order-btn {
+		width: calc(100% + 20px);
+		@include rem-size(margin, 0px -10px);
+	}
+}
+.add-gift-card {
+	float: right;
+	@include rem-size(margin-top, -28px);
+	@include font-size(12px);
+	text-decoration: underline;
+}
+.gift-card-restricted {
+	float: right;
+	@include rem-size(margin-top, -28px);
+	@include font-size(12px);
+	text-decoration: underline;
+}
+.gift-card-info {
+	width: 100%;
+
+	h3 {
+		@include rem-size(margin-bottom, 4px);
+	}
+}
+.gift-card-form {
+	display: none;
+	@include rem-size(padding-top, 12px);
+}
+.gift-card-review,
+.gift-card-review-panel {
+	@include font-size(12px);
+	h3 {
+		@include rem-size(margin-bottom, 4px);
+	}
+}
+.applied-gift-card {
+	display: block;
+	float: left;
+	width: 100%;
+}
+.gift-card-number-applied {
+	display: inline;
+	float: left;
+}
+.gift-card-remove {
+	float: left;
+	@include rem-size(padding-left, 8px);
+	text-decoration: underline;
+}
+.gift-card-amount-applied {
+	display: inline;
+	float: right;
+	font-weight: $bold;
+}
+.order-review {
+	@include grid-column(12);
+}
+
+// checkout order items
+.checkout {
+	@include media(small-only) {
+		.item-price-subtotal {
+			margin: auto;
+		}
+	}
+	@include media(medium-up) {
+		.item-image {
+			width: 20%;
+		}
+		.item-details {
+			width: 67%;
+			padding-left: 0;
+			.price {
+				display: block;
+			}
+		}
+		.item-price-subtotal {
+			width: 13%;
+			text-align: right;
+		}
+		.promo-code-container,
+		.totals-container {
+			width: 100%;
+			@include rem-size(padding, 0px 10px);
+		}
+	}
+}
+
+
+
+
+
+/* =========================================================
+/* Order Confirmation
+   ========================================================= */
+// order confirmation
+.confirmation-message-container {
+	@include grid-row();
+
+	@include media(medium-up) {
+		@include rem-size(margin-top, 10px);
+	}
+}
+.confirmation-messages {
+	@include grid-column(12);
+
+	@include media(medium-up){
+		width: 50%;
+		padding: 0 28px 0 10px;
+	}
+	.orderInfo-faq-link {
+		text-decoration: underline;
+	}
+}
+.user-confirmation-messages {
+	@include media(medium-up){
+		width: 100%;
+	}
+}
+.confirmation-create-account {
+	@include grid-column(12);
+	background: $light-gray;
+	@include rem-size(margin-bottom, 20px);
+	@include rem-size(padding, 4px 20px 20px);
+
+	@include media(medium-up){
+		width: calc(50% - 10px);
+		@include rem-size(padding, 4px 28px 16px);
+		@include rem-size(margin-right, 10px);
+	}
+	@include media(small-only) {
+		a {
+			width: 100%;
+		}
+	}
+}
+.orderConfirmation {
+
+	.title-buttons {
+		@include rem-size(margin-top, -36px);
+	}
+	.create-account-message p {
+		@include rem-size(margin, 0px 0px 16px);
+	}
+	.create-account-form {
+		display: none;
+	}
+
+	// shipping/billing info
+	.shipping-billing-info {
+		@include grid-row();
+		padding: 0 10px;
+	}
+	.shipped-to,
+	.shipping-method,
+	.billed-to {
+		@include grid-column(12);
+		display: block;
+		padding: 0;
+
+		@include media(medium-up) {
+			width: 33.333%;
+		}
+	}
+	.shipping-billing-header {
+		@include rem-size(padding, 10px);
+		background: $light-gray;
+		@include font-size(12px);
+		font-weight: $bold;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+	}
+	.shipped-to-info,
+	.shipping-method-info,
+	.billed-to-info {
+		@include rem-size(padding, 16px 10px);
+		@include font-size(12px);
+
+		h3 {
+			margin-top: 0;
+			@include font-size(14px);
+			border-bottom: 1px solid $border-color;
+		}
+		p {
+			margin: 0;
+			@include rem-size(line-height, 18px);
+			word-wrap: break-word;
+		}
+	}
+	.billed-to-info-block {
+		@include rem-size(padding-bottom, 20px);
+
+		@include media(small-only) {
+			+ .billed-to-info-block {
+				padding: 0;
+			}
+		}
+	}
+
+	// order items
+	@include media(medium-up) {
+		.order-items-header-detail {
+			width: 65%;
+		}
+		.order-items-header-price,
+		.item-price-unit {
+			width: 17%;
+		}
+		.order-items-header-total,
+		.item-price-subtotal {
+			width: 18%;
+		}
+		.item-details {
+			width: 45%;
+
+			.price {
+				display: none;
+			}
+		}
+	}
+	@include media(small-only) {
+		.order-details-items .label {
+			width: 70px;
+		}
+	}
+
+	// totals
+	.promo-and-totals .totals-container {
+		@include rem-size(margin-bottom, 20px);
+
+		@include media(medium-up){
+			width: 50%;
+			float: right;
+		}
+		@include media(large-up){
+			width: 40%;
+		}
+	}
+
+}

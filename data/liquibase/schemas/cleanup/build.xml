@@ -1,0 +1,196 @@
+<project name="import_update" default="liquibase-import-data" basedir=".">
+
+  <import file="${basedir}/../../liquibase_includes.xml" />
+  
+   <target name="liquibase-import-catfeed-test-data">
+		 <antcall target="-import-catfeed-test-data">
+			<param name="update-import.command" value="liquibase_includes.liquibase-execute-changelog"/>
+		</antcall>
+  </target>
+  
+  <target name="liquibase-import-catfeed-data">
+		 <antcall target="-import-catfeed-data">
+			<param name="update-import.command" value="liquibase_includes.liquibase-execute-changelog"/>
+		</antcall>
+  </target>
+	
+	<target name="liquibase-import-switching-data">
+		 <antcall target="-import-switching-data">
+			<param name="update-import.command" value="liquibase_includes.liquibase-execute-changelog"/>
+		</antcall>
+	</target>	
+	
+	<target name="liquibase-import-stage-switching-data">
+			 <antcall target="-import-stage-switching-data">
+				<param name="update-import.command" value="liquibase_includes.liquibase-execute-changelog"/>
+			</antcall>
+		</target>
+  
+	<target name="liquibase-import-agent-data">
+		 <antcall target="-import-agent-data">
+			<param name="update-import.command" value="liquibase_includes.liquibase-execute-changelog"/>
+		</antcall>
+	</target>
+	
+	<target name="liquibase-import-core-data">
+		 <antcall target="-import-core-data">
+			<param name="update-import.command" value="liquibase_includes.liquibase-execute-changelog"/>
+		</antcall>
+	</target>
+	
+	<target name="liquibase-import-stage-core-data">
+			 <antcall target="-import-stage-core-data">
+				<param name="update-import.command" value="liquibase_includes.liquibase-execute-changelog"/>
+			</antcall>
+		</target>
+	
+	<target name="liquibase-import-legacy-data">
+		 <antcall target="-import-legacy-data">
+			<param name="update-import.command" value="liquibase_includes.liquibase-execute-changelog"/>
+		</antcall>
+	</target>
+	
+	<target name="liquibase-import-oms-data">
+		 <antcall target="-import-oms-data">
+			<param name="update-import.command" value="liquibase_includes.liquibase-execute-changelog"/>
+		</antcall>
+	</target>
+	
+	<target name="liquibase-import-pub-data">
+		 <antcall target="-import-pub-data">
+			<param name="update-import.command" value="liquibase_includes.liquibase-execute-changelog"/>
+		</antcall>
+	</target>
+  
+   <target name="-import-catfeed-test-data">
+		<fail unless="update-import.command">update-import.command is not set</fail>
+		<!-- constants get installed in system and catfeed -->
+		<for list="catfeed-db" param="liquibase.dbref">
+		  <sequential>
+			 <antcall target="${update-import.command}">
+				<param name="liquibase.changelog" value="master_import_catfeed_test_changelog.xml" />
+				<param name="liquibase.dbref" value="@{liquibase.dbref}" />
+			 </antcall>
+		  </sequential>
+		</for>
+  </target>
+  
+  <target name="-import-catfeed-data">
+		<fail unless="update-import.command">update-import.command is not set</fail>
+		<!-- constants get installed in system and catfeed -->
+		<for list="catfeed-db" param="liquibase.dbref">
+		  <sequential>
+			 <antcall target="${update-import.command}">
+				<param name="liquibase.changelog" value="master_import_catfeed_changelog.xml" />
+				<param name="liquibase.dbref" value="@{liquibase.dbref}" />
+			 </antcall>
+		  </sequential>
+		</for>
+  </target>
+	
+<target name="-import-switching-data">
+		<fail unless="update-import.command">update-import.command is not set</fail>
+		<!-- constants get installed in system and catfeed -->
+		<for list="cata-db,catb-db" param="liquibase.dbref">
+		  <sequential>
+			 <antcall target="${update-import.command}">
+				<param name="liquibase.changelog" value="master_import_cata_catb_changelog.xml" />
+				<param name="liquibase.dbref" value="@{liquibase.dbref}" />
+			 </antcall>
+		  </sequential>
+		</for>
+  </target>	
+	
+	<target name="-import-agent-data">
+			<fail unless="update-import.command">update-import.command is not set</fail>
+			<!-- constants get installed in system and catfeed -->
+			<for list="service-db" param="liquibase.dbref">
+			  <sequential>
+				 <antcall target="${update-import.command}">
+					<param name="liquibase.changelog" value="master_import_agent_changelog.xml" />
+					<param name="liquibase.dbref" value="@{liquibase.dbref}" />
+				 </antcall>
+			  </sequential>
+			</for>
+	  </target>	
+	
+	<target name="-import-core-data">
+		<fail unless="update-import.command">update-import.command is not set</fail>
+		<!-- constants get installed in system and catfeed -->
+		<for list="core-db" param="liquibase.dbref">
+		  <sequential>
+			 <antcall target="${update-import.command}">
+				<param name="liquibase.changelog" value="master_import_core_changelog.xml" />
+				<param name="liquibase.dbref" value="@{liquibase.dbref}" />
+			 </antcall>
+		  </sequential>
+		</for>
+  </target>	
+
+	
+	<target name="-import-oms-data">
+		<fail unless="update-import.command">update-import.command is not set</fail>
+		<!-- constants get installed in system and catfeed -->
+		<for list="oms-db" param="liquibase.dbref">
+		  <sequential>
+			 <antcall target="${update-import.command}">
+				<param name="liquibase.changelog" value="master_import_oms_changelog.xml" />
+				<param name="liquibase.dbref" value="@{liquibase.dbref}" />
+			 </antcall>
+		  </sequential>
+		</for>
+  </target>	
+	
+	<target name="-import-legacy-data">
+			<fail unless="update-import.command">update-import.command is not set</fail>
+			<!-- constants get installed in system and catfeed -->
+			<for list="legacy-db" param="liquibase.dbref">
+			  <sequential>
+				 <antcall target="${update-import.command}">
+					<param name="liquibase.changelog" value="master_import_legacy_changelog.xml" />
+					<param name="liquibase.dbref" value="@{liquibase.dbref}" />
+				 </antcall>
+			  </sequential>
+			</for>
+	  </target>		
+	
+	<target name="-import-pub-data">
+		<fail unless="update-import.command">update-import.command is not set</fail>
+		<!-- constants get installed in system and catfeed -->
+		<for list="pub-db" param="liquibase.dbref">
+		  <sequential>
+			 <antcall target="${update-import.command}">
+				<param name="liquibase.changelog" value="master_import_pub_changelog.xml" />
+				<param name="liquibase.dbref" value="@{liquibase.dbref}" />
+			 </antcall>
+		  </sequential>
+		</for>
+  </target>	
+	
+	<target name="-import-stage-switching-data">
+			<fail unless="update-import.command">update-import.command is not set</fail>
+			<!-- constants get installed in system and catfeed -->
+			<for list="stage-cata-db,stage-catb-db" param="liquibase.dbref">
+			  <sequential>
+				 <antcall target="${update-import.command}">
+					<param name="liquibase.changelog" value="master_import_cata_catb_changelog.xml" />
+					<param name="liquibase.dbref" value="@{liquibase.dbref}" />
+				 </antcall>
+			  </sequential>
+			</for>
+	  </target>	
+	
+	<target name="-import-stage-core-data">
+			<fail unless="update-import.command">update-import.command is not set</fail>
+			<!-- constants get installed in system and catfeed -->
+			<for list="stage-core-db" param="liquibase.dbref">
+			  <sequential>
+				 <antcall target="${update-import.command}">
+					<param name="liquibase.changelog" value="master_import_core_changelog.xml" />
+					<param name="liquibase.dbref" value="@{liquibase.dbref}" />
+				 </antcall>
+			  </sequential>
+			</for>
+	  </target>	
+
+</project>

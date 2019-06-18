@@ -1,0 +1,1 @@
+alter table ff_store_inv_transaction add is_damaged	number(1) default 0;

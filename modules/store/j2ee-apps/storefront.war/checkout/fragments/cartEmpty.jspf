@@ -1,0 +1,6 @@
+<div class="cart-empty">
+	<div class="cart-empty-message">
+		<p>There are no items in your shopping cart.</p>
+		<a href="/" class="button primary">Start Shopping</a>
+	</div>
+</div>

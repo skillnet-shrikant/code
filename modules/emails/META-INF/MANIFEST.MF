@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+ATG-Required: DafEar.Admin DPS DSS DCS.PublishingAgent KP.RS.main
+ATG-Config-Path: config
+ATG-Web-Module: j2ee-apps/emails.war
+ATG-Module-Uri: emails.war
+ATG-Context-Root: emails
+
+

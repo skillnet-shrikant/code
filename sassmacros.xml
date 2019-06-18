@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!--
+# Sass Macros for Ant
+# http://github.com/gbakernet
+# Authored 2012 Glenn Baker; Licensed MIT */
+
+<sass> Usage - Compile sass files
+ * jarpath - is path to jruby-complete.jar and gem-sass.jar
+ * src - input
+ * dest - output
+eg. <scss jarpath="${pathToJars}" src="${input}" dest="${output}" />
+
+<scss> Usage - Compile scss files
+ / Same as <sass>
+
+<installsass> Usage - Create gem-sass.jar from a "gem install sass"
+ * jarpath - is path to jruby-complete.jar
+eg. <scssjar jarpath="${pathToJars}" />
+
+Inspiration from these posts
+ - http://stackoverflow.com/questions/1751479/sass-implementation-for-java
+ - http://blog.nicksieger.com/articles/2009/01/10/jruby-1-1-6-gems-in-a-jar
+-->
+<project name="sassmacros" basedir=".">
+
+  <macrodef name="sass">
+    <attribute name="src"/>
+    <attribute name="dest"/>
+    <attribute name="compression"/>
+    <attribute name="jarpath"/>
+    <attribute name="type" default="sass" />
+    <sequential>
+      <echo message="Compiling scss/sass files..." />
+      <path id="JRuby">
+        <fileset file="@{jarpath}/jruby-complete-1.7.17.jar"/>
+      </path>
+
+      <property name="scss" value="@{src}/**/[^_]*.@{type}" />
+      <property name="scss.compression" value="@{compression}" />
+      <property name="scss.build" value="@{dest}" />
+      <script language="ruby" classpathref="JRuby">
+        <![CDATA[
+					require 'rubygems'
+					require 'sass'
+					require 'sass/exec'
+
+					files = Dir.glob($project.getProperty('scss'))
+					compression = $project.getProperty('scss.compression')
+					Dir.mkdir($project.getProperty('scss.build')) unless File.exists?($project.getProperty('scss.build'))
+					files.each do
+						| file |
+						puts '[SCSS] Compiling ' + File.basename(file, ".*")  + '.scss'
+						opts = Sass::Exec::SassScss.new([
+			        "-t", compression, # Output style. Can be nested (default), compact, compressed, or expanded.
+				      file, # input file
+				      File.join($project.getProperty('scss.build'), File.basename(file, ".*") + ".css")], # output file
+				    "@{type}")
+						opts.parse
+					end
+				]]>
+      </script>
+      <echo message="Done compiling files!" />
+    </sequential>
+  </macrodef>
+
+
+  <macrodef name="scss">
+    <attribute name="src"/>
+    <attribute name="dest"/>
+    <attribute name="jarpath"/>
+    <attribute name="compression"/>
+    <attribute name="type" default="scss" />
+    <sequential>
+      <sass jarpath="@{jarpath}" src="@{src}" dest="@{dest}" type="scss" compression="@{compression}"/>
+    </sequential>
+  </macrodef>
+
+</project>

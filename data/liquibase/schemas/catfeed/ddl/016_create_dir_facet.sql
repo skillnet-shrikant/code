@@ -1,0 +1,1 @@
+create or replace directory facet_feed_incoming as '/vagrant/feeds/xml/facets';

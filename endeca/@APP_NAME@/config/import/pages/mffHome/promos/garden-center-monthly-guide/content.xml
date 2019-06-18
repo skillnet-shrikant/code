@@ -1,0 +1,246 @@
+<ContentItem type="Page" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://endeca.com/schema/content/2008">
+  <TemplateId>GardenCenterPage</TemplateId>
+  <Name>Garden Center Page</Name>
+  <Property name="HeaderContent">
+    <ContentItemList type="HeaderContent"/>
+  </Property>
+  <Property name="SecondaryContent">
+    <ContentItemList type="SecondaryContent">
+      <ContentItem type="SecondaryContent">
+        <TemplateId>GardenCenterLogo</TemplateId>
+        <Name>GardenCenterLogo</Name>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Secondary Content Slot</Name>
+        <Property name="contentPaths">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>/content/Shared/Garden Center Guides Navigation</String>
+          </List>
+        </Property>
+        <Property name="templateTypes">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>SecondaryContent</String>
+          </List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Secondary Content Slot</Name>
+        <Property name="contentPaths">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>/content/Shared/Garden Center Articles Navigation</String>
+          </List>
+        </Property>
+        <Property name="templateTypes">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>SecondaryContent</String>
+          </List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Secondary Content Slot</Name>
+        <Property name="contentPaths">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>/content/Shared/Garden Center Lawns &amp; Gardens Navigation</String>
+          </List>
+        </Property>
+        <Property name="templateTypes">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>SecondaryContent</String>
+          </List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>GardenCenterEmailSignup</TemplateId>
+        <Name>GardenCenterEmailSignup</Name>
+      </ContentItem>
+    </ContentItemList>
+  </Property>
+  <Property name="MainContent">
+    <ContentItemList type="MainContent">
+      <ContentItem type="MainContent">
+        <TemplateId>MainTitleTextBlock</TemplateId>
+        <Name>MainTitleTextBlock</Name>
+        <Property name="mainTitle">
+          <String>Month-by-Month Gardening Guide</String>
+        </Property>
+        <Property name="sectionTitle">
+          <String/>
+        </Property>
+        <Property name="paraText">
+          <String/>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String/>
+        </Property>
+        <Property name="paraText">
+          <String>Whether your interests lie in flowers, vegetables or simply creating a beautiful lawn, planning ahead will help you keep on top of all the monthly chores to let your garden flourish. The most important part of gardening is recognizing what “zone” is assigned to your area. The USDA (United States Department of Agriculture) is the standard by which gardeners can determine which plants are most likely to thrive in their area. Their website allows you to enter in your zip code to determine the zones for your area. Wisconsin and Minnesota include ranges from Zone 3 to Zone 5. This guide pertains to gardening in these areas.</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String>January</String>
+        </Property>
+        <Property name="paraText">
+          <String>Winter is the time when the garden is asleep. The winter months are the perfect time to plan your garden for the coming spring, do some research on exciting new products.</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String>February</String>
+        </Property>
+        <Property name="paraText">
+          <String>Buy seeds for spring planting, especially if you want to get a head start on sowing them indoors. Late winter is also the best time to prune trees and shrubs. Doing so when they’re dormant and leafless makes it easier to see damaged limbs and shape the trees.</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String>March</String>
+        </Property>
+        <Property name="paraText">
+          <String>If, last fall, you planted bulbs such as hyacinth, crocus, tulips or daffodils, now is the time to welcome their greenery as it emerges in the garden. Early varieties will begin to bloom and continue their show into next month. Your hard work planting them during last autumn’s bluster has paid off. Prepare the lawn mower for upcoming season, getting a tune-up and sharpening or replacing blade if necessary. Late in the month, begin clean up of perennial garden.</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String>April</String>
+        </Property>
+        <Property name="paraText">
+          <String>Mid-late month, indoor sow seeds such as tomatoes, annual flowers and other vegetables. Use the information on the seed packet as a guide for the best time to start them indoors. Using a grow light will help your seedlings develop strong roots. In the perennial garden, divide flowers like daylilies and iris. Remove winter mulch and monitor growth of other perennial flowers. Add organic matter to flower beds and vegetable garden. Divide and transplant as desired. This is a great time to share plants with your gardening friends. Start mowing lawn if it begins actively growing but keep height to around 3 inches. Wait until after flowering to prune lilacs, forsythia and other spring blooming shrubs.</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String>May</String>
+        </Property>
+        <Property name="paraText">
+          <String/>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String>First half of month:</String>
+        </Property>
+        <Property name="paraText">
+          <String>Rake the lawn, and clean up debris left over from last summer. Sow grass seed on any bare spots, and if desired, use a crabgrass preventative. Hand-pull any weeds before they start flowering. In the vegetable garden, clean up any debris and work the soil with tiller or shovel until it’s friable and ready to be planted, adding compost and organic matter if needed. Outdoors (check the seed packets for proper timing in your zone) some vegetables (such as peas, carrots, lettuce and spinach) can be sown directly into the garden early in the month. Early May is also the time to purchase and plant trees and shrubs. Be sure to follow instructions and continue to water new trees throughout the growing season.</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String>Second half of month:</String>
+        </Property>
+        <Property name="paraText">
+          <String>Direct sow seeds for crops such as beans, watermelon, pumpkins and sweet corn. By planting partial rows every week or two, you can prolong your harvest throughout the season. Fertilize peonies. Pinch back returning mums and asters once they’re about 7 inches tall. Plant fruit such as strawberries and raspberries. After danger of first frost, transplant indoor sown plants to the garden. Harden off your transplants before moving them outdoors by moving them to partly sunny garage or greenhouse for about 2 weeks. It will prevent shocking them during the transition from indoors to out. Summer and winter squash seeds may be sown directly into the garden. At the end of the month, after danger of frost, you can plant annual flowers in your garden as well as peppers and tomato plants. Give your houseplants a treat by moving them to a shady spot outdoors. Fertilize your lawn with continuous feed fertilizer around Memorial Day.</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String>June</String>
+        </Property>
+        <Property name="paraText">
+          <String>Start a compost pile in your yard. Thin the rows of seeded vegetables as they begin to emerge. Mulch garden to minimize weeds and keep on top of them by removing with a hoe or cultivator. Better yet, hand pull them out as soon as they appear. Stake or cage tomato plants to support them as they grow. Provide support for climbing vegetables such as pole beans and cucumbers. Water new plantings – often at first, then less frequently as they become established. Harvest early season crops such as garden greens and radishes. Watch for insects on flowers and vegetables, hand-removing them as they are found.</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String>July</String>
+        </Property>
+        <Property name="paraText">
+          <String>Around the fourth of July, fertilize the lawn, unless it has gone dormant, or if you are leaving grass clippings decompose on the lawn. Maintain a regular watering schedule in your garden, preferably in early morning to discourage evaporation. Harvest vegetables as they ripen. Use a dehydrator to preserved your garden’s goodness in the winter months. Deadhead annual and perennial flowers to encourage reblooming. In the perennial garden, keep pinching back asters, mums and Autumn Joy sedum to control height. Keep up patrolling for insects and pests and hand-remove them if necessary.</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String>August</String>
+        </Property>
+        <Property name="paraText">
+          <String>Maintain a regular watering schedule, especially with trees if drought is a problem. Most trees should get 10 gallons of water per week, per inch of trunk diameter. Harvest fruits and vegetables as they ripen.  Dig and divide spring blooming perennials, and continue deadheading annuals. Cut back perennials to stimulate new growth. Enjoy the bite of a sun-warmed tomato fresh from the garden.</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String>September</String>
+        </Property>
+        <Property name="paraText">
+          <String>Fertilize lawn around Labor Day. Plant frost-tolerant plants like lettuce, spinach and onions for a fall harvest. Dig up herbs to bring indoor for winter, or harvest and hang upside down to use when dried. Plant garlic. Prepare for frost by moving tender plants indoors or cover with fabric when frost is predicted. Remove cover next day when temperatures warm. Return houseplants to indoor locations (hose off greenery first to remove any insect hitchhikers). Continue watering gardens as needed. In flower garden, plant new fall mums. Finish digging and dividing perennials.</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String>October</String>
+        </Property>
+        <Property name="paraText">
+          <String>Harvest pumpkins. Pick mature green tomatoes before frost and bring inside to ripen. Harvest root vegetables. Dig up delicate flower bulbs like dahlias and cannas, and bring inside. Plant several varieties of bulbs now for spring blooming (crocus, daffodil, narcissus, tulips, alliums, etc). Fertilize lawn close to Halloween. Rake up leaves , mulch and shred them with mower and add to garden or compost pile. Cut back foliage of peonies and hostas. Remove dead plants from vegetable garden. Cover garden with mulched leaves to add organic matter. Continue to water recently planted trees and shrubs until ground freezes hard.</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String>November</String>
+        </Property>
+        <Property name="paraText">
+          <String>Finish raking leaves. Clean and store tools. Empty pots and containers; clean and store for winter. Remove remaining dead plant material from vegetable and flower garden. Plant any remaining spring-blooming bulbs while ground is unfrozen. Mulch perennials to protect from winter frost. Store garden hose for winter.</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String>December</String>
+        </Property>
+        <Property name="paraText">
+          <String>Use evergreen branches for winter mulch. Review your garden’s successes and make a list of do’s and don’ts to remember next summer. Prepare a Christmas wish list of supplies from Fleet Farm so your friends and family know just what you will need in the spring!</String>
+        </Property>
+      </ContentItem>
+    </ContentItemList>
+  </Property>
+</ContentItem>

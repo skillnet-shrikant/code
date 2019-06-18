@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<spr:beans xmlns:spr="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns="http://www.endeca.com/schema/eacToolkit"
+  xsi:schemaLocation="
+      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+      http://www.endeca.com/schema/eacToolkit http://www.endeca.com/schema/eacToolkit/eacToolkit.xsd">
+
+  <!--
+    ########################################################################
+    # ReleaseUpdateLock - A script that releases the update lock.
+  -->
+  <script id="ReleaseUpdateLock">
+   <log-dir>./logs/provisioned_scripts</log-dir>
+   <provisioned-script-command>./control/release_update_locks.sh</provisioned-script-command>
+   <bean-shell-script>
+     <![CDATA[
+       LockManager.releaseLock("update_lock");
+     ]]>
+   </bean-shell-script>
+  </script>
+
+  <!--
+    ########################################################################
+    # Promotes a snapshot of the current dgraph configuration (e.g. rules, thesaurus, phrases)
+    # from the IFCR to the LiveDgraphCluster.
+  -->
+  <script id="PromoteAuthoringToStaging">
+      <log-dir>./logs/provisioned_scripts</log-dir>
+      <provisioned-script-command>./control/promote_content_to_staging.sh</provisioned-script-command>
+      <bean-shell-script>
+          <![CDATA[
+          // Exports a snapshot of the current dgraph config for the Live
+          // dgraph cluster. Writes the config into a single zip file.
+          // The zip is written to the local config directory for the live
+          // dgraph cluster.  A key file is stored along with the zip.
+          // This key file keeps the latest version of the zip file.
+          IFCR.exportConfigSnapshot(StageDgraphCluster);
+
+          // IFCR exportApplication
+          // Used to export a particular node to disk. This on disk format will represent
+          // all nodes as JSON files.  Can be used to update the Assembler.
+          // Note that these updates are "Application Specific". You can only export nodes
+          // that represent content and configuration relevant to this Application.
+          IFCR.exportApplication();
+
+          // Applies the latest config of each dgraph in the Live Dgraph cluster
+          // using the zip file written in a previous step.
+          // The LiveDgraphCluster is the name of a defined dgraph-cluster
+          // in the application config. If the name of the cluster is
+          // different or there are multiple clusters, You will need to add
+          // a line for each cluster defined.
+          StageDgraphCluster.applyConfigSnapshot();
+
+          // AssemblerUpdate updateAssemblers
+          // Updates all the assemblers configured for your deployment template application.
+          // The AssemblerUpdate component can take a list of Assembler Clusters which it
+          // should work against, and will build URLs and POST requests accordingly for each
+          // in order to update them with the contents of the given directory.
+          StageAssemblerUpdate.updateAssemblers();
+
+          ]]>
+      </bean-shell-script>
+  </script>
+
+  <script id="PromoteAuthoringToLive">
+      <log-dir>./logs/provisioned_scripts</log-dir>
+      <provisioned-script-command>./control/promote_content.sh</provisioned-script-command>
+      <bean-shell-script>
+          <![CDATA[
+          // Exports a snapshot of the current dgraph config for the Live
+          // dgraph cluster. Writes the config into a single zip file.
+          // The zip is written to the local config directory for the live
+          // dgraph cluster.  A key file is stored along with the zip.
+          // This key file keeps the latest version of the zip file.
+          IFCR.exportConfigSnapshot(LiveDgraphCluster);
+
+          // IFCR exportApplication
+          // Used to export a particular node to disk. This on disk format will represent
+          // all nodes as JSON files.  Can be used to update the Assembler.
+          // Note that these updates are "Application Specific". You can only export nodes
+          // that represent content and configuration relevant to this Application.
+          IFCR.exportApplication();
+
+          // Applies the latest config of each dgraph in the Live Dgraph cluster
+          // using the zip file written in a previous step.
+          // The LiveDgraphCluster is the name of a defined dgraph-cluster
+          // in the application config. If the name of the cluster is
+          // different or there are multiple clusters, You will need to add
+          // a line for each cluster defined.
+          LiveDgraphCluster.applyConfigSnapshot();
+
+          // Update the live ifcr
+          LiveIFCR.importApplication(LiveIFCR.retrieveCurrentConfigurationSnapshot("@APP_LIVE_EXPORT_DIR@/@APP_NAME@"));
+          LiveDgraphCluster.applyConfigSnapshot();
+
+          // AssemblerUpdate updateAssemblers
+          // Updates all the assemblers configured for your deployment template application.
+          // The AssemblerUpdate component can take a list of Assembler Clusters which it
+          // should work against, and will build URLs and POST requests accordingly for each
+          // in order to update them with the contents of the given directory.
+          LiveAssemblerUpdate.updateAssemblers();
+
+          // To promote using a direct connection, as in prior versions (3.X) of Tools
+          // and Frameworks, comment out the prior lines and uncomment the following line.
+          // IFCR.promoteFromAuthoringToLive();
+
+          ]]>
+      </bean-shell-script>
+  </script>
+
+
+  <!--
+    ########################################################################
+    # IFCR - A component that interfaces with the Workbench repository.
+  -->
+  <custom-bean id="csfManager" class="com.endeca.soleng.eac.toolkit.util.CSFManager">
+      <property name="jpsConfigPath" value="@ENDECA_BASE_DIR@/ToolsAndFrameworks/11.2.0/deployment_template/lib/../../server/workspace/credential_store/jps-config.xml" />
+      <property name="mapName" value="endecaToolsAndFrameworks"/>
+  </custom-bean>
+
+  <custom-component id="IFCR" host-id="ITLHost" class="com.endeca.soleng.eac.toolkit.component.IFCRComponent">
+    <properties>
+      <property name="repositoryUrl" value="http://@WORKBENCH_HOST@:@WORKBENCH_PORT@/ifcr" />
+      <property name="applicationExportDir" value="@APP_LIVE_EXPORT_DIR@"/>
+      <property name="numExportBackups" value="3" />
+      <property name="credentialsKey" value="ifcr"/>
+    </properties>
+    <custom-bean ref="csfManager"/>
+  </custom-component>
+
+  <custom-component id="LiveIFCR" host-id="ITLHost" class="KP.endeca.soleng.eac.toolkit.component.IFCRComponent">
+    <properties>
+      <property name="repositoryUrl" value="http://172.24.32.251:8006/ifcr" />
+      <property name="applicationExportDir" value="@APP_LIVE_EXPORT_DIR@"/>
+      <property name="numExportBackups" value="3" />
+      <property name="credentialsKey" value="ifcr"/>
+    </properties>
+    <custom-bean ref="csfManager"/>
+  </custom-component>
+
+</spr:beans>
+<!-- @version $Id: //hosting-blueprint/B2CBlueprint/version/11.2/Storefront/deploy/script/WorkbenchConfig.xml#5 $$Change: 889821 $-->
+

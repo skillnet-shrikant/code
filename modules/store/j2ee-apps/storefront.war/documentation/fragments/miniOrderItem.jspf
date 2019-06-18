@@ -1,0 +1,21 @@
+<div class="mini-cart-item">
+	<div class="item-image">
+		<img src="http://placehold.it/130x130">
+	</div>
+
+	<div class="item-details">
+		<div class="product-name">&lt;Product Display Name&gt;</div>
+		<div class="product-brand">&lt;brand&gt;</div>
+		<div class="product-selections">
+			<div class="variant"><span class="label">size:</span> 5</div>
+			<div class="variant"><span class="label">color:</span> blue</div>
+			<div class="quantity"><span class="label">qty:</span> 1</div>
+		</div>
+	</div>
+	<div class="item-price-subtotal">
+		<div class="subtotal">&lt;$##.##&gt;
+		</div>
+		<div class="savings">&lt;savings&gt;</div>
+		<div><a href="#">edit</a> | <a href="#">remove</a></div>
+	</div>
+</div>

@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+ATG-Required: KP.integration.base
+ATG-Class-Path: lib/dashboard.jar
+ATG-Client-Class-Path: 
+ATG-Config-Path: config

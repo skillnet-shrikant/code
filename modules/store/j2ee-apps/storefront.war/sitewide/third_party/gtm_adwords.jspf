@@ -1,0 +1,99 @@
+<dsp:page>
+	
+	<dsp:importbean bean="/atg/dynamo/droplet/ForEach"/>
+	<dsp:importbean bean="/atg/dynamo/droplet/IsEmpty"/>
+	<dsp:importbean bean="/atg/commerce/ShoppingCart"/>
+	<dsp:importbean bean="/atg/commerce/catalog/CatalogTools"/>
+	<dsp:importbean bean="/com/mff/commerce/order/purchase/MFFMerchandiseTotalDroplet"/>
+	<dsp:importbean bean="/com/mff/commerce/order/purchase/FetchSkuWithLowerPrice"/>
+	<dsp:importbean bean="/atg/commerce/pricing/priceLists/PriceListManager"/>
+	<dsp:getvalueof var="gtmEnabled" bean="/mff/MFFEnvironment.gtmEnabled"/>
+	<dsp:getvalueof var="remarketingTagEnabled" bean="/mff/MFFEnvironment.dynamicRemarketingTagEnabled"/>	
+	<dsp:getvalueof var="pageType" param="pageType"/>
+	
+	<c:if test="${gtmEnabled}">
+		<c:if test="${remarketingTagEnabled}">
+	
+			<dsp:param name="order" bean="ShoppingCart.current" />
+			<dsp:getvalueof var="filteredSkus" param="filteredSkus" scope="request" />
+			<dsp:getvalueof var="skus" value="" scope="request" />
+		
+			<c:choose>
+				<c:when test="${pageType eq 'product'}">
+				
+					<dsp:getvalueof var="skuId" value="${skuId}"/>
+					<dsp:getvalueof var="giftCardProductId" bean="CatalogTools.giftCardProductId" />
+					<dsp:getvalueof var="isGiftCard" value="${productId eq giftCardProductId}"/>
+					
+					<c:choose>
+						<c:when test="${isGiftCard}">
+							<%-- For gift card products, pass $2.0, as this is the lowest base denomination. --%>
+							<dsp:getvalueof var="skus" value="${skuId}" scope="request" />
+							<dsp:getvalueof var="actualPrice" value="2.0" scope="request" />
+						</c:when>
+						<c:otherwise>
+							<dsp:droplet name="FetchSkuWithLowerPrice">
+								<dsp:param name="productId" value="${productId}"/>
+								<dsp:param name="filteredSkus" value="${filteredSkus}"/>
+								<dsp:param name="priceList" bean="PriceListManager.defaultPriceListId"/>
+								<dsp:param name="salePriceList" bean="PriceListManager.defaultSalePriceListId"/>
+								<dsp:oparam name="output">
+									<dsp:getvalueof var="actualPrice" param="lowestPrice" scope="request" />
+									<dsp:getvalueof var="skus" param="skuWithLowestPrice" scope="request" />
+								</dsp:oparam>
+							</dsp:droplet>
+						</c:otherwise>
+					</c:choose>
+					
+				</c:when>
+				<c:otherwise>
+					<!-- cart page -->
+					<dsp:droplet name="IsEmpty">
+						<dsp:param name="value" param="order.commerceItems"/>
+						<dsp:oparam name="false">
+						
+							<dsp:droplet name="MFFMerchandiseTotalDroplet">
+								<dsp:param name="order" param="order"/>
+								<dsp:param name="ignoreSavings" value="yes"/>
+								<dsp:param name="roundMerchTotal" value="yes"/>
+								<dsp:oparam name="output">
+									<dsp:getvalueof var="actualPrice" param="roundedMerchandiseTotal" />
+								</dsp:oparam>
+							</dsp:droplet>
+		
+							<dsp:droplet name="ForEach">
+								<dsp:param name="array" param="order.commerceItems"/>
+								<dsp:param name="elementName" value="commerceItem"/>
+								<dsp:oparam name="output">
+									
+									<dsp:getvalueof var="skuId" vartype="java.lang.String" param="commerceItem.auxiliaryData.catalogRef.repositoryId" />
+									<c:if test="${not empty skus}">
+										<dsp:getvalueof var="seperator" vartype="java.lang.String" value="," />
+									</c:if>
+									
+									<dsp:getvalueof var="skus" value="${skus}${seperator}${skuId}" />
+		
+								</dsp:oparam>
+							</dsp:droplet>
+							
+							<dsp:getvalueof var="skus" vartype="java.lang.String" value="[${skus}]" />
+					
+						</dsp:oparam>
+					</dsp:droplet>
+				</c:otherwise>
+			</c:choose>
+			
+			<c:if test="${not empty skus}">	
+				<script>
+					window.dataLayer = window.dataLayer || [];
+					dataLayer.push({
+						'ecomm_pagetype': '${pageType}',
+						'ecomm_prodid': ${skus},
+						'ecomm_totalvalue': <c:out value="${actualPrice}" />
+					});
+				</script>
+			</c:if>
+		</c:if>
+	</c:if>
+
+</dsp:page>

@@ -1,0 +1,16 @@
+<pipelinemanager>
+<!-- This chain is used to process a MFF Gift Card payment group-->
+<!-- This single chain knows how to auth/credit/debit a        -->
+<!-- payment group.  -->
+
+<pipelinechain name="firstDataGiftCardProcessorChain" transaction="TX_REQUIRED" headlink="preprocessPaymentGroup">
+  <pipelinelink name="preprocessPaymentGroup" transaction="TX_MANDATORY">
+    <processor jndi="/com/firstdata/payment/processor/FirstDataGiftCardPreprocessorPaymentGroup"/>
+    <transition returnvalue="1" link="processPaymentGroup"/>
+  </pipelinelink>
+  <pipelinelink name="processPaymentGroup" transaction="TX_MANDATORY">
+    <processor
+	jndi="/com/firstdata/payment/processor/FirstDataGiftCardProcessPaymentGroup" />
+  </pipelinelink>
+</pipelinechain>
+</pipelinemanager>

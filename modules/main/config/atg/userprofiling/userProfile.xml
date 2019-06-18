@@ -1,0 +1,149 @@
+<gsa-template xml-combine="append">
+  
+  <header>
+    <name>MFF Profile Extensions</name>
+    <author>DMI</author>
+  </header>
+  
+  <item-descriptor name="user" cache-mode="simple" item-expire-timeout="240000" query-expire-timeout="240000" xml-combine="append">
+  
+  		<property name="invalidPwdAttemptCount" display-name="Wrong password count" cache-mode="disabled" category="MFF Profile Extensions" data-type="int" default="0" />
+
+  		<!--  
+  			Used for employee discounts functionlity. This is a transient boolean flag to indicate that the profile is that of an employee
+  			This simply makes it easier for the business user when using in user segments and personalization
+  		 -->
+  		<property name="employee" display-name="Is Employee" category="MFF Profile Extensions" data-type="boolean" default="false" />
+  		
+  		<!--  
+  			Used for employee discounts functionlity. This is a transient boolean flag to indicate if we were able to successfully
+  			validate the employee with the EmployeeRepo. This needs to be done at least once each session
+  		-->
+  		<property name="validated" display-name="Validated in Session" category="MFF Profile Extensions" data-type="boolean" default="false" />
+  		  		
+  		<table name="dps_user">
+	      <property name="gender" default="Prefer Not To Say" data-type="enumerated" xml-combine="replace">
+	      		<attribute name="useCodeForValue" value="false" />
+      			<option code="0" value="Prefer Not To Say"/>
+      			<option code="1" value="Female"/>
+  				<option code="2" value="Male"/>
+  		   </property>
+  		 <property readable="true" display-name-resource="lastActivity" expert="false" hidden="false" data-type="timestamp" required="false" writable="true" queryable="true" cache-mode="disabled" backing-map-property="false" name="lastActivity" column-name="lastactivity_date" category-resource="categoryActivity">
+        	<attribute name="resourceBundle" value="atg.userprofiling.UserProfileTemplateResources"/>
+        	<attribute name="propertySortPriority" value="-2"/>
+      	</property>
+	    </table>
+  		<table name="mff_user" type="auxiliary" id-column-name="user_id">
+  			<property name="phoneNumber" display-name="PhoneNumber" column-name="phone_num" data-type="string" />
+  			<property name="isLegacy" display-name="Is Legacy" column-name="is_legacy" data-type="boolean" default="false"/>			
+  			<property name="employeeId" display-name="Employee Id" column-name="employee_id" property-type="com.security.repository.property.EncryptionPropertyDescriptor">
+  				<attribute name="encryptor" bean="/com/security/crypto/AESEncryptor"/>
+  			</property>
+  			<property name="somCard" display-name="SOM Card" column-name="som_card" property-type="com.security.repository.property.EncryptionPropertyDescriptor">
+  				<attribute name="encryptor" bean="/com/security/crypto/AESEncryptor"/>
+  			</property>  			
+  			<property name="forcePasswordReset" display-name="Force Password Reset" column-name="force_reset_password" data-type="boolean" default="false" writable="true" queryable="true" readable="true" cache-mode="disabled"/>
+
+  		</table>
+  		<table name="mff_user_home_store" id-column-name="id" type="auxiliary">
+    		<property name="myHomeStore" column-name="location_id" display-name="My Home Store" repository="/atg/commerce/locations/LocationRepository" required="false" writable="true" queryable="true" readable="true" expert="false" item-type="location" cache-mode="inherit" backing-map-property="false" category-resource="categoryBasics">
+        	<attribute name="propertySortPriority" value="111"/>
+      </property>
+		</table>
+  		
+  		<table name="dps_user_address">
+    
+      <property name="billingAddress" category-resource="categoryCommerceAddressAndPhone" display-name-resource="billingAddress" cascade="update,delete" column-name="billing_addr_id" item-type="contactInfo" hidden="true" xml-combine="replace">
+        <attribute name="resourceBundle" value="atg.commerce.UserProfileTemplateResources" /> 
+        <attribute name="propertySortPriority" value="10"/>
+      </property>
+      
+      <property name="shippingAddress" category-resource="categoryCommerceAddressAndPhone" display-name-resource="shippingAddress" cascade="" column-name="shipping_addr_id" item-type="contactInfo" hidden="true"  xml-combine="replace">
+        <attribute name="resourceBundle" value="atg.commerce.UserProfileTemplateResources"/> 
+        <attribute name="propertySortPriority" value="20"/>
+      </property>
+
+    </table>
+
+	<table name="mff_user_tax_exmption" id-column-name="id" type="auxiliary">
+    	<property name="defaultTaxExemption" column-name="tax_exmpt_id" item-type="taxExemptionInfo" cascade="" display-name-resource="defaultTaxExemption"/>
+	</table>
+	
+    <table name="dps_other_addr">
+      <property name="secondaryAddresses" category-resource="categoryCommerceAddressAndPhone" data-type="map" queryable="true" readable="true"  hidden="false" expert="false" required="false" cache-mode="inherit" writable="true" component-item-type="contactInfo"/>
+    </table>
+    
+    <table name="MFF_TAX_EXEMPTIONS" type="multi" id-column-name="id" multi-column-name="nick_name">
+      <property name="taxExemptions" data-type="map" component-item-type="taxExemptionInfo" column-name="exemption_info_id" category-resource="taxExemptionInfo" display-name-resource="taxExemptions" cascade="update,delete"/>
+    </table>
+    
+    <table name="mff_rec_viewed" type="multi" id-column-name="user_id" multi-column-name="sequence_id">
+      <property name="recentlyViewedProducts" column-name="rec_viewed_prod" cascade="update,delete" data-type="list" component-item-type="recentlyViewedProduct" display-name="Recently Viewed Products" category-resource="categoryCommerceBehaviorTracking"/>
+    </table>
+    
+  </item-descriptor>
+  
+  	<item-descriptor name="contactInfo" xml-combine="append">
+		<table name="MFF_CONTACT_INFO" type="auxiliary" id-column-name="id">
+			<property name="attention" data-type="string" column-name="attention" category-resource="categoryName" display-name="attention">
+				<attribute name="propertySortPriority" value="60"/>
+			</property>
+		</table>
+	</item-descriptor>
+	
+	<item-descriptor name="taxExemptionInfo" cache-mode="simple" item-cache-timeout="550000" query-expire-timeout="550000">
+    <table name="MFF_TAX_EXEMPTION" type="primary" id-column-name="id">
+      	<property name="nickName" column-name="nick_name" category="Tax Exemption" display-name="Nick Name" data-type="string"/>
+		<property name="classificationId" column-name="tax_classification_id" category="Tax Exemption" display-name="Tax Classification Id" data-type="string"/>
+		<property name="classificationCode" column-name="tax_classification_code" category="Tax Exemption" display-name="Tax Classification Code" data-type="string"/>
+		<property name="classificationName" column-name="tax_classification_name" category="Tax Exemption" display-name="Tax Classification Name" data-type="string"/>
+		<property name="taxId" column-name="tax_id" category="Tax Exemption" display-name="Tax ID" data-type="string"/>
+		<property name="orgName" column-name="organization_name" category="Tax Exemption" display-name="Organization Name" data-type="string"/>
+		<property name="businessDesc" column-name="business_desc" category="Tax Exemption" display-name="Business Description" data-type="string"/>
+		<property name="merchandise" column-name="mechandise" category="Tax Exemption" display-name="Merchandise to be Purchased" data-type="string"/>
+		<property name="taxCity" column-name="tax_city" category="Tax Exemption" display-name="Tax Jurisdiction City" data-type="string"/>
+		<property name="taxState" column-name="tax_state" category="Tax Exemption" display-name="Tax Jurisdiction State" data-type="string"/>
+    </table>
+    
+    <table name="mff_user_org_address" id-column-name="id" type="auxiliary">
+	      <property name="organizationAddress" cascade="update,delete" column-name="org_addr_id" item-type="contactInfo"/>
+    </table>
+  </item-descriptor>
+  
+    
+  <!--///////////////////////////////-->
+  <!--    backInStockNotifyItem      -->
+  <!--///////////////////////////////-->
+
+  <item-descriptor name="backInStockNotifyItem">
+    <table name="mff_back_in_stock" type="primary" id-column-name="id">
+      <property name="id" data-type="string" column-name="id"/>
+      <property name="emailAddress" data-type="string" column-name="email"/>
+      <property name="catalogRefId" data-type="string" column-name="catalog_ref_id"/>
+      <property name="productId" data-type="string" column-name="product_id"/>
+      <property name="creationDate" data-type="timestamp" column-name="creation_date" />
+      <property name="siteId" data-type="string" column-name="site_id"/>
+    </table>  
+  </item-descriptor>
+  
+  <item-descriptor name="recentlyViewedProduct" item-cache-size="1000" query-cache-size="1000" display-name="Recently Viewed Product">
+    
+    <table name="mff_rec_viewed_prod" type="primary" id-column-name="id">
+      <property name="id" data-type="string" column-name="id" display-name="recently viewed product id"/>
+      <property name="product" repository="/atg/commerce/catalog/ProductCatalog" item-type="product" column-name="product_id" display-name="product"/>
+      <property name="siteId" data-type="string" column-name="site_id" category-resource="categoryBasics" display-name="siteId"/>
+      <property name="timestamp" data-type="timestamp" column-name="time_stamp" category-resource="categoryBasics" display-name="timestamp"/>
+    </table>
+  </item-descriptor>
+  
+  <!-- password reset token -->
+	<item-descriptor name="passwordResetToken" cache-mode="simple" item-cache-timeout="600000" xml-combine="append">
+		<table name="pw_reset_token" type="primary" id-column-name="token_hash">
+			<property name="email" column-name="email" data-type="string"
+				display-name-resource="email" />
+			<property name="creationTime" column-name="creation_time"
+				data-type="date" display-name-resource="creationTime" />
+		</table>
+	</item-descriptor>
+  
+</gsa-template>

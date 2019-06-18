@@ -1,0 +1,80 @@
+<%--
+
+This JSPF expects a page context attribute named "fileName" to use for
+determining the correct image icon reference to return.  The returned
+image URL will be stored in a page scoped page context attribute named
+"imageRef".  The returned tool tip for the icon will be stored in "imageTooltip"
+
+In addition, this page expects a page context attribute
+named "imageLocation" that is the directory containing images for this
+web app.
+
+@version $Id: //application/service-UI/version/11.2/framework/Agent/src/web-apps/ServiceFramework/include/response/fileIcons.jspf#1 $$Change: 946917 $
+@updated $DateTime: 2015/01/26 17:26:27 $$Author: jsiddaga $
+
+--%>
+
+<%
+  String fileName=((String)pageContext.getAttribute("fileName"));
+  String extension = null;
+  if(fileName.length() >0){
+    int dotIdx = fileName.lastIndexOf('.');
+    if(dotIdx > 0)
+      extension = fileName.substring(dotIdx + 1, fileName.length()).toLowerCase();
+  }
+  pageContext.setAttribute("extension", extension);
+%>
+<c:choose>
+  <c:when test="${extension eq 'pdf'}">
+    <c:set var="imageRef" value="${imageLocation}/iconcatalog/21x21/table_icons/icon_pdf.gif"/>
+    <fmt:message var="imageTooltip" key="tooltip.acrobat.pdf"/>
+  </c:when>
+  <c:when test="${extension eq 'doc'}">
+    <c:set var="imageRef" value="${imageLocation}/iconcatalog/21x21/table_icons/icon_wordDoc.gif"/>
+    <fmt:message var="imageTooltip" key="tooltip.microsoft.word"/>
+  </c:when>
+  <c:when test="${extension eq 'txt'}">
+    <c:set var="imageRef" value="${imageLocation}/iconcatalog/21x21/table_icons/icon_textFile.gif"/>
+    <fmt:message var="imageTooltip" key="tooltip.txtfile"/>
+  </c:when>
+  <c:when test="${extension eq 'htm' ||
+                  extension eq 'html' ||
+                  extension eq 'jsp' ||
+                  extension eq 'jhtml'}">
+    <c:set var="imageRef" value="${imageLocation}/iconcatalog/21x21/table_icons/icon_webPage.gif"/>
+    <fmt:message var="imageTooltip" key="tooltip.webpage"/>
+  </c:when>
+   <c:when test="${extension eq 'wmv' ||
+                  extension eq 'avi' ||
+                  extension eq 'dat' ||
+                  extension eq 'mp3'}">
+    <c:set var="imageRef" value="${imageLocation}/iconcatalog/21x21/table_icons/icon_movieAsset.gif"/>
+    <fmt:message var="imageTooltip" key="tooltip.movie"/>
+  </c:when>
+   <c:when test="${extension eq 'jpg' ||
+                  extension eq 'bmp' ||
+                  extension eq 'gif' ||
+                  extension eq 'jpeg'}">
+    <c:set var="imageRef" value="${imageLocation}/iconcatalog/21x21/table_icons/icon_imageAsset.gif"/>
+    <fmt:message var="imageTooltip" key="tooltip.image"/>
+  </c:when>
+  <c:when test="${extension eq 'xml'}">
+    <c:set var="imageRef" value="${imageLocation}/iconcatalog/21x21/table_icons/icon_xml.gif"/>
+    <fmt:message var="imageTooltip" key="tooltip.xml"/>
+  </c:when>
+  <c:when test="${extension eq 'xls' ||
+                  extension eq 'csv'}">
+    <c:set var="imageRef" value="${imageLocation}/iconcatalog/21x21/table_icons/icon_excel.gif"/>
+    <fmt:message var="imageTooltip" key="tooltip.microsoft.excel"/>
+  </c:when>
+  <c:when test="${extension eq 'ini'}">
+    <c:set var="imageRef" value="${imageLocation}/iconcatalog/21x21/table_icons/icon_iniFile.gif"/>
+    <fmt:message var="imageTooltip" key="tooltip.inifile"/>
+  </c:when>
+  <c:otherwise>
+    <c:set var="imageRef" value="${imageLocation}/iconcatalog/21x21/table_icons/icon_other.gif"/>
+    <fmt:message var="imageTooltip" key="tooltip.other"/>
+  </c:otherwise>
+</c:choose>
+
+<%-- @version $Id: //application/service-UI/version/11.2/framework/Agent/src/web-apps/ServiceFramework/include/response/fileIcons.jspf#1 $$Change: 946917 $--%>

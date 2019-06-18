@@ -1,0 +1,85 @@
+
+          <c:if test="${returnReq.exchangeProcess and panelStackId eq 'cmcCatalogPS'}">
+            <c:set var="showProductPanel" value="${true}"/>
+          </c:if>
+          
+          <dsp:tomap var="catalogRef" value="${returnItem.commerceItem.auxiliaryData.catalogRef}"/>
+          
+          <tr class="atg_commerce_csr_returnedItem">
+
+          <c:set var="siteId" value="${null}"/>
+          <c:if test="${isMultiSiteEnabled == true}">
+            <td class="atg_commerce_csr_storeIcon">
+              <c:set var="siteId" value="${returnItem.commerceItem.auxiliaryData.siteId}"/>
+              <csr:siteIcon siteId="${siteId}" />
+            </td>
+          </c:if>
+          
+
+         
+          <td class="atg_commerce_csr_returnItemName">         
+            <ul class="atg_commerce_csr_itemDesc">
+              <li>
+              <c:if test="${panelStackId == 'cmcCatalogPS'}">
+                <c:set var="landingPanelStack" value="cmcCatalogPS"/>
+              </c:if>
+              <c:if test="${panelStackId != 'cmcCatalogPS'}">
+                <c:set var="landingPanelStack" value="cmcShoppingCartPS"/>
+              </c:if>
+
+              <c:set var="showProductLink" value="${true}"/>
+              
+              <c:if test="${isMultiSiteEnabled}">
+                <dsp:droplet name="/atg/dynamo/droplet/multisite/SitesShareShareableDroplet">
+                <dsp:param name="siteId" bean="/atg/multisite/Site.id"/>
+                <dsp:param name="otherSiteId" value="${siteId}"/>
+                <dsp:param name="shareableTypeId" bean="/atg/commerce/custsvc/util/CSRConfigurator.cartShareableTypeId"/>
+                <dsp:oparam name="false">
+                  <c:set var="showProductLink" value="${false}"/>
+                </dsp:oparam>
+                </dsp:droplet>
+              </c:if>
+              
+              <c:if test="${showProductLink == true}">
+                <svc-ui:frameworkPopupUrl var="commerceItemPopup"
+                  value="/include/order/product/productQuickView.jsp"
+                  context="${CSRConfigurator.contextRoot}"
+                  windowId="${windowId}"
+                  siteId="${siteId}"
+                  productId="${returnItem.commerceItem.auxiliaryData.productId}"/>
+                
+                <fmt:message var="popupTitle" key="exchangeSummary.addProductLinkHoverText"/>
+                <a title="<fmt:message key='exchangeSummary.addProductPopupTitle'/>"
+                  href="#" onclick="atg.commerce.csr.common.showPopupWithReturn({
+                    popupPaneId: 'atg_commerce_csr_catalog_productQuickViewPopup',
+                    title: '<c:out value="${popupTitle}"/>',
+                    url: '${commerceItemPopup}',
+                    onClose: function( args ) {atg.commerce.csr.catalog.addProductsToShoppingCartHandler(args, '${siteId}', '${landingPanelStack}') }} );return false;">
+                    ${fn:escapeXml(catalogRef.displayName)}
+                </a>
+              </c:if>
+              <c:if test="${showProductLink == false}">
+                ${fn:escapeXml(catalogRef.displayName)}
+              </c:if>
+              
+              </li>
+              <li class="atg_commerce_csr_returnItemSku">${fn:escapeXml(returnItem.commerceItem.catalogRefId)}
+              </li>
+            </ul>
+          </td>
+            
+          <td class="atg_numberValue" ><web-ui:formatNumber value="${returnItem.quantityToReturn}"/></td>
+          <dsp:getvalueof var="panelId" param="panelId"/>
+          <c:if test="${panelId eq 'cmcExchangeSummaryP'}">
+            <td class="atg_commerce_csr_returnTotal atg_numberValue">
+              <svc-ui:frameworkUrl var="addToCartSuccessURL" panelStacks="cmcShoppingCartPS" />
+              <c:if test="${panelStackId eq 'cmcCatalogPS'}">
+                <svc-ui:frameworkUrl var="addToCartSuccessURL" panelStacks="cmcCatalogPS"/>
+              </c:if>
+              <fmt:message key="exchange.item.add" var="addToOrderMsg"/>
+              <input type="submit" value="<fmt:message key='exchange.item.add.cart'/>" onclick="atg.commerce.csr.catalog.addExchangeItemToOrder('${fn:escapeXml(returnItem.commerceItem.catalogRefId)}', '${fn:escapeXml(returnItem.commerceItem.auxiliaryData.productId)}', '${fn:escapeXml(addToOrderMsg)}', '${fn:escapeXml(siteId)}', '${fn:escapeXml(addToCartSuccessURL)}');return false;"/>
+            </td>
+          </c:if>
+         
+          </tr>
+<%-- @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/panels/order/returns/returnSummaryLineItem.jspf#2 $$Change: 1179550 $--%>

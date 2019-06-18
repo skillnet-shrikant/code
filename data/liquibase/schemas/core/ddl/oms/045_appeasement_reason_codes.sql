@@ -1,0 +1,10 @@
+delete from dcspp_appeasement_reasons;
+insert into dcspp_appeasement_reasons (ID,DESCRIPTION) values ('adMatchPrice','adMatchPrice');
+insert into dcspp_appeasement_reasons (ID,DESCRIPTION) values ('arrivedDamagedItem','arrivedDamagedItem');
+insert into dcspp_appeasement_reasons (ID,DESCRIPTION) values ('arrivedLateOrder','arrivedLateOrder');
+insert into dcspp_appeasement_reasons (ID,DESCRIPTION) values ('codePromo','codePromo');
+insert into dcspp_appeasement_reasons (ID,DESCRIPTION) values ('goodWillGesture','goodWillGesture');
+insert into dcspp_appeasement_reasons (ID,DESCRIPTION) values ('mendTaxExempt','mendTaxExempt');
+insert into dcspp_appeasement_reasons (ID,DESCRIPTION) values ('orderItemNotReceived','orderItemNotReceived');
+insert into dcspp_appeasement_reasons (ID,DESCRIPTION) values ('otherReason','otherReason');
+commit;

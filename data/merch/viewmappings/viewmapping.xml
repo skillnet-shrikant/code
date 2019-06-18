@@ -1,0 +1,71 @@
+<!-- Add properties to be included in new tab -->
+<add-item item-descriptor="attributeValue" id="MffAmAvCatNavInc">
+  <set-property name="value"><![CDATA[visibility,reorderedChildCategories,displayOrderedCategories]]></set-property>
+</add-item>
+
+<!-- Add a new tab -->
+<add-item item-descriptor="itemViewMapping" id="MffAmIvmCatNav">
+  <set-property name="attributeValues"><![CDATA[includedProperties=MffAmAvCatNavInc]]></set-property>
+  <set-property name="displayName"><![CDATA[Navigation]]></set-property>
+  <set-property name="view"><![CDATA[AmIvDef]]></set-property>
+  <set-property name="name"><![CDATA[DCS-UI category custom navigation itemViewMapping]]></set-property>
+</add-item>
+
+<!-- Add new tab to existing catg item mapping -->
+<add-item item-descriptor="itemMapping" id="AmImCat">
+  <set-property name="itemName"><![CDATA[category]]></set-property>
+  <set-property name="description"><![CDATA[DCS-UI category itemMapping]]></set-property>
+  <set-property name="attributes"><![CDATA[resourceBundle=AmAvCatBnd]]></set-property>
+  <set-property name="mode"><![CDATA[AmMmDef]]></set-property>
+  <set-property name="viewMappings"><![CDATA[AmIvmCatGen,AmIvmCatMedia,AmIvmCatPrdt,MffAmIvmCatNav,AmIvmCatAdv]]></set-property>
+  <set-property name="formHandler"><![CDATA[AmFhDef]]></set-property>
+  <set-property name="itemPath"><![CDATA[/atg/commerce/catalog/ProductCatalog]]></set-property>
+  <set-property name="name"><![CDATA[AssetManager]]></set-property>
+</add-item>
+
+<add-item item-descriptor="attributeValue" id="MffAmAvPrdAdmin">
+  <set-property name="value"><![CDATA[Administrable]]></set-property>
+</add-item>
+
+<add-item item-descriptor="itemViewMapping" id="MffAmIvmPrdAdmin">
+  <set-property name="name"><![CDATA[AssetManager custom prod itemViewMapping]]></set-property>
+  <set-property name="displayName"><![CDATA[Administrable Content]]></set-property>
+  <set-property name="view"><![CDATA[AmIvDef]]></set-property>
+  <set-property name="attributeValues"><![CDATA[includedCategories=MffAmAvPrdAdmin]]></set-property>
+</add-item>
+
+<add-item item-descriptor="itemMapping" id="AmImPrdt">
+  <set-property name="itemName"><![CDATA[product]]></set-property>
+  <set-property name="description"><![CDATA[DCS-UI product itemMapping]]></set-property>
+  <set-property name="attributes"><![CDATA[resourceBundle=AmAvPrdtBnd,previewImagePropertyName=AmAvPrdtPrImagePropName]]></set-property>
+  <set-property name="mode"><![CDATA[AmMmDef]]></set-property>
+  <set-property name="viewMappings"><![CDATA[AmIvmPrdtGen,AmIvmPrdtSkus,AmIvmPrdtCat,AmIvmPrdtMedia,AmIvmPrdtPrice,AmIvmPrdtCrossEdit,AmIvmPrdtRelatedContent,MffAmIvmPrdAdmin,AmIvmPrdtAdv]]></set-property>
+  <set-property name="formHandler"><![CDATA[AmFhDef]]></set-property>
+  <set-property name="itemPath"><![CDATA[/atg/commerce/catalog/ProductCatalog]]></set-property>
+  <set-property name="name"><![CDATA[AssetManager]]></set-property>
+</add-item>
+	
+	<!-- viewmapping for store location changes-->
+<add-item item-descriptor="attributeValue" id="MffAvLocationContentCat">
+  <set-property name="value"><![CDATA[categoryStoreHeader,categoryNearbyLocations,categoryStoreHours,categoryStoreResources,categoryStoreServices,categoryStoreEvents,categoryStoreCareer,categoryStoreDetails,categoryComingSoon]]></set-property>
+</add-item>
+
+<add-item item-descriptor="itemViewMapping" id="MffIvmLocationContent">
+  <set-property name="attributeValues"><![CDATA[includedCategories=MffAvLocationContentCat]]></set-property>
+  <set-property name="displayName"><![CDATA[Location Content]]></set-property>
+  <set-property name="view"><![CDATA[AmIvDef]]></set-property>
+  <set-property name="name"><![CDATA[DCS-UI Store Location Content itemViewMapping]]></set-property>
+</add-item>
+
+<add-item item-descriptor="itemViewMapping" id="MffIvmStoreEntity">
+  <set-property name="propertyMappings"><![CDATA[siteGroups=AmPvmStoreSiteGroups,sites=AmPvmStoreSites]]></set-property>
+  <set-property name="attributeValues"><![CDATA[excludedCategories=MffAvLocationContentCat]]></set-property>
+  <set-property name="displayName"><![CDATA[Store Entity]]></set-property>
+  <set-property name="view"><![CDATA[AmIvDef]]></set-property>
+  <set-property name="name"><![CDATA[DCS-UI store entity itemViewMapping]]></set-property>
+</add-item>
+
+<add-item item-descriptor="itemMapping" id="AmImStoreLoc">
+  <set-property name="viewMappings"><![CDATA[MffIvmStoreEntity,MffIvmLocationContent]]></set-property>
+</add-item>
+

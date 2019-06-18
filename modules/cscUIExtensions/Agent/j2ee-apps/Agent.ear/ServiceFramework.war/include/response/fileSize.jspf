@@ -1,0 +1,31 @@
+<%--
+
+This JSPF expects a page context attribute named "fileSize" which represents
+the size of the file in bytes.  The returned 'friendly' size stored in a page 
+scoped page context attribute named "friendlyFileSize" and a label is stored
+in "friendlyFileSizeLabel".
+
+@version $Id: //application/service-UI/version/11.2/framework/Agent/src/web-apps/ServiceFramework/include/response/fileSize.jspf#1 $$Change: 946917 $
+@updated $DateTime: 2015/01/26 17:26:27 $$Author: jsiddaga $
+
+--%>
+
+<c:choose>
+  <c:when test="${fileSize >= 1048576}">
+    <%-- megabytes --%>
+    <web-ui:formatNumber var="friendlyFileSize" value="${fileSize/1048576}" pattern="#0.#" minIntegerDigits="1" maxFractionDigits="1"/>
+    <fmt:message var="friendlyFileSizeLabel" key="contentBrowser.attachment.size.megabytes"/>
+  </c:when>
+  <c:when test="${fileSize >= 1024 and fileSize < 1048576}">
+    <%-- kilobytes --%>
+    <web-ui:formatNumber var="friendlyFileSize" value="${fileSize/1024}" pattern="#0" minIntegerDigits="1" maxFractionDigits="0"/>
+    <fmt:message var="friendlyFileSizeLabel" key="contentBrowser.attachment.size.kilobytes"/>
+  </c:when>
+  <c:otherwise>
+    <%-- bytes --%>
+    <web-ui:formatNumber var="friendlyFileSize" value="${fileSize}" pattern="#0" minIntegerDigits="1" maxFractionDigits="0"/>
+    <fmt:message var="friendlyFileSizeLabel" key="contentBrowser.attachment.size.bytes"/>
+  </c:otherwise>
+</c:choose>
+
+<%-- @version $Id: //application/service-UI/version/11.2/framework/Agent/src/web-apps/ServiceFramework/include/response/fileSize.jspf#1 $$Change: 946917 $ --%>

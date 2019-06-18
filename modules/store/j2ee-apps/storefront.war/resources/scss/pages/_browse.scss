@@ -1,0 +1,850 @@
+/* Category
+   ========================================================= */
+.two-column-container {
+	@include grid-row();
+	margin: 0 auto 20px;
+	position: relative;
+
+	.two-column-left {
+		@include grid-column(12);
+		@include media(small-only){
+			display: none;
+			position: fixed;
+			width: 100%;
+			height: auto;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			overflow-y: scroll;
+			background-color: white;
+			z-index: 999;
+			padding: 0;
+		}
+		@include media(medium-up) {
+			width: 25%;
+			display: block !important;
+		}
+	}
+	.two-column-right {
+		@include grid-column(12);
+		@include media(medium-up) {
+			width: 75%;
+		}
+	}
+}
+
+.category-product-grid {
+	width: 100%;
+	@include rem-size(margin, 20px 0px 10px);
+	float: left;
+	.product-grid {
+		@include block-grid(
+			$per-row: 2,
+			$spacing: 10px,
+			$base-style: true
+		);
+		@include media(medium-up) {
+			@include block-grid(
+				$per-row: 3,
+				$spacing: 10px,
+				$base-style: false
+			);
+		}
+		@include media(large-up) {
+			@include block-grid(
+				$per-row: 4,
+				$spacing: 15px,
+				$base-style: false
+			);
+		}
+	}
+}
+
+.category-dropdowns {
+	@include media(small-only){
+		display: none;
+		width: 100%;
+		&.open {
+			display: block;
+			position: fixed;
+			top: 101px;
+			left: 10px;
+			width: calc(100% - 20px);
+			@include rem-size(padding-bottom, 10px);
+			background: $white;
+			z-index: 999;
+		}
+	}
+}
+
+.category-sort,
+.category-items-per-page {
+	float: left;
+
+	.icon-arrow-down {
+		position: relative;
+		top: 3px;
+		right: -3px;
+  }
+}
+
+@include media(small-only){
+	.category-sort {
+		width: calc(45% - 5px);
+	}
+	.category-items-per-page {
+		width: calc(55% - 5px);
+	}
+}
+
+
+
+
+/* PDP
+   ========================================================= */
+.product {
+	.product-sku,
+	.product-sku-model,
+	.product-number {
+		.label {
+			width: auto;
+		}
+	}
+	.pipe {
+		@include rem-size(padding, 0px 4px);
+	}
+}
+.product-page {
+	@include grid-row();
+
+	.accordion {
+		@include grid-column(12);
+		@include rem-size(margin-bottom, 30px);
+
+		@include media(medium-up) {
+			@include rem-size(margin, 20px 0px 30px);
+		}
+	}
+	.underlined-link {
+		@include rem-size(margin-left, 4px);
+		text-decoration: underline;
+	}
+	.back-in-stock {
+		@include media(medium-up){
+			position: absolute;
+		}
+		@include rem-size(margin-top, 10px);
+		.no-inventory-email-trigger {
+			@include font-size(13px);
+		}
+	}
+	.wishlist-section {
+		@include font-size(14px);
+		@include media(medium-up) {
+			display: inline-block;
+			@include rem-size(margin-left, 10px);
+		}
+	}
+	.wish-list-wrap {
+		@include media(medium-up){
+			@include rem-size(margin, 0px);
+			.underlined-link {
+				@include rem-size(margin-left, 0px);
+			}
+		}
+	}
+}
+.product-images-social {
+	@include grid-column(12);
+
+	@include media(medium-up){
+		width: 50%;
+	}
+	.product-image,
+	.product-thumbs {
+		width: 100%;
+	}
+	.product-thumbs {
+		margin-top: 4px;
+		margin-bottom: 20px;
+	}
+	.product-thumb {
+		display: inline-block;
+		cursor: pointer;
+		border: 2px solid transparent;
+
+		&.current {
+			border-color: $black;
+		}
+	}
+	.social-icons {
+		width: 100%;
+		display: block;
+		span {
+			vertical-align: top;
+		}
+		.site-functions {
+			float: right;
+			.icon {
+				color: $black;
+				@include font-size(18px);
+			}
+			a:hover .icon {
+				color: $orange;
+			}
+		}
+		.facebook-icons {
+			display: inline-block;
+		}
+	}
+}
+.product-details {
+	@include grid-column(12);
+	@include rem-size(padding-bottom, 10px);
+
+	@include media(medium-up) {
+		width: 50%;
+		float: right;
+	}
+	.product-name {
+		margin: 0;
+		@include font-size(28px);
+		line-height: 1;
+		text-transform: none;
+		font-weight: $normal;
+	}
+	.product-brand {
+		@include font-size(20px);
+		font-weight: $bold;
+		a {
+			color: $black;
+		}
+		@include rem-size(margin-bottom, 5px);
+	}
+	// prototype only - this will be bazaar voice eventually
+	.product-reviews {
+		@include font-size(10px);
+		img {
+			@include rem-size(padding-right, 8px);
+			vertical-align: -3px;
+		}
+		a {
+			text-decoration: underline;
+			color: blue;
+		}
+	}
+	.product-number,
+	.product-sku-model,
+	.product-sku {
+		display: inline;
+		@include font-size(10px);
+	}
+	.product-in-store {
+		color: $black;
+		@include font-size(10px);
+		text-decoration: underline;
+	}
+	.regular-price,
+	.original-price,
+	.sale-price {
+		@include font-size(20px);
+	}
+}
+.add-to-cart-actions {
+	@include rem-size(margin-bottom, 24px);
+}
+.add-to-cart-submit,
+.add-to-cart-submit-disabled {
+	@include media(small-only){
+		width: 100%;
+	}
+}
+span.error {
+	color: $red;
+}
+.added-to-wish-list {
+	color: $orange;
+	@include rem-size(margin-left, 4px);
+}
+
+@include media(medium-up){
+	.wish-list-wrap {
+		.added-to-wish-list {
+			@include rem-size(margin-left, 0px);
+		}
+	}
+}
+.radio.ship-to-home.hide + .radio {
+	@include rem-size(margin-top, 10px);
+	@include rem-size(margin-bottom, 0px);
+}
+.add-to-cart-actions {
+	.radio label {
+    	display: inline-block;
+    	position: relative;
+    }
+	.radio label::before {
+	    content: "";
+	    display: inline-block;
+	    position: absolute;
+	    width: 13px;
+	    height: 13px;
+	    left: 0;
+	    top: 5px;
+	    border: 1px solid #cccccc;
+	    border-radius: 50%;
+	    background-color: #fff;
+	    -webkit-transition: border 0.15s ease-in-out;
+	    -o-transition: border 0.15s ease-in-out;
+	    transition: border 0.15s ease-in-out;
+	}
+	.radio label::after {
+	    display: inline-block;
+	    position: absolute;
+	    content: " ";
+	    width: 5px;
+	    height: 5px;
+	    left: 4px;
+	    top: 9px;
+	    border-radius: 50%;
+	    background-color: #555555;
+	    -webkit-transform: scale(0, 0);
+	    -ms-transform: scale(0, 0);
+	    -o-transform: scale(0, 0);
+	    transform: scale(0, 0);
+	    -webkit-transition: -webkit-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+	    -moz-transition: -moz-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+	    -o-transition: -o-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+	    transition: transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+	}
+	.radio input[type="radio"] {
+	    opacity: 0;
+	}
+	.radio input[type="radio"]:focus + label::before {
+	    outline: thin dotted;
+	    outline: 5px auto -webkit-focus-ring-color;
+	    outline-offset: -2px;
+	}
+	.radio input[type="radio"]:checked + label::after {
+	    -webkit-transform: scale(1, 1);
+	    -ms-transform: scale(1, 1);
+	    -o-transform: scale(1, 1);
+	    transform: scale(1, 1);
+	}
+	.radio input[type="radio"]:disabled + label {
+	    opacity: 0.65;
+	}
+	.radio input[type="radio"]:disabled + label::before {
+	    cursor: not-allowed;
+	}
+	.radio.radio-inline {
+	    margin-top: 0;
+	}
+	.radio-primary input[type="radio"] + label::after {
+	    background-color: $white;
+	}
+	.radio-primary input[type="radio"]:checked + label::before {
+	    border: 5px solid $bright-blue;
+	}
+	.radio-primary input[type="radio"]:checked + label::after {
+	    background-color: $white;
+	}
+	.radio + .radio-primary{
+		margin-bottom: 0px;
+	}
+	.radio-primary {
+		@include rem-size(margin-bottom, 0px);
+	}
+	.radio-primary.ship-to-home {
+		@include rem-size(margin-bottom, 10px);
+	}
+	.add-to-cart-submit {
+		@include rem-size(margin, 10px 0px);
+	}
+	.eds-message {
+		margin: -3px 0 0;
+		@include font-size(12px);
+		@include rem-size(padding-left, 20px);
+		> a,
+		> span {
+			vertical-align: middle;
+		}
+		a {
+			font-weight: $bold;
+			&:hover,
+			&:focus {
+				text-decoration: none;
+			}
+		}
+		.icon {
+			vertical-align: text-bottom;
+		}
+	}
+}
+
+.free-freight-shipping-label {
+	@include font-size(11px);
+	@include media(medium-up){
+		.category &, .search & {
+			@include font-size(10px);
+		}
+	}
+	display: inline-block;
+	width: 100%;
+	color: $dark-blue;
+	.icon-info {
+		position: relative;
+		top: 3px;
+	}
+}
+
+.split-order-msg {
+	@include rem-size(max-width, 400px);
+	border: solid 1px $base-gray;
+	h3 {
+		@include font-size(14px);
+		color: $dark-blue;
+		background: $light-gray;
+		border-bottom: solid 1px $base-gray;
+		text-transform: uppercase;
+		padding: 5px 10px;
+		margin: 0;
+		> span {
+			vertical-align: middle;
+		}
+		.icon {
+			cursor: default;
+			margin-right: 5px;
+		}
+	}
+	> div {
+		@include font-size(12px);
+		font-weight: $normal;
+		color: $dark-blue;
+		padding: 10px;
+	}
+	p {
+		margin: 0;
+	}
+}
+
+.free-gift {
+	@include font-size(11px);
+	display: inline-block;
+	width: 100%;
+	@include rem-size(padding-bottom, 10px);
+	color: $dark-blue;
+	.icon-info {
+		position: relative;
+		top: 3px;
+	}
+}
+
+.add-to-cart-actions {
+	.in-store-available,
+	.in-store-unavailable,
+	.bopis-store-available,
+	.bopis-store-unavailable {
+		font-weight: $bold;
+		@include font-size(13px);
+		text-transform: uppercase;
+	}
+	.in-store-available,
+	.in-store-unavailable {
+		@include rem-size(margin-left, 3px);
+	}
+	.in-store-available,
+	.bopis-store-available {
+		color: $medium-green;
+	}
+	.in-store-unavailable,
+	.bopis-store-unavailable {
+		color: $red;
+	}
+	.icon-available,
+	.icon-unavailable {
+		margin: 0;
+	}
+}
+
+// bopis
+.bopis-modal-link {
+	margin: 0;
+	@include media(small-only){
+		width: 100%;
+		margin: 10px 0 !important;
+	}
+	.button ~ & {
+		@include rem-size(margin-left, 4px);
+	}
+}
+.bopis-location-info {
+	@include rem-size(padding-left, 3px);
+	body.product:not(.gift-card) &.hide {
+		// hack to prevent content from hiding. this was
+		// easier than removing every piece of JavaScript
+		// that toggles this CSS class. it is also limited
+		// to only PDPs to limit regressions, and is easier
+		// to revert if we need to.
+		 display: block !important;
+	}
+	.bopis-section {
+		@include font-size(13px);
+		@include rem-size(line-height, 20px);
+		@include rem-size(padding, 0px 0px 5px 16px);
+		&.no-store {
+			margin-top: -3px;
+			font-weight: normal;
+		}
+	}
+	.bopis-store-content {
+		display: inline-block;
+	}
+	.bopis-store-info {
+		color: $black;
+		margin-left: 6px;
+		text-decoration: none;
+		text-transform: uppercase;
+		border-bottom: solid 1px $black;
+	}
+	.card-links {
+		@include font-size(13px);
+		font-weight: $bold;
+	}
+}
+.bopis-container {
+	@include grid-row();
+}
+@include media(small-only) {
+	.bopis-search-submit {
+		margin-top: 10px !important;
+	}
+}
+.bopis-info,
+.bopis-search-form,
+.bopis-store-search-form,
+.bopis-results,
+.bopis-item-notifications,
+.bopis-buttons {
+	@include grid-column(12);
+}
+.bopis-info {
+	width: 100%;
+	@include font-size(13px);
+	@include rem-size(padding-bottom, 16px);
+	@include media(medium-up) {
+		width: 50%;
+	}
+}
+.bopis-search-form,
+.bopis-store-search-form {
+	@include media(small-only) {
+		.button {
+			margin: 10px 0 0 !important;
+		}
+	}
+	@include media(medium-up) {
+		padding: 0;
+		input {
+			width: calc(100% - 160px);
+			display: inline-block;
+			margin-left: 0;
+		}
+		.button {
+			margin: 0;
+			width: 150px;
+			//float: right;
+			position: absolute;
+			right: 0;
+			top: 25px;
+		}
+		.error + .button {
+			@include rem-size(margin-top, -64px);
+		}
+	}
+}
+.bopis-results {
+	display: none;
+	padding: 0;
+}
+.results-zip-code {
+	margin-top: 0;
+}
+.bopis-results-list {
+	@include unlist();
+	li {
+		border-top: 1px solid $border-color;
+		@include rem-size(padding, 16px 0px);
+		width: 100%;
+		float: left;
+	}
+	h3 {
+		@include font-size(18px);
+	}
+	p {
+		@include font-size(15px);
+		margin: 0;
+	}
+	.button {
+		@include rem-size(margin-top, 8px);
+	}
+	@include media(medium-up) {
+		.address,
+		.actions {
+			width: 50%;
+			float: left;
+			h3 {
+				margin-top: 0;
+			}
+		}
+		.actions {
+			@include rem-size(margin-top, 24px);
+		}
+	}
+}
+.bopis-message,
+.bopis-selected-store,
+.bopis-item-notifications {
+	width: 100%;
+	float: left;
+	@include rem-size(padding, 10px 10px 0px);
+
+	h3 {
+		margin-top: 0;
+	}
+	p {
+		margin: 0;
+	}
+	.actions {
+		@include rem-size(margin-top, 24px);
+	}
+	@include media(medium-up) {
+		@include rem-size(padding, 10px 0px 0px);
+
+		.address,
+		.actions {
+			width: 50%;
+			float: left;
+		}
+	}
+}
+.bopis-message {
+	ul {
+		margin-bottom: 0;
+		@include rem-size(margin-top, 8px);
+		@include rem-size(padding-bottom, 20px);
+		@include rem-size(padding-left, 20px);
+		border-bottom: 1px solid $border-color;
+	}
+}
+.bopis-selected-store {
+	@include rem-size(padding-top, 20px);
+}
+.current-location {
+	text-decoration: underline;
+}
+.bopis-item-notifications {
+	@include rem-size(padding-top, 20px);
+}
+.bopis-buttons {
+	@include rem-size(padding-top, 20px);
+	@include rem-size(margin-top, 20px);
+	clear: both;
+
+	@include media(medium-up) {
+		border-top: 1px solid $border-color;
+		@include rem-size(padding, 20px 0px 0px);
+	}
+
+	.button {
+		width: 100%;
+		@include rem-size(margin-bottom, 10px);
+
+		@include media(medium-up) {
+			width: calc(50% - 20px);
+			@include rem-size(margin, 0px 10px 0px 0px);
+
+			& + .button {
+				width: 50%;
+				@include rem-size(margin, 0px 0px 0px 10px);
+			}
+		}
+	}
+}
+.ship-my-order.centered {
+	display: block;
+	text-decoration: underline;
+	text-align: center;
+	@include rem-size(margin-top, 8px);
+}
+
+span.seperator{
+	color: $orange;
+}
+
+
+/* Search Results
+========================================================= */
+.search-results-bar {
+	@include rem-size(padding, 10px);
+	@include font-size(18px);
+	margin: 0 auto 20px;
+	text-transform: uppercase;
+	background: $light-gray;
+	span {
+		@include font-size(13px);
+	}
+}
+
+
+
+/* Email Product Modal
+========================================================= */
+.email-product-modal,
+.email-wish-list-modal,
+.add-to-wish-list-confirmation-modal {
+	.product-details {
+		padding: 0;
+
+		@include media(medium-up) {
+			width: 50%;
+			@include rem-size(padding, 0px 0px 20px 10px);
+		}
+	}
+	.product-image {
+		@include grid-column(12);
+		@include rem-size(padding, 10px 0px);
+
+		@include media(medium-up) {
+			width: 50%;
+			@include rem-size(padding, 0px 10px 20px 0px);
+		}
+	}
+	.email-form {
+		@include grid-column(12);
+		padding: 0;
+
+		@include media(medium-up) {
+			width: 50%;
+			@include rem-size(padding, 0px 0px 20px 10px);
+		}
+	}
+	@include media(medium-up) {
+		.modal-footer {
+			@include rem-size(padding-top, 16px);
+		}
+	}
+}
+.email-product-section {
+	@include grid-column(12);
+	padding: 0;
+
+	@include media(medium-up){
+		@include rem-size(padding-right, 10px);
+		width: 50%;
+
+		& + .email-product-section {
+			@include rem-size(padding, 0px 0px 0px 10px);
+		}
+	}
+	.product-name {
+		margin: 0;
+		a {
+			color: $black;
+		}
+	}
+}
+.email-product-submit {
+	@include grid-column(12);
+	padding: 0;
+
+	@include media(medium-up){
+		width: 50%;
+		padding-left: 10px;
+	}
+}
+.legal-links {
+	@include grid-column(12);
+	@include font-size(12px);
+	padding: 0;
+
+	@include media(medium-up){
+		width: 50%;
+		@include rem-size(line-height, 40px);
+	}
+}
+
+
+
+
+/* Email Wish List Modal
+========================================================= */
+.email-wish-list-modal {
+	.email-form,
+	.modal-footer {
+		width: 100%;
+		padding: 0;
+	}
+}
+.email-wish-list-submit {
+	@include grid-column(12);
+	padding: 0;
+}
+
+
+
+/* Add to Wish List Confirmation Modal
+========================================================= */
+//.add-to-wish-list-confirmation-modal {
+//	@include grid-column(12);
+//	padding: 0;
+//
+//	@include media(medium-up){
+//		@include rem-size(padding-right, 10px);
+//		width: 50%;
+//
+//		& + .add-to-wish-list-section {
+//			@include rem-size(padding, 0px 0px 0px 10px);
+//		}
+//	}
+//	.product-name {
+//		margin: 0;
+//	}
+//}
+
+
+
+
+/* Add to Cart Modal
+========================================================= */
+
+.cart-success .section-title h2 {
+	@include font-size(16px);
+}
+.cart-success-header {
+	@include font-size(18px);
+	border-bottom: 1px solid lighten($black, 60);
+}
+.cart-success-item {
+	@include grid-row();
+	padding: 0.5rem 0;
+	.item-image {
+		padding-left: 0;
+		width: 28%;
+	}
+	.item-details {
+		width:39%
+	}
+	.item-price-subtotal {
+		padding-right: 0;
+		width: 33%;
+	}
+}
+.cart-success-item + .cart-success-item{
+	border-top: 1px solid lighten($black, 60);
+}
+.cart-success-buttons {
+	text-align: center;
+	padding-bottom: 10px;
+	border-bottom: 1px solid lighten($black, 60);
+}

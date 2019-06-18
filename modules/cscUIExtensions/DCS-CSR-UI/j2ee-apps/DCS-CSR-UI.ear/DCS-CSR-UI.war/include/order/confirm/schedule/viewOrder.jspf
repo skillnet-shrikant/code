@@ -1,0 +1,16 @@
+<%--
+Renders the link to load the order 
+
+@version $Id:
+@updated $DateTime: 2015/01/26 17:26:27 $$Author: jsiddaga $
+--%>
+<ul class="atg_commerce_csr_simpleList">
+<li><fmt:message key='confirmScheduledOrder.start.newOrderNumber.description'>
+<fmt:param> 
+  <strong><a href="#" class="blueU" onclick="atg.commerce.csr.order.viewExistingOrder('${order.id}','TEMPLATE');return false;">${fn:escapeXml(order.id)}</a></strong>
+</fmt:param>
+</fmt:message>
+</li>
+</ul>
+
+<%-- @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/include/order/confirm/schedule/viewOrder.jspf#1 $$Change: 946917 $--%>

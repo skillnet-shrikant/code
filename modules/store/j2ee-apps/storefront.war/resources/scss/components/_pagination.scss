@@ -1,0 +1,55 @@
+.pagination-container {
+	@include grid-row();
+
+	& + .order-items-header {
+		@include rem-size(padding-top, 8px);
+	}
+}
+
+.pagination {
+	@include grid-column();
+	@include clearfix;
+	float: right;
+	@include rem-size(margin, 8px 0px 6px);
+
+	a {
+		display: block;
+		float: left;
+		background: $white;
+		color: $black;
+		margin: 0;
+		@include font-size(12px);
+		@include rem-size(padding, 0px 6px);
+		@include rounded(4px);
+		@include transition;
+		text-decoration: none;
+		cursor: pointer;
+
+		&:hover {
+			font-weight: $bold;
+		}
+		&.active {
+			@include rem-size(margin, 0px 2px);
+			border-color: transparent;
+			color: $white;
+			background-color: $link-color;
+			text-decoration: none;
+			pointer-events: none;
+			cursor: default;
+		}
+		&.disabled .icon {
+			color: $disabled-link-color;
+			text-decoration: none;
+			pointer-events: none;
+			cursor: default;
+		}
+	}
+	.pagination-prev,
+	.pagination-next {
+		@include rem-size(padding, 0px 2px);
+		.icon {
+			position: relative;
+			top: 2px;
+		}
+	}
+}

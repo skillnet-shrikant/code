@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pipelinemanager
+        PUBLIC "-//Art Technology Group, Inc.//DTD Dynamo Pipeline Manager//EN"
+        'http://www.atg.com/dtds/pipelinemanager/pipelinemanager_1.0.dtd'>
+<!-- Author: KnowledgePath Solutions  -->
+<pipelinemanager>   
+   <pipelinechain name="settleReturn" transaction="TX_REQUIRED">
+        <!-- this processor will update prorate repository items in the repository  -->
+        <pipelinelink name="markAsProcessed" transaction="TX_MANDATORY" xml-combine="replace">
+           <processor jndi="/atg/commerce/custsvc/returns/processor/MarkReturnRequestAsProcessed"/>
+        	<transition returnvalue="1" link="createReturnInvoiceRecord"/>
+        </pipelinelink>
+
+        <!-- Add invoice entries for the returned items  -->
+        <pipelinelink name="createReturnInvoiceRecord" transaction="TX_MANDATORY">
+           <processor jndi="/oms/commerce/salesaudit/processor/AddInvoiceForReturn"/>
+        	<transition returnvalue="1" link="sendReturnCompletedEvent"/>
+        </pipelinelink>
+        
+        <pipelinelink name="sendReturnCompletedEvent" transaction="TX_MANDATORY" xml-combine="replace">
+            <processor jndi="/atg/commerce/custsvc/returns/processor/SendReturnCompletedEvent"/>
+            <transition returnvalue="1" link="sendReturnConfirmationEmail"/>
+        </pipelinelink>        
+        <!-- this processor send return confirmation email  -->
+        <pipelinelink name="sendReturnConfirmationEmail" transaction="TX_MANDATORY">
+			<processor jndi="/mff/commerce/processor/SendReturnConfirmationEmail"/>
+		</pipelinelink>	
+   </pipelinechain>
+   
+      <pipelinechain headlink="addStoreCreditAllocations" name="submitAppeasement" transaction="TX_REQUIRED">
+		<pipelinelink name="settleAppeasement" transaction="TX_MANDATORY" xml-combine="replace">
+			<processor jndi="/atg/commerce/custsvc/appeasement/processor/SettleAppeasement"/>
+			<transition returnvalue="1" link="createAppeasementInvoiceRecord"/>
+		</pipelinelink>
+		
+		<pipelinelink name="noOpApprovalChain" transaction="TX_MANDATORY" xml-combine="replace">
+			<processor class="atg.service.pipeline.processor.EmptyProcessor"/>
+			<transition returnvalue="1" link="createAppeasementInvoiceRecord"/>
+		</pipelinelink>
+	  
+        <!-- Add invoice entries for the returned items  -->
+        <pipelinelink name="createAppeasementInvoiceRecord" transaction="TX_MANDATORY">
+           <processor jndi="/oms/commerce/salesaudit/processor/AddInvoiceForAppeasement"/>
+           <transition returnvalue="1" link="sendAppeasementEmail"/>
+        </pipelinelink>
+        
+        <pipelinelink name="sendAppeasementEmail" transaction="TX_MANDATORY">
+			<processor jndi="/mff/commerce/processor/SendAppeasementEmail"/>			
+		</pipelinelink>
+		
+   </pipelinechain>
+   
+	<pipelinechain name="processOrder" headlink="validateOrderNumber">
+        <pipelinelink name="removeEmptyShippingGroups" transaction="TX_MANDATORY" xml-combine="replace">
+            <processor jndi="/atg/commerce/order/processor/RemoveEmptyShippingGroups"/>
+            <transition returnvalue="1" link="removeZeroAmountPaymentGroups"/>
+        </pipelinelink>
+        <pipelinelink name="removeZeroAmountPaymentGroups" transaction="TX_MANDATORY">
+            <processor jndi="/atg/commerce/order/processor/RemoveZeroAmountPaymentGroups"/>
+            <transition returnvalue="1" link="removeEmptyPaymentGroups"/>
+        </pipelinelink>
+	</pipelinechain>
+   
+</pipelinemanager>

@@ -1,0 +1,392 @@
+// CHECKOUT ORDER ITEM STYLES ARE IN _checkout.scss
+
+// order items header
+.order-items-header {
+	@include grid-row();
+	@include rem-size(padding, 0px 10px);
+	@include font-size(13px);
+	font-weight: $bold;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+.order-items-header-detail,
+.order-items-header-price,
+.order-items-header-quantity,
+.order-items-header-total {
+	@include grid-column();
+	@include rem-size(padding, 10px);
+	background: $light-gray;
+}
+.order-items-header-detail {
+	width: 100%;
+
+	@include media(medium-up) {
+		width: 51%;
+	}
+	@include media(large-up) {
+		width: 58%;
+	}
+}
+.order-items-header-price {
+	display: none;
+
+	@include media(medium-up) {
+		display: block;
+		width: 11%;
+	}
+	@include media(large-up) {
+		width: 10%;
+	}
+}
+.order-items-header-quantity {
+	display: none;
+
+	@include media(medium-up) {
+		display: block;
+		width: 20%;
+		text-align: center;
+	}
+	@include media(large-up) {
+		width: 16%;
+	}
+}
+.order-items-header-total {
+	display: none;
+	text-align: right;
+
+	@include media(medium-up) {
+		display: block;
+		width: 18%;
+	}
+	@include media(large-up) {
+		width: 16%;
+	}
+}
+
+
+
+// order items
+.order-items {
+	@include grid-row();
+	@include rem-size(padding, 0px 10px 8px);
+
+	.checkout:not(.orderConfirmation) & {
+		float: left;
+	}
+}
+
+
+
+// order item
+.order-item {
+	@include grid-row();
+	@include rem-size(padding, 16px 0px);
+	@include font-size(11px);
+	border-bottom: 1px solid $border-color;
+}
+
+.item-tracking.order-item-section {
+	ul.trk-num-list {
+		list-style   : none;
+		padding-left : 0px;
+		margin-top   : 0px;
+	}
+}
+
+.order-item-section {
+	@include rem-size(line-height, 18px);
+}
+
+.item-image,
+.item-details,
+.item-price-subtotal,
+.item-price-unit,
+.item-quantity {
+	@include grid-column();
+}
+
+.free{
+	font-weight: $bold;
+}
+
+.item-image {
+	width: 30%;
+	padding: 0;
+
+	@include media(medium-up) {
+		@include rem-size(padding, 0px 10px);
+		width: 17%;
+	}
+	@include media(large-up) {
+		width: 15%;
+	}
+}
+
+.item-details {
+	width: 70%;
+	@include rem-size(padding-right, 0px);
+
+	@include media(medium-up) {
+		width: 34%;
+		@include rem-size(padding-right, 10px);
+	}
+	@include media(large-up) {
+		width: 43%;
+	}
+
+	.price {
+		@include media(medium-up) {
+			display:none;
+		}
+	}
+	.product-name {
+		font-weight: $bold;
+
+		a {
+			color: $black;
+		}
+	}
+	.product-sku {
+		@include media(small-only) {
+			display: none;
+		}
+	}
+	.promo-line-item-msg {
+		display: inline-block;
+		width: 100%;
+		.icon-info {
+			position: relative;
+			top: 3px;
+			left: 3px;
+		}
+		.icon-check {
+			position: relative;
+			color: $green;
+			@include font-size(12px);
+			@include rem-size(padding-right, 5px);
+		}
+	}
+	.promo-line-item-desc {
+		font-weight: $bold;
+		text-transform: uppercase;
+	}
+	.upsells-item-msg {
+		text-decoration: none;
+		&:hover {
+			text-decoration: none;
+			border-bottom: 1px solid $orange;
+		}
+	}
+}
+.product-message {
+	font-weight: $bold;
+	color: $error-color;
+
+	.icon {
+		position: relative;
+		top: 2px;
+	}
+}
+.item-price-unit {
+	display: none;
+
+	@include media(medium-up) {
+		display: block;
+		width: 11%;
+	}
+	@include media(large-up) {
+		width: 10%;
+	}
+}
+
+.item-quantity:not(.promo) {
+	@include media(small-only){
+		@include rem-size(margin-top, -78px);
+		width: 70%;
+		float: right;
+
+		&.gwp {
+			@include rem-size(margin-top, 4px);
+		}
+
+		.update-showing & {
+			@include rem-size(margin-top, -102px);
+		}
+
+		.label {
+			vertical-align: top;
+			line-height: 12px;
+		}
+		.change-quantity {
+			display: inline-block;
+		}
+		.gwp-quantity {
+			position: relative;
+			top: -3px;
+		}
+	}
+	@include media(medium-up) {
+		display: block;
+		width: 20%;
+
+		.label {
+			display: none;
+		}
+		.gwp-quantity {
+			display: block;
+			text-align: center;
+		}
+	}
+	@include media(large-up) {
+		width: 16%;
+	}
+}
+
+.item-quantity {
+	@include media(small-only){
+		@include rem-size(margin-top, -114px);
+		width: 70%;
+		float: right;
+
+		&.gwp {
+			@include rem-size(margin-top, 4px);
+		}
+
+		.update-showing & {
+			@include rem-size(margin-top, -150px);
+		}
+
+		.label {
+			vertical-align: top;
+			line-height: 12px;
+		}
+		.change-quantity {
+			display: inline-block;
+		}
+		.gwp-quantity {
+			position: relative;
+			top: -3px;
+		}
+	}
+	@include media(medium-up) {
+		display: block;
+		width: 20%;
+
+		.label {
+			display: none;
+		}
+		.gwp-quantity {
+			display: block;
+			text-align: center;
+		}
+	}
+	@include media(large-up) {
+		width: 16%;
+	}
+}
+
+.item-price-subtotal {
+	width: 70%;
+	float: right;
+
+	@include media(small-only) {
+		&.gwp {
+			margin-top: 0;
+		}
+		.item-tracking + & {
+			@include rem-size(margin-top, -37px);
+		}
+	}
+	@include media(medium-up) {
+		width: 18%;
+		text-align: right;
+		margin-top: 0;
+
+		.label {
+			display: none;
+		}
+	}
+	@include media(large-up) {
+		width: 16%;
+	}
+}
+
+// action links
+.item-actions {
+	width: 100%;
+	@include rem-size(padding, 4px 0px 0px);
+
+	@include media(small-only){
+		@include rem-size(margin-top, 60px);
+
+		.update-showing & {
+			@include rem-size(margin-top, 84px);
+		}
+
+	}
+}
+.item-action {
+	float:left;
+
+	& + .item-action:before {
+		content: "|";
+		@include rem-size(padding-left, 4px);
+	}
+}
+
+.label {
+	@include rem-size(padding-right, 4px);
+	//width: 48px;
+	font-weight: $bold;
+	display: inline-block;
+}
+
+
+
+
+// wish list / order details
+.order-items-header-links {
+	@include grid-column();
+	@include rem-size(padding, 10px);
+	background: $light-gray;
+	display: none;
+	text-align: right;
+
+	@include media(medium-up) {
+		display: block;
+		width: 20%;
+	}
+	@include media(large-up) {
+		width: 16%;
+	}
+}
+.item-action-links {
+	@include grid-column(12);
+	padding: 0;
+
+	.add-to-cart,
+	.move-to-cart,
+	.item-remove {
+		width: 100%;
+		display: block;
+		@include rem-size(margin-top, 10px);
+
+		@include media(medium-up) {
+			margin: 0;
+			float: right;
+		}
+	}
+	.item-remove {
+		@include rem-size(margin-top, 4px);
+	}
+
+	@include media(medium-up) {
+		text-align: right;
+		margin-top: 0;
+		display: block;
+		width: 20%;
+	}
+	@include media(large-up) {
+		width: 16%;
+	}
+}

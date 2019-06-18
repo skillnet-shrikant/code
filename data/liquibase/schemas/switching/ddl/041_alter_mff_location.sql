@@ -1,0 +1,1 @@
+alter table mff_location add total_orders_per_day number default 0;

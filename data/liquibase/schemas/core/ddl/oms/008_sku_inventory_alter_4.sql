@@ -1,0 +1,1 @@
+alter table sku_Inventory add max_queue_size number(5,0);

@@ -1,0 +1,11 @@
+<!-- recaptcha -->
+<dsp:getvalueof var="captchaSiteKey" vartype="java.lang.String" bean="/com/mff/util/CaptchaProcessor.siteKey"/>
+<script>
+	var onloadCallback = function() {
+		grecaptcha.render('gc-balance-captcha', {
+			'sitekey': '<c:out value="${captchaSiteKey}"/>'
+		});
+	};
+</script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+<!-- /recaptcha -->

@@ -1,0 +1,173 @@
+// Use the components directory to construct the meat of your CSS.
+// Categorize your styles here based on element in the file name.
+
+// Mini cart definitions
+.mini-cart {
+	cursor: pointer;
+	position:relative;
+}
+
+.mini-cart-header {
+	border: transparent !important;
+}
+.mini-cart-header > a {
+	@include font-size(10px);
+	@include rem-size(line-height, 24px);
+	border-color: transparent;
+	border-width: 1px 1px 0px 1px;
+	border-style: solid;
+	display:inline-block;
+	position:relative;
+	padding: 0 2.2rem 0 2rem;
+	text-decoration: none;
+	color: $black;
+	text-align:center;
+	z-index:200;
+}
+
+.mini-cart-icon, .cart-count {
+	display: inline-block;
+}
+.mini-cart-icon {
+	width: 24px;
+	height: 24px;
+	position: absolute;
+	top: 0px;
+	left: 0;
+}
+.cart-count {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	top: 1px;
+	right: 1px;
+	color: $primary-color;
+	@include font-size(12px);
+	line-height: 20px;
+	font-weight: $bold;
+	text-align: center;
+}
+
+.mini-cart-expanded {
+	display: none;
+	position: absolute;
+	right:0;
+	background: $white;
+	border:solid 1px $border-color;
+	width: 520px;
+	margin-top:-1px;
+	z-index: 100;
+}
+
+.mini-cart-hover {
+	background-color: $white;
+	display: block;
+	a {
+		// remove the bottom border to
+		// connect the trigger with the dropdown
+		border-color: $base-gray $base-gray $white $base-gray;
+		border-width: 1px 1px 1px 1px;
+	}
+}
+
+// the border after mini-cart item count //
+.mini-cart-item-count {
+	@include rem-size(font-size, 14px);
+	@include rem-size(line-height, 40px);
+	border-bottom: 1px solid $border-color;
+	padding:0 20px 5px;
+}
+.mini-cart-item-list {
+	max-height: 250px;
+	overflow: auto;
+	padding:0 20px;
+}
+.mini-cart-item {
+	@include grid-row();
+	padding: 0.5rem 0;
+
+	// customized _orderItems classes in mini-cart
+	.item-image {
+		width:30%;
+		padding-left:0; //override padding from grid-column mixin
+	}
+	.item-details {
+		width: 35%;
+	}
+
+	/* product info customization */
+	.product-name {
+		font-weight:$bold;
+		a {
+			color: $black;
+		}
+	}
+
+	.item-price-subtotal {
+		@include font-size(12px);
+		width: 35%;
+		padding-right:0; //override padding from grid-column mixin
+
+		.total {
+			color: $black;
+		}
+
+		a {
+			color: darken($primary-color, 15);
+			text-decoration: none;
+			&:hover {
+				@include transition;
+				color: darken($primary-color, 30);
+			}
+		}
+	}
+
+}
+// the border between mini cart items //
+.mini-cart-item + .mini-cart-item {
+	border-top: 1px solid $base-gray;
+}
+
+.mini-cart-footer {
+	@include grid-row();
+	border-top: 1px solid $base-gray;
+	padding: 10px 0;
+
+	.mini-cart-adspace {
+		@include grid-column(3.6);
+	}
+
+	.mini-cart-totals {
+		@include grid-column(8.4);
+	}
+
+	// customized from _totals.scss to fit container
+	.totals {
+		background:none;
+		@include font-size(11px);
+		@include rem-size(line-height, 16px);
+		dl {
+			padding:0;
+		}
+		dt {
+			padding: 5px 0;
+		}
+		.savings {
+			@include font-size(14px);
+		}
+		.total {
+			padding: 5px 10px 6px;
+			@include font-size(14px);
+		}
+
+	}
+}
+
+.mini-cart-buttons {
+	border-top: 1px solid $base-gray;
+	padding-top: 5px;
+	margin-top: 10px;
+	.button {
+		margin: 5px auto;
+	}
+}

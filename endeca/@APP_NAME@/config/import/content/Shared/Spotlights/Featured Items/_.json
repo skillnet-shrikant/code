@@ -1,0 +1,14 @@
+{
+    "workflowNote": "",
+    "ruleLimit": "1",
+    "workflowState": "ACTIVE",
+    "ecr:lastModifiedBy": "admin",
+    "ecr:lastModified": "2016-07-28T22:12:10.788Z",
+    "startTime": "",
+    "endTime": "",
+    "priority": 10,
+    "mdexMerchRuleID": 12,
+    "triggers": [{"exactLocation": false}],
+    "ecr:createDate": "2016-07-22T21:49:16.699Z",
+    "ecr:type": "content-item"
+}

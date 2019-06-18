@@ -1,0 +1,292 @@
+<project name="store" default="all" basedir=".">
+
+	<!-- Defining property name to access environmental variables -->
+	<property environment="env"/>
+
+	<property file="../../build.properties"/>
+
+	<!-- Import file with common settings -->
+	<import file="../../common-classpath.xml"/>
+	<import file="../../sassmacros.xml"/>
+
+	<property file="module.properties"/>
+
+	<property name="module" value="${module.path}/${module.name}"/>
+
+	<!-- CSS source directory -->
+	<property name="css.dir" value="${basedir}/j2ee-apps/storefront.war/resources/css"/>
+
+	<!-- SASS source directory -->
+	<property name="sass.dir" value="${basedir}/j2ee-apps/storefront.war/resources/scss"/>
+
+	<!-- JS source directory -->
+	<property name="jsSrcDir" value="${basedir}/j2ee-apps/storefront.war/resources/js"/>
+
+	<!--Source Lint/Hint dir-->
+	<property name="jshint.js" value="${basedir}/j2ee-apps/storefront.war/WEB-INF/lib/jshint-rhino.js"/>
+
+	<!--Rhino dir-->
+	<property name="js.jar" value="${basedir}/j2ee-apps/storefront.war/WEB-INF/lib/js.jar"/>
+
+	<!-- YUI compressor location -->
+	<property name="yuicompressor.jar" value="${basedir}/j2ee-apps/storefront.war/WEB-INF/lib/yuicompressor-2.4.8.jar"/>
+
+	<tstamp>
+		<format property="build.uniquestring" pattern="yyyyMMdd_hhmm_SSS_z" unit="hour" />
+	</tstamp>
+
+	<target name="printEnv">
+		<condition property="skip-jshint-setting" value="${skip.jshint}" else="false">
+			<isset property="skip.jshint" />
+		</condition>
+		<condition property="skip-scss-setting" value="${skip.scss}" else="false">
+			<isset property="skip.scss" />
+		</condition>
+		<condition property="skip-minify-setting" value="${skip.minify}" else="false">
+			<isset property="skip.minify" />
+		</condition>
+		<tstamp />
+		<echo message="#############################################################################" />
+		<echo message="start date = ${DSTAMP}  start time = ${TSTAMP}" />
+		<echo message="Printing Env Configurations..." />
+		<echo message="BASE_DIR...:${basedir}" />
+		<echo message="DEPLOY PATH...:${store.deploy.path}/" />
+		<echo message="STORE.EAR PATH...:${store.deploy.path}/${store.ear}" />
+		<echo message="JAVA_HOME...:${java.home}" />
+		<echo message="build.uniquestring...:${build.uniquestring}" />
+		<echo message="skip.jshint.............: ${skip-jshint-setting}" />
+		<echo message="skip.scss.............: ${skip-scss-setting}" />
+		<echo message="skip.minify........: ${skip-minify-setting}" />
+		<echo message="#############################################################################" />
+	</target>
+
+	<target name="clean" unless="clean-before-build" >
+		<!--<antcall target="clean-EAR"/> -->
+		<antcall target="clean-atg"/>
+
+		<!-- Deleting classes directory -->
+		<delete includeemptydirs="true" failonerror="false">
+			<fileset dir="./build/classes" />
+		</delete>
+	</target>
+
+   <target name="clean-atg">
+      <delete includeemptydirs="true" failonerror="false" >
+	 <fileset dir="${dynamo.home}/../${module}"/>
+     	 <fileset dir="${dynamo.home}/servers/${store.server}/j2ee/archive-cache"/>
+      </delete>
+   </target>
+   <target name="clean-EAR">
+      <delete includeemptydirs="true" failonerror="false" >
+	 	<fileset dir="${store.deploy.path}/${store.ear}"/>
+      </delete>
+   </target>
+
+   <!--
+   Compresses a single file into one fresh file within the same directory.
+   @param workDir          e.g. 'path/to/file'
+   @param inputFile        e.g. 'name.js'
+   -->
+   <target name="yui-compress" description="Utility task - Compresses a single JavaScript file into one fresh file within the same directory.">
+      <echo message="yui-compress: ${inputFile} in ${workDir}" />
+      <apply dest="${workDir}" executable="java" verbose="true">
+	 <fileset dir="${workDir}">
+	    <include name="${inputFile}" />
+	 </fileset>
+	 <arg line="-jar" />
+	 <arg path="${yuicompressor.jar}" />
+	 <arg value="-o" />
+	 <targetfile />
+	 <mapper type="glob" from="${inputFile}" to="${inputFile}.min" />
+      </apply>
+      <move file="${workDir}/${inputFile}.min"
+	  tofile="${workDir}/${inputFile}"/>
+   </target>
+
+	<!--
+		Validate JS files by running jsHint over our custom js plugins. Outputs to console, but does not stop on fail.
+		@param jsSrcDir        e.g. 'path/to/files'
+		@param js.jar          e.g. 'path/to/rhino'
+		@param jshint.js        e.g. 'path/to/jshint'
+		-->
+	<target name="jsHint" description="Runs jsHint for custom plugins" unless="skip.jshint">
+		<echo message="Running jsLint on ${company.name}.*.js in ${jsSrcDir}" />
+		<echo message="use ant option -Dskip.jshint=true to skip this step" />
+
+		<fileset dir="${jsSrcDir}" includes="**/${company.name}.*.js" id="jsfiles.raw"/>
+		<pathconvert pathsep=" " property="jsfiles.clean" refid="jsfiles.raw" />
+		<exec executable="java">
+			<arg line="-jar"/>
+			<arg path="${js.jar}"/>
+			<arg path="${jshint.js}" />
+			<arg line="${jsfiles.clean} sub=true,curly=true,forin=true,latedef=true,noempty=true,undef=true,rhino=false,validthis=false,browser=true,jquery=true" />
+			<arg line="console,pm,Mustache,Modernizr,jstestdriver"/>
+		</exec>
+	</target>
+
+	<!--
+			Concatenate JS files.
+			- Combines javascript files (core, plugins, custom) into a single file. Outputs lib.{brand}.js
+			- Order of files is important. First do the core libs, then plugins, then custom javacript files,
+				then initialization scripts.
+			-->
+	<target name="concat-assets" description="Combines js assets into build target">
+		<!-- JS Files -->
+		<filelist id="js-libs-core" dir="${jsSrcDir}/core">
+			<!-- list of core files -->
+			<file name="kp.config.js"/>
+			<file name="jquery-1.11.1.js"/>
+			<file name="kp.mediator.js"/>
+			<file name="kp.templates.js"/>
+			<file name="kp.utilities.js"/>
+		</filelist>
+		<fileset id="js-libs-plugins" dir="${jsSrcDir}/plugins">
+			<!-- js plugins -->
+		</fileset>
+		<fileset id="js-libs-client-folder" dir="${jsSrcDir}/${company.name}">
+			<!-- client-specific js files -->
+		</fileset>
+		<filelist id="js-libs-init" dir="${jsSrcDir}/init">
+			<!-- list of init  files -->
+			<file name="init.js"/>
+			<file name="init.proxy.js"/>
+			<file name="init.documentation.js"/>
+			<file name="init.account.js"/>
+			<file name="init.browse.js"/>
+			<file name="init.checkout.js"/>
+		</filelist>
+		<filelist id="js-libs-modernizr" dir="${jsSrcDir}/core">
+			<!--  just the modernizr lib -->
+			<file name="modernizr.min.js"/>
+		</filelist>
+		<!-- end JS Files -->
+
+		<echo message="Creating javascript library to ${jsSrcDir}" />
+
+		<concat destfile="${jsSrcDir}/lib.${company.name}.js" fixlastline="yes">
+			<filelist refid="js-libs-core"/>
+			<fileset refid="js-libs-plugins"/>
+			<fileset refid="js-libs-client-folder"/>
+			<filelist refid="js-libs-init"/>
+		</concat>
+
+		<!-- Deploy modernizr. this is separate because we want this to load in the head before anything else.
+				This file should already be compressed. -->
+		<copy todir="${jsSrcDir}">
+			<filelist refid="js-libs-modernizr"/>
+		</copy>
+	</target>
+
+	<!-- Compresses a single file into one fresh file within the same directory. -->
+	<target name="minify-assets" unless="skip.minify">
+		<echo message="Running minify-assets"/>
+		<echo message="use ant option -Dskip.minify=true to skip this step" />
+
+		<!-- Compress js files -->
+		<apply dest="${jsSrcDir}" executable="java" verbose="true">
+			<fileset dir="${jsSrcDir}">
+				<include name="lib.${company.name}.js" />
+			</fileset>
+			<arg line="-jar" />
+			<arg path="${yuicompressor.jar}" />
+			<arg value="-o" />
+			<targetfile />
+			<mapper type="glob" from="lib.${company.name}.js" to="lib.${company.name}.js.min" />
+		</apply>
+		<move file="${jsSrcDir}/lib.${company.name}.js.min"
+					tofile="${jsSrcDir}/lib.${company.name}.js"/>
+	</target>
+
+	<!-- Use sass to compile the css files from the scss files -->
+	<target name="scss" unless="skip.scss">
+		<property name="destination" value="${css.dir}"/>
+		<property name="source" location="${sass.dir}"/>
+
+		<echo message="compiling to ${destination}" />
+		<echo message="use ant option -Dskip.scss=true to skip this step" />
+
+		<scss jarpath="${basedir}/j2ee-apps/storefront.war/WEB-INF/lib/" src="${source}" dest="${destination}" compression="compressed"/>
+	</target>
+
+	<target name="build">
+		<!-- deploying is done in the build target -->
+	</target>
+
+	<target name="deploy">
+
+		<echo message="Copying to   : ${dynamo.home}/../${module}"/>
+		<echo message="Copying from : ${basedir}"/>
+		<copy todir="${dynamo.home}/../${module}" overwrite="true">
+			<fileset dir="." excludes="build/**,src/**, **/src/**, docroot/**,.classpath,.project,**/*.svn,*.*"/>
+		</copy>
+
+		<!-- add unique value so that user's don't have to refresh JS after a new build -->
+		<antcall target="replace-build-string" />
+
+		<antcall target="concat-assets"/>
+		<antcall target="minify-assets" />
+		<echo message="Copying to   : ${store.deploy.path}/${store.ear}/storefront.war/resources/js/lib.kp.js"/>
+		<echo message="Copying from : ${jsSrcDir}/"/>
+		<copy todir="${store.deploy.path}/${store.ear}/storefront.war/resources/js" verbose="true">
+			<fileset dir="${jsSrcDir}" excludes="**/*/*" />
+			<!--<fileset dir="${dynamo.home}/../${module}/j2ee-apps/storefront.war/resources/js" excludes="**/*/*" />-->
+		</copy>
+
+		<antcall target="scss" />
+		<echo message="Copying to   : ${store.deploy.path}/${store.ear}/storefront.war/resources/css"/>
+		<echo message="Copying from : ${css.dir}"/>
+		<copy todir="${store.deploy.path}/${store.ear}/storefront.war/resources/css" verbose="true">
+			<fileset dir="${css.dir}" excludes="**/*.map, **/.gitignore, **/*/*" />
+			<!--<fileset dir="${dynamo.home}/../${module}/j2ee-apps/storefront.war/resources/css" excludes="**/*.map, **/.gitignore, **/*/*" />-->
+		</copy>
+
+	</target>
+
+	<target name="quick-webdeploy" depends="printEnv" description="deploys to server's .ear">
+
+		<echo message="Copying to storefront.war : ${store.deploy.path}/${store.ear}/storefront.war"/>
+		<copy todir="${store.deploy.path}/${store.ear}/storefront.war" verbose="true">
+			<fileset dir="j2ee-apps/storefront.war" includes="*.jsp"/>
+			<fileset dir="j2ee-apps/storefront.war" includes="**/*" excludes="META-INF/**, build/**, src/**, **/*.scss, **/*.js, docroot/**,.classpath,.project,**/*.svn,*.*,sql/**,.externalToolBuilders/**,bin/**,images/**" />
+		</copy>
+
+		<!-- check for JS errors -->
+		<antcall target="jsHint"/>
+
+		<!-- concatenate all JS into file -->
+		<antcall target="concat-assets"/>
+
+		<!-- minify JS files -->
+		<!--<antcall target="minify-assets"/>-->
+
+		<!-- copy js files to storefront.war -->
+		<copy todir="${store.deploy.path}/${store.ear}/storefront.war/resources/js" verbose="true">
+			<fileset dir="${jsSrcDir}" />
+		</copy>
+
+		<!-- scss compile is slow, so let's call it after everything else. Allows you to see jsp js changes immediately. -->
+		<!-- HEY YOU!!!!! IF YOU DON"T WANT TO RUN THIS USE THE SKP OPTION WHEN YOU CALL THE TASK -->
+		<!-- $ ant quick-webdeploy -Dskip.scss=true -->
+		<antcall target="scss" />
+
+		<copy todir="${store.deploy.path}/${store.ear}/storefront.war/resources/css" verbose="true">
+			<fileset dir="${css.dir}" excludes="**/*.map" />
+		</copy>
+
+		<!-- add unique value so that user's don't have to refresh JS after a new build -->
+		<antcall target="replace-build-string"/>
+
+	</target>
+
+	<!-- add unique value so that user's don't have to refresh JS after a new build -->
+	<target name="replace-build-string">
+		<copy todir="${store.deploy.path}/${store.ear}/storefront.war/sitewide/fragments" verbose="false" overwrite="true">
+			<fileset file="j2ee-apps/storefront.war/sitewide/fragments/prelude.jspf"/>
+		</copy>
+		<echo message="Replacing @@BUILD_UNIQUE_STRING@@ in ${store.deploy.path}/${store.ear}/storefront.war/sitewide/fragments with ${build.uniquestring}"/>
+		<replace file="${store.deploy.path}/${store.ear}/storefront.war/sitewide/fragments/prelude.jspf" token="@@BUILD_UNIQUE_STRING@@" value="${build.uniquestring}" />
+	</target>
+
+	<target name="all" depends="deploy" description="Deploys"/>
+
+</project>

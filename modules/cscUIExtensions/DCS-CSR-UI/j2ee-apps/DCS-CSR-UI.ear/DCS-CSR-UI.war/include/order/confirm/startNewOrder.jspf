@@ -1,0 +1,26 @@
+<%--
+Renders the start new order link
+
+@version $Id:
+@updated $DateTime: 2015/01/26 17:26:27 $$Author: jsiddaga $
+--%>
+<div class="atg_svc_subPanel">
+  <div class="atg_svc_subPanelHeader" >       
+      <ul class="atg_svc_panelToolBar">
+        <li class="atg_svc_header">
+          <h4 id="atg_commerce_csr_orderconfirm_startNewOrder"><fmt:message key='confirmOrder.startNewOrder.header'/> </h4>
+        </li>       
+       </ul>
+    </div>
+
+ <ul class="atg_commerce_csr_simpleList">
+   <li>
+    <a href="#"
+      title="<fmt:message key='confirmOrder.startNewOrder.link.title'/>"
+      onclick="atg.commerce.csr.createOrder();">
+      <fmt:message key='confirmOrder.startNewOrder.link.display'/>
+    </a>
+   </li>
+ </ul>
+</div>
+<%-- @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/include/order/confirm/startNewOrder.jspf#1 $$Change: 946917 $--%>

@@ -1,0 +1,16 @@
+insert into mff_sku_facet(sku_id) values('005631296');
+insert into mff_sku_facet(sku_id) values('100356703');
+insert into mff_sku_facet(sku_id) values('006226112');
+insert into mff_sku_facet(sku_id) values('100409720');
+insert into mff_sf_dyn_prop_map_str(id,prop_name,prop_value) values('005631296','/mff/facets/SearchFacet_skuSearchFacet_Color','Medium Stonewashed Blue');
+insert into mff_sf_dyn_prop_map_str(id,prop_name,prop_value) values('005631296','/mff/facets/SearchFacet_skuSearchFacet_Inseam','30');
+insert into mff_sf_dyn_prop_map_str(id,prop_name,prop_value) values('005631296','/mff/facets/SearchFacet_skuSearchFacet_Fit','Western');
+insert into mff_sf_dyn_prop_map_str(id,prop_name,prop_value) values('005631296','/mff/facets/SearchFacet_skuSearchFacet_Leg_Opening','Boot Cut');
+insert into mff_sf_dyn_prop_map_str(id,prop_name,prop_value) values('100356703','/mff/facets/SearchFacet_skuSearchFacet_Color','Stonewashed'); 
+insert into mff_sf_dyn_prop_map_str(id,prop_name,prop_value) values('100356703','/mff/facets/SearchFacet_skuSearchFacet_Inseam','29'); 
+insert into mff_sf_dyn_prop_map_str(id,prop_name,prop_value) values('100356703','/mff/facets/SearchFacet_skuSearchFacet_Fit','Western'); 
+insert into mff_sf_dyn_prop_map_str(id,prop_name,prop_value) values('100356703','/mff/facets/SearchFacet_skuSearchFacet_Leg_Opening','Boot Cut'); 
+insert into mff_sf_dyn_prop_map_str(id,prop_name,prop_value) values('006226112','/mff/facets/SearchFacet_skuSearchFacet_Bar Length','14 in.'); 
+insert into mff_sf_dyn_prop_map_str(id,prop_name,prop_value) values('006226112','/mff/facets/SearchFacet_skuSearchFacet_Power_Type','Gas'); 
+insert into mff_sf_dyn_prop_map_str(id,prop_name,prop_value) values('100409720','/mff/facets/SearchFacet_skuSearchFacet_Bar Length','24 in.'); 
+insert into mff_sf_dyn_prop_map_str(id,prop_name,prop_value) values('100409720','/mff/facets/SearchFacet_skuSearchFacet_Power_Type','Gas'); 

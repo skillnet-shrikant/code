@@ -1,0 +1,131 @@
+/* Print Style Overrides
+   ========================================================= */
+@media print {
+
+	// global
+	.utility-nav,
+	.keyword-search,
+	.primary-nav,
+	.global-promo,
+	.back-to-top,
+	.breadcrumbs,
+	.social-icons,
+	.you-may-also-like,
+	.recently-viewed-items,
+	.title-buttons,
+	footer {
+		display: none;
+	}
+
+	// product detail page
+	.product-page .tabs {
+		width: 50%;
+		float: right;
+		@include rem-size(margin, 10px 0px 30px);
+	}
+	.product-images-social {
+		width: 50%;
+	}
+	.viewer-thumb {
+		float: left;
+		width: 88px;
+	}
+	.product-details {
+		width: 50%;
+		float: right;
+
+		.product-name {
+			@include font-size(32px);
+			@include rem-size(line-height, 36px);
+		}
+	}
+	.product-pickers {
+		width: 50%;
+		padding-top: 0;
+	}
+
+	// order confirmation
+	.confirmation-create-account {
+		display: none;
+	}
+	.orderConfirmation {
+
+		// shipping/billing info
+		.shipped-to,
+		.shipping-method,
+		.billed-to {
+			width: 33.333%;
+		}
+
+		// order items
+		.order-items-header-detail {
+			width: 65%;
+		}
+		.order-items-header-price,
+		.item-price-unit {
+			display: block;
+			width: 17%;
+		}
+		.order-items-header-total,
+		.item-price-subtotal {
+			display: block;
+			width: 18%;
+		}
+		.item-details {
+			display: block;
+			width: 45%;
+		}
+
+		// totals
+		.promo-and-totals .totals-container {
+			width: 50%;
+			float: right;
+		}
+	}
+}
+
+// wish-list
+.wish-list-print {
+
+	// global
+	.utility-nav,
+	.keyword-search,
+	.primary-nav,
+	.global-promo,
+	.back-to-top,
+	.breadcrumbs,
+	.social-icons,
+	.you-may-also-like,
+	.recently-viewed-items,
+	.title-buttons,
+	footer {
+		display: none;
+	}
+
+	.wish-list-actions,
+	.item-action-links,
+	.minus-icon,
+	.plus-icon,
+	.order-items-header-total {
+		display: none;
+	}
+
+	.order-items-header-detail {
+		width: 65%;
+	}
+	.order-items-header-price,
+	.item-price-unit {
+		display: block;
+		width: 15%;
+	}
+	.order-items-header-quantity,
+	.item-quantity,
+	.item-image {
+		display: block;
+		width: 20%;
+		text-align: center;
+	}
+	.item-details {
+		width: 45%;
+	}
+}

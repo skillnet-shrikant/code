@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<spr:beans xmlns:spr="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns="http://www.endeca.com/schema/eacToolkit"
+  xsi:schemaLocation="
+      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+      http://www.endeca.com/schema/eacToolkit http://www.endeca.com/schema/eacToolkit/eacToolkit.xsd">
+
+  <!--
+    ########################################################################
+    # EAC Application Definition
+    #
+  -->
+  <app appName="@APP_NAME@" eacHost="@EAC_HOST@" eacPort="@EAC_PORT@"
+      dataPrefix="@APP_NAME@" sslEnabled="false" lockManager="LockManager">
+    <working-dir>${ENDECA_PROJECT_DIR}</working-dir>
+    <log-dir>./logs</log-dir>
+  </app>
+
+  <!--
+    ########################################################################
+    # Lock Manager - Used to set/remove/test flags and obtain/release locks
+    #
+  -->
+  <lock-manager id="LockManager" releaseLocksOnFailure="true" />
+
+  <!--
+    ########################################################################
+    # Imported Modules
+    #
+  -->
+  <spr:import resource="InitialSetup.xml" />
+  <spr:import resource="DgraphDefaults.xml" />
+  <spr:import resource="AuthoringDgraphCluster.xml" />
+  <spr:import resource="LiveDgraphCluster.xml" />
+  <spr:import resource="LiveAppServerCluster.xml" />
+  <spr:import resource="UsageCollectionConfig.xml" />
+  <spr:import resource="WorkbenchConfig.xml" />
+  <spr:import resource="DataIngest.xml" />
+  <spr:import resource="AssemblerConfig.xml" />
+
+</spr:beans>
+<!-- @version $Id: //hosting-blueprint/B2CBlueprint/version/11.2/Storefront/deploy/script/AppConfig.xml#1 $$Change: 953229 $-->

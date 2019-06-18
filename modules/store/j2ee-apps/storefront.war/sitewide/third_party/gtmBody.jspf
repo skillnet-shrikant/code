@@ -1,0 +1,7 @@
+<dsp:getvalueof var="gtmEnabled" bean="/mff/MFFEnvironment.gtmEnabled"/>
+<c:if test="${gtmEnabled}">
+	<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-J6FG"
+										height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+</c:if>

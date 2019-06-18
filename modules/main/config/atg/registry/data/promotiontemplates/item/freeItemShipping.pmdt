@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE template PUBLIC "-//Art Technology Group, Inc.//DTD PMDT 1.0//EN" "http://www.atg.com/dtds/pmdt/pmdt_1.0.dtd">
+<template item-type="Item Discount" 
+                    author="Ronan Toland" 
+                    last-modified-by="Ronan Toland" 
+                    creation-date="01/16/2010">
+  <ui-description resource-bundle="mff.remote.promotion.template.Resources" display-name-resource="template.item.freeItemShipping.title" >
+
+    <screen-segment display-name-resource="template.common.segmentConditionTitle">      
+      <line>
+        <label id="apply_offer_label" display-name-resource="template.common.applyOfferLabel" container-h-align="left"/>
+      </line> 
+      <line>
+        <expression id="conditionEditor" model-path="/atg/remote/promotion/expreditor/PromotionConditionsExpressionModel" required="false" container-width="600"/>
+      </line>     
+    </screen-segment>  
+  
+    <screen-segment display-name-resource="template.common.segmentOfferTitle">
+      <line>
+        <label id="numberOfItemsToDiscountLabel" display-name-resource="template.common.numItemsToDiscountLabel" container-width="245" container-h-align="right"/>
+        <textInput id="numberOfItemsToDiscount_textInput" disable-when-true="unlimited_checkbox" restrict="0-9\.\,\ \" translator-path="/atg/remote/promotion/template/translators/FormattedQuantityTranslator" validator="/atg/remote/promotion/template/validators/DecimalValidator"/>
+        <checkBox id="unlimited_checkbox" placeholder-value-checked="-1" required="true"/>
+    	  <label id="unlimited_label"  display-name-resource="template.common.unlimitedLabel" />
+      </line>
+      <line>
+        <label id="ApplyDiscountToLabel" display-name-resource="template.common.applyDiscountToLabel" container-width="245" container-h-align="right"/>
+        <radioButtonGroup id="applyDiscountToRBG" placeholder-name="sort_order" id-of-selected-button="lowestPricedItemFirstRB">
+          <radioButton id="lowestPricedItemFirstRB" display-name-resource="template.common.lowestPricedItemFirstRadioButton"  placeholder-value="ascending"/>
+          <radioButton id="highestPricedItemFirstRB" display-name-resource="template.common.highestPricedItemFirstRadioButton"  placeholder-value="descending"/>
+        </radioButtonGroup>
+      </line> 
+      <line>
+        <label id="PSC_label" display-name-resource="template.common.itemsToDiscountLabel" container-width="245" container-h-align="right"/>
+        <includesProductSetCriteria id="PSC" validateNonDiscountable="true" model-path="/atg/remote/promotion/expreditor/psc/PSCExpressionModel" event-handler-path="/atg/remote/promotion/expreditor/psc/PSCEventHandler"/>
+      </line>
+    </screen-segment>
+
+    <multi-element-translators>
+    
+      <multi-element-translator id="qualifier_translator" translator-path="/atg/remote/promotion/template/translators/QualifierTranslator">     
+        <placeholder-info placeholder-name="qualifier" translator-output-name="qualifier"/> 
+      </multi-element-translator>
+          
+      <multi-element-translator id="unlimited_discount_translator" translator-path="/atg/remote/promotion/template/translators/UnlimitedDiscountTranslator">
+        <placeholder-info placeholder-name="no_of_items_to_discount" translator-output-name="itemNumber"/>  
+        <element-info element-id="numberOfItemsToDiscount_textInput" translator-input-name="itemNumber"/>
+        <element-info element-id="unlimited_checkbox" translator-input-name="unlimited"/>
+      </multi-element-translator> 
+            
+      <multi-element-translator id="PSC_Translator" translator-path="/atg/remote/promotion/expreditor/psc/PSCExpressionTranslator">
+        <placeholder-info placeholder-name="PSC_value" translator-output-name="criteriaPMDL"/>  
+        <element-info element-id="PSC" translator-input-name="includesPSC"/>
+      </multi-element-translator>      
+    </multi-element-translators>
+   
+  </ui-description>
+  
+  <item-properties>
+    <property name="pmdlRule">
+      <![CDATA[
+        <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+        <!DOCTYPE pricing-model  SYSTEM "dynamosystemresource:/atg/dtds/pmdl/pmdl_1.0.dtd">
+        <pricing-model>
+          ${qualifier} 
+          <offer>
+            <discount-structure calculator-type="freeItemShipping" discount-type="freeItemShipping">
+              <target>
+                <iterator name="up-to-and-including" number="${no_of_items_to_discount}" sort-by="priceInfo.listPrice" sort-order="${sort_order}">
+                  <collection-name>items</collection-name>
+                  <element-name>item</element-name>
+                  <element-quantity-property>quantity</element-quantity-property>
+                  ${PSC_value}
+                </iterator>              
+              </target>
+
+            </discount-structure>
+          </offer>
+        </pricing-model>
+        ]]>
+     </property>
+   </item-properties> 
+</template>

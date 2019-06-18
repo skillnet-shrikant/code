@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<process-manager-configuration>
+    <process-editor-server>
+      <server-name>797288-UAT-BEAPP01.millsfleetfarm.com:20450</server-name>
+    </process-editor-server>
+    <global-server>
+      <server-name>797288-UAT-BEAPP01.millsfleetfarm.com:20450</server-name>
+    </global-server>
+</process-manager-configuration>

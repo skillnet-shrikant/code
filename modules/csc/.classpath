@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="ATG_DIR/CSC11.2/DCS-CSR/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DAS/lib/servlet.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DAS/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DCS/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DPS/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DSS/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DAS/lib/resources.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DCS/lib/resources.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DPS/lib/resources.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DSS/lib/resources.jar"/>
+	<classpathentry kind="var" path="ATG_DIR"/>
+	<classpathentry kind="var" path="ATG_DIR/DAF/Search/Base/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DAF/Search/Base/lib/rmi-stub-classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DAF/Search/Base/lib/xalan.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DAF/Search/common/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DAF/Search/Index/lib/bpi.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DAF/Search/Index/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DAF/Search/Index/lib/xercesImpl250.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/Service11.2/Service/Framework/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/Service11.2/Service/Framework/lib/ssce.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/Service11.2/Service/Framework/Agent/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/Ticketing/lib/ticketing.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/Agent/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DAS-UI/lib/uiclasses.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/CAF11.2/CAF/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/CSC-UI11.2/DCS-CSR-UI/lib/classes.jar" />
+	<classpathentry kind="var" path="ATG_DIR/Service11.2/Service/Framework/UI/lib/classes.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/MFF Main"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/OMS Fulfillment - MFF"/>
+	<classpathentry kind="var" path="ATG_DIR/DAF/TextSearch/Base/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DAF/TextSearch/LiveIndex/lib/classes.jar"/>
+	<classpathentry kind="var" path="ATG_DIR/DAF/TextSearch/Index/lib/classes.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/MFF Integration"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

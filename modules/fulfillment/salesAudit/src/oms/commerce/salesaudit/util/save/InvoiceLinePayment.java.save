@@ -1,0 +1,96 @@
+package oms.commerce.salesaudit.util;
+
+import java.sql.Timestamp;
+
+public class InvoiceLinePayment {
+  
+  /**  payment - paymentType   **/
+  private String mPaymentType;  
+  public String getPaymentType() {
+    return mPaymentType;
+  }
+  public void setPaymentType(String pPaymentType) {
+    this.mPaymentType = pPaymentType;
+  }  
+   
+  /**  payment - amount   **/
+  private double mAmount;
+  public double getAmount() {
+    return mAmount;
+  }
+  public void setAmount(double pAmount) {
+    this.mAmount = pAmount;
+  }
+   
+  /**  payment - transactionReference   **/
+  private String mTransactionReference;  
+  public String getTransactionReference() {
+    return mTransactionReference;
+  }
+  public void setTransactionReference(String pTransactionReference) {
+    this.mTransactionReference = pTransactionReference;
+  }
+  
+  /**  payment - paymentDate   **/
+  private Timestamp mPaymentDate;  
+  public Timestamp getPaymentDate() {
+    return mPaymentDate;
+  }
+  public void setPaymentDate(Timestamp pPaymentDate) {
+    this.mPaymentDate = pPaymentDate;
+  }
+   
+  /**  payment - cardReference   **/
+  private String mCardReference;  
+  public String getCardReference() {
+    return mCardReference;
+  }
+  public void setCardReference(String pCardReference) {
+    this.mCardReference = pCardReference;
+  }
+  
+  /**  cardNumber   **/
+  private String mCardNumber;  
+  public String getCardNumber() {
+    return mCardNumber;
+  }
+  public void setCardNumber(String pCardNumber) {
+    this.mCardNumber = pCardNumber;
+  }
+  
+  /** Token Id **/
+  private String mTokenId;
+  public String getTokenId() {
+    return mTokenId;
+  }
+  public void setTokenId(String pTokenId) {
+    this.mTokenId = pTokenId;
+  }
+  
+  /** Expiration Date **/
+  private Timestamp mExpirationDate;
+  public Timestamp getExpirationDate() {
+    return mExpirationDate;
+  }
+  public void setExpirationDate(Timestamp pExpirationDate) {
+    this.mExpirationDate = pExpirationDate;
+  }
+  
+  /** Authorization Number **/
+  private String mAuthorizationNumber;
+  public String getAuthorizationNumber() {
+    return mAuthorizationNumber;
+  }
+  public void setAuthorizationNumber(String pAuthorizationNumber) {
+    this.mAuthorizationNumber = pAuthorizationNumber;
+  }
+  
+  /** Settlement Number **/
+  private String mSettlementNumber;
+  public String getSettlementNumber() {
+    return mSettlementNumber;
+  }
+  public void setSettlementNumber(String pSettlementNumber) {
+    this.mSettlementNumber = pSettlementNumber;
+  }
+}

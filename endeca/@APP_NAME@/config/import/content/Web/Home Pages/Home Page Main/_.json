@@ -1,0 +1,16 @@
+{
+    "ruleLimit": "1",
+    "userSegments": [],
+    "forceExpansion": "true",
+    "ecr:lastModifiedBy": "admin",
+    "priority": 1,
+    "triggers": [{"exactLocation": false}],
+    "ecr:type": "content-item",
+    "workflowNote": "",
+    "workflowState": "ACTIVE",
+    "ecr:lastModified": "2016-08-08T10:18:55.094Z",
+    "startTime": "",
+    "endTime": "",
+    "mdexMerchRuleID": 17,
+    "ecr:createDate": "2016-08-08T10:01:09.884Z"
+}

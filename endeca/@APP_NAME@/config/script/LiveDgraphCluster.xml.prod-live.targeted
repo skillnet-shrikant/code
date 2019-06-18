@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<spr:beans xmlns:spr="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns="http://www.endeca.com/schema/eacToolkit"
+  xsi:schemaLocation="
+      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+      http://www.endeca.com/schema/eacToolkit http://www.endeca.com/schema/eacToolkit/eacToolkit.xsd">
+
+
+  <!--
+    ########################################################################
+    # Live MDEX Hosts - The machines used to host all MDEX processes
+    # for the 'live environment' MDEX cluster.
+    #
+  -->
+  <host id="LiveMDEXHostA" hostName="172.24.32.249" port="8888" />
+  <host id="LiveMDEXHostB" hostName="172.24.32.241" port="8888" />
+
+
+  <!--
+    ########################################################################
+    # Live Dgraph Cluster - The 'live environment' MDEX cluster.
+    #
+  -->
+
+   <dgraph-cluster id="LiveDgraphCluster" getDataInParallel="true" enabled="true" configSnapshotDir="./data/dgraphcluster/LiveDgraphCluster/config_snapshots">
+    <dgraph ref="LiveDgraphA1" />
+    <dgraph ref="LiveDgraphA2" />
+    <dgraph ref="LiveDgraphB1" />
+    <dgraph ref="LiveDgraphB2" />
+  </dgraph-cluster>
+
+
+  <!--
+    ########################################################################
+    # Live Dgraph Process Definitions
+    #
+  -->
+
+  <dgraph id="LiveDgraphA1" host-id="LiveMDEXHostA" port="16000"
+          pre-shutdown-script="LiveDgraphPreShutdown"
+          post-startup-script="LiveDgraphPostStartup">
+    <properties>
+      <property name="restartGroup" value="1" />
+      <property name="DgraphContentGroup" value="Live" />
+    </properties>
+    <log-dir>./logs/dgraphs/LiveDgraphA1</log-dir>
+    <input-dir>./data/dgraphs/LiveDgraphA1/dgraph_input</input-dir>
+    <update-dir>./data/dgraphs/LiveDgraphA1/dgraph_input/updates</update-dir>
+  </dgraph>
+
+  <dgraph id="LiveDgraphA2" host-id="LiveMDEXHostA" port="16100"
+          pre-shutdown-script="LiveDgraphPreShutdown"
+          post-startup-script="LiveDgraphPostStartup">
+    <properties>
+      <property name="restartGroup" value="2" />
+      <property name="DgraphContentGroup" value="Live" />
+    </properties>
+    <log-dir>./logs/dgraphs/LiveDgraphA2</log-dir>
+    <input-dir>./data/dgraphs/LiveDgraphA2/dgraph_input</input-dir>
+    <update-dir>./data/dgraphs/LiveDgraphA2/dgraph_input/updates</update-dir>
+  </dgraph>
+
+  <dgraph id="LiveDgraphB1" host-id="LiveMDEXHostB" port="16000"
+          pre-shutdown-script="LiveDgraphPreShutdown"
+          post-startup-script="LiveDgraphPostStartup">
+    <properties>
+      <property name="restartGroup" value="1" />
+      <property name="DgraphContentGroup" value="Live" />
+    </properties>
+    <log-dir>./logs/dgraphs/LiveDgraphB1</log-dir>
+    <input-dir>./data/dgraphs/LiveDgraphB1/dgraph_input</input-dir>
+    <update-dir>./data/dgraphs/LiveDgraphB1/dgraph_input/updates</update-dir>
+  </dgraph>
+
+  <dgraph id="LiveDgraphB2" host-id="LiveMDEXHostB" port="16100"
+          pre-shutdown-script="LiveDgraphPreShutdown"
+          post-startup-script="LiveDgraphPostStartup">
+    <properties>
+      <property name="restartGroup" value="2" />
+      <property name="DgraphContentGroup" value="Live" />
+    </properties>
+    <log-dir>./logs/dgraphs/LiveDgraphB2</log-dir>
+    <input-dir>./data/dgraphs/LiveDgraphB2/dgraph_input</input-dir>
+    <update-dir>./data/dgraphs/LiveDgraphB2/dgraph_input/updates</update-dir>
+  </dgraph>
+
+
+  <script id="LiveDgraphPostStartup">
+    <bean-shell-script>
+      <![CDATA[
+        dgraphId = invokingObject.getElementId();
+        log.info("Publishing Workbench 'live' configuration to MDEX '" + dgraphId + "'");
+        LiveDgraphCluster.applyConfigSnapshot(dgraphId);
+
+        hostName = invokingObject.getHost().getHostName();
+        port = invokingObject.getPort();
+
+        fileName = "DGRAPH_" + hostName + "_" + port + ".running";
+
+        log.info("Writing /opt/app/live/endeca/PlatformServices/11.2.0/tools/server/webapps/endeca_jspref/" + fileName + " for load balancer");
+        exec("touch /opt/app/live/endeca/PlatformServices/11.2.0/tools/server/webapps/endeca_jspref/" + fileName);
+        log.info("Sending " + fileName + " to " + hostName);
+        exec("scp /opt/endeca/PlatformServices/11.2.0/tools/server/webapps/endeca_jspref/" + fileName + " " + hostName + ":/opt/endeca/PlatformServices/11.2.0/tools/server/webapps/endeca_jspref");
+        ]]>
+    </bean-shell-script>
+  </script>
+
+  <script id="LiveDgraphPreShutdown">
+    <bean-shell-script>
+      <![CDATA[
+        hostName = invokingObject.getHost().getHostName();
+        port = invokingObject.getPort();
+
+        fileName = "DGRAPH_" + hostName + "_" + port + ".running";
+
+        log.info("Removing /opt/app/live/endeca/PlatformServices/11.2.0/tools/server/webapps/endeca_jspref/" + fileName + " for load balancer");
+        exec("rm /opt/app/live/endeca/PlatformServices/11.2.0/tools/server/webapps/endeca_jspref/" + fileName);
+        log.info("Deleting " + fileName + " on " + hostName);
+        exec("/opt/app/live/endeca/apps/MFF/control/remove_dgraph.sh " + hostName + " " + port);
+
+        log.info("Sleeping for 10 seconds...'");
+        Thread.sleep(10000);
+        log.info("...Bringing Up Dgraph...'");
+      ]]>
+    </bean-shell-script>
+  </script>
+
+
+</spr:beans>
+<!-- @version $Id: //hosting-blueprint/B2CBlueprint/version/11.2/Storefront/deploy/script/LiveDgraphCluster.xml#4 $$Change: 888583 $-->
+

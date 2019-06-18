@@ -1,0 +1,39 @@
+// Use the components directory to construct the meat of your CSS.
+// Categorize your styles here based on element in the file name.
+
+// Color swatch definitions
+
+.swatch, .facet-swatch {
+	font-size: 0;
+	// font-size:0 required to remove the space that's
+	// automatically added b/t elements by display:inline-block
+	// see: http://css-tricks.com/fighting-the-space-between-inline-block-elements/
+	// needs to be set on parent container of block elements
+	display: inline-block;
+	width: 30px; height: 30px;
+	padding: 1px;
+	border: 2px solid transparent;
+	cursor: pointer;
+	margin-bottom: 5px;
+	position : relative;
+	&.unavailable {
+		img.x-overlay {
+			display  : block;
+		}
+		pointer-events : none;
+		cursor         : default;
+	}
+	img.x-overlay {
+		display  : none;
+		height   : 24px;
+		position : absolute;
+		top      : 1px;
+		width    : 24px;
+	}
+	&.active {
+		border: 2px solid $black;
+		&:hover {
+			border: 2px solid $black;
+		}
+	}
+}

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<dynamo-message-system>
+  <!-- Register ProductViewedEventListener as message sink -->
+  <patchbay>
+    
+    <!-- 
+    	Back-in-stock notifications need UpdateInventory messages.
+    	Since we're running our own fulfillment (OMS), the OOTB
+    	fulfillers are erroring out since those fulfillment chains are no
+    	longer in use (overridden by our OMS fulfillment)
+    	
+    	Removing InStorePickupFulfiller & HardgoodFulfiller filters.
+    -->
+	
+    <message-filter xml-combine="replace">
+      <nucleus-name>
+        /atg/commerce/fulfillment/HardgoodFulfiller
+      </nucleus-name>
+
+      <input-port>
+        <port-name>
+          DEFAULT
+        </port-name>
+
+        <input-destination>
+          <destination-name>
+            patchbay:/Fulfillment/HardGoods
+          </destination-name>
+          <destination-type>
+            Topic
+          </destination-type>
+	        <durable-subscriber-name>
+            HardgoodFulfiller-HardGoods
+          </durable-subscriber-name>
+          <redelivery>
+          	<max-attempts>3</max-attempts>
+          	<delay>60000</delay>
+          	<failure-output-port>FulfillmentError</failure-output-port>
+          </redelivery>
+        </input-destination>
+
+      </input-port>
+
+      <output-port>
+        <port-name>
+          DEFAULT
+        </port-name>
+      </output-port>
+      
+      <output-port>
+        <port-name>
+          ModifyNotificationPort
+        </port-name>
+        <output-destination>
+          <destination-name>
+            patchbay:/Fulfillment/ModifyOrderNotification
+          </destination-name>
+          <destination-type>
+            Topic
+          </destination-type>
+        </output-destination>
+      </output-port>
+
+      <redelivery-port>
+        <port-name>FulfillmentError</port-name>
+        <output-destination>
+          <destination-name>patchbay:/Fulfillment/ErrorNotification</destination-name>
+          <destination-type>Queue</destination-type>
+        </output-destination>
+        <output-destination>
+          <destination-name>patchbay:/Fulfillment/DeadMessageQueue</destination-name>
+          <destination-type>Queue</destination-type>
+        </output-destination>
+      </redelivery-port>
+
+
+    </message-filter>
+    
+    
+   <message-filter xml-combine="replace">
+      <nucleus-name>
+        /atg/commerce/fulfillment/InStorePickupFulfiller
+      </nucleus-name>
+
+      <input-port>
+        <port-name>
+          DEFAULT
+        </port-name>
+
+        <input-destination>
+          <destination-name>
+            patchbay:/Fulfillment/InStorePickup
+          </destination-name>
+          <destination-type>
+            Topic
+          </destination-type>
+          <durable-subscriber-name>
+            InStorePickupFulfiller-Fulfiller-InStorePickup
+          </durable-subscriber-name>
+          <redelivery>
+            <max-attempts>3</max-attempts>
+            <delay>60000</delay>
+            <failure-output-port>FulfillmentError</failure-output-port>
+          </redelivery>
+        </input-destination>
+
+      </input-port>
+
+      <output-port>
+        <port-name>
+          DEFAULT
+        </port-name>
+      </output-port>
+      
+      <output-port>
+        <port-name>
+          ModifyNotificationPort
+        </port-name>
+        <output-destination>
+          <destination-name>
+            patchbay:/Fulfillment/ModifyOrderNotification
+          </destination-name>
+          <destination-type>
+            Topic
+          </destination-type>
+        </output-destination>
+      </output-port>
+
+      <redelivery-port>
+        <port-name>FulfillmentError</port-name>
+        <output-destination>
+          <destination-name>patchbay:/Fulfillment/ErrorNotification</destination-name>
+          <destination-type>Queue</destination-type>
+        </output-destination>
+        <output-destination>
+          <destination-name>patchbay:/Fulfillment/DeadMessageQueue</destination-name>
+          <destination-type>Queue</destination-type>
+        </output-destination>
+      </redelivery-port>
+
+
+    </message-filter>
+    
+</patchbay>
+</dynamo-message-system>

@@ -1,0 +1,42 @@
+<%--
+This page fragment generates a series of dsp:option tags, one for each
+month. We use embedded Java code for this rather than simply inlineing
+all of the <dsp:option> tags because if we inline all the tags, some JSP
+pages that include this fragment end up generating more than 64K of byte
+code in their service methods, which results in a JVM error at page
+delivery time.
+
+A better approach might be to define a Java bean component in Nucleus
+that returns the array of month information and use a ForEach droplet
+to iterate over the results, rather than embedding the definition of
+the month array in the JSP page.
+--%>
+<dsp:layeredBundle basename="atg.commerce.csr.order.WebAppResources">
+
+<dsp:importbean bean="/atg/dynamo/droplet/ForEach" />
+<dsp:importbean bean="/atg/commerce/custsvc/util/I18nMonthNames" />
+
+  <dsp:droplet name="I18nMonthNames">
+    <dsp:oparam name="output">
+      <dsp:droplet name="ForEach">
+        <dsp:param name="array" param="monthNames" />
+        <dsp:oparam name="outputStart">
+          <dsp:option value="">
+            <fmt:message key='common.month.title' />
+          </dsp:option>
+        </dsp:oparam>
+        <dsp:oparam name="output">
+          <dsp:getvalueof var="month" param="element"/>
+          <c:if test="${!empty month }">
+            <dsp:getvalueof var="count" param="count" idtype="java.lang.Integer"/>
+            <dsp:option value="${count}">
+              <dsp:valueof param="element" />
+            </dsp:option>
+          </c:if>
+        </dsp:oparam>
+      </dsp:droplet>
+    </dsp:oparam>
+  </dsp:droplet>
+
+</dsp:layeredBundle>
+<%-- @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/include/monthpicker.jspf#1 $$Change: 946917 $--%>

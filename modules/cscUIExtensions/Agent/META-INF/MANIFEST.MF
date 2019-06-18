@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+ATG-J2EE: j2ee-apps/Agent.ear
+ATG-EAR-Module: j2ee-apps/Agent.ear

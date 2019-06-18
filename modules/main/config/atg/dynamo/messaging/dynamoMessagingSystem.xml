@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<dynamo-message-system>
+  <!-- Register ProductViewedEventListener as message sink -->
+  <patchbay>
+    <message-sink>
+      <nucleus-name>
+        /atg/userprofiling/RecentlyViewedHistoryCollector
+      </nucleus-name>
+      <input-port>
+        <port-name>
+          ViewItem
+        </port-name>
+        <input-destination>
+          <provider-name>
+            local
+          </provider-name>
+          <destination-name>
+            localdms:/local/DPSTopic/ViewItemEvents
+          </destination-name>
+          <destination-type>
+            Topic
+          </destination-type>
+        </input-destination>
+      </input-port>
+    </message-sink>
+    
+     <!-- ************************************************************** -->
+    <!-- Back In Stock Notification related sources, sinks and filters. -->
+    <!-- ************************************************************** -->
+
+    <message-sink>
+      <nucleus-name>
+        /com/mff/browse/MFFBackInStockNotificationService
+      </nucleus-name>
+      <input-port>
+        <port-name>
+          UpdateInventoryPort
+        </port-name>
+        <input-destination>
+          <destination-name>
+             patchbay:/Fulfillment/UpdateInventory
+          </destination-name>
+          <destination-type>
+            Topic
+          </destination-type>
+        </input-destination>
+      </input-port>
+    </message-sink>
+</patchbay>
+</dynamo-message-system>

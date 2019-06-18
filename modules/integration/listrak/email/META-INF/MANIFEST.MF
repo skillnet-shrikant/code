@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+ATG-Required: KP.integration.listrak
+ATG-Class-Path: lib/email.jar lib-external/listrakemailserviceclient.jar
+ATG-Client-Class-Path: lib/email.jar lib-external/listrakemailserviceclient.jar
+ATG-Config-Path: config
+
+Name: lib/email.jar
+ATG-Client-Update-File: true
+SHA-Digest: 8R6mzxcTAL694N0L1zqr4sj//CE=
+Digest-Algorithms: SHA MD5
+MD5-Digest: w/zBizAJCz/eA6LpbmHI/w==

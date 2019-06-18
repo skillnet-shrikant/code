@@ -1,0 +1,24 @@
+<%--
+This page fragment generates a series of dsp:option tags, one for each
+state or Canadian province we want to let the user select as part of an
+address.  We use embedded Java code for this rather than simply inlineing
+all of the <dsp:option> tags because if we inline all the tags, some JSP
+pages that include this fragment end up generating more than 64K of byte
+code in their service methods, which results in a JVM error at page
+delivery time.
+
+A better approach might be to define a Java bean component in Nucleus
+that returns the array of state information and use a ForEach droplet
+to iterate over the results, rather than embedding the definition of
+the states array in the JSP page.
+--%>
+<fmt:bundle basename="atg.commerce.csr.order.WebAppResources">
+  <dsp:option value="">&nbsp;</dsp:option>
+  <dsp:importbean var="cctools" bean="/atg/commerce/payment/CreditCardTools" />
+  <c:forEach var="card" items="${cctools.cardTypesMap}">
+    <dsp:option value="${card.key}">
+      <fmt:message key="${fn:toLowerCase(card.key)}"/>
+    </dsp:option>
+  </c:forEach>
+</fmt:bundle>
+<%-- @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/include/cardpicker.jspf#1 $$Change: 946917 $--%>

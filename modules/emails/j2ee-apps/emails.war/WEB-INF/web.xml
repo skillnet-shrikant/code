@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://java.sun.com/xml/ns/javaee" 
+xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" 
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>
+    Emails
+  </display-name>
+
+  <context-param>
+    <param-name>atg.session.parentContextName</param-name>
+   <param-value>/dyn</param-value>
+  </context-param>
+
+
+  <context-param>
+    <param-name>atg.dafear.bootstrapContextName</param-name>
+    <param-value>/dyn</param-value>
+    <!-- 
+    <description>The name of the DAF bootstrap WAR context.</description>
+     -->
+  </context-param>
+   <context-param>
+    <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+    <param-value>resource</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>atg.preview</param-name>
+    <param-value>true</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>atg.assembler</param-name>
+    <param-value>true</param-value>
+  </context-param>
+
+  <!--
+       If context-root is set here, then ServletContextWebAppRegistry will use
+       this setting as the context-root for this WebApp. This must match
+       the context-root setting in application.xml. 
+    -->
+  <context-param>
+    <param-name>context-root</param-name>
+    <param-value>emails</param-value>
+  </context-param>
+
+  <filter>
+    <filter-name>PageFilter</filter-name>
+    <filter-class>atg.filter.dspjsp.PageFilter</filter-class>
+  </filter>
+  <filter>
+    <filter-name>ForwardFilter</filter-name>
+    <filter-class>atg.servlet.ForwardFilter</filter-class>
+  </filter>
+  <filter>
+    <filter-name>ErrorFilter</filter-name>
+    <filter-class>atg.servlet.ErrorFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>ErrorFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>ERROR</dispatcher>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>PageFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>ForwardFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+  </filter-mapping>
+	<servlet-mapping>
+    	<servlet-name>BarcodeGenerator</servlet-name>
+    	<url-pattern>/order/barcode</url-pattern>
+  	</servlet-mapping>
+  	<servlet>
+	    <servlet-name>BarcodeGenerator</servlet-name>
+	    <servlet-class>
+	      com.servlet.BarcodeGeneratorServlet
+	    </servlet-class>
+	  </servlet>
+  
+   <!-- FOR SEO COMPLIANCE -->
+  <servlet>
+    <servlet-name>MappedJumpServlet</servlet-name>
+    <servlet-class>
+      atg.repository.seo.MappedJumpServlet
+    </servlet-class>
+    <init-param>
+      <param-name>loggingInfo</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <param-name>jumpServlet</param-name>
+      <param-value>
+        ctx:dynamo:/atg/dynamo/servlet/dafpipeline/JumpServlet
+      </param-value>
+    </init-param>
+  </servlet>
+  <servlet>
+    <servlet-name>MappedJumpServletProduct</servlet-name>
+    <servlet-class>
+      atg.repository.seo.MappedJumpServlet
+    </servlet-class>
+    <init-param>
+      <param-name>loggingInfo</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <param-name>jumpServlet</param-name>
+      <param-value>
+        ctx:dynamo:/atg/dynamo/servlet/dafpipeline/JumpServletProduct
+      </param-value>
+    </init-param>
+  </servlet>
+  <servlet>
+    <servlet-name>MappedJumpServletCategory</servlet-name>
+    <servlet-class>
+      atg.repository.seo.MappedJumpServlet
+    </servlet-class>
+    <init-param>
+      <param-name>loggingInfo</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <param-name>jumpServlet</param-name>
+      <param-value>
+        ctx:dynamo:/atg/dynamo/servlet/dafpipeline/JumpServletCategory
+      </param-value>
+    </init-param>
+  </servlet>
+  <servlet>
+    <servlet-name>MappedJumpServletStaticPage</servlet-name>
+    <servlet-class>
+      atg.repository.seo.MappedJumpServlet
+    </servlet-class>
+    <init-param>
+      <param-name>loggingInfo</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <param-name>jumpServlet</param-name>
+      <param-value>
+        ctx:dynamo:/atg/dynamo/servlet/dafpipeline/JumpServletStaticPage
+      </param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MappedJumpServletProduct</servlet-name>
+    <url-pattern>/jump/product/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MappedJumpServletCategory</servlet-name>
+    <url-pattern>/jump/category/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MappedJumpServletStaticPage</servlet-name>
+    <url-pattern>/jump/static/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Nucleus</servlet-name>
+    <servlet-class>atg.nucleus.servlet.NucleusServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>  
+ 
+  <!-- 
+    Dynamo ELResolver event listener allowing JSTL expressions to refer to 
+    Nucleus component and dynamic bean properties (including repository item properties)   
+  -->
+  <listener>
+    <listener-class>atg.taglib.dspjsp.RegisterELResolverServletContextListener</listener-class>
+  </listener>
+
+
+   <servlet>            
+     <servlet-name>PackServlet</servlet-name>
+     <servlet-class>net.sf.packtag.servlet.PackServlet</servlet-class>
+   </servlet>
+        
+   <servlet-mapping>
+     <servlet-name>PackServlet</servlet-name>
+     <url-pattern>*.pack</url-pattern>
+   </servlet-mapping>
+
+    
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <error-page>
+      <error-code>
+          404
+      </error-code>
+      <location>
+          /error_404.jsp
+      </location>
+  </error-page>
+  <error-page>
+      <error-code>
+          500
+      </error-code>
+      <location>
+          /error_500.jsp
+      </location>
+  </error-page>
+  <error-page>
+      <error-code>
+          400
+      </error-code>
+      <location>
+          /error_400.jsp
+      </location>
+  </error-page>
+
+
+  <!-- possible fix to bug 1877 you also have to go the admin console and check the 'SSL listen port enabled' checkbox -->
+  <!--
+  <security-constraint>
+    <web-resource-collection>
+        <web-resource-name>SSL Required</web-resource-name>
+        <url-pattern>/checkout/*</url-pattern>
+        <url-pattern>/account/*</url-pattern>
+    </web-resource-collection>
+    <user-data-constraint>
+        <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
+  -->
+
+  <jsp-config>
+    <jsp-property-group>
+        <url-pattern>*.jsp</url-pattern>
+        <page-encoding>UTF-8</page-encoding>
+        <include-prelude>/includes/prelude.jspf</include-prelude>
+        <trim-directive-whitespaces>true</trim-directive-whitespaces>
+    </jsp-property-group>
+  </jsp-config>
+</web-app>

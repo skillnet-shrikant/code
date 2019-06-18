@@ -1,0 +1,45 @@
+<project name="system_update" default="liquibase-update" basedir=".">
+
+  <import file="${basedir}/../../liquibase_includes.xml" />
+  
+  <target name="liquibase-update">
+    <echo message="To do task" />
+  </target>
+  
+	<target name="liquibase-grant-permissions">
+		 <antcall target="-grant-permissions">
+			<param name="update-system.command" value="liquibase_includes.liquibase-execute-changelog"/>
+		</antcall>
+	</target>
+ 
+  <target name="-update-system">
+    <fail unless="update-system.command">update-system.command is not set</fail>
+
+    <!-- constants get installed in system and catfeed -->
+    <for list="system-db" param="liquibase.dbref">
+      <sequential>
+         <antcall target="${update-system.command}">
+            <param name="liquibase.changelog" value="master_system_changelog.xml" />
+            <param name="liquibase.dbref" value="@{liquibase.dbref}" />
+         </antcall>
+      </sequential>
+    </for>
+
+  </target>
+  
+   <target name="-grant-permissions">
+    <fail unless="update-system.command">update-system.command is not set</fail>
+
+    <!-- constants get installed in system and catfeed -->
+    <for list="system-db" param="liquibase.dbref">
+      <sequential>
+         <antcall target="${update-system.command}">
+            <param name="liquibase.changelog" value="master_system_permissions_changelog.xml" />
+            <param name="liquibase.dbref" value="@{liquibase.dbref}" />
+         </antcall>
+      </sequential>
+    </for>
+
+  </target>
+  
+</project>

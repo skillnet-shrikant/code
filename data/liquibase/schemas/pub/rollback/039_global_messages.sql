@@ -1,0 +1,1 @@
+drop table global_messages PURGE;

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<spr:beans xmlns:spr="http://www.springframework.org/schema/beans"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:tx="http://www.springframework.org/schema/tx"
+           xmlns:aop="http://www.springframework.org/schema/aop"
+           xmlns="http://www.endeca.com/schema/eacToolkit"
+           xsi:schemaLocation="
+  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+  http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+  http://www.endeca.com/schema/eacToolkit http://www.endeca.com/schema/eacToolkit/eacToolkit.xsd">
+
+  <!--
+    ########################################################################
+    # App Server Clusters
+    #
+  -->
+  <app-server-cluster id="LiveAppServerCluster">
+    <app-server ref="Live@APP_NAME@" />
+  </app-server-cluster>
+
+  <!--
+    ########################################################################
+    # App Servers
+    #
+  -->
+  <app-server id="Live@APP_NAME@" hostName="@APP_HOST@" port="@APP_PORT@">
+    <web-app ref="@APP_NAME@WebApp1" />
+  </app-server>
+
+  <!--
+    ########################################################################
+    # Web Applications
+    #
+  -->
+  <web-app id="@APP_NAME@WebApp1" contextPath="/dyn/admin/assemblerAdmin"/>
+</spr:beans>
+<!-- @version $Id: //hosting-blueprint/B2CBlueprint/version/11.2/Storefront/deploy/script/LiveAppServerCluster.xml#2 $$Change: 953229 $-->

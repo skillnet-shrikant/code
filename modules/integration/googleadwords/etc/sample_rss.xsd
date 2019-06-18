@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:g="http://base.google.com/ns/1.0">
+	<xs:import namespace="http://base.google.com/ns/1.0" schemaLocation="sample_item_g.xsd"/>
+	<xs:element name="rss">
+		<xs:complexType>
+		  <xs:sequence>
+			<xs:element ref="channel"/>
+		  </xs:sequence>
+		  <xs:attribute name="version" use="required" type="xs:double"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="channel">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="title" type="xs:string"/>
+				<xs:element name="link" type="xs:anyURI"/>
+				<xs:element name="description" type="xs:string"/>
+				<xs:element ref="item" maxOccurs="unbounded" minOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="item">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="g:id"/>
+				<xs:element ref="g:title"/>
+				<xs:element ref="g:description"/>
+				<xs:element ref="g:link"/>
+				<xs:element ref="g:image_link"/>
+				<xs:element ref="g:condition"/>
+				<xs:element ref="g:availability"/>
+				<xs:element ref="g:price"/>
+				<xs:element ref="g:shipping" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="g:gtin"/>
+				<xs:element ref="g:brand"/>
+				<xs:element ref="g:google_product_category"/>
+				<xs:element ref="g:product_type"/>
+				<xs:element ref="g:additional_image_link"/>
+				<xs:element ref="g:gender"/>
+				<xs:element ref="g:age_group"/>
+				<xs:element ref="g:color"/>
+				<xs:element ref="g:size"/>
+				<xs:element ref="g:item_group_id"/>
+				<xs:element ref="g:sale_price"/>
+				<xs:element ref="g:sale_price_effective_date"/>
+				<xs:element ref="g:adwords_labels"/>
+				<xs:element ref="g:custom_label_0"/>
+				<xs:element ref="g:custom_label_1"/>
+				<xs:element ref="g:custom_label_2"/>
+				<xs:element ref="g:custom_label_3"/>
+				<xs:element ref="g:custom_label_4"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

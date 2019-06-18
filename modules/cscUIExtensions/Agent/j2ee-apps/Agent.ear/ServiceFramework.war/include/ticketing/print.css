@@ -1,0 +1,7 @@
+input[type="button"] { display: none; visibility: hidden; }
+
+.dontPrintMe { display: none; visibility: hidden; }
+
+<!--[if IE]>
+  body { width: 85%; font: 58%;} 
+<![endif]-->

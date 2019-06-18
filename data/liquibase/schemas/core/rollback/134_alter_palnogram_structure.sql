@@ -1,0 +1,1 @@
+alter table item_planogram drop column serialNumber;

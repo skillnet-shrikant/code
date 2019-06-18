@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+ATG-Required: KP.integration.fedex
+ATG-Class-Path: lib/addressvalidation.jar lib-external/fedexaddressvalidationservice.jar
+ATG-Client-Class-Path: lib/addressvalidation.jar lib-external/fedexaddressvalidationservice
+ATG-Config-Path: config
+
+Name: lib/addressvalidation.jar
+ATG-Client-Update-File: true
+SHA-Digest: 8R6mzxcTAL694N0L1zqr4sj//CE=
+Digest-Algorithms: SHA MD5
+MD5-Digest: w/zBizAJCz/eA6LpbmHI/w==

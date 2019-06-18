@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE gsa-template
+        PUBLIC "-//Art Technology Group, Inc.//DTD General SQL Adapter//EN"
+        "http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
+
+<gsa-template>
+
+  <header>
+    <name>Zipcode Repository</name>
+  </header>
+
+
+  <item-descriptor name="zipcode" id-separator=":" writable="true" cache-mode="simple" content="false" folder="false" default="true" query-cache-size="1000" item-cache-size="81000" item-expire-timeout="3600000" query-expire-timeout="3600000" >
+    <table name="mff_zipcode_usa" type="primary" id-column-name="id">
+      <property name="zipcode" column-name="zipcode" display-name="Zipcode"  data-type="string"/>
+      <property name="type" column-name="type" display-name="type"  data-type="string"/>
+      <property name="decommissioned" column-name="decommissioned" display-name="decommissioned"  data-type="boolean"/>
+      <property name="city" column-name="city" display-name="City"  category="Zipcode" data-type="string"/>
+      <property name="acceptableCities" column-name="acceptable_cities" display-name="Acceptable Cities"  category="Zipcode" data-type="string"/>
+      <property name="unacceptableCities" column-name="unacceptable_cities" display-name="Unacceptable Cities"  category="Zipcode" data-type="string"/>
+      <property name="state" column-name="state" display-name="State"  data-type="string"/>
+      <property name="county" column-name="county" display-name="County"  data-type="string"/>
+      <property name="country" column-name="country" display-name="Country"  data-type="string"/>
+      <property name="worldRegion" column-name="world_region" display-name="World Region"  data-type="string"/>
+      <property name="timezone" column-name="timezone" display-name="TimeZone"  data-type="string"/>
+      <property name="areaCode" column-name="areacode" display-name="Area Code"  data-type="string"/>
+      <property name="latitude" column-name="latitude" display-name="Latitude" data-type="double"/>
+      <property name="longitude" column-name="longitude" display-name="Longitude"  data-type="double"/>
+    </table>
+  </item-descriptor>
+    
+    <item-descriptor name="fedExOvernightRestricted" id-separator=":" writable="true" cache-mode="simple" content="false" folder="false" query-cache-size="1000" item-cache-size="81000" item-expire-timeout="3600000" query-expire-timeout="3600000" >
+	    <table name="fedx_ovrnght_restrcted" type="primary" id-column-name="zip_code">
+	      <property name="zipcode" column-name="zip_code" display-name="Zip Code"  data-type="string"/>
+	      <property name="city" column-name="city" display-name="City" data-type="string"/>
+	      <property name="state" column-name="state" display-name="State"  data-type="string"/>
+	    </table>
+  </item-descriptor>
+  	
+</gsa-template>

@@ -1,0 +1,1 @@
+drop table mff_tax_exmp_classification;

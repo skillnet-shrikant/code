@@ -1,0 +1,30 @@
+<div class="accordion" role="tablist" aria-multiselectable="false" data-accordion>
+	<div class="accordion-container">
+		<div class="accordion-title" role="tab" aria-controls="panel1" id="tab1"><span class="icon icon-plus" aria-hidden="true"></span>Section 1</div>
+		<div class="accordion-body" aria-labelledby="tab1" role="tabpanel" id="panel1">
+			<div class="accordion-body-content">
+				<p>Lorem ipsum dolor sit amet, mutat erroribus id his, sonet deseruisse quo id. Mei malis efficiantur te, in qui agam habeo, in tantas corpora pri.</p>
+			</div>
+		</div>
+	</div>
+
+	<div  class="accordion-container">
+		<div class="accordion-title" role="tab" aria-controls="panel2" id="tab2"><span class="icon icon-plus" aria-hidden="true"></span>Section 2</div>
+		<div class="accordion-body" aria-labelledby="tab2" role="tabpanel" id="panel2">
+			<div class="accordion-body-content">
+				<p>Lorem ipsum dolor sit amet, mutat erroribus id his, sonet deseruisse quo id. Mei malis efficiantur te, in qui agam habeo, in tantas corpora pri. Nihil ocurreret disputando id per, quo te dicit impedit.</p>
+
+				<p>Pro bonorum legendos conclusionemque ut, quo albucius quaestio principes at. Has cu referrentur efficiantur neglegentur.</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="accordion-container">
+		<div class="accordion-title" role="tab" aria-controls="panel3" id="tab3"><span class="icon icon-plus" aria-hidden="true"></span>Section 3</div>
+		<div class="accordion-body" aria-labelledby="tab3" role="tabpanel" id="panel3">
+			<div class="accordion-body-content">
+				<p>Pro bonorum legendos conclusionemque ut, quo albucius quaestio principes at. Has cu referrentur efficiantur neglegentur. Nusquam facilisis scribentur et usu, cu meis summo signiferumque eam.</p>
+			</div>
+		</div>
+	</div>
+</div>

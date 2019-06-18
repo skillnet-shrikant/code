@@ -1,0 +1,703 @@
+// Use the components directory to construct the meat of your CSS.
+// Categorize your styles here based on element in the file name.
+
+// Cartridges
+// Use this file for any Endeca Experience Manager Cartridges
+
+
+// heroSlider.jsp
+
+.hero-slider {
+	.slick-next {
+		 @include media(small-only){
+		 	right: -7px;
+		 }
+		 @include media(medium-only){
+			 right: -7px;
+		}
+		@include media(medium-up){
+			.two-column-right & {
+				right: -40px;
+			}
+		}
+	}
+	.slick-prev {
+		z-index:100;
+		@include media(small-only){
+			left: -7px;
+		}
+		@include media(medium-only){
+			left: -7px;
+		}
+		@include media(medium-up){
+			.two-column-right & {
+				left: -40px;
+			}
+		}
+	}
+}
+
+@include media(medium-up) {
+	.hero-slider-promo-stack .hero-slider {
+		float: left;
+		width: 57%;
+	}
+}
+.hero-slider-content {
+	position: absolute;
+	top: 0;
+	@include rem-size(margin, 10px);
+	@include rem-size(padding, 10px);
+	@include media(medium-up){
+		@include rem-size(margin, 20px);
+		@include rem-size(padding, 20px);
+	}
+
+	&.dark {
+		background: rgba(0, 0, 0, 0.6);
+		color: $white;
+	}
+	&.light {
+		background: rgba(255, 255, 255, 0.88);
+		color: $black;
+	}
+	&.top {
+		top: 0;
+		bottom: auto;
+	}
+	&.middle {
+		top: 50%;
+		@include translateY(-50%);
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+	&.bottom {
+		top: auto;
+		bottom: 0;
+	}
+	&.left {
+		left: 0;
+		right: auto;
+	}
+	&.center {
+		left: 50%;
+		text-align: center;
+		@include translateX(-50%);
+		margin-left: 0;
+		margin-right: 0;
+	}
+	&.middle.center {
+		@include translate(-50%,-50%);
+	}
+	&.right {
+		left: auto;
+		right: 0;
+	}
+	h2 {
+		margin: 0;
+	}
+	p {
+		@include font-size(12px);
+		@include rem-size(line-height, 16px);
+		@include rem-size(margin, 5px 0px 8px);
+
+		@include media(medium-up){
+			@include font-size(14px);
+			@include rem-size(line-height, 18px);
+			@include rem-size(margin, 8px 0px 16px);
+
+		}
+	}
+
+}
+
+
+//promo-slot-slider
+.promo-slider {
+	@include rem-size(margin, 0px -5px);
+	@include rem-size(padding, 0px);
+	@include media(medium-up){
+		@include rem-size(margin, 0px -10px);
+	}
+
+	.promo-tile {
+		padding: 0px 4px;
+		@include media(medium-up){
+			padding: 0px 10px;
+		}
+	}
+	.slick-prev, .slick-next {
+		position: absolute;
+		left: auto;
+		height: 80px;
+		width: 32px;
+		&:before {
+			@include font-size(30px);
+		}
+		&:hover {
+			background: $white;
+			&:before {
+				height: 80px;
+			}
+		}
+		&.slick-disabled:hover {
+			background: none;
+		}
+	}
+	.slick-prev {
+		left: 10px;
+		z-index: 100;
+	}
+
+	.slick-next {
+		right: 6px;
+	}
+}
+
+
+.product-slider {
+	@include rem-size(margin, 0px -5px);
+	@include media(medium-up){
+		@include rem-size(margin, 0px -10px);
+	}
+
+	.product-tile {
+		margin: 4px;
+		@include media(medium-up){
+			margin: 4px 10px;
+		}
+	}
+	.slick-prev, .slick-next {
+		position: absolute;
+		top: -40px;
+		left: auto;
+		right: 0;
+		height: 32px;
+		width: 32px;
+		&:before {
+			@include font-size(30px);
+		}
+	}
+	.slick-prev {
+		right: 32px;
+	}
+}
+
+.product-slider-five ,
+.product-slider-six {
+	.slick-prev, .slick-next {
+		top: 30%;
+		height: 80px;
+		&:hover {
+			background: $white;
+			&:before {
+				height: 80px;
+			}
+		}
+		&.slick-disabled:hover {
+			background: none;
+		}
+	}
+	.slick-next {
+		right: 9px
+	}
+	.slick-prev {
+		left: 10px;
+		z-index: 100;
+	}
+
+}
+
+// promo grid
+.promo-tile {
+	position: relative;
+	img {
+		width: 100%;
+	}
+	a {
+		color: $black;
+	}
+}
+.promo-tile-content {
+	position: absolute;
+	top: 0;
+	padding: 10px;
+	margin: 10px;
+	width: 100%;
+	max-width: 280px;
+
+	@include media(large-up){
+		width: 100%;
+		max-width: 294px;
+	}
+
+	&.dark {
+		background: rgba(0, 0, 0, 0.6);
+		color: $white;
+	}
+	&.light {
+		background: rgba(255, 255, 255, 0.88);
+		color: $black;
+	}
+	&.white {
+		color: $white;
+	}
+	&.black {
+		color: $black;
+	}
+	&.top {
+		top: 0;
+		bottom: auto;
+	}
+	&.middle {
+		top: 50%;
+		@include translateY(-50%);
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+	&.bottom {
+		top: auto;
+		bottom: 20px;
+	}
+	&.left {
+		left: 0;
+		right: auto;
+
+		.promo-grid & {
+			left: 10px;
+		}
+	}
+	&.right {
+		left: auto;
+		right: 10px;
+	}
+	&.center {
+		left: 50%;
+		text-align: center;
+		@include translateX(-50%);
+		margin-left: 0;
+		margin-right: 0;
+	}
+	&.middle.center {
+		@include translate(-50%,-55%);
+	}
+	h2 {
+		margin: 0;
+	}
+	p {
+		@include font-size(12px);
+		@include rem-size(line-height, 16px);
+		@include rem-size(margin, 5px 0px 8px);
+
+		@include media(large-up) {
+			@include font-size(14px);
+			@include rem-size(line-height, 18px);
+			@include rem-size(margin, 8px 0px 16px);
+
+		}
+	}
+	&.text-left {
+		text-align: left;
+	}
+	&.text-center {
+		text-align: center;
+	}
+	&.text-right {
+		text-align: right;
+	}
+}
+.promo-grid-two {
+	@include block-grid(
+		$per-row: 1,
+		$spacing: 20px,
+		$base-style: true
+	);
+	@include media(medium-up) {
+		@include block-grid(
+			$per-row: 2,
+			$spacing: 20px,
+			$base-style: false
+		);
+	}
+}
+.promo-grid-three {
+	@include block-grid(
+		$per-row: 1,
+		$spacing: 20px,
+		$base-style: true
+	);
+	@include media(medium-up) {
+		@include block-grid(
+			$per-row: 3,
+			$spacing: 20px,
+			$base-style: false
+		);
+		.promo-tile-content {
+			max-width: 216px;
+		}
+	}
+	@include media(large-up) {
+		.promo-tile-content {
+			width: 100%;
+			max-width: 287px;
+		}
+	}
+}
+
+.promo-grid-four {
+	@include block-grid(
+		$per-row: 2,
+		$spacing: 20px,
+		$base-style: true
+	);
+	@include media(medium-up) {
+		@include block-grid(
+			$per-row: 4,
+			$spacing: 20px,
+			$base-style: false
+		);
+		.promo-tile-content {
+			max-width: 216px;
+		}
+	}
+	@include media(large-up) {
+		.promo-tile-content {
+			width: 100%;
+			max-width: 287px;
+		}
+	}
+}
+
+.promo-static-stack-grid-four {
+	@include block-grid(
+		$per-row: 3,
+		$spacing: 20px,
+		$base-style: true
+	);
+	@include media(medium-up) {
+		@include block-grid(
+			$per-row: 4,
+			$spacing: 20px,
+			$base-style: false
+		);
+		.promo-tile-content {
+			max-width: 216px;
+		}
+	}
+	@include media(large-up) {
+		.promo-tile-content {
+			width: 100%;
+			max-width: 287px;
+		}
+	}
+}
+
+.promo-static-stack-grid-five {
+	@include block-grid(
+		$per-row: 3,
+		$spacing: 20px,
+		$base-style: true
+	);
+	@include media(medium-up) {
+		@include block-grid(
+			$per-row: 5,
+			$spacing: 20px,
+			$base-style: false
+		);
+		.promo-tile-content {
+			max-width: 216px;
+		}
+	}
+	@include media(large-up) {
+		.promo-tile-content {
+			width: 100%;
+			max-width: 287px;
+		}
+	}
+}
+
+//global promo bars
+.global-promo-section {
+	color: #000;
+    background: #fff;
+    border-bottom: 1px solid $light-gray;
+    .global-promo {
+    	border-bottom: none;
+    }
+}
+.global-promo-section-container {
+	width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    max-width: 61.25rem;
+    line-height: 1.0rem;
+}
+
+.promo-bar {
+	@include rem-size(margin, 0px);
+	@include rem-size(padding, 0px);
+    display: flex;
+    width: 100%;
+	li {
+		list-style: none;
+		float: left;
+		height: auto !important;
+	}
+}
+
+.promo-bar-two {
+	@include media(small-only) {
+		text-align: center;
+	}
+}
+.promo-bar-three {
+	text-align: center;
+    li {
+		flex: 1 1 auto;
+		@include media(medium-up) {
+			&:first-child {
+				text-align: left;
+			}
+			&:last-child {
+				text-align: right;
+			}
+		}
+	}
+}
+
+// hero slider with promo stack
+.hero-slider-promo-stack {
+	@include media(small-only) {
+		.slick-dotted.slick-slider.hero-slider-with-promo {
+			margin-bottom: 36px;
+		}
+	}
+	@include media(medium-up) {
+		.promo-grid-two {
+			@include block-grid(
+				$per-row: 1,
+				$spacing: 20px,
+				$base-style: true
+			);
+			float: right;
+			width: 40%;
+		}
+	}
+	.promo-tile-content {
+		@include media(medium-only) {
+			width: 100%;
+			max-width: 259px;
+		}
+	}
+}
+
+
+// page width image promo
+@include media(medium-up){
+	.promo-page-width {
+		.promo-tile-content {
+			@include rem-size(margin, 20px);
+			@include rem-size(padding, 20px);
+			max-width: 320px;
+
+			&.bottom {
+				bottom: 0;
+			}
+			&.right {
+				right: 0;
+			}
+		}
+	}
+}
+
+
+// full width image promo
+.promo-full-width {
+	position: relative;
+	overflow: hidden;
+	height: 300px;
+	padding-bottom: 10px;
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+	.promo-tile {
+		position: relative;
+		top: -300px;
+	}
+	.promo-tile-content {
+		margin: 0;
+		max-width: 304px;
+
+		&.middle {
+			top: 140px;
+		}
+		&.bottom {
+			top: auto;
+			bottom: -270px;
+		}
+		@include media(small-only){
+			&.right {
+				right: 0;
+			}
+		}
+
+		@include media(medium-up){
+			@include rem-size(margin, 10px);
+			@include rem-size(padding, 20px);
+			max-width: 320px;
+		}
+	}
+}
+
+.promo-full-width.promo-full-width-no-overlay {
+	overflow: initial;
+	.promo-tile {
+		top: 0;
+	}
+	.no-overlay {
+		.button {
+			padding: 6px 24px;
+		}
+	}
+}
+
+// email sign up form
+.email-signup {
+	p {
+		margin-top: 0;
+	}
+	.email-address {
+		float: left;
+		width: 100%;
+		@include media(medium-up){
+			width: calc(100% - 128px);
+		}
+	}
+	input.button.primary {
+		float: left;
+		width: 100%;
+		@include rem-size(margin, 10px 0px 0px);
+		@include media(medium-up){
+			width: 120px;
+			margin: 0 0 0 8px !important;
+		}
+	}
+	@include media(medium-up){
+		.field-error-text {
+			position: absolute;
+			top: 40px;
+		}
+	}
+}
+
+
+// managed content slot
+.managed-content-slot {
+	@include grid-row();
+
+	.managed-content-image {
+		width: 100%;
+	}
+	.managed-content {
+		@include grid-column(12);
+		border-bottom: solid 1px $border-color;
+		margin: 16px auto;
+
+		@include rem-size(padding, 0px 0px 12px);
+
+		h1 {
+			@include font-size(24px);
+			text-transform: uppercase;
+			margin: 0;
+		}
+		p {
+			margin: 0;
+		}
+		.department & {
+			border-bottom: 0;
+		}
+	}
+
+	+ .section-title {
+		padding: 20px 0 10px;
+	}
+}
+
+
+
+// promoProductGrid.jsp
+.promo-product-grid {
+	@include block-grid(
+		$per-row: 2,
+		$spacing: 10px,
+		$base-style: true
+	);
+	@include media(medium-up) {
+		@include block-grid(
+			$per-row: 3,
+			$spacing: 20px,
+			$base-style: false
+		);
+		@include rem-size(margin, 0px -10px);
+	}
+	@include media(large-up) {
+		@include block-grid(
+			$per-row: 4,
+			$spacing: 20px,
+			$base-style: false
+		);
+		@include rem-size(margin, 0px -10px);
+	}
+}
+
+//for moving the overlay below the image
+.no-overlay {
+	position: relative;
+	margin: 0px !important;
+	padding: 10px !important;
+	&.promo-tile-content,
+	&.hero-slider-content {
+		max-width: none;
+		&.left {
+			left: 0;
+		}
+		&.right {
+			right: 0;
+		}
+		&.middle {
+			@include translateX(0%);
+		}
+		&.bottom {
+			bottom: 0;
+		}
+		&.middle.center {
+			@include translateX(-50%);
+		}
+	}
+}
+
+.mobile-hide {
+	/* hide promos for small screens */
+	@include media(small-only) {
+		display:none !important;
+	}
+}
+
+.desktop-hide {
+	/* hide promos for small screens */
+	@include media(medium-up) {
+		display:none !important;
+	}
+}
+
+// promo page css
+.slick-slide {
+	.promo &{
+		height: auto;
+	}
+}

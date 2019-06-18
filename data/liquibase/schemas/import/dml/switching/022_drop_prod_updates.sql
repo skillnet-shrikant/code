@@ -1,0 +1,1 @@
+drop table prod_updates;

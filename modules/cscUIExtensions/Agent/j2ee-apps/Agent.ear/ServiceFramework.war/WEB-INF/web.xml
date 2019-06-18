@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" version="2.5"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+             http://java.sun.com/xml/ns/j2ee/web-app_2_5.xsd">
+
+  <display-name>
+    ATG Agent
+  </display-name>
+
+  <!-- If context-root is set here, then ServletContextWebAppRegistry will use
+       this setting as the context root for this web application.  This must
+       match the context-root setting in application.xml. -->
+  <context-param>
+    <param-name>context-root</param-name>
+    <param-value>agent</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>atg.dynamo.contextPaths</param-name>
+    <param-value>/extensions:/DCS-extensions:/knowledge</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>state-holder-service</param-name>
+    <param-value>/atg/svc/repository/service/StateHolderService</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>ui-service</param-name>
+    <param-value>/atg/svc/repository/service/UIService</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>framework-enabled</param-name>
+    <param-value>true</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>require-login-enabled</param-name>
+    <param-value>true</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>state-holder-enabled</param-name>
+    <param-value>true</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>ticket-initialization-enabled</param-name>
+    <param-value>true</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>exception-collecting-enabled</param-name>
+    <param-value>true</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>window-id-manager-service</param-name>
+    <param-value>/atg/svc/agent/ui/WindowIdManager</param-value>
+  </context-param>
+
+  <!-- All internal facing applications should have site context mapping disabled -->
+  <context-param> 
+    <param-name>atg.multisite.URLPatternMatchingEnabled</param-name> 
+    <param-value>false</param-value> 
+  </context-param> 
+
+  <!-- This is the name of the "parent web application", i.e. an application
+       that has a SessionNameContextServlet defined in it which will define the
+       session scope for this web application. -->
+  <context-param>
+    <param-name>atg.session.parentContextName</param-name>
+    <param-value>/dyn</param-value>
+  </context-param>
+
+  <jsp-config>
+    <!-- set all pages to UTF-8 encoding -->
+    <jsp-property-group>
+      <url-pattern>*.jsp</url-pattern>
+      <page-encoding>UTF-8</page-encoding>
+    </jsp-property-group>
+  </jsp-config>
+
+  <!-- This filter invokes the DAF servlet pipeline. -->
+  <filter>
+    <filter-name>PageFilter</filter-name>
+    <filter-class>atg.filter.dspjsp.PageFilter</filter-class>
+  </filter>
+
+  <!-- this filter wraps the chain in a transaction, to stop zillions
+    of short transactions being created and ended
+  -->
+  <filter>
+    <filter-name>TransactionFilter</filter-name>
+    <filter-class>atg.servlet.UserTransactionFilter</filter-class>
+    <init-param>
+      <param-name>loggingDebug</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <param-name>loggingWarning</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>loggingError</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>loggingInfo</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+
+  <!-- Add Cache Headers Filter                                       -->
+  <!--                                                                -->
+  <!-- This filter is responsible for adding full caching headers to  -->
+  <!-- static content (images, js files)                              -->
+  <filter>
+    <filter-name>AddCacheHeadersFilter</filter-name>
+    <filter-class>atg.filter.AddCacheHeadersFilter</filter-class>
+    <init-param>
+      <param-name>loggingDebug</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <param-name>loggingWarning</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>loggingError</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>loggingInfo</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>patterns</param-name>
+      <!-- Do not include .html in this list.  Use htm for cacheable files, html for non-cacheable -->
+      <param-value>.*\.png,.*\.gif,.*\.jpg,.*\.ico,.*\.css,.*\.htm</param-value>
+    </init-param>
+    <init-param>
+      <param-name>gzipPatterns</param-name>
+      <param-value>.*\.js,.*\.css</param-value>
+    </init-param>
+    <init-param>
+      <param-name>defaultContentType</param-name>
+      <param-value>application/octet-stream</param-value>
+    </init-param>
+    <init-param>
+      <param-name>flush</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <param-name>timeSpan</param-name>
+      <param-value>2592000</param-value>
+    </init-param>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>AddCacheHeadersFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>PageFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+<!--
+  <filter-mapping>
+    <filter-name>TransactionFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+-->
+
+  <!-- Session listener for state holder cleanup -->
+  <listener>
+    <listener-class>atg.svc.ui.session.StateHolderSessionListener</listener-class>
+  </listener>
+
+  <listener>
+    <listener-class>atg.svc.agent.ui.WindowIdSessionListener</listener-class>
+  </listener>
+  
+  <listener>
+    <listener-class>atg.taglib.dspjsp.RegisterELResolverServletContextListener</listener-class>
+  </listener>
+  
+
+  <!-- Configure the Nucleus Servlet. This servlet definition is required in
+         each web application that uses Dynamo functionality.  When mapped, it
+         exposes the Nucleus component browser, but should not be mapped to any
+         paths on a live site. -->
+  <servlet>
+    <servlet-name>NucleusServlet</servlet-name>
+    <servlet-class>atg.nucleus.servlet.NucleusServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <!-- MessageAttachmentServlet                                                    -->
+  <!-- A servlet used to serve inbound/outbound message attachments                -->
+  <servlet>
+    <servlet-name>MessageAttachmentServlet</servlet-name>
+    <servlet-class>atg.svc.servlet.MessageAttachmentServlet</servlet-class>
+    <init-param>
+      <param-name>loggingDebug</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <param-name>loggingWarning</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>loggingError</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>loggingInfo</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>ticketingManager</param-name>
+      <param-value>ctx:dynamo:/atg/ticketing/TicketingManager</param-value>
+    </init-param>
+    <init-param>
+      <param-name>attachmentUtils</param-name>
+      <param-value>ctx:dynamo:/atg/arm/util/AttachmentUtils</param-value>
+    </init-param>
+    <init-param>
+      <param-name>mimeTyper</param-name>
+      <param-value>ctx:dynamo:/atg/dynamo/servlet/pipeline/MimeTyper</param-value>
+    </init-param>
+    <init-param>
+      <param-name>defaultMimeType</param-name>
+      <param-value>application/octet-stream</param-value>
+    </init-param>
+    <init-param>
+      <param-name>alwaysUseDefaultMimeType</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>useAttachmentContentDisposition</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet>
+    <servlet-name>CRMIntegrationServlet</servlet-name>
+    <servlet-class>atg.svc.servlet.CRMIntegrationServlet</servlet-class>
+    <init-param>
+      <param-name>loggingDebug</param-name>
+      <param-value>false</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet>
+    <description>A servlet for single sign on using a login digest</description>
+    <display-name>SSODigestServlet</display-name>
+    <servlet-name>SSODigestServlet</servlet-name>
+    <servlet-class>atg.svc.servlet.UserLoginDigestSSOServlet</servlet-class>
+    <init-param>
+      <param-name>loggingDebug</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <param-name>userLoginDigestProfileServices</param-name>
+      <param-value>ctx:dynamo:/atg/svc/userprofiling/UserLoginDigestProfileServices</param-value>
+    </init-param>
+    <init-param>
+      <param-name>agentUIConfiguration</param-name>
+      <param-value>ctx:dynamo:/atg/svc/agent/ui/AgentUIConfiguration</param-value>
+    </init-param>
+    <init-param>
+      <param-name>loginEnabled</param-name>
+      <param-value>false</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet>
+    <description>A replacement for framework.jsp as a servlet</description>
+    <display-name>FrameworkServlet</display-name>
+    <servlet-name>FrameworkServlet</servlet-name>
+    <servlet-class>atg.svc.agent.ui.FrameworkServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <description>Resource Aggregator Servlet</description>
+    <display-name>AgentCachedResourcesServlet</display-name>
+    <servlet-name>AgentCachedResourcesServlet</servlet-name>
+    <servlet-class>atg.svc.agent.ui.servlets.AgentCachedResourcesServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>FrameworkServlet</servlet-name>
+    <url-pattern>/framework.jsp</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AgentCachedResourcesServlet</servlet-name>
+    <url-pattern>/script/application.jsp</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MessageAttachmentServlet</servlet-name>
+    <url-pattern>/attachmentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CRMIntegrationServlet</servlet-name>
+    <url-pattern>/agentIntegrationService</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SSODigestServlet</servlet-name>
+    <url-pattern>/singleSignOnDigestService</url-pattern>
+  </servlet-mapping>
+
+
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+
+  <error-page>
+    <error-code>500</error-code>
+    <location>/error.jsp</location>
+  </error-page>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/error.jsp</location>
+  </error-page>
+  <error-page>
+    <exception-type>java.lang.Exception</exception-type>
+    <location>/error.jsp</location>
+  </error-page>
+
+</web-app>
+<!-- @version $Id: //application/service-UI/version/11.2/framework/Agent/src/web-apps/ServiceFramework/WEB-INF/web.xml#1 $$Change: 946917 $-->

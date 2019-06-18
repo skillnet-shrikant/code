@@ -1,0 +1,131 @@
+/* General: The Basics
+-------------------------------------------------------------- */
+html, body { height: 100%;}
+
+// Set box-sizing globally to handle padding and border widths
+*, *:before, *:after {@include box-sizing;}
+html, body { font-size: $base-font-size; }
+
+// Default body styles
+body {
+	background: $white;
+	color: $base-font-color;
+	padding: 0;
+	margin: 0;
+	font-family: $base-font-family;
+	font-weight: $base-font-weight;
+	font-style: normal;
+	line-height: $base-line-height;
+	position: relative;
+	&.prevent-user-scroll {
+		position: relative;
+		overflow: hidden;
+	}
+}
+
+// for use in XM cartridges
+.compact-text {
+	font-family: $condensed-font-family;
+}
+
+a {
+	color: $link-color;
+	text-decoration: none;
+	&:hover, &:focus {
+		color: darken($link-color, 10);
+		text-decoration: underline;
+
+		.icon {
+			color: darken($link-color, 10);
+			text-decoration: none;
+		}
+	}
+	&:active, &:hover {
+		//outline: 0 none;
+	}
+	&.disabled {
+		cursor: not-allowed;
+		@include opacity(0.65);
+		pointer-events: none;
+	}
+}
+
+
+// Some img styles for responsive
+img {
+	max-width: 100%;
+	height: auto;
+	-ms-interpolation-mode: bicubic;
+	display: inline-block; // Get rid of gap under images by making them display: inline-block; by default
+	vertical-align: middle;
+}
+
+
+/* General: Forms
+-------------------------------------------------------------- */
+
+// Make sure textarea takes on height automatically
+textarea { height: auto; min-height: 50px; }
+
+// Make select elements 100% width by default
+select { width: 100%; }
+
+
+
+/* General: Typography
+-------------------------------------------------------------- */
+h1, h2, h3, h4 {
+	font-weight: $bold;
+	text-transform: uppercase;
+}
+
+h1 {
+	line-height: 1.4;
+	@include font-size(24px);
+	@include media(large-up) {
+		@include font-size(26px);
+	}
+}
+h2 {
+	@include font-size(20px);
+	@include media(large-up) {
+		@include font-size(22px);
+	}
+}
+h3 {
+	@include font-size(18px);
+	@include media(large-up) {
+		@include font-size(20px);
+	}
+}
+h4 {
+	@include font-size(16px);
+	@include media(large-up) {
+		@include font-size(18px);
+	}
+}
+
+/* General: Utility Classes
+-------------------------------------------------------------- */
+// Miscellaneous useful HTML classes
+.left { float: left !important; }
+.right { float: right !important; }
+.clearfix { @include clearfix; }
+.hide {  display: none !important; }
+.sr-only {
+	@include sr-only;
+}
+.sr-only-focusable {
+	@include sr-only-focusable;
+}
+.hide-for-small {
+	display: none !important;
+	@include media(medium-up) {
+		display: block !important;
+	}
+}
+.hide-for-medium-up {
+	@include media(medium-up) {
+		display: none !important;
+	}
+}

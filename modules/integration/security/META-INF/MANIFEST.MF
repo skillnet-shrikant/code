@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+ATG-Required: KP.integration.base
+ATG-Class-Path: lib/security.jar lib-external/commons-lang3-3.3.2.jar
+ATG-Client-Class-Path: lib/security.jar lib-external/commons-lang3-3.3.2.jar
+ATG-Config-Path: config
+
+Name: lib/security.jar
+ATG-Client-Update-File: true
+
+Name: lib-external/commons-lang3-3.3.2.jar
+ATG-Client-Update-File: true
+

@@ -1,0 +1,125 @@
+<!-- Individual Module Build File -->
+<!-- Version: $Id$ -->
+<project name="integration-vertex" default="build" basedir=".">
+	<!-- Defining property name to access environmental variables -->
+	<property environment="env"/>
+	<!-- Importing build files and properties files -->
+	<property file="../../../build.properties"/>
+	<property file="../../../users/${user.name}.properties"/>
+	<property file="module.properties"/>
+	<import file="../../../common-classpath.xml"/>
+	
+	<path id="module.classpath">
+		<path refid="common.classpath"/>
+		<fileset dir="lib-external">
+			<include name="**/*.jar"/>
+		</fileset>
+		<fileset dir="../vertex/lib-external">
+			<include name="**/*.jar"/>
+		</fileset>
+		<fileset dir="../base/lib-external">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+
+	<!--<target name="full" depends="fas-deploy"/> -->
+	<target name="build">
+		<echo message="Building ${module.name}"/>
+		<mkdir dir="./build/classes"/>
+		<!-- Compiling Java files -->
+		<javac srcdir="./src/" destdir="./build/classes/" debug="on" >
+			<classpath refid="module.classpath"/>
+		</javac>
+		
+		<!-- Copying properties files -->
+		<copy todir="./build/classes">
+			<fileset dir="src/">
+				<include name="**/*.properties"/>
+			</fileset>
+		</copy>
+		<mkdir dir="./lib/"/>
+		<jar destfile="lib/${module.name}.jar" basedir="./build/classes" 
+			includes="*.class,*.properties">
+			<fileset dir="./build/classes"/>
+		</jar>
+		<echo message="Finished building ${module.name}"/>
+	</target>
+	<target name="deploy">
+		<echo message="Deploying ${module.name}"/>
+		<mkdir dir="${atg.dir}/${module.path}/${module.name}"/>
+		<copy todir="${atg.dir}/${module.path}/${module.name}">
+			<fileset dir=".">
+				<exclude name="**/sql/"/>
+				<exclude name="**/src/"/>
+				<exclude name="**/docs/"/>
+				<exclude name="**/bin/"/>
+				<exclude name="**/build/"/>
+				<exclude name="**/eclipse_build/"/>
+				<exclude name="*.project"/>
+				<exclude name="*.classpath"/>
+				<exclude name="*.xml"/>
+				<exclude name="*.properties"/>
+				<exclude name="vertex/"/>
+			</fileset>
+		</copy>
+	</target>
+	<target name="clean" unless="clean-before-build">
+		<echo message="clean: ${module.name}"/>
+		<!-- Deleting classes directory -->
+		<delete includeemptydirs="true" failonerror="false">
+			<fileset dir="./build/classes" />
+		</delete>
+		<delete file="./lib/${module.name}.jar"/>
+		<delete dir="./build/"/>
+		<delete dir="./lib/"/>
+		<!-- Deleting the module diretory in ATG_DIR -->
+		<delete dir="${atg.dir}/${module.path}/${module.name}"/>
+	</target>
+	
+	  <!-- the metro classpath for generating stubs for WSDLs -->
+	   <path id="metro.classpath">
+	      <pathelement location="${java.home}/lib/tools.jar"/>
+	      <fileset dir="lib-external">
+		 <include name="*.jar"/>
+		 <exclude name="j2ee.jar"/>
+	      </fileset>
+		<fileset dir="../base/lib-external">
+				<include name="**/*.jar"/>
+		</fileset>
+	   </path>
+
+	   <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+	      <classpath refid="metro.classpath"/>
+	   </taskdef>  
+	
+	    <!-- Vertex Stub creation -->
+		
+		   <property name="vertex_stubs_java" location="build/vertex_stubs_java"/>
+		   <property name="vertex_stubs_classes" location="build/vertex_stubs_classes"/>
+
+		   <target name="generate-vertex-stubs">
+		      <delete dir="${vertex_stubs_classes}"/>
+		      <delete dir="${vertex_stubs_java}"/>
+		      <mkdir dir="${vertex_stubs_java}"/>
+		      <mkdir dir="${vertex_stubs_classes}"/>
+		   	  <echo message="Started Vertex stub creation"/>
+		      <wsimport
+			   debug="true"
+		       verbose="false"
+		       extension="true"
+		       xendorsed="true"
+		       package="${vertex.package}"
+		       sourcedestdir="${vertex_stubs_java}"
+			   keep="false"
+		       destdir="${vertex_stubs_classes}"
+			   wsdl="${vertex.wsdl}">
+		      </wsimport>
+		   	  <echo message="creating vertex jar file"/>
+		      <jar destfile="lib/vertex_client.jar" basedir="${vertex_stubs_classes}" includes="**/*.class" />
+		   	  <delete dir="${vertex_stubs_classes}"/>
+		   	  <delete dir="${vertex_stubs_java}"/>
+		   </target>
+		
+		<!-- Vertex Stub creation ends-->
+	
+</project>

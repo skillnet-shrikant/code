@@ -1,0 +1,148 @@
+<ContentItem type="Page" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://endeca.com/schema/content/2008">
+  <TemplateId>GardenCenterPage</TemplateId>
+  <Name>Garden Center Page</Name>
+  <Property name="HeaderContent">
+    <ContentItemList type="HeaderContent"/>
+  </Property>
+  <Property name="SecondaryContent">
+    <ContentItemList type="SecondaryContent">
+      <ContentItem type="SecondaryContent">
+        <TemplateId>GardenCenterLogo</TemplateId>
+        <Name>GardenCenterLogo</Name>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Secondary Content Slot</Name>
+        <Property name="contentPaths">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>/content/Shared/Garden Center Guides Navigation</String>
+          </List>
+        </Property>
+        <Property name="templateTypes">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>SecondaryContent</String>
+          </List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Secondary Content Slot</Name>
+        <Property name="contentPaths">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>/content/Shared/Garden Center Articles Navigation</String>
+          </List>
+        </Property>
+        <Property name="templateTypes">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>SecondaryContent</String>
+          </List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Secondary Content Slot</Name>
+        <Property name="contentPaths">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>/content/Shared/Garden Center Lawns &amp; Gardens Navigation</String>
+          </List>
+        </Property>
+        <Property name="templateTypes">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>SecondaryContent</String>
+          </List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>GardenCenterEmailSignup</TemplateId>
+        <Name>GardenCenterEmailSignup</Name>
+      </ContentItem>
+    </ContentItemList>
+  </Property>
+  <Property name="MainContent">
+    <ContentItemList type="MainContent">
+      <ContentItem type="MainContent">
+        <TemplateId>MainTitleTextBlock</TemplateId>
+        <Name>MainTitleTextBlock</Name>
+        <Property name="mainTitle">
+          <String>Beets</String>
+        </Property>
+        <Property name="sectionTitle">
+          <String/>
+        </Property>
+        <Property name="paraText">
+          <String/>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ImageTextBlock</TemplateId>
+        <Name>ImageTextBlock</Name>
+        <Property name="sectionTitle">
+          <String/>
+        </Property>
+        <Property name="imageURL">
+          <String>http://www.fleetfarm.com/content/garden-center/plant-guide/Beets.jpg</String>
+        </Property>
+        <Property name="imageAltText">
+          <String>Beets</String>
+        </Property>
+        <Property name="imageAlignment">
+          <String>left</String>
+        </Property>
+        <Property name="paraText">
+          <String>Beets come in all kinds of different shapes, sizes and colors. They are a great all-season crop and are one of the few root vegetables that also have delicious greens that you can eat in salads or after sauteing them. In fact, the greens hold more nutrition than the roots.&lt;br&gt;&lt;br&gt;Plant this veggie early to enjoy the harvest right up to the time that temperatures become too hot. Then, enjoy another harvest by planting again in late summer for fall harvest. The beet is perfect for this, as it tolerates frost.</String>
+        </Property>
+        <Property name="sectionHref">
+          <String/>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String/>
+        </Property>
+        <Property name="paraText">
+          <String>Beets prefer full sun, but can be planted in partial shade. Plant beets in loose, well-worked soil that is rich in organic matter. Plant when the soil temperature is at least 50 degrees. To aid in germination, soak your beet seeds in water overnight before planting. Plant seeds 1/2 inch deep. Plant 2 inches apart if growing for greens, and 3-4 inches apart if growing for the roots.</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String/>
+        </Property>
+        <Property name="paraText">
+          <String>Do not let the soil dry out. Use mulch around the plants to help keep them moist and to help with weed control.</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String/>
+        </Property>
+        <Property name="paraText">
+          <String>You'll see the beets literally popping out of the ground when harvest time has come. Pick your beets and enjoy them raw, cooked or pickled.</String>
+        </Property>
+      </ContentItem>
+    </ContentItemList>
+  </Property>
+</ContentItem>

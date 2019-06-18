@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+   <changeSet author="vsingh" id="001_create_mff_csr_agent.sql">
+      <comment>adding storeId to internal profile</comment>
+      <sqlFile path="schemas/agent/ddl/001_create_mff_csr_agent.sql"/>
+      <rollback>
+	 <sqlFile path="schemas/agent/rollback/001_drop_mff_csr_agent.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="savula" id="002_dms_msg_properties.sql">
+      <sqlFile path="schemas/agent/ddl/002_dms_msg_properties.sql"/>
+      <comment>Modify the value of the msg table to 1024 characters</comment>
+   </changeSet>
+    <changeSet author="tvallapu" id="003_alter_email_lengths.sql">
+       <validCheckSum>any</validCheckSum>	
+      <sqlFile path="schemas/agent/ddl/003_alter_email_lengths.sql"/>
+      <comment>Alter columns lengths of email fields to 255</comment>
+   </changeSet>
+</databaseChangeLog>

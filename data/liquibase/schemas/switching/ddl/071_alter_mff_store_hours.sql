@@ -1,0 +1,1 @@
+alter table mff_store_hours add is_closed NUMBER(1) default 0;

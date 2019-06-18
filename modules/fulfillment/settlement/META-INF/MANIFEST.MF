@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+ATG-Required: KP.OMS.fulfillment KP.integration.aci KP.integration.firstData
+ATG-Class-Path: lib/settlement.jar 
+ATG-Client-Class-Path: lib/settlement.jar 
+ATG-Config-Path: config
+
+Name: lib/settlement.jar
+ATG-Client-Update-File: true

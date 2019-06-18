@@ -1,0 +1,13 @@
+<dsp:page>
+
+	<dsp:getvalueof var="listrakEnabled" bean="/mff/MFFEnvironment.listrakEnabled"/>
+	<c:if test="${listrakEnabled}">
+
+		<c:if test="${not empty listrakCart}">
+			<c:set var="delimeter" value=";" />
+		</c:if>
+		<c:set var="listrakCart" value="${listrakCart}${delimeter}${skuId},${qty},${actualPrice},${productName},${productImageRoot}/${productId}/m/${defaultImage},${productUrl}" scope="request" />
+
+	</c:if>
+
+</dsp:page>

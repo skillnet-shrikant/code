@@ -1,0 +1,1 @@
+alter table mff_store_performance drop column id;

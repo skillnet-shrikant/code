@@ -1,0 +1,70 @@
+// This is the primary Sass file.
+// Import global, components and vendor files. then the company sass file.
+// ONLY @import partials to this file.
+
+// For degrading to IE8
+$supports-mq: true !default;
+$supports-rem: true !default;
+
+// Globals and Variables //
+// Import Sass from files in the globals folder
+@import "globals/all";
+
+
+// Import Layout essentials including reset and responsive grids
+@import "layout/normalize";
+@import "layout/base";
+@import "layout/grids";
+@import "layout/blockGrids";
+
+// Modules
+// Make sure any custom module files you add are represented here,
+// otherwise the styles won't be compiled.
+@import "components/accordion";
+@import "components/alerts";
+@import "components/backToTop";
+@import "components/breadcrumbs";
+@import "components/buttons";
+@import "components/changeQuantity";
+@import "components/cartridges";
+@import "components/dropdowns";
+@import "components/facets";
+@import "components/forms";
+@import "components/icons";
+@import "components/loader";
+@import "components/media";
+@import "components/modals";
+@import "components/offCanvas";
+@import "components/orderItem";
+@import "components/pagination";
+@import "components/priceTreatment";
+@import "components/primaryNav";
+@import "components/productTile";
+@import "components/promoCode";
+@import "components/productOptions";
+@import "components/sideCart";
+@import "components/skuPicker";
+@import "components/sliders";
+@import "components/swatches";
+@import "components/tabs";
+@import "components/thumbs";
+@import "components/totals";
+@import "components/tooltip";
+@import "components/typeahead";
+@import "components/utilityNav";
+@import "components/vimeo";
+@import "components/zoom";
+
+
+// Third-party //
+//Import Sass styles created by 3rd party vendors. I.E. colorpicker, jquery.ui
+@import "vendor/slick";
+
+/* Pages */
+@import "pages/sitewide";
+@import "pages/account";
+@import "pages/browse";
+@import "pages/checkout";
+@import "pages/static";
+@import "pages/store";
+@import "pages/print";

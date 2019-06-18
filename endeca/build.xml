@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Endeca Build Script v2.6 - supports Endeca v11.2" default="deploy" basedir=".">
+
+	<property environment="env"/>
+	<property file="${env.ENV_NAME}.properties" />
+
+	<target name="install" description="Complete install of Endeca. Imports dimension values and exported site content, if available.">
+		<validate-parameter var="env.ENV_NAME" />
+		<echo message="ENV_NAME..........: ${env.ENV_NAME}" />
+		<antcall target="deploy" />
+		<antcall target="initialize-services" />
+		<antcall target="import-application" />
+		<!-- <antcall target="promote-content" /> -->
+	</target>
+
+	<target name="clean" description="Clean and remove the Endeca app and directory. This task may fail if Endeca Dgraphs are running.">
+
+		<validate-parameter var="env.ENV_NAME" />
+		<validate-parameter var="endeca.apps.dir" />
+		<validate-parameter var="app.name" />
+		<validate-parameter var="app.source.name" />
+
+        <exec dir="${endeca.apps.dir}/${app.name}/control" executable="sh" os="${os.unix}">
+            <arg value="remove_record_stores.sh" />
+        </exec>
+        <exec dir="${endeca.apps.dir}/${app.name}/control" executable="sh" os="${os.unix}">
+            <arg value="runcommand.sh" />
+            <arg value="--remove-app" />
+        </exec>
+
+		<delete dir="${endeca.apps.dir}/${app.name}" />
+	</target>
+
+
+	<macrodef name="validate-parameter">
+		<attribute name="var" />
+		<sequential>
+			<fail message="Property &quot;@{var}&quot; is not defined.">
+				<condition>
+					<or>
+						<equals arg1="${@{var}}" arg2=""/>
+						<not>
+							<isset property="@{var}"/>
+						</not>
+					</or>
+				</condition>
+			</fail>
+		</sequential>
+	</macrodef>
+
+	<target name="deploy" description="Copies file assets from source to Endeca apps directory and performs several string replacements.">
+
+		<validate-parameter var="endeca.apps.dir" />
+		<validate-parameter var="app.name" />
+		<validate-parameter var="atg.context.root" />
+		<validate-parameter var="app.source.name" />
+		<validate-parameter var="env.ENV_NAME" />
+		<validate-parameter var="env.ENDECA_ROOT" />
+		<validate-parameter var="env.ENDECA_TOOLS_ROOT" />
+		<validate-parameter var="endeca.cas.root" />
+		<validate-parameter var="app.original.deployment.dir" />
+
+		<!-- Copy Endeca application (sans JARs, Zips and DimVals) from repository and fix references -->
+		<copy todir="${endeca.apps.dir}/${app.name}">
+			<fileset dir="./${app.source.name}">
+				<exclude name="**/*.jar"/>
+				<exclude name="**/*.gz"/>
+				<exclude name="**/*.png"/>
+				<exclude name="**/*.jpg"/>
+				<exclude name="data/**"/>
+			</fileset>
+			<filterset refid="token-replacements" />
+		</copy>
+
+		<!-- Always Overwrite templates -->
+
+                <copy todir="${endeca.apps.dir}/${app.name}/config/import/templates" overwrite="true">
+			<fileset dir="./${app.source.name}/config/import/templates/">
+			</fileset>
+		</copy>
+
+		<copy todir="${endeca.apps.dir}/${app.name}/test_data/baseline" overwrite="true">
+			<fileset dir="./${app.source.name}/test_data/baseline/">
+			</fileset>
+		</copy>
+
+
+		<!-- Copy Endeca JARs from repository -->
+		<copy todir="${endeca.apps.dir}/${app.name}" includeemptydirs="false">
+			<fileset dir="./${app.source.name}">
+				<include name="**/*.jar"/>
+				<include name="**/*.gz"/>
+				<exclude name="data/**"/>
+			</fileset>
+		</copy>
+
+		<!-- Rename files with the application name -->
+
+		<move todir="${endeca.apps.dir}/${app.name}/test_data/baseline/" includeemptydirs="false">
+			<fileset dir="${endeca.apps.dir}/${app.name}/test_data/baseline/">
+			</fileset>
+			<mapper type="glob" from="${app.source.name}*" to="${app.name}*"/>
+		</move>
+
+
+		<move todir="${endeca.apps.dir}/${app.name}/config/mdex/" includeemptydirs="false">
+			<fileset dir="${endeca.apps.dir}/${app.name}/config/mdex/">
+			</fileset>
+			<mapper type="glob" from="${app.source.name}.*" to="${app.name}.*"/>
+		</move>
+
+
+		<move todir="${endeca.apps.dir}/${app.name}/logs/" includeemptydirs="false">
+			<fileset dir="${endeca.apps.dir}/${app.name}/logs/">
+			</fileset>
+			<mapper type="glob" from="${app.source.name}.*" to="${app.name}.*"/>
+		</move>
+
+
+		<move todir="${endeca.apps.dir}/${app.name}/config/script/" includeemptydirs="false">
+			<fileset dir="${endeca.apps.dir}/${app.name}/config/script/">
+			</fileset>
+			<mapper type="glob" from="*.${env.ENV_NAME}.targeted" to="*"/>
+		</move>
+
+
+		<!-- remove unused targeted files for the environment -->
+ 		<delete>
+    			<fileset dir="${endeca.apps.dir}/${app.name}/config/script/" includes="*.targeted"/>
+  		</delete>
+
+
+		<!-- Replace occurences of the original deployment directory with the actual deployment directory -->
+	<!--	<replace dir="${endeca.apps.dir}/${app.name}" token="${app.original.deployment.dir}" value="${endeca.apps.dir}">
+			<include name="**/*"/>
+			<exclude name="data/**"/>
+			<exclude name="logs/**"/>
+			<exclude name="test_data/**"/>
+		</replace>
+-->
+		<!-- Make sure Linux users have permissions to execute files -->
+		<!-- Replacing this with exec as this is causing "chmod": error=7, Argument list too long
+		<chmod perm="ugo+rx">
+			<fileset dir="${endeca.apps.dir}/${app.name}/">
+				<include name="**/*"/>
+			</fileset>
+		</chmod>
+		-->
+		<exec executable="chmod" dir="${endeca.apps.dir}/${app.name}/">
+		 <arg line="-R 0755 ." />
+		</exec>
+
+	</target>
+
+	<target name="initialize-services" description="Runs initialize_services.">
+
+		<validate-parameter var="endeca.apps.dir" />
+		<validate-parameter var="app.name" />
+		<validate-parameter var="app.source.name" />
+
+        <exec dir="${endeca.apps.dir}/${app.name}/control" executable="sh" os="${os.unix}">
+            <arg value="initialize_services.sh" />
+            <arg value="--force" />
+        </exec>
+	</target>
+
+
+	<!-- BEGIN import-application scripts -->
+
+
+	<target name="import-application" description="Runs IFCR importApplication command to import from config/import directory.">
+
+		<delete dir="${endeca.apps.dir}/${app.name}/config/import"/>
+
+		<copy todir="${endeca.apps.dir}/${app.name}/config/import">
+			<fileset dir="./${app.source.name}/config/import">
+				<exclude name="**/*.png"/>
+				<exclude name="**/*.jpg"/>
+			</fileset>
+			<filterset refid="token-replacements" />
+		</copy>
+
+                <copy todir="${endeca.apps.dir}/${app.name}/config/import/templates" overwrite="true">
+			<fileset dir="./${app.source.name}/config/import/templates/">
+			</fileset>
+		</copy>
+
+
+        <exec dir="${endeca.apps.dir}/${app.name}/control" executable="cmd" os="${os.windows}">
+            <arg value="/c" />
+            <arg value="runcommand.bat IFCR importApplication ${endeca.apps.dir}/${app.name}/config/import" />
+        </exec>
+        <exec dir="${endeca.apps.dir}/${app.name}/control" executable="sh" os="${os.unix}">
+            <arg value="runcommand.sh" />
+            <arg value="IFCR" />
+            <arg value="importApplication" />
+            <arg value="${endeca.apps.dir}/${app.name}/config/import" />
+        </exec>
+	</target>
+
+
+	<target name="import-editors" description="Runs set_editors_config.">
+		<copy todir="${endeca.apps.dir}/${app.name}/config/ifcr">
+			<fileset dir="./${app.source.name}/config/ifcr">
+				<exclude name="**/*.png"/>
+				<exclude name="**/*.jpg"/>
+			</fileset>
+			<filterset refid="token-replacements" />
+		</copy>
+        <exec dir="${endeca.apps.dir}/${app.name}/control" executable="cmd" os="${os.windows}">
+            <arg value="/c" />
+            <arg value="set_editors_config.bat" />
+        </exec>
+        <exec dir="${endeca.apps.dir}/${app.name}/control" executable="sh" os="${os.unix}">
+            <arg value="set_editors_config.sh" />
+        </exec>
+	</target>
+
+	<target name="import-templates" description="Runs set_templates.">
+		<delete dir="${endeca.apps.dir}/${app.name}/config/import/templates" />
+		 <copy todir="${endeca.apps.dir}/${app.name}/config/import/templates" overwrite="true">
+			<fileset dir="./${app.source.name}/config/import/templates/">
+			</fileset>
+		</copy>
+        <exec dir="${endeca.apps.dir}/${app.name}/control" executable="cmd" os="${os.windows}">
+            <arg value="/c" />
+            <arg value="set_templates.bat" />
+        </exec>
+        <exec dir="${endeca.apps.dir}/${app.name}/control" executable="sh" os="${os.unix}">
+            <arg value="set_templates.sh" />
+        </exec>
+	</target>
+
+	<target name="sync-authority-dimvals" description="Syncs Authority Env DimVals - WILL FAIL WITHOUT EAC Connectivity to Authority CAS">
+        <exec dir="${endeca.apps.dir}/${app.name}/control" executable="cmd" os="${os.windows}">
+            <arg value="/c" />
+             <arg value="runcommand.bat SyncAuthorityDims" />
+        </exec>
+        <exec dir="${endeca.apps.dir}/${app.name}/control" executable="sh" os="${os.unix}">
+            <arg value="runcommand.sh" />
+            <arg value="SyncAuthorityDims" />
+        </exec>
+	</target>
+
+
+	<!-- END import-application scripts -->
+
+	<target name="export-application" description="Runs IFCR exportApplication command and unzips results to config/import directory.">
+		<delete dir="./${app.source.name}/config/import" />
+
+        <exec dir="${endeca.apps.dir}/${app.name}/control" executable="cmd" os="${os.windows}">
+            <arg value="/c" />
+            <arg value="runcommand.bat IFCR exportApplication ." />
+        </exec>
+        <exec dir="${endeca.apps.dir}/${app.name}/control" executable="sh" os="${os.unix}">
+            <arg value="runcommand.sh" />
+            <arg value="IFCR" />
+            <arg value="exportApplication" />
+            <arg value="." />
+        </exec>
+
+        <unzip src="${endeca.apps.dir}/${app.name}/control/${app.name}.zip" dest="${endeca.apps.dir}/${app.name}/config/import" />
+
+		<!-- Genericise server-specific params before saving to source control -->
+		<replace dir="${endeca.apps.dir}/${app.name}/config/import" value="defaultvalue">
+			<include name="**/*.json"/>
+			<replacefilter token="${atg.app.host}" value="@APP_HOST@"/>
+			<replacefilter token="${atg.app.port}" value="@APP_PORT@"/>
+			<replacefilter token="${atg.context.root}" value="@CONTEXT_ROOT@"/>
+		</replace>
+
+		<copy todir="./${app.source.name}/config/import">
+			<fileset dir="${endeca.apps.dir}/${app.name}/config/import" />
+		</copy>
+	</target>
+
+
+	<target name="promote-content" description="Runs promote_content.">
+
+		<validate-parameter var="endeca.apps.dir" />
+		<validate-parameter var="app.name" />
+		<validate-parameter var="app.source.name" />
+
+        <exec dir="${endeca.apps.dir}/${app.name}/control" executable="cmd" os="${os.windows}">
+            <arg value="/c" />
+            <arg value="promote_content.bat" />
+        </exec>
+        <exec dir="${endeca.apps.dir}/${app.name}/control" executable="sh" os="${os.unix}">
+            <arg value="promote_content.sh" />
+        </exec>
+	</target>
+	
+	<target name="update-app-definition" description="Updates Application definition from config/script">
+		<validate-parameter var="env.ENV_NAME" />
+		<echo message="ENV_NAME..........: ${env.ENV_NAME}" />
+		
+		<validate-parameter var="endeca.apps.dir" />
+		<validate-parameter var="app.name" />
+		<validate-parameter var="app.source.name" />
+
+		<antcall target="deploy" />
+		
+		<echo message="deploy completed Starting runcommand --update-definition" />
+        <exec dir="${endeca.apps.dir}/${app.name}/control" executable="cmd" os="${os.windows}">
+            <arg value="/c" />
+            <arg value="runcommand.bat" />
+			<arg value="--update-definition" />
+        </exec>
+        <exec dir="${endeca.apps.dir}/${app.name}/control" executable="sh" os="${os.unix}">
+            <arg value="runcommand.sh" />
+			<arg value="--update-definition" />
+        </exec>
+	</target>
+
+	<target name="import-test-data" description="Imports data and dimensions from test_data/baseline to CAS">
+
+		<validate-parameter var="endeca.apps.dir" />
+		<validate-parameter var="app.name" />
+		<validate-parameter var="app.source.name" />
+
+		<copy todir="${endeca.apps.dir}/${app.name}/test_data" includeemptydirs="true">
+			<fileset dir="./${app.source.name}/test_data">
+			</fileset>
+		</copy>
+
+        <exec dir="${endeca.apps.dir}/${app.name}/control" executable="sh" os="${os.unix}">
+            <arg value="cas_full_import.sh" />
+        </exec>
+	</target>
+
+	<target name="export-test-data" description="Exports all data and dimensions from CAS to test_data/baseline">
+
+		<validate-parameter var="endeca.apps.dir" />
+		<validate-parameter var="app.name" />
+		<validate-parameter var="app.source.name" />
+
+        <exec dir="${endeca.apps.dir}/${app.name}/control" executable="sh" os="${os.unix}">
+            <arg value="cas_full_export.sh" />
+        </exec>
+
+		<copy todir="./${app.source.name}/test_data" includeemptydirs="true">
+			<fileset dir="${endeca.apps.dir}/${app.name}/test_data">
+			</fileset>
+		</copy>
+	</target>
+
+
+
+	<!-- Replacement filterset for use in copying files -->
+	<filterset id="token-replacements">
+		<filter token="ENDECA_ROOT"			value="${env.ENDECA_ROOT}"/>
+		<filter token="TOOLS_ROOT"			value="${env.ENDECA_TOOLS_ROOT}"/>
+		<filter token="CAS_ROOT"			value="${endeca.cas.root}"/>
+		<filter token="ENDECA_APPS_DIR"		value="${endeca.apps.dir}"/>
+		<filter token="ENDECA_BASE_DIR"		value="${endeca.base.dir}"/>
+		<filter token="APP_NAME"			value="${app.name}"/>
+		<filter token="APP_AUTH_EXPORT_DIR"		value="${app.auth.export.dir}"/>
+		<filter token="APP_LIVE_EXPORT_DIR"		value="${app.live.export.dir}"/>
+		<filter token="APP_STAGE_DIMVAL_EXPORT_DIR"	value="${app.stage.dimval.export.dir}"/>
+		<filter token="LOGS_PORT"			value="${app.logs.port}"/>
+		<filter token="EAC_HOST"			value="${endeca.eac.host}"/>
+		<filter token="EAC_PORT"			value="${endeca.eac.port}"/>
+		<filter token="WORKBENCH_HOST"		value="${endeca.workbench.host}"/>
+		<filter token="WORKBENCH_PORT"		value="${endeca.workbench.port}"/>
+		<filter token="WORKBENCH_USER"		value="${endeca.workbench.user}"/>
+		<filter token="WORKBENCH_PASSWORD"		value="${endeca.workbench.password}"/>
+		<filter token="WORKBENCH_MDEX_HOST"	value="${endeca.workbench.mdex.host}"/>
+		<filter token="WORKBENCH_MDEX_PORT"	value="${endeca.workbench.mdex.port}"/>
+		<filter token="LIVE_MDEX_PORT"	value="${endeca.live.mdex.port}"/>
+		<filter token="LIVE_MDEX_HOST"	value="${endeca.live.mdex.host}"/>
+		<filter token="MEDIA_MDEX_HOST"	value="${endeca.media.mdex.host}"/>
+		<filter token="MEDIA_MDEX_PORT"	value="${endeca.media.mdex.port}"/>
+		<filter token="MEDIA_SOURCE_HOST"	value="${media.source.host}"/>
+		<filter token="MEDIA_CRAWL_DIR"	value="${endeca.media.crawl.dir}"/>
+		<filter token="STAGE_CAS_HOST"		value="${stage.endeca.cas.host}"/>
+		<filter token="STAGE_CAS_PORT"		value="${stage.endeca.cas.port}"/>
+		<filter token="CAS_HOST"			value="${endeca.cas.host}"/>
+		<filter token="CAS_PORT"			value="${endeca.cas.port}"/>
+		<filter token="AUTHORITY_CAS_HOST"			value="${endeca.authority.cas.host}"/>
+		<filter token="AUTHORITY_CAS_PORT"			value="${endeca.authority.cas.port}"/>
+		<filter token="AUTHORITY_CAS_BASE_DIR"			value="${endeca.authority.cas.base.dir}"/>
+		<filter token="AUTHORITY_CAS_FILE"			value="${endeca.authority.cas.file}"/>
+		<filter token="APP_HOST"			value="${atg.app.host}"/>
+		<filter token="APP_PORT"			value="${atg.app.port}"/>
+		<filter token="PREVIEW_HOST"		value="${atg.preview.host}"/>
+		<filter token="PREVIEW_PORT"		value="${atg.preview.port}"/>
+		<filter token="MERCH_HOST"			value="${atg.merch.host}"/>
+		<filter token="MERCH_PORT"			value="${atg.merch.port}"/>
+		<filter token="CONTEXT_ROOT"		value="${atg.context.root}"/>
+		<filter token="EXECUTABLE_EXTENSION" value="${shell.executable.extension}"/>
+	</filterset>
+</project>

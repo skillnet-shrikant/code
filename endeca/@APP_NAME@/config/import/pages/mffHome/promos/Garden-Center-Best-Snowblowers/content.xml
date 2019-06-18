@@ -1,0 +1,200 @@
+<ContentItem type="Page" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://endeca.com/schema/content/2008">
+  <TemplateId>GardenCenterPage</TemplateId>
+  <Name>Garden Center Page</Name>
+  <Property name="HeaderContent">
+    <ContentItemList type="HeaderContent"/>
+  </Property>
+  <Property name="SecondaryContent">
+    <ContentItemList type="SecondaryContent">
+      <ContentItem type="SecondaryContent">
+        <TemplateId>GardenCenterLogo</TemplateId>
+        <Name>GardenCenterLogo</Name>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Secondary Content Slot</Name>
+        <Property name="contentPaths">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>/content/Shared/Garden Center Guides Navigation</String>
+          </List>
+        </Property>
+        <Property name="templateTypes">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>SecondaryContent</String>
+          </List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Secondary Content Slot</Name>
+        <Property name="contentPaths">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>/content/Shared/Garden Center Articles Navigation</String>
+          </List>
+        </Property>
+        <Property name="templateTypes">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>SecondaryContent</String>
+          </List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Secondary Content Slot</Name>
+        <Property name="contentPaths">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>/content/Shared/Garden Center Lawns &amp; Gardens Navigation</String>
+          </List>
+        </Property>
+        <Property name="templateTypes">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>SecondaryContent</String>
+          </List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>GardenCenterEmailSignup</TemplateId>
+        <Name>GardenCenterEmailSignup</Name>
+      </ContentItem>
+    </ContentItemList>
+  </Property>
+  <Property name="MainContent">
+    <ContentItemList type="MainContent">
+      <ContentItem type="MainContent">
+        <TemplateId>MainTitleTextBlock</TemplateId>
+        <Name>MainTitleTextBlock</Name>
+        <Property name="mainTitle">
+          <String>Best Snowblowers</String>
+        </Property>
+        <Property name="sectionTitle">
+          <String/>
+        </Property>
+        <Property name="paraText">
+          <String/>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ImageTextBlock</TemplateId>
+        <Name>ImageTextBlock</Name>
+        <Property name="sectionTitle">
+          <String/>
+        </Property>
+        <Property name="imageURL">
+          <String>http://www.fleetfarm.com/content/garden-center/lawn/snowblowers-medium.jpg</String>
+        </Property>
+        <Property name="imageAltText">
+          <String>person clearing snow from driveway with the best snowblower</String>
+        </Property>
+        <Property name="imageAlignment">
+          <String>left</String>
+        </Property>
+        <Property name="paraText">
+          <String>The days are getting shorter, the air has that cool, crisp feeling to it, and before you know it winter — and snow — will have arrived.&lt;br&gt;&lt;br&gt;While your kids will go to bed each night dreaming of snowstorms and school cancellations, waking up to a foot of snow is not your idea of a perfect morning. After all, the last thing you want to do is shovel out your driveway or tinker with that old snow blower from the '80s — you know, the used one your uncle gave you for Christmas last year?&lt;br&gt;&lt;br&gt;So don't wait to be stuck in your driveway. Be ready for anything old man winter brings your way with one of these five world-class snow blowers or snow throwers from Fleet Farm.</String>
+        </Property>
+        <Property name="sectionHref">
+          <String/>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String>ARIENS DELUXE 30-IN 306CC 2-STAGE SNOW THROWER</String>
+        </Property>
+        <Property name="paraText">
+          <String>If you have a lot of driveway and you don't want to let any amount of snow get in your way, then you just might want to choose this &lt;a href="/category/lawn-garden/snow-removal/snow-blowers-snow-throwers?categoryId=01752&amp;amp;q_facetTrail=1014%3A01752%3A1002%3AAriens" target="_blank"&gt;Rolls Royce of snow throwers&lt;/a&gt;. With six forward speeds, two reverse speeds, heated hand grips, halogen headlight and remote chute controls, this snow thrower is designed to provide maximum control in the harshest conditions. Is ice giving you a problem? The 14-inch serrated auger with a cast iron gearbox will take care of that. Expertly designed in the USA, this top-of-the-line snow thrower is built to perform on the coldest days and in the harshest conditions.</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String>Troy-Bilt 26-in. 243cc 2-Stage Snow Thrower</String>
+        </Property>
+        <Property name="paraText">
+          <String>Though you might not be too eager to go clear your walks and driveway, once you experience the legendary power &lt;a href="/category/lawn-garden/snow-removal/snow-blowers-snow-throwers?categoryId=01752&amp;amp;q_facetTrail=1014%3A01752%3A1002%3ATroy-Bilt" target="_blank"&gt;Troy-Bilt&lt;/a&gt; has made their reputation on, you just might go over and do a good deed for your neighbor. With an easy-push start, remote chute controls and an in-dash light for night use, this machine is ready to go in any weather. All-wheel drive and X-Trac tires allow you to break through compact snow and power through ice.</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ParaTextBlock</TemplateId>
+        <Name>ParaTextBlock</Name>
+        <Property name="sectionTitle">
+          <String>Dirty Hand Tools 24 in. 212cc 2 Stage Snow Thrower (100699259)</String>
+        </Property>
+        <Property name="paraText">
+          <String>For a feature rich product, look no further than the Dirty Hand Tools 24" 2 Stage Snow Thrower. A powerful 212cc Loncin engine with electric start will provide more than enough power for most winter storms. The unit features a LED Offset headlight, remote chute controls and heated hand warmers. This unit has everything you need to comfortably plow snow.</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ImageTextBlock</TemplateId>
+        <Name>ImageTextBlock</Name>
+        <Property name="sectionTitle">
+          <String>Toro Power Curve 1500 Single Stage Snow Thrower</String>
+        </Property>
+        <Property name="imageURL">
+          <String>http://www.fleetfarm.com/products/images/medium/0000000033621.jpg</String>
+        </Property>
+        <Property name="imageAltText">
+          <String>snowblower chains</String>
+        </Property>
+        <Property name="imageAlignment">
+          <String>right</String>
+        </Property>
+        <Property name="paraText">
+          <String>For some of the lighter duty or small applications, an electric snow thrower will do the job perfectly fine.  This &lt;a href="/category/lawn-garden/snow-removal/snow-blowers-snow-throwers?categoryId=01752&amp;amp;q_facetTrail=1014%3A01752%3A1002%3AToro" target="_blank"&gt;Toro Snowblower&lt;/a&gt; unit won't get you through two feet of snow but will throw any light snow that fits in the 12" intake height. This handy machine requires no gas or oil. All you need to do with this electric snow thrower is plug it in and you'll be set.&lt;br&gt;&lt;br&gt;For more great snow throwers at unbeatable prices, be sure to stop by your local Fleet Farm, or browse through a &lt;a href="/category/lawn-garden/snow-removal" target="_blank"&gt;variety of snow-removal products online&lt;/a&gt;.</String>
+        </Property>
+        <Property name="sectionHref">
+          <String/>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>PromoProductGrid</TemplateId>
+        <Name>PromoProductGrid</Name>
+        <Property name="sectionTitle">
+          <String>Featured Products</String>
+        </Property>
+        <Property name="recordSelection">
+          <Item class="com.endeca.infront.cartridge.RecordSpotlightSelection" xmlns="http://endeca.com/schema/xavia/2010">
+            <Property name="filterState">
+              <Item class="com.endeca.infront.navigation.model.FilterState">
+                <Property name="featuredRecords">
+                  <List>
+                    <String>0000000250032</String>
+                    <String>0000000208889</String>
+                    <String>0000000038091</String>
+                    <String>0000000207671</String>
+                  </List>
+                </Property>
+              </Item>
+            </Property>
+          </Item>
+        </Property>
+        <Property name="maxNumRecords">
+          <String>4</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>GardenCenterArticlesLink</TemplateId>
+        <Name>GardenCenterViewAll Articles Link</Name>
+      </ContentItem>
+    </ContentItemList>
+  </Property>
+</ContentItem>

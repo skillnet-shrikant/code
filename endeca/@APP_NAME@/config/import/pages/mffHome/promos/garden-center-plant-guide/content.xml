@@ -1,0 +1,156 @@
+<ContentItem type="Page" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://endeca.com/schema/content/2008">
+  <TemplateId>GardenCenterPage</TemplateId>
+  <Name>Garden Center Page</Name>
+  <Property name="HeaderContent">
+    <ContentItemList type="HeaderContent"/>
+  </Property>
+  <Property name="SecondaryContent">
+    <ContentItemList type="SecondaryContent">
+      <ContentItem type="SecondaryContent">
+        <TemplateId>GardenCenterLogo</TemplateId>
+        <Name>GardenCenterLogo</Name>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Secondary Content Slot</Name>
+        <Property name="contentPaths">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>/content/Shared/Garden Center Guides Navigation</String>
+          </List>
+        </Property>
+        <Property name="templateTypes">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>SecondaryContent</String>
+          </List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Secondary Content Slot</Name>
+        <Property name="contentPaths">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>/content/Shared/Garden Center Articles Navigation</String>
+          </List>
+        </Property>
+        <Property name="templateTypes">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>SecondaryContent</String>
+          </List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Secondary Content Slot</Name>
+        <Property name="contentPaths">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>/content/Shared/Garden Center Lawns &amp; Gardens Navigation</String>
+          </List>
+        </Property>
+        <Property name="templateTypes">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>SecondaryContent</String>
+          </List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>GardenCenterEmailSignup</TemplateId>
+        <Name>GardenCenterEmailSignup</Name>
+      </ContentItem>
+    </ContentItemList>
+  </Property>
+  <Property name="MainContent">
+    <ContentItemList type="MainContent">
+      <ContentItem type="MainContent">
+        <TemplateId>MediaBanner</TemplateId>
+        <Name>Media Banner</Name>
+        <Property name="imageURL">
+          <String>http://www.fleetfarm.com/content/garden-center/plant-guide/fall-plant-guide.jpg</String>
+        </Property>
+        <Property name="link">
+          <Item class="com.endeca.infront.cartridge.model.LinkBuilder" xmlns="http://endeca.com/schema/xavia/2010">
+            <Property name="path"/>
+            <Property name="linkType"/>
+            <Property name="queryString"/>
+          </Item>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>StaticContentPromoGrid</TemplateId>
+        <Name>StaticContentPromoGrid</Name>
+        <Property name="sectionTitle">
+          <String/>
+        </Property>
+        <Property name="StaticContentPromos">
+          <ContentItemList type="StaticContentPromo">
+            <ContentItem type="StaticContentPromo">
+              <TemplateId>StaticContentPromo</TemplateId>
+              <Name>StaticContentPromo</Name>
+              <Property name="sectionTitle">
+                <String>Beans</String>
+              </Property>
+              <Property name="sectionHref">
+                <String>/promos/Garden-Center-Plant-Guide-Beans</String>
+              </Property>
+              <Property name="imageURL">
+                <String>http://www.fleetfarm.com/content/garden-center/plant-guide/Beans.jpg</String>
+              </Property>
+              <Property name="imageAltText">
+                <String>Beans</String>
+              </Property>
+            </ContentItem>
+            <ContentItem type="StaticContentPromo">
+              <TemplateId>StaticContentPromo</TemplateId>
+              <Name>StaticContentPromo</Name>
+              <Property name="sectionTitle">
+                <String>Beets</String>
+              </Property>
+              <Property name="sectionHref">
+                <String>/promos/Garden-Center-Plant-Guide-Beets</String>
+              </Property>
+              <Property name="imageURL">
+                <String>http://www.fleetfarm.com/content/garden-center/plant-guide/Beets.jpg</String>
+              </Property>
+              <Property name="imageAltText">
+                <String>Beets</String>
+              </Property>
+            </ContentItem>
+            <ContentItem type="StaticContentPromo">
+              <TemplateId>StaticContentPromo</TemplateId>
+              <Name>StaticContentPromo</Name>
+              <Property name="sectionTitle">
+                <String>Carrots</String>
+              </Property>
+              <Property name="sectionHref">
+                <String>/promos/Garden-Center-Plant-Guide-Carrots</String>
+              </Property>
+              <Property name="imageURL">
+                <String>http://www.fleetfarm.com/content/garden-center/plant-guide/Carrot.jpg</String>
+              </Property>
+              <Property name="imageAltText">
+                <String>Carrots</String>
+              </Property>
+            </ContentItem>
+          </ContentItemList>
+        </Property>
+      </ContentItem>
+    </ContentItemList>
+  </Property>
+</ContentItem>

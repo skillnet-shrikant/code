@@ -1,0 +1,146 @@
+// Use the components directory to construct the meat of your CSS.
+// Categorize your styles here based on element in the file name.
+
+// Product tile definitions
+
+.product-tile {
+	height: auto !important;
+	overflow: hidden;
+	position: relative;
+	@include transition;
+	//border: 4px solid $border-color;
+	border: 1px solid $border-color;
+	@include box-shadow (0, 0, 4px, $border-color);
+
+	.button-quickview {
+		display: none;
+
+		@include media(medium-up) {
+			display: block;
+			width: calc(100% - 20px);
+			position: absolute;
+			// left/right added to allow use of abs positioning to center btn
+			left: 0;
+			right: 0;
+			margin: 0 auto;
+			padding: 6px;
+			bottom: 20px;
+			text-transform: uppercase;
+			@include opacity(0);
+		}
+	}
+	.product-image {
+		position:relative;
+		img {
+			width: 100%;
+			margin: 0 auto;
+			display: block;
+		}
+		&:hover .button-quickview {
+			@include opacity(100);
+		}
+	}
+	.swatch-group {
+		margin: 10px 10px 0 10px;
+	}
+	.unavailable {
+		@include opacity(0.2);
+    pointer-events: none;
+    cursor: default;
+	}
+	.active {
+		border: 2px solid $black;
+	}
+	.product-details-container {
+		margin: 10px 10px 10px;
+		color: $black;
+		@include rem-size(line-height, 20px);
+
+		.mini & {
+			@include media(small-only) {
+				margin: 5px 5px 10px;
+			}
+			@include rem-size(line-height, 16px);
+		}
+	}
+	.product-name {
+		@include font-size(12px);
+		a {
+			color: $black;
+		}
+		.mini & {
+			@include font-size(12px);
+		}
+
+	}
+	.product-brand {
+		@include font-size(12px);
+		font-weight: $bold;
+		.mini & {
+			@include font-size(12px);
+		}
+	}
+	.price {
+		@include rem-size(line-height, 20px);
+		@include rem-size(margin-bottom, 8px);
+		@include media(small-only) {
+			.regular-price,
+			.sale-price{
+				.mini & {
+					@include font-size(10px);
+				}
+			}
+		}
+	}
+
+	.ratings-container {
+		padding: 0 0 10px 10px;
+		div {
+			display: inline-block;
+			@include font-size(10px);
+		}
+	}
+	.product-reviews {
+		.bv-inline-rating-container {
+			.bv-rating-stars-off,
+			.bv-rating-stars-on {
+				.mini & {
+					font-size: 12px !important;
+				}
+			}
+		}
+	}
+
+	// jjensen - i don't think product tile mini is used anywhere
+	/*
+	&.mini {
+		.product-details-container {
+			@include rem-size(line-height, 16px);
+		}
+		.product-name {
+			@include font-size(12px);
+		}
+		.product-brand {
+			@include font-size(10px);
+		}
+		.price {
+			@include font-size(10px);
+			@include rem-size(line-height, 16px);
+		}
+	}
+	*/
+
+	.more-styles{
+		color:$dark-blue;
+		@include font-size(11px);
+		@include media(small-only) {
+			@include font-size(11px);
+		}
+	}
+}
+.product-link {
+	&:hover,
+	&:focus {
+		text-decoration: none;
+	}
+}

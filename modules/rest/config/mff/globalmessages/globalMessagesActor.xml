@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actor-template default-chain-id="getGlobalMessages" xsi:noNamespaceSchemaLocation="http://www.atg.com/xsds/actorChain_1.0.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <actor-chain id="getGlobalMessages" transaction="TX_SUPPORTS">
+    <droplet id="getGlobalMessagesDroplet" name="/com/mff/globalmessages/GetGlobalMessagesDroplet"  var="getGlobalMessagesParamStack">
+      <input name="msgDestination" value="${param.msgDestination}" />
+      <oparam name="output">
+        <output id="globalMessages" name="globalMessages" value="${getGlobalMessagesParamStack.globalMessages}" filter-id="messageSummary"/>
+      </oparam>
+    </droplet>
+  </actor-chain>
+</actor-template>
+

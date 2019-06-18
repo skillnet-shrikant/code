@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<spr:beans xmlns:spr="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns="http://www.endeca.com/schema/eacToolkit"
+  xsi:schemaLocation="
+      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+      http://www.endeca.com/schema/eacToolkit http://www.endeca.com/schema/eacToolkit/eacToolkit.xsd">
+
+
+<!--
+    ########################################################################
+    # Data Ingest Hosts
+    #
+    #
+  -->
+  <host id="ITLHost" hostName="@EAC_HOST@" port="@EAC_PORT@" />
+
+   <!--
+    ########################################################################
+    # Content Acquisition System Server
+    #
+    -->
+  <custom-component id="CAS" host-id="ITLHost" class="com.endeca.eac.toolkit.component.cas.ContentAcquisitionServerComponent">
+    <properties>
+      <property name="casHost" value="@CAS_HOST@" />
+      <property name="casPort" value="@CAS_PORT@" />
+      <property name="numPartialsBackups" value="5" />
+      <property name="numDvalIdMappingsBackups" value="5" />
+    </properties>
+    <directories>
+      <directory name="cumulativePartialsDir">./data/partials/cumulative_partials</directory>
+      <directory name="dvalIdMappingsArchiveDir">./data/dvalid_mappings_archive</directory>
+    </directories>
+  </custom-component>
+
+   <!--
+    ########################################################################
+    # Authority CAS for Dimval Sync
+    #
+    -->
+
+    <custom-component id="AuthorityCAS" host-id="ITLHost" class="com.endeca.eac.toolkit.component.cas.ContentAcquisitionServerComponent">
+    <properties>
+      <property name="casHost" value="@AUTHORITY_CAS_HOST@" />
+      <property name="casPort" value="@AUTHORITY_CAS_PORT@" />
+    </properties>
+  </custom-component>
+
+
+
+   <!--
+    ########################################################################
+    # Baseline update script
+    #
+  -->
+  <script id="BaselineUpdate">
+    <log-dir>./logs/provisioned_scripts</log-dir>
+    <provisioned-script-command>./control/baseline_update.sh</provisioned-script-command>
+    <bean-shell-script>
+      <![CDATA[
+    log.info("Starting baseline update script.");
+    // obtain lock
+    if (LockManager.acquireLock("update_lock")) {
+      // clean directories
+      CAS.cleanCumulativePartials();
+      Dgidx.cleanDirs();
+
+      // run crawl and archive any changes in dvalId mappings
+      CAS.runBaselineCasCrawl("${lastMileCrawlName}");
+      CAS.archiveDvalIdMappingsForCrawlIfChanged("${lastMileCrawlName}");
+
+      // archive logs and run the indexer
+      Dgidx.archiveLogDir();
+      Dgidx.run();
+
+      // distribute index, update Dgraphs
+      DistributeIndexAndApply.run();
+
+      // archive state files, index
+      Dgidx.archiveIndex();
+
+      // release lock
+      LockManager.releaseLock("update_lock");
+      log.info("Baseline update script finished.");
+    } else {
+      log.warning("Failed to obtain lock.");
+    }
+      ]]>
+    </bean-shell-script>
+  </script>
+
+   <!--
+    ########################################################################
+    # Script to distribute index to dgraph servers, then update dgraphs
+    # with the distributed index. This script can be called to update or
+    # refresh the index of the dgraph cluster in case a server fails, a
+    # new dgraph is added, or the index simply needs to be updated.
+    #
+  -->
+  <script id="DistributeIndexAndApply">
+    <bean-shell-script>
+      <![CDATA[
+    AuthoringDgraphCluster.cleanDirs();
+    AuthoringDgraphCluster.copyIndexToDgraphServers();
+    AuthoringDgraphCluster.applyIndex();
+
+    LiveDgraphCluster.cleanDirs();
+    LiveDgraphCluster.copyIndexToDgraphServers();
+    LiveDgraphCluster.applyIndex();
+      ]]>
+    </bean-shell-script>
+  </script>
+
+
+   <!--
+    ########################################################################
+    # Script to copy dval IDs from an authority CAS
+    #
+  -->
+  <script id="SyncAuthorityDims">
+    <bean-shell-script>
+      <![CDATA[
+          AuthorityCAS.exportDimensionValueIdMappings("@APP_NAME@-dimension-value-id-manager",
+                "@AUTHORITY_CAS_BASE_DIR@/ToolsAndFrameworks/11.2.0/reference/endeca_jspref/@AUTHORITY_CAS_FILE@");
+          exec("curl -O http://@AUTHORITY_CAS_HOST@:8006/endeca_jspref/@AUTHORITY_CAS_FILE@");
+          CAS.importDimensionValueIdMappings("@APP_NAME@-dimension-value-id-manager",
+                "@ENDECA_APPS_DIR@/@APP_NAME@/control/@AUTHORITY_CAS_FILE@");
+
+      ]]>
+    </bean-shell-script>
+  </script>
+
+
+  <!--
+    ########################################################################
+    # Script to distribute cumulative partials to dgraph servers, then
+    # update dgraphs with the distributed partials. This script can be
+    # called to update or refresh the state of the dgraph cluster in case a
+    # server fails, a new dgraph is added, or the index simply needs to be
+    # updated. If a refresh is required between baselines, this script will
+    # distribute all partial updates that represent the changes to the index
+    # since the last baseline.
+    #
+  -->
+  <script id="DistributePartialsAndApply">
+    <bean-shell-script>
+      <![CDATA[
+    AuthoringDgraphCluster.cleanLocalPartialsDirs();
+    AuthoringDgraphCluster.copyCumulativePartialUpdatesToDgraphServers();
+    AuthoringDgraphCluster.applyPartialUpdates();
+
+    LiveDgraphCluster.cleanLocalPartialsDirs();
+    LiveDgraphCluster.copyCumulativePartialUpdatesToDgraphServers();
+    LiveDgraphCluster.applyPartialUpdates();
+      ]]>
+    </bean-shell-script>
+  </script>
+
+
+   <!--
+    ########################################################################
+    # Partial update script
+    #
+  -->
+  <script id="PartialUpdate">
+    <log-dir>./logs/provisioned_scripts</log-dir>
+    <provisioned-script-command>./control/partial_update.sh</provisioned-script-command>
+    <bean-shell-script>
+      <![CDATA[
+    log.info("Starting partial update script.");
+    // obtain lock
+    if (LockManager.acquireLock("update_lock")) {
+
+      // run crawl and archive any changes in dvalId mappings
+      CAS.runIncrementalCasCrawl("${lastMileCrawlName}");
+      CAS.archiveDvalIdMappingsForCrawlIfChanged("${lastMileCrawlName}");
+
+      // Copy the partial to the master cumulative directory
+      CAS.fetchPartialsToCumulativeDir("${lastMileCrawlName}");
+
+      // copy from srcPartials to localCumulative for authoring
+      AuthoringDgraphCluster.copyPartialUpdateToDgraphServers();
+
+      // copy from local to mdex's update-dir and trigger the update for authoring
+      AuthoringDgraphCluster.applyPartialUpdates();
+
+      // copy from srcPartials to localCumulative for live
+      LiveDgraphCluster.copyPartialUpdateToDgraphServers();
+
+      // copy from localCumulative to mdex's update-dir and trigger the update
+      LiveDgraphCluster.applyPartialUpdates();
+
+      // Archive accumulated partials
+      CAS.archiveCumulativePartials();
+
+      // release lock
+      LockManager.releaseLock("update_lock");
+      log.info("Partial update script finished.");
+    } else {
+      log.warning("Failed to obtain lock.");
+    }
+      ]]>
+    </bean-shell-script>
+  </script>
+
+  <!--
+    ########################################################################
+    # Dgidx
+    #
+  -->
+  <dgidx id="Dgidx" host-id="ITLHost">
+    <properties>
+      <property name="numLogBackups" value="10" />
+      <property name="numIndexBackups" value="3" />
+    </properties>
+    <args>
+      <arg>-v</arg>
+      <arg>--compoundDimSearch</arg>
+    </args>
+    <log-dir>./logs/dgidxs/Dgidx</log-dir>
+    <input-dir>./data/cas_output</input-dir>
+    <output-dir>./data/dgidx_output</output-dir>
+    <temp-dir>./data/temp</temp-dir>
+    <run-aspell>true</run-aspell>
+  </dgidx>
+
+  </spr:beans>
+<!-- @version $Id: //hosting-blueprint/B2CBlueprint/version/11.2/Storefront/deploy/script/DataIngest.xml#3 $$Change: 1179550 $-->

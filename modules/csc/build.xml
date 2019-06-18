@@ -1,0 +1,119 @@
+<!-- Individual Module Build File -->
+<!-- Version: $Id$ -->
+<project name="Build cscStore module" default="build" basedir=".">
+	<!-- Defining property name to access environmental variables -->
+	<property environment="env"/>
+	<!-- Importing build files and properties files -->
+	<property file="../../build.properties"/>
+	<property file="../../users/${user.name}.properties"/>
+	<property file="module.properties"/>
+	<import file="../../common-classpath.xml"/>
+	<import file="./csc-classpath.xml"/>
+
+	<target name="build">
+		<echo message="Building ${module.name}"/>
+		<mkdir dir="./build/classes"/>
+		<!-- Compiling Java files -->
+		<javac srcdir="./src/" destdir="./build/classes/" debug="on">
+			<classpath refid="common.classpath"/>
+			<classpath refid="csc.classpath"/>
+			<classpath>
+			<fileset dir="../main/lib">
+			   <include name="**/*.jar"/>
+			</fileset>
+			<fileset dir="../main/lib-external">
+				<include name="**/*.jar"/>
+			</fileset>	
+			<fileset dir="../fulfillment/lib">
+			   <include name="**/*.jar"/>
+			</fileset>
+			<fileset dir="../fulfillment/omsallocation/lib">
+			   <include name="**/*.jar"/>
+			</fileset>
+			<fileset dir="../integration/firstData/lib">
+			   <include name="**/*.jar"/>
+			</fileset>
+			<fileset dir="../integration/aci/lib">
+				<include name="**/*.jar"/>
+			</fileset>
+			<fileset dir="../fulfillment/settlement/lib">
+				<include name="**/*.jar"/>
+			</fileset>
+			<fileset dir="../integration/dashboard/lib">
+				<include name="**/*.jar"/>
+			</fileset>	
+			</classpath>
+		</javac>
+		<!-- Copying properties files -->
+		<copy todir="./build/classes">
+			<fileset dir="src/">
+				<include name="**/*.properties"/>
+			</fileset>
+		</copy>
+		<jar destfile="lib/${module.name}.jar" basedir="./build/classes" includes="*.class,*.properties">
+			<fileset dir="./build/classes"/>
+		</jar>
+		<echo message="Finished building ${module.name}"/>
+	</target>
+
+	<target name="deploy">
+		<echo message="Deploying ${module.name}"/>
+		<copy todir="${atg.dir}/${module.path}/${module.name}">
+			<fileset dir=".">
+				<exclude name="**/sql/"/>
+				<exclude name="**/src/"/>
+				<exclude name="**/docs/"/>
+				<exclude name="**/bin/"/>
+				<exclude name="**/build/"/>
+				<exclude name="**/eclipse_build/"/>
+				<exclude name="*.project"/>
+				<exclude name="*.classpath"/>
+				<exclude name="*.xml"/>
+				<exclude name="*.properties"/>
+			</fileset>
+		</copy>
+		<copy todir="${atg.dir}/${module.path}/cscUIExtensions">
+			<fileset dir="./../cscUIExtensions">
+				<exclude name="**/*.project"/>
+				<exclude name="**/*.classpath"/>
+			</fileset>
+		</copy>
+	</target>
+
+
+	<target name="clean" unless="clean-before-build">
+	        <echo message="Cleaning ${module.name}"/>
+		<!-- Deleting classes directory -->
+		<delete includeemptydirs="true" failonerror="false">
+			<fileset dir="./build/classes" />
+		</delete>
+		<!-- Deleting .jar file from lib directory -->
+		<delete file="./lib/${module.name}.jar"/>
+		<!-- Deleting the module diretory in ATG_DIR -->
+		<delete dir="${atg.dir}/${module.path}/${module.name}"/>
+		<delete dir="${atg.dir}/${module.path}/cscUIExtensions"/>
+    <delete includeemptydirs="true" failonerror="false" >
+		 <fileset dir="${dynamo.home}/servers/${csc.server}/j2ee/archive-cache"/>
+	  </delete>
+	</target>
+
+	<!-- For hotdeploy csc jsps change the csc-fulfill.ear name depending on ear been used -->
+	<target name="quick-webdeploy" description="deploys to server's .ear">
+			<echo message="Copying to weblogic dir : ${csc.deploy.path}/${csc-fulfill.ear}/DCS-CSR-UI.war"/>
+
+			<copy todir="${csc.deploy.path}/${csc-fulfill.ear}/DCS-CSR-UI.war" verbose="true">
+			  <fileset dir="../cscUIExtensions/DCS-CSR-UI/j2ee-apps/DCS-CSR-UI.ear/DCS-CSR-UI.war" includes="*.jsp"/>
+			  <fileset dir="../cscUIExtensions/DCS-CSR-UI/j2ee-apps/DCS-CSR-UI.ear/DCS-CSR-UI.war" includes="**/*" excludes="META-INF/**, build/**, src/**, **/*.scss, **/*.js, docroot/**,.classpath,.project,**/*.svn,*.*,sql/**,.externalToolBuilders/**,bin/**" />
+			</copy>		
+
+	</target>
+	<target name="quick-webdeploy2" description="deploys to server's .ear">
+		<echo message="Copying to weblogic dir : ${csc.deploy.path}/${csc-fulfill.ear}/ServiceFramework.war"/>
+
+		<copy todir="${csc.deploy.path}/${csc-fulfill.ear}/ServiceFramework.war" verbose="true">
+		  <fileset dir="../cscUIExtensions/Agent/j2ee-apps/Agent.ear/ServiceFramework.war" includes="*.jsp"/>
+		  <fileset dir="../cscUIExtensions/Agent/j2ee-apps/Agent.ear/ServiceFramework.war" includes="**/*" excludes="META-INF/**, build/**, src/**, **/*.scss, **/*.js, docroot/**,.classpath,.project,**/*.svn,*.*,sql/**,.externalToolBuilders/**,bin/**" />
+		</copy>		
+
+	</target>
+</project>

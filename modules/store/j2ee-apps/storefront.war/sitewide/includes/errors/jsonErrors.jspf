@@ -1,0 +1,82 @@
+<dsp:page>
+
+	<dsp:importbean bean="/com/mff/droplet/InstanceOf"/>
+	<dsp:importbean bean="/atg/dynamo/droplet/ErrorMessageForEach"/>
+	<dsp:importbean bean="/atg/dynamo/droplet/Switch"/>
+	<dsp:importbean bean="/atg/dynamo/droplet/IsEmpty"/>
+
+	<json:property name="success">false</json:property>
+	<dsp:droplet name="InstanceOf">
+		<dsp:param name="object" param="formhandler"/>
+		<dsp:param name="klass" value="com.mff.droplet.InlineFormErrorSupport"/>
+		<dsp:oparam name="false">
+			<json:property name="InlineFormErrorSupport">
+				false
+			</json:property>
+			<json:array name="errorMessages">
+				<dsp:droplet name="ErrorMessageForEach">
+					<dsp:param name="exceptions" param="formhandler.formExceptions" />
+					<dsp:param name="messageTable" param="messageTable"/>
+					<dsp:param name="propertyNameTable" param="propertyNameTable"/>
+					<dsp:oparam name="output">
+						<json:property escapeXml="false">
+							<dsp:getvalueof var="errMsg" param="message" />
+							<c:out value="${errMsg}" escapeXml="false"/>
+						</json:property>
+					</dsp:oparam>
+				</dsp:droplet>
+			</json:array>
+		</dsp:oparam>
+		<dsp:oparam name="true">
+			<json:property name="InlineFormErrorSupport">
+				true
+			</json:property>
+			<dsp:droplet name="Switch">
+				<dsp:param name="value" param="formhandler.formError"/>
+				<dsp:oparam name="true">
+					<json:array name="errorMessages">
+						<dsp:droplet name="ErrorMessageForEach">
+							<dsp:param name="exceptions" param="formhandler.nonFormFieldExceptions" />
+							<dsp:param name="messageTable" param="messageTable"/>
+							<dsp:param name="propertyNameTable" param="propertyNameTable"/>
+							<dsp:oparam name="output">
+								<json:property escapeXml="false">
+									<dsp:getvalueof var="errMsg" param="message" />
+									<c:out value="${errMsg}" escapeXml="false"/>
+								</json:property>
+							</dsp:oparam>
+						</dsp:droplet>
+					</json:array>
+					<dsp:droplet name="IsEmpty">
+						<dsp:param name="value" param="formhandler.formFieldExceptions"/>
+						<dsp:oparam name="false">
+							<dsp:droplet name="/com/mff/droplet/JSONFormExceptionDroplet">
+								<dsp:param name="formExceptions" param="formhandler.formFieldExceptions"/>
+								<dsp:oparam name="output">
+									<json:object name="fieldErrorMessages">
+										<dsp:droplet name="/atg/dynamo/droplet/ForEach">
+											<dsp:param name="array" param="rawObject.fieldsWithErrors"/>
+											<dsp:param name="elementName" value="fieldError"/>
+											<dsp:oparam name="output">
+												<dsp:getvalueof var="field" param="key"/>
+												<dsp:getvalueof var="errors" param="fieldError"/>
+												<json:array name="${field}" items="${errors}"/>
+											</dsp:oparam>
+										</dsp:droplet>
+									</json:object>
+								</dsp:oparam>
+							</dsp:droplet>
+						</dsp:oparam>
+					</dsp:droplet>
+				</dsp:oparam>
+			</dsp:droplet>
+		</dsp:oparam>
+		<dsp:oparam name="error">
+			<json:array name="errorMessages">
+				<json:property>
+					<fmt:message key="common.error"/>
+				</json:property>
+			</json:array>
+		</dsp:oparam>
+	</dsp:droplet>
+</dsp:page>

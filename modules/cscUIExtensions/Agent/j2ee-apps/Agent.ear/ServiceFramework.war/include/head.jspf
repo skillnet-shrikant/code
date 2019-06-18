@@ -1,0 +1,130 @@
+<%--
+  The additional Heading subpage.
+  @version $Id: //application/service-UI/version/11.2/framework/Agent/src/web-apps/ServiceFramework/include/head.jspf#1 $ $Change: 946917 $
+  @updated $DateTime: 2015/01/26 17:26:27 $ $Author: jsiddaga $
+  --%>
+
+<dspel:page>
+<dspel:layeredBundle basename="atg.svc.agent.WebAppResources">
+
+<title><fmt:message key="appName" /></title>
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"> 
+<link rel="icon" href="<c:url value='/image/favicon.ico'/>" type="image/x-icon" />
+<link rel="shortcut icon" href="<c:url value='/image/favicon.ico'/>" type="image/x-icon" />
+<c:forEach var="styleSheet" items="${UIConfig.applicationStyleSheets}">
+  <link type="text/css" href="${styleSheet}" rel="stylesheet" type="text/css"/>
+</c:forEach>
+
+<!--[if IE]>
+  <link href="/agent/css/ie/ie_fix.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+
+<script type="text/javascript">
+  var djConfig = {
+    <c:if test="${UIConfig.dojoDebug}">
+    isDebug:true,
+    popup:true,
+    </c:if>
+    locale:"<dspel:valueof bean='/atg/svc/agent/environment/EnvironmentTools.userLocale' />".toLowerCase().replace("_", "-"),
+    extraLocale:['<c:out value="${UIConfig.javaScriptFormattingLocale}" escapeXml="false"/>'],
+    usePlainJson: true,
+    parseOnLoad: true,
+    baseUrl:"<c:url context='/dojo-1' value='/dojo/'/>",
+    usesApplets: false   // If the app uses an applet, asking styles need to be used
+  };
+</script>
+
+<c:forEach var="resourceFile" items="${UIConfig.resourceScriptFiles}">
+  <script type="text/javascript" src="${resourceFile}?locale=<dspel:valueof bean='/atg/svc/agent/environment/EnvironmentTools.userLocale' />"></script>
+</c:forEach>
+
+<script type="text/javascript" src="${UIConfig.contextRoot}/script/application.jsp"></script>
+<script type="text/javascript">
+  dojo.require("dojo.parser");
+  dojo.require("dojo.cookie");
+  dojo.require("dijit.dijit");
+  dojo.require("dijit.layout.LayoutContainer");
+  dojo.require("dojox.layout.ContentPane"); // note the dojox, we need executeScripts
+  dojo.require("dijit.layout.SplitContainer");
+  dojo.require("dijit.layout.AccordionContainer");
+  dojo.require("dojox.Dialog");
+  dojo.require("dojox.grid.Grid");
+  dojo.require("dojox.grid._data.model");
+  dojo.require("dijit.Menu");
+  dojo.require("dijit.form.ValidationTextBox");
+  dojo.require("dijit.form.NumberTextBox");
+  dojo.require("dojox.widget.Toaster");
+  dojo.require("dijit.TitlePane");
+  dojo.require("dijit.Tooltip")
+  dojo.require("dijit.layout.TabContainer");
+  // Register the messaging widget namespace
+  dojo.registerModulePath("atg.widget.messaging", "/WebUI/dijit/messaging");
+  dojo.require("atg.widget.messaging.MessageBar");
+  dojo.require("atg.widget.messaging.SmallMessageBar");
+  dojo.require("atg.widget.messaging.MessageFader");
+  dojo.require("atg.widget.messaging.MessagePane");
+  // Register the validation widget namespace
+  dojo.registerModulePath("atg.widget.validation", "/WebUI/dijit/validation");
+  dojo.require("atg.widget.validation.SubmitButton");
+  dojo.require("atg.widget.validation.TextArea");
+  dojo.require("atg.widget.validation.SimpleComboBox");
+  // Register the Embedded Assistance widget namespace
+  dojo.registerModulePath("atg.widget.assistance", "/WebUI/dijit/assistance");
+  dojo.require("atg.widget.assistance.Inline");
+  dojo.require("atg.widget.assistance.Popup");
+  dojo.require("atg.widget.assistance.Base");
+  // Register the SimpleDialog widget
+  dojo.registerModulePath("atg.widget.simpledialog", "/WebUI/dijit/simpledialog");
+  dojo.require("atg.widget.simpledialog.SimpleDialog");
+  // Register the form widgets
+  dojo.registerModulePath("atg.widget.form", "/WebUI/dijit/form");
+  dojo.require("atg.widget.form.Button");
+  dojo.require("atg.widget.form.TextBox");
+  dojo.require("atg.widget.form.ValidationTextBox");
+  dojo.require("atg.widget.form.NumberTextBox");
+  dojo.require("atg.widget.form.CurrencyTextBox");
+  dojo.require("atg.widget.form.ValidationTextBox");
+  dojo.require("atg.widget.form._FormWidget");
+  dojo.require("atg.widget.form.ComboBox");
+  dojo.require("atg.widget.form.simpleCombo");
+  dojo.require("atg.widget.form.FilteringSelect");
+  dojo.require("atg.widget.validation.CurrencyTextboxEx");
+
+  <c:if test="${op == 'initialSearch'}">
+    window.lCrmSearchTextValues = "<c:out value='${crmSearchTextValues}' escapeXml='true'/>".replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&").replace(/&#034;/g, "\"").replace(/&#039;/g, "'");
+    window.lCrmFavoriteQuery = "<c:out value='${crmFavoriteQuery}'/>";
+    window.lCrmKeywordAllOfTheWords = "<c:out value='${crmKeywordAllOfTheWords}'/>";
+    window.lCrmKeywordAtLeastOneOfTheWords = "<c:out value='${crmKeywordAtLeastOneOfTheWords}'/>";
+    window.lCrmKeywordNotTheWords = "<c:out value='${crmKeywordNotTheWords}'/>";
+    window.lCrmDocumentFormats = "<c:out value='${crmDocumentFormats}'/>";
+    window.lCrmSolutionClasses = "<c:out value='${crmSolutionClasses}'/>";
+    window.lCrmTopics = "<c:out value='${crmTopics}'/>";
+    window.lCrmSearchAllTopics = "<c:out value='${crmSearchAllTopics}'/>";
+    window.lCrmCreationDateType = "<c:out value='${crmCreationDateType}'/>";
+    window.lCrmListCreationRange = "<c:out value='${crmListCreationRange}'/>";
+    window.lCrmCreationDateFrom = "<c:out value='${crmCreationDateFrom}'/>";
+    window.lCrmCreationDateTo = "<c:out value='${crmCreationDateTo}'/>";
+    window.lCrmLastModifiedDateType = "<c:out value='${crmLastModifiedDateType}'/>";
+    window.lCrmListLastModifiedRange = "<c:out value='${crmListLastModifiedRange}'/>";
+    window.lCrmLastModifiedDateFrom = "<c:out value='${crmLastModifiedDateFrom}'/>";
+    window.lCrmLastModifiedDateTo = "<c:out value='${crmLastModifiedDateTo}'/>";
+    window.lCrmLanguageQuery = "<c:out value='${crmLanguageQuery}'/>";
+    window.lCrmLanguageResults = "<c:out value='${crmLanguageResults}'/>";
+    window.lCrmIsRecordSearch = "<c:out value='${crmIsRecordSearch}'/>";  
+    window.lCrmAdvancedConstraintsAsXml = "<c:out value='${crmAdvancedConstraintsAsXml}'/>";
+    window.lCrmAdvancedNonSolutionConstraintsAsXml = "<c:out value='${crmAdvancedNonSolutionConstraintsAsXml}'/>";
+    window.lCrmAdvancedSolutionConstraintsAsXml = "<c:out value='${crmAdvancedSolutionConstraintsAsXml}'/>";
+  </c:if>
+  
+  //Set FCKEditor Base Path
+  //
+  window.fckEditorBasePath = "/WebUI/fckeditor/";
+  window.windowIdParam = "${stateHolder.windowIdParameterName}=${windowId}";
+  window.applicationContextRoot = "${UIConfig.contextRoot}";
+</script>
+<caf:validationI18n/>
+
+</dspel:layeredBundle>
+</dspel:page>
+
+<%-- @version $Id: //application/service-UI/version/11.2/framework/Agent/src/web-apps/ServiceFramework/include/head.jspf#1 $$Change: 946917 $--%>

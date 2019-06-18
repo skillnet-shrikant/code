@@ -1,0 +1,1 @@
+alter table mff_order add ip_address varchar(20);

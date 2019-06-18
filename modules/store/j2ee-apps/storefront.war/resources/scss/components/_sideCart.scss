@@ -1,0 +1,102 @@
+// Use the components directory to construct the meat of your CSS.
+// Categorize your styles here based on element in the file name.
+
+// side cart definitions
+// note: side cart depends on offcanvas
+
+.cart-count {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	top: -15px;
+	right: 1px;
+	color: $primary-color;
+	@include font-size(12px);
+	line-height: 20px;
+	font-weight: $bold;
+	text-align: center;
+}
+
+.side-cart {
+	@include off-canvas-menu($position: right);
+	@include rem-size(width, 400px);
+	max-width: 88%;
+	@include font-size(11px);
+	height: 100vh;
+
+	@include media(medium-up){
+		@include font-size(12px);
+	}
+}
+
+.side-cart-overlap {
+	.side-cart {
+		-ms-transform: none;
+		-webkit-transform: none;
+		-moz-transform: none;
+		-o-transform: none;
+		transform: none;
+		z-index: 1003;
+		@include box-shadow(0px, 0px, 10px, $deep-gray);
+
+		overflow: visible;
+		.icon-close {
+			position: absolute;
+			right: 10px;
+			top: 14px;
+			color: $white;
+			@include font-size(12px);
+		}
+	}
+	a.exit-off-canvas { @include back-link; }
+}
+
+.side-cart-header {
+	@include font-size(14px);
+	font-weight: $bold;
+	padding: 10px;
+	color: $white;
+	background: $deepest-gray;
+}
+
+.side-cart-items {
+	height: calc(100vh - 128px);
+	margin-bottom: 84px;
+	overflow-y: auto;
+}
+
+.side-cart-item {
+	@include grid-row();
+	padding: 16px 0;
+	border-bottom: 1px solid $base-gray;
+
+	.item-image {
+		width: 40%;
+	}
+	.item-details {
+		width: 60%;
+		line-height: 14px;
+		@include font-size(11px);
+	}
+	.product-name {
+		margin-bottom: 3px;
+	}
+	.product-selections {
+		padding: 6px 0;
+	}
+}
+
+.side-cart-footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	background: $white;
+	@include box-shadow(0px, 0px, 10px, $deep-gray);
+
+	.totals {
+		padding: 10px 0;
+	}
+	.button {
+		width: 100%;
+	}
+}

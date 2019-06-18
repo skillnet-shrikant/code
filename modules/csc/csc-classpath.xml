@@ -1,0 +1,14 @@
+<project name="CSCClasspath" basedir=".">
+    <path id="csc.classpath">
+    	<fileset file="${atg.home}/../Service${atg.version}/Service/Framework/lib/classes.jar" />
+        <fileset file="${atg.home}/../Service${atg.version}/Service/Framework/Agent/lib/classes.jar" />
+    	<fileset file="${atg.home}/../Service${atg.version}/Service/Framework/UI/lib/classes.jar" />
+        <fileset file="${atg.home}/../WebUI/lib/classes.jar" />
+        <fileset file="${atg.home}/../Ticketing/lib/ticketing.jar" />
+        <fileset file="${atg.home}/../CSC${atg.version}/DCS-CSR/lib/classes.jar" />
+		<fileset file="${atg.home}/../CAF${atg.version}/CAF/lib/classes.jar" />
+    	<fileset file="${atg.home}/../Agent/lib/classes.jar" />
+    	<fileset file="${atg.home}/../DPS-UI/lib/classes.jar" />
+    	<fileset file="${atg.home}/../AssetUI/lib/classes.jar" />
+    </path>
+</project>

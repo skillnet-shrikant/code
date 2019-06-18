@@ -1,0 +1,94 @@
+.promo-code {
+	background: $light-gray;
+	@include rem-size(padding, 0px 10px 6px);
+	@include font-size(12px);
+	@include rem-size(margin-bottom, 16px);
+
+	@include media(medium-up) {
+		@include rem-size(padding, 10px 20px 16px);
+	}
+	.promo-form {
+		@include rem-size(padding-top, 8px);
+
+		.field-group {
+			margin-bottom: 0;
+		}
+		.promo-form-fields {
+			@include rem-size(padding-top, 4px);
+
+			@include media(medium-up) {
+				@include rem-size(padding, 6px 0px);
+			}
+		}
+		@include media(medium-up) {
+			.promo-code-field {
+				display: inline-block;
+				width: calc(100% - 116px);
+			}
+		}
+		.apply-promo-btn {
+			width: 100%;
+			@include rem-size(margin, 10px 0px 0px);
+			@include media(medium-up){
+				width: 100px;
+				float: right;
+				margin: 0;
+			}
+		}
+	}
+	.promo-applied {
+		background: $white;
+		border: 1px solid $border-color;
+		@include rem-size(padding, 4px 8px);
+		@include rem-size(margin, 8px 0px 6px);
+
+		.remove-link {
+			display: inline;
+			color: $red;
+			float: right;
+
+			&:hover {
+				color: darken($red, 10);
+				text-decoration: none;
+
+				.icon {
+					color: darken($red, 10);
+				}
+				.remove-link {
+					text-decoration: underline;
+				}
+			}
+			.icon {
+				@include font-size(10px);
+				margin-right: 4px;
+				color: $red;
+				vertical-align: middle;
+			}
+		}
+	}
+	.promo-code-msg {
+		color: $error-color;
+		p {
+			margin: 0;
+		}
+		.icon {
+			position: relative;
+			top: 2px;
+		}
+	}
+	.view-details {
+		@include rem-size(margin, 0px 10px);
+	}
+}
+
+.gwp-note {
+	color: $red;
+
+	&:hover {
+		color: $red;
+
+		.icon {
+			color: $red;
+		}
+	}
+}

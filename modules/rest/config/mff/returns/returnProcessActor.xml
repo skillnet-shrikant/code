@@ -1,0 +1,62 @@
+<actor-template default-chain-id="returnProcess" xsi:noNamespaceSchemaLocation="http://www.atg.com/xsds/actorChain_1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+<actor-chain id="returnProcess" transaction="TX_SUPPORTS">
+  <form var="returnProcessFormHandler" requires-session-confirmation="true" name="/mff/returns/ReturnProcessFormHandler" use-forwards="true" handle="processReturns" id="returnProcessFormHandler">
+      <input name="commerceItemCount" priority="1000" value="${param.commerceItemCount}"/>
+      <input name="orderNumber" value="${param.orderNumber}"/>
+      <input name="storeId" value="${param.storeId}"/>
+      <input name="returnInput[].commerceItemId" value="${objectParam.items[].commerceItemId}" array-size="${param.commerceItemCount}"/>
+      <input name="returnInput[].quantityReturned" value="${objectParam.items[].quantityReturned}" array-size="${param.commerceItemCount}"/>
+      <input name="returnInput[].returnReason" value="${objectParam.items[].returnReason}" array-size="${param.commerceItemCount}"/>
+      <input name="returnInput[].returnShipping" value="${objectParam.items[].returnShipping}" array-size="${param.commerceItemCount}"/>
+      <input name="returnInput[].comments" value="${objectParam.items[].comments}" array-size="${param.commerceItemCount}"/>
+      
+      <input name="errorURL" value="/model/mff/returns/ReturnProcessActor/return-error"/>
+      <input name="successURL" value="/model/mff/returns/ReturnProcessActor/return-success"/>
+    </form>
+</actor-chain>
+
+<actor-chain id="returnProcessPOS" transaction="TX_SUPPORTS">
+  <form var="returnProcessFormHandler" requires-session-confirmation="true" name="/mff/returns/ReturnProcessFormHandler" use-forwards="true" handle="processReturnsPOS" id="returnProcessFormHandler">
+      <input name="commerceItemCount" priority="1000" value="${param.commerceItemCount}"/>
+      <input name="orderNumber" value="${param.orderNumber}"/>
+      <input name="storeId" value="${param.storeId}"/>
+      <input name="returnInput[].commerceItemId" value="${objectParam.items[].commerceItemId}" array-size="${param.commerceItemCount}"/>
+      <input name="returnInput[].quantityReturned" value="${objectParam.items[].quantityReturned}" array-size="${param.commerceItemCount}"/>
+      <input name="returnInput[].returnReason" value="${objectParam.items[].returnReason}" array-size="${param.commerceItemCount}"/>
+      <input name="returnInput[].returnShipping" value="${objectParam.items[].returnShipping}" array-size="${param.commerceItemCount}"/>
+      <input name="returnInput[].comments" value="${objectParam.items[].comments}" array-size="${param.commerceItemCount}"/>
+      <input name="returnInput[].linesReturned" value="${objectParam.items[].linesReturned}" array-size="${param.commerceItemCount}"/>
+      <input name="returnInput[].amountReturned" value="${objectParam.items[].amountReturned}" array-size="${param.commerceItemCount}"/>
+      
+      <input name="errorURL" value="/model/mff/returns/ReturnProcessActor/return-error"/>
+      <input name="successURL" value="/model/mff/returns/ReturnProcessActor/return-success-pos"/>
+    </form>
+</actor-chain>
+
+<actor-chain id="return-error" transaction="TX_SUPPORTS">
+  <actor return-model-var="model" name="/mff/returns/ReturnProcessActor" id="error" chain-id="error">
+    <output id="model" value="${model}" add-map-children="true"/>
+  </actor>
+</actor-chain>
+
+<actor-chain id="return-success" transaction="TX_SUPPORTS">
+   <component component-var="fh" name="/mff/returns/ReturnProcessFormHandler" set-property-requires-session-confirmation="true" id="fh" invoke-method-requires-session-confirmation="true">
+      <output filter-id="detailed" name="response" id="response" value="${fh.returnResponse.order}"/>
+   </component>
+</actor-chain>
+
+<actor-chain id="return-success-pos" transaction="TX_SUPPORTS">
+   <component component-var="fh" name="/mff/returns/ReturnProcessFormHandler" set-property-requires-session-confirmation="true" id="fh" invoke-method-requires-session-confirmation="true">
+      <output filter-id="summary" name="response" id="response" value="${fh.returnResponsePOS}"/>
+   </component>
+</actor-chain>
+
+<actor-chain id="error" transaction="TX_SUPPORTS">
+  <component component-var="fh" name="/mff/returns/ReturnProcessFormHandler" set-property-requires-session-confirmation="true" id="fh" invoke-method-requires-session-confirmation="true">
+    <output name="formError" id="formError" value="${fh.formError}"/>
+    <output name="formExceptions" id="formExceptions" value="${fh.formExceptions}"/>
+  </component>
+</actor-chain>
+
+</actor-template>

@@ -1,0 +1,17 @@
+<gsa-template xml-combine="append">
+  
+  <header>
+    <name>ACI Profile Extensions</name>
+    <author>DMI</author>
+  </header>
+  	<item-descriptor name="credit-card" xml-combine="append">
+		<table name="aci_profile_credit_card" type="auxiliary" id-column-name="id">
+			<property name="nameOnCard" column-name="name_on_card" data-type="string" category-resource="categoryBasics" display-name="Name On Card"/>
+			<property column-name="token_number" name="tokenNumber" property-type="com.security.repository.property.EncryptionPropertyDescriptor" category-resource="categoryBasics" display-name="Aci Token">
+				<attribute name="encryptor" bean="/com/security/crypto/AESEncryptor"/>
+				<attribute name="trace" value="Token num"/>
+			</property>			
+			<property name="mopTypeCode" column-name="mop_type_code" data-type="string" category-resource="categoryBasics" display-name="Mop Type Code"/>
+		</table>
+	</item-descriptor>
+</gsa-template>

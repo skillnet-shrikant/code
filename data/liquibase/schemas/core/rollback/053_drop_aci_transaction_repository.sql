@@ -1,0 +1,5 @@
+alter table aci_payment_transaction drop constraint aci_payment_transaction_f;
+drop table aci_payment_transaction;
+alter table aci_fraud_transaction drop constraint aci_fraud_transaction_f;
+drop table aci_fraud_transaction;
+drop table aci_transaction;

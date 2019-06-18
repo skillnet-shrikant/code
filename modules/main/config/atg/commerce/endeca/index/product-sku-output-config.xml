@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE item PUBLIC "-//Art Technology Group, Inc.//DTD Repository Ouput Specifier 1.0//EN" "http://www.atg.com/dtds/search/indexing-dependency-schema.dtd">
+	<item item-descriptor-name="product">
+		<properties>
+		<!-- Begin MFF Index Customizations -->
+			<!-- Removing unused product properties from index -->
+			<property name="$baseUrl" xml-combine="remove"/>
+			<property name="dateAvailable" xml-combine="remove"/>
+			<property name="creationDate" xml-combine="remove"/>
+			<property name="daysAvailable" xml-combine="remove"/>
+			<property name="$url" xml-combine="remove"/>
+			<property name="nonreturnable" xml-combine="remove"/>
+			<property name="language" xml-combine="remove"/>
+			<property name="recordtyperaw" xml-combine="remove"/>
+			<property name="sku.bundleLinks.description" xml-combine="remove"/>
+			<property name="sku.bundleLinks.displayName" xml-combine="remove"/>
+			<property name="sku.bundleLinks.item.description" xml-combine="remove"/>
+			<!-- Make the product reposiotory ID searchable -->
+			<property name="$repositoryId" is-dimension="false" type="string" wildcard-searchable="true" text-searchable="true" />
+			<!-- Product level attributes-->
+			<property name="description" is-dimension="false" type="string" wildcard-searchable="false" text-searchable="true" />
+			<property name="longDescription" is-dimension="false" type="string" wildcard-searchable="false" text-searchable="true" />
+			<property name="sellingPoints" is-dimension="false" type="string" wildcard-searchable="false" text-searchable="true" />
+			<property name="tags" is-dimension="false" type="string" wildcard-searchable="false" text-searchable="true" />
+			<property name="madeInUsa" is-dimension="true" type="boolean">
+				<translate input="1" output="Yes"/>
+				<translate input="0" output="No"/>
+			</property>
+			<property name="inStoreOnly" is-dimension="true" type="boolean">
+				<translate input="1" output="Yes"/>
+				<translate input="0" output="No"/>
+			</property>
+
+			<property name="fulfillmentMethod" output-name="product.fulfillmentMethod" type="integer" multiselect-type="multi-or" is-dimension="true" text-searchable="false">
+				<translate input="1" output="Buy Online &amp; Pick Up"/>
+				<translate input="5" output="Available In Select Stores"/>
+				<translate input="7" output="Free Pickup"/>
+				<translate input="8" output="Ship to Home"/>
+			</property>
+
+			<property name="ffl" is-dimension="true" type="boolean" output-name="product.ffl.required">
+				<translate input="1" output="Yes"/>
+				<translate input="0" output="No"/>
+			</property>
+			<property name="minimumAge" output-name="product.minimumAge" type="integer" multiselect-type="multi-or" is-dimension="true" text-searchable="false"/>
+			<property text-searchable="true" name="brand" type="string" multiselect-type="multi-or" is-dimension="true"/>
+			<property name="thumbnailUrl" is-dimension="false" type="string" text-searchable="false"  property-accessor="/atg/endeca/index/accessor/ProductThumnailAccessor" is-non-repository-property="true"/>
+			<property name="bvReviewsGroup" output-name="product.bvReviewsGroup" type="integer" multiselect-type="multi-or" is-dimension="true" text-searchable="false"/>
+			<property name="repositoryIdWithoutZeros" is-dimension="false" type="string" wildcard-searchable="false" text-searchable="true" />
+		</properties>
+		<item parent-property="childProducts" property-name="parentCategories" is-multi="true" xml-combine="append">
+			<properties>
+				<property name="tags" is-dimension="false" type="string" wildcard-searchable="false" text-searchable="true" />
+			</properties>
+		</item>
+
+	<item is-multi="true" property-name="childSKUs" xml-combine="append" is-document="true" repository-item-group="/atg/commerce/search/SKUIndexedItemsGroup">
+		<properties>
+			<!-- Removing unused sku properties from index -->
+			<property name="$baseUrl" xml-combine="remove"/>
+			<property name="$url" xml-combine="remove"/>
+			<property name="salePrice" xml-combine="remove"/>
+			<property name="creationDate" xml-combine="remove"/>
+			<property name="onSale" xml-combine="remove"/>
+			<property name="recordtyperaw" xml-combine="remove"/>
+			<!-- sku level attributes-->
+			<property name="$repositoryId" is-dimension="false" type="string" wildcard-searchable="true" text-searchable="true" />
+			<property name="clearance" is-dimension="true" type="boolean">
+				<translate input="1" output="Clearance"/>
+			</property>
+			<property name="price" type="float" property-accessor="/atg/commerce/endeca/index/accessor/ActivePriceAccessor" output-name="sku.activePrice" is-non-repository-property="true"/>
+
+			<property name="sku.dynamic.props" is-dimension="true" type="string" text-searchable="false"  property-accessor="/atg/endeca/index/accessor/DynamicPropertyAccessor" is-non-repository-property="true"/>
+			<property name="repositoryIdWithoutZeros" is-dimension="false" type="string" wildcard-searchable="false" text-searchable="true" />
+			<property name="vpn" is-dimension="false" type="string" wildcard-searchable="false" text-searchable="true" />
+		</properties>
+	</item>
+	</item>

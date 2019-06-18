@@ -1,0 +1,25 @@
+.breadcrumbs {
+	ul {
+		@include grid-row();
+		padding: 16px 0 16px 4px;
+		list-style: none;
+	}
+	.crumb {
+		font-weight: $normal;
+		color: $black;
+		display: inline-block;
+		float: left;
+		padding-left: 6px;
+		@include font-size(12px);
+		@include rem-size(line-height, 18px);
+	}
+	a.crumb:after {
+		content: '|';
+		display: inline-block;
+		padding-left: 6px;
+		text-decoration: none;
+	}
+	.active {
+		font-weight: $bold;
+	}
+}

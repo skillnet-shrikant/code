@@ -1,0 +1,204 @@
+<ContentItem type="Page" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://endeca.com/schema/content/2008">
+  <TemplateId>GardenCenterPage</TemplateId>
+  <Name>Garden Center Page</Name>
+  <Property name="HeaderContent">
+    <ContentItemList type="HeaderContent"/>
+  </Property>
+  <Property name="SecondaryContent">
+    <ContentItemList type="SecondaryContent">
+      <ContentItem type="SecondaryContent">
+        <TemplateId>GardenCenterLogo</TemplateId>
+        <Name>GardenCenterLogo</Name>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Secondary Content Slot</Name>
+        <Property name="contentPaths">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>/content/Shared/Garden Center Guides Navigation</String>
+          </List>
+        </Property>
+        <Property name="templateTypes">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>SecondaryContent</String>
+          </List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Secondary Content Slot</Name>
+        <Property name="contentPaths">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>/content/Shared/Garden Center Articles Navigation</String>
+          </List>
+        </Property>
+        <Property name="templateTypes">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>SecondaryContent</String>
+          </List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>ContentSlot-Secondary</TemplateId>
+        <Name>Secondary Content Slot</Name>
+        <Property name="contentPaths">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>/content/Shared/Garden Center Lawns &amp; Gardens Navigation</String>
+          </List>
+        </Property>
+        <Property name="templateTypes">
+          <List xmlns="http://endeca.com/schema/xavia/2010">
+            <String>SecondaryContent</String>
+          </List>
+        </Property>
+        <Property name="templateIds">
+          <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+        </Property>
+        <Property name="ruleLimit">
+          <String>1</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="SecondaryContent">
+        <TemplateId>GardenCenterEmailSignup</TemplateId>
+        <Name>GardenCenterEmailSignup</Name>
+      </ContentItem>
+    </ContentItemList>
+  </Property>
+  <Property name="MainContent">
+    <ContentItemList type="MainContent">
+      <ContentItem type="MainContent">
+        <TemplateId>MediaBanner</TemplateId>
+        <Name>Media Banner</Name>
+        <Property name="imageURL">
+          <String>http://www.fleetfarm.com/content/garden-center/patio/fall-patio-header.jpg</String>
+        </Property>
+        <Property name="link">
+          <Item class="com.endeca.infront.cartridge.model.LinkBuilder" xmlns="http://endeca.com/schema/xavia/2010">
+            <Property name="path"/>
+            <Property name="linkType"/>
+            <Property name="queryString"/>
+          </Item>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>ImageTextBlock</TemplateId>
+        <Name>ImageTextBlock</Name>
+        <Property name="sectionTitle">
+          <String>Your Buying Guide for Salt Spreaders</String>
+        </Property>
+        <Property name="imageURL">
+          <String>http://www.fleetfarm.com/content/garden-center/patio/salt-spreaders-medium.jpg</String>
+        </Property>
+        <Property name="imageAltText">
+          <String>utility vehicle clearing snow and spreading salt on a snowy day</String>
+        </Property>
+        <Property name="imageAlignment">
+          <String>left</String>
+        </Property>
+        <Property name="paraText">
+          <String>You're shivering on a cold winter's evening, using your bare hands to throw salt from an old bucket onto your icy driveway. You're starting to lose feeling in your toes and your hands are getting dry, cracked and sore.&lt;br&gt;&lt;br&gt;"There's got to be a better way to do this," you mutter to yourself.&lt;br&gt;&lt;br&gt;Well, in fact, there is. When it comes to winter safety and salt spreading, there are many options available. With so many features and spreading materials on the market, navigating the buying process can be difficult. But whether you're simply deicing your own driveway or you are an ice-management professional, we've compiled some tips to make the purchasing process easy. Next time you're on the hunt for a salt spreader, ask yourself the following questions:</String>
+        </Property>
+        <Property name="sectionHref">
+          <String>/promos/Garden-Center-Salt-Spreader-Buyers-Guide</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>StaticContentPromoGrid</TemplateId>
+        <Name>StaticContentPromoGrid</Name>
+        <Property name="sectionTitle">
+          <String>Patio Categories:</String>
+        </Property>
+        <Property name="StaticContentPromos">
+          <ContentItemList type="StaticContentPromo">
+            <ContentItem type="StaticContentPromo">
+              <TemplateId>StaticContentPromo</TemplateId>
+              <Name>StaticContentPromo</Name>
+              <Property name="sectionTitle">
+                <String>Decks</String>
+              </Property>
+              <Property name="sectionHref">
+                <String>/promos/Garden-Center-Coming-Soon</String>
+              </Property>
+              <Property name="imageURL">
+                <String>http://www.fleetfarm.com/content/garden-center/patio/decks.jpg</String>
+              </Property>
+              <Property name="imageAltText">
+                <String>staining a deck</String>
+              </Property>
+            </ContentItem>
+            <ContentItem type="StaticContentPromo">
+              <TemplateId>StaticContentPromo</TemplateId>
+              <Name>StaticContentPromo</Name>
+              <Property name="sectionTitle">
+                <String>Firepits</String>
+              </Property>
+              <Property name="sectionHref">
+                <String>/promos/Garden-Center-Coming-Soon</String>
+              </Property>
+              <Property name="imageURL">
+                <String>http://www.fleetfarm.com/content/garden-center/patio/firepit.jpg</String>
+              </Property>
+              <Property name="imageAltText">
+                <String>fire pit being enjoyed</String>
+              </Property>
+            </ContentItem>
+            <ContentItem type="StaticContentPromo">
+              <TemplateId>StaticContentPromo</TemplateId>
+              <Name>StaticContentPromo</Name>
+              <Property name="sectionTitle">
+                <String>Furniture</String>
+              </Property>
+              <Property name="sectionHref">
+                <String>/promos/Garden-Center-Coming-Soon</String>
+              </Property>
+              <Property name="imageURL">
+                <String>http://www.fleetfarm.com/content/garden-center/patio/furniture.jpg</String>
+              </Property>
+              <Property name="imageAltText">
+                <String>patio chair waiting for you to sit in</String>
+              </Property>
+            </ContentItem>
+          </ContentItemList>
+        </Property>
+      </ContentItem>
+      <ContentItem type="MainContent">
+        <TemplateId>PromoProductGrid</TemplateId>
+        <Name>PromoProductGrid</Name>
+        <Property name="sectionTitle">
+          <String>Featured Products</String>
+        </Property>
+        <Property name="recordSelection">
+          <Item class="com.endeca.infront.cartridge.RecordSpotlightSelection" xmlns="http://endeca.com/schema/xavia/2010">
+            <Property name="filterState">
+              <Item class="com.endeca.infront.navigation.model.FilterState">
+                <Property name="featuredRecords">
+                  <List>
+                    <String>0000000251640</String>
+                    <String>0000000251797</String>
+                    <String>0000000080620</String>
+                    <String>0000000250032</String>
+                  </List>
+                </Property>
+              </Item>
+            </Property>
+          </Item>
+        </Property>
+        <Property name="maxNumRecords">
+          <String>4</String>
+        </Property>
+      </ContentItem>
+    </ContentItemList>
+  </Property>
+</ContentItem>

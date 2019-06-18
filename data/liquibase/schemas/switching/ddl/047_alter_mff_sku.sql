@@ -1,0 +1,1 @@
+alter table mff_sku add free_shipping number(1) default 0;

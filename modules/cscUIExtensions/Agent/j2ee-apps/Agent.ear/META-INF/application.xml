@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<application xmlns="http://java.sun.com/xml/ns/j2ee" version="1.4"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application_1_4.xsd">
+  <display-name>
+    ATG Agent UI
+  </display-name>
+  <module>
+    <web>      
+      <web-uri>
+        ServiceFramework.war
+      </web-uri>      
+      <context-root>
+        agent2
+      </context-root>
+    </web>
+  </module>
+</application>
+<!-- @version $Id: //application/service-UI/version/11.2/framework/Agent/src/j2ee-apps/ServiceFramework/META-INF/application.xml#1 $$Change: 946917 $-->

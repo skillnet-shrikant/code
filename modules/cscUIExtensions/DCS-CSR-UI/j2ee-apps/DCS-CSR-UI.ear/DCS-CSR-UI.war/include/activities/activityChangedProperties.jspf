@@ -1,0 +1,35 @@
+  <tr class="inlineEditor"> 
+      <td colspan="5">
+        <div class="editArea">
+          <div class="currentActivity">
+            <h5><fmt:message key="changedProperties" /></h5>
+            <div class="activityView">
+              <dl class="status">
+                <table>
+                  <tr>
+                    <td><fmt:message key="property" /></td>
+                    <td><fmt:message key="oldValue" /></td>
+                    <td><fmt:message key="newValue" /></td>
+                  </tr>
+                  <c:forEach var="changedItem" items="${activity.propertyUpdates}">
+                    <dsp:tomap var="change" value="${changedItem}"/>
+                    <tr>
+                      <td>
+                        <c:out escapeXml="true" value="${change['propertyName']}"/>
+                      </td>
+                      <td>
+                        <c:out escapeXml="true" value="${change['oldValue']}"/>
+                      </td>
+                      <td>
+                        <c:out escapeXml="true" value="${change['newValue']}"/>
+                      </td>
+                    </tr>
+                  </c:forEach>
+                </table>
+              </dl>
+            </div> <!-- activityView -->
+          </div> <!-- currentActivity -->
+        </div> <!-- editArea -->
+      </td>
+    </tr>
+<%-- @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/include/activities/activityChangedProperties.jspf#2 $$Change: 1192807 $--%>

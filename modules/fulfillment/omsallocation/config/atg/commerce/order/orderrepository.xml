@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE gsa-template
+        PUBLIC "-//Art Technology Group, Inc.//DTD General SQL Adapter//EN"
+        "http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
+
+<gsa-template>
+  <header>
+    <name>OMS Extensions</name>
+    <author>DMI</author>
+  </header>
+  
+  <item-descriptor name="orderItem">
+	<table name="order_item" id-column-name="order_item_id" type="primary">
+		<property name="id" 					display-name="Order Item Id" 		 	column-name="order_item_id" 			data-type="string" expert="false" cache-mode="disabled"/>
+		<property name="orderId" 				display-name="Order Id" 	 			column-name="order_id" 	 				data-type="string" expert="false" cache-mode="disabled"/>	
+		<property name="commerceItemId" 		display-name="Commerce Item Id"  		column-name="commerce_item_id"  		data-type="string" expert="false" cache-mode="disabled"/>
+		<property name="quantity" 				display-name="Quantity"  		 		column-name="quantity"  				data-type="long" 	expert="false" cache-mode="disabled"/>
+		<property name="skuId" 					display-name="Sku Id" 	 				column-name="sku_id" 	 				data-type="string" expert="false" cache-mode="disabled"/>		
+		<property name="fulfillmentStore" 		display-name="Fulfillment Store" 		column-name="fulfillment_store" 		data-type="string" expert="false" cache-mode="disabled"/>
+		<property name="forceAllocate" 			display-name="Force Allocate Flag" 		column-name="is_force_allocate" 		data-type="boolean" expert="false" cache-mode="disabled"/>
+		<property name="giftCard" 				display-name="Gift Card Flag" 			column-name="is_gift_card" 				data-type="boolean" expert="false" cache-mode="disabled"/>
+		<property name="splitItem" 				display-name="Split Item Flag" 			column-name="is_split_item"				data-type="boolean" expert="false" cache-mode="disabled"/>
+		<property name="dropShipItem" 			display-name="DropShip Item Flag" 		column-name="is_drop_ship"				data-type="boolean" expert="false" cache-mode="disabled"/>
+      </table>
+  
+	  <named-query>
+			<sql-query>
+				<query-name>orderAllocation</query-name>
+				<sql stored-procedure="true">
+					 { ? =  call f_get_order_allocation (?) }
+				</sql>
+				<returns>orderId,commerceItemId,quantity,skuId,fulfillmentStore,forceAllocate,giftCard,splitItem,dropShipItem</returns>
+				<input-parameter-types>java.lang.String</input-parameter-types>
+			</sql-query>
+	  </named-query>
+  </item-descriptor>  
+	
+ <item-descriptor writable="true" cache-mode="simple" hidden="false" name="storeAllocation">
+	<table name="mff_store_allocation" id-column-name="store_allocation_id" type="primary" shared-table-sequence="1">
+		<property name="id" column-name="store_allocation_id" display-name="Id" data-type="string" hidden="false" writable="true" required="true" cache-mode="inherit" queryable="true">
+			<attribute name="propertySortPriority" value="10"/>
+		</property>
+		<property name="orderId" column-name="order_id" display-name="Order Id" data-type="string"  hidden="false" writable="true" required="true" cache-mode="disabled" queryable="true">
+			<attribute name="propertySortPriority" value="15"/>
+		</property>		
+		<property name="orderNumber" column-name="order_number" display-name="Order Number" data-type="string"  hidden="false" writable="true" required="true" cache-mode="inherit" queryable="true">
+			<attribute name="propertySortPriority" value="20"/>
+		</property>
+		<property name="commerceItemId" column-name="commerce_item_id" display-name="Commerce Item Id" data-type="string" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+			<attribute name="propertySortPriority" value="25"/>
+		</property>		
+		<property name="storeId" column-name="store_id" display-name="Fulfillment Store" data-type="string" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+			<attribute name="propertySortPriority" value="30"/>
+		</property>		
+		<property name="skuId" column-name="sku_id" display-name="Sku Id" data-type="string" hidden="false" writable="true" required="false" cache-mode="disabled" queryable="true">
+			<attribute name="propertySortPriority" value="30"/>
+		</property>		
+		<property name="quantity" column-name="quantity" display-name="Quantity" data-type="long" hidden="false" writable="true" required="false" cache-mode="disabled" queryable="true">
+			<attribute name="propertySortPriority" value="36"/>
+		</property>		
+		<property name="orderDate" column-name="order_date" display-name="Order Date" data-type="timestamp" hidden="false" writable="true" required="false" cache-mode="disabled" queryable="true">
+			<attribute name="propertySortPriority" value="37"/>
+		</property>				
+		<property name="allocationDate" column-name="allocation_date" display-name="Allocation Date" data-type="timestamp" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+			<attribute name="propertySortPriority" value="38"/>
+		</property>			
+		<property name="shipDate" column-name="ship_date" display-name="Ship Date" data-type="timestamp" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+			<attribute name="propertySortPriority" value="38"/>
+		</property>		
+		<property name="declineDate" column-name="decline_date" display-name="Decline Date" data-type="timestamp" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+			<attribute name="propertySortPriority" value="38"/>
+		</property>				
+		<property name="state" column-name="state" display-name="State" data-type="string" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+			<attribute name="propertySortPriority" value="40"/>
+		</property>		
+		<property name="stateDetail" column-name="state_detail" display-name="State Detail" data-type="string" hidden="false" writable="true" required="false" cache-mode="disabled" queryable="true">
+			<attribute name="propertySortPriority" value="45"/>
+		</property>	
+		<property name="shippingMethod" column-name="shipping_method" display-name="Shipping Method" data-type="string" hidden="false" writable="true" required="false" cache-mode="disabled" queryable="true">
+			<attribute name="propertySortPriority" value="50"/>
+		</property>	
+		<property name="firstName" column-name="first_name" display-name="First Name" data-type="string" hidden="false" writable="true" required="false" cache-mode="disabled" queryable="true">
+			<attribute name="propertySortPriority" value="60"/>
+		</property>	
+		<property name="lastName" column-name="last_name" display-name="Last Name" data-type="string" hidden="false" writable="true" required="false" cache-mode="disabled" queryable="true">
+			<attribute name="propertySortPriority" value="70"/>
+		</property>	
+		<property name="bopisOrder" column-name="bopis_order" display-name="Bopis Order Flag" data-type="boolean" hidden="false" writable="true" required="false" cache-mode="disabled" queryable="true">
+			<attribute name="propertySortPriority" value="80"/>
+		</property>	
+		<property name="inPicking" column-name="in_picking" display-name="InPicking Flag" data-type="boolean" hidden="false" writable="true" required="false" cache-mode="disabled" queryable="true">
+			<attribute name="propertySortPriority" value="90"/>
+		</property>	
+		<property name="address1" column-name="address1" display-name="Address1" data-type="string" hidden="false" writable="true" required="false" cache-mode="disabled" queryable="true">
+			<attribute name="propertySortPriority" value="100"/>
+		</property>	
+		<property name="address2" column-name="address2" display-name="Address2" data-type="string" hidden="false" writable="true" required="false" cache-mode="disabled" queryable="true">
+			<attribute name="propertySortPriority" value="110"/>
+		</property>	
+		<property name="city" column-name="city" display-name="City" data-type="string" hidden="false" writable="true" required="false" cache-mode="disabled" queryable="true">
+			<attribute name="propertySortPriority" value="120"/>
+		</property>	
+		<property name="shipState" column-name="ship_state" display-name="Ship Address Stae" data-type="string" hidden="false" writable="true" required="false" cache-mode="disabled" queryable="true">
+			<attribute name="propertySortPriority" value="130"/>
+		</property>	
+		<property name="postalCode" column-name="postal_code" display-name="Postal Code" data-type="string" hidden="false" writable="true" required="false" cache-mode="disabled" queryable="true">
+			<attribute name="propertySortPriority" value="140"/>
+		</property>	
+		<property name="county" column-name="county" display-name="County" data-type="string" hidden="false" writable="true" required="false" cache-mode="disabled" queryable="true">
+			<attribute name="propertySortPriority" value="150"/>
+		</property>	
+		<property name="country" column-name="country" display-name="Country" data-type="string" hidden="false" writable="true" required="false" cache-mode="disabled" queryable="true">
+			<attribute name="propertySortPriority" value="160"/>
+		</property>	
+		<property name="phoneNumber" column-name="phone_number" display-name="Phone Number" data-type="string" hidden="false" writable="true" required="false" cache-mode="disabled" queryable="true">
+			<attribute name="propertySortPriority" value="170"/>
+		</property>	
+		<property name="contactEmail" column-name="contact_email" display-name="Contact Email" data-type="string" hidden="false" writable="true" required="false" cache-mode="disabled" queryable="true">
+			<attribute name="propertySortPriority" value="180"/>
+		</property>	
+		<property name="pickUpInstructions" column-name="pick_up_instructions" display-name="PickUp Instructions" data-type="string" hidden="false" writable="true" required="false" cache-mode="disabled" queryable="true">
+			<attribute name="propertySortPriority" value="190"/>
+		</property>	
+		<property name="inPickingDate" column-name="inpicking_date" display-name="In Picking Date" data-type="timestamp" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+			<attribute name="propertySortPriority" value="191"/>
+		</property>
+		<property name="readyForPickupDate" column-name="readyforpickup_date" display-name="Ready For Pickup Date" data-type="timestamp" hidden="false" writable="true" required="false" cache-mode="inherit" queryable="true">
+			<attribute name="propertySortPriority" value="192"/>
+		</property>	
+	</table>
+</item-descriptor>
+
+<item-descriptor name="inventoryReport">
+	<table name="mff_inventory_report" id-column-name="allocation_sequence_id" type="primary">
+		<property name="id" display-name="Allocation sequence Id" column-name="allocation_sequence_id" data-type="string" expert="false" cache-mode="disabled" />
+		<property name="webOrderNumber" display-name="Web-Order number" column-name="web_order" data-type="string" expert="false" cache-mode="disabled" />
+		<property name="orderedDateTime" display-name="Ordered Date-time"	column-name="order_datetime" data-type="timestamp" expert="false" cache-mode="disabled" />
+		<property name="orderProcessedDateTime" display-name="Order processed Date-time"	column-name="ecom_process_datetime" data-type="timestamp" expert="false" cache-mode="disabled" />
+		<property name="allocatedStoreLocation" display-name="Allocated Store Location"	column-name="allocated_location" data-type="int" expert="false" cache-mode="disabled" />
+		<property name="allocatedSkuId" display-name="Allocated Sku id"	column-name="allocated_sku_id" data-type="string" expert="false" cache-mode="disabled" />
+		<property name="allocationType" data-type="enumerated" column-name="allocation_type" display-name="Allocation Type">
+	      		<attribute name="useCodeForValue" value="false" />
+      			<option code="0" value="Allocated"/>
+  				<option code="1" value="Deallocated"/>
+  		</property>
+  		<property name="allocationSubType"  data-type="enumerated" column-name="allocation_sub_type" display-name="Allocation Sub-Type">
+	      		<attribute name="useCodeForValue" value="false" />
+      			<option code="0" value="PPS"/>
+  				<option code="1" value="BOPIS"/>
+  		</property>
+  		
+  		<property name="reasonCode"  data-type="string" column-name="reason_code" display-name="Reason Code" expert="false" cache-mode="disabled" />
+		<property name="allocatedQuantity" display-name="Allocated Quantity"	column-name="allocated_quantity" data-type="int" expert="false" cache-mode="disabled" />
+		<property name="transactionCreatedDateTime" display-name="Transaction Created Date-time"	column-name="create_datetime" data-type="timestamp" expert="false" cache-mode="disabled" />
+		<property name="transactionCreatedUser" display-name="Transaction Created User"	column-name="created_by_user" data-type="string" expert="false" cache-mode="disabled" />
+		<property name="transactionLastUpdatedDateTime" display-name="Transaction Last Updated Date-time"	column-name="last_updated_datetime" data-type="timestamp" expert="false" cache-mode="disabled" />
+		<property name="transactionLastUpdatedUser" display-name="Transaction Updated User"	column-name="last_updated_by_user" data-type="string" expert="false" cache-mode="disabled" />
+		
+		</table>
+		
+</item-descriptor>
+
+</gsa-template>

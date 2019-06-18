@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Common type definitions used by other XSDs.
+
+    VERSION: 1.2 
+    DOCUMENTATION: http://speedorder.speedfc.com/xmlschemas/docs/types/1_2/
+    PUBLISHED:     http://speedorder.speedfc.com/xmlschemas/xsds/types_1_2.xsd
+
+    Copyright (c) 2009 SpeedFC. All rights reserved.
+-->
+<xsd:schema targetNamespace="http://speedorder.speedfc.com/xml/types" xmlns="http://speedorder.speedfc.com/xml/types" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <!-- ////////////////////// LOGICAL TYPES ////////////////////// -->
+    <xsd:complexType name="CustomerType">
+        <xsd:all>
+            <xsd:element name="reference" minOccurs="1" maxOccurs="1" type="varchar200"/>
+            <xsd:element name="bill_to" minOccurs="1" maxOccurs="1" type="PersonType"/>
+            <xsd:element name="ship_to" minOccurs="1" maxOccurs="1" type="PersonType"/>
+            <xsd:element minOccurs="0" name="tax_exemption_certificate" type="varchar100"/>
+            <xsd:element minOccurs="0" name="tax_exemption_name" type="varchar100"/>
+            <xsd:element minOccurs="0" name="tax_exemption_type" type="varchar20"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="PersonType">
+        <xsd:all>
+            <xsd:element name="contact" minOccurs="1" maxOccurs="1" type="ContactType"/>
+            <xsd:element name="address" minOccurs="1" maxOccurs="1" type="AddressType"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="TaxAmount">
+        <xsd:sequence>
+            <xsd:element name="local" minOccurs="1" maxOccurs="1" type="numeric19s4"/>
+            <xsd:element name="county" minOccurs="1" maxOccurs="1" type="numeric19s4"/>
+            <xsd:element name="state" minOccurs="1" maxOccurs="1" type="numeric19s4"/>
+            <xsd:element name="total" minOccurs="1" maxOccurs="1" type="numeric19s4"/>
+            <xsd:element name="shipping_tax" minOccurs="0" maxOccurs="1" type="numeric19s4"/>
+            <xsd:element name="extended_total" minOccurs="1" maxOccurs="1" type="numeric19s4"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Period">
+        <xsd:sequence>
+            <xsd:element name="begin" minOccurs="1" maxOccurs="1" type="IsoDateTime"/>
+            <xsd:element name="end" minOccurs="1" maxOccurs="1" type="IsoDateTime"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ContactType">
+        <xsd:all>
+            <xsd:element name="first_name" minOccurs="1" maxOccurs="1" type="varchar100"/>
+            <xsd:element name="middle_name" minOccurs="0" maxOccurs="1" type="varchar100"/>
+            <xsd:element name="last_name" minOccurs="1" maxOccurs="1" type="varchar100"/>
+            <xsd:element name="organization" minOccurs="0" maxOccurs="1" type="varchar100"/>
+            <xsd:element name="company-name" minOccurs="0" maxOccurs="1" type="varchar100"/>
+            <xsd:element name="home_phone" minOccurs="0" maxOccurs="1" type="varchar50"/>
+            <xsd:element name="work_phone" minOccurs="0" maxOccurs="1" type="varchar50"/>
+            <xsd:element name="mobile_phone" minOccurs="0" maxOccurs="1" type="varchar50"/>
+            <xsd:element name="fax" minOccurs="0" maxOccurs="1" type="varchar50"/>
+            <xsd:element name="email" minOccurs="0" maxOccurs="1" type="varchar200"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="AddressType">
+        <xsd:sequence>
+            <xsd:element name="company-name" minOccurs="0" maxOccurs="1" type="varchar100"/>
+            <xsd:element name="line" minOccurs="1" maxOccurs="4" type="AddressLineType"/>
+            <xsd:element name="city" minOccurs="1" maxOccurs="1" type="varchar50"/>
+            <xsd:element name="province_code" type="alphaFixed2"/>
+            <xsd:element name="province" minOccurs="0" maxOccurs="1" type="varchar50">
+                <xsd:annotation>
+                    <xsd:documentation>Will contain the complete name of the state/province.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="postal_code" minOccurs="1" maxOccurs="1" type="varchar11"/>
+            <xsd:element name="country_code" minOccurs="1" maxOccurs="1" type="IsoCountryCode"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="AddressLineType">
+        <xsd:simpleContent>
+            <xsd:extension base="varchar100">
+                <xsd:attribute name="sequence" use="required" type="xsd:nonNegativeInteger"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:group name="BaseSku">
+        <xsd:sequence>
+            <xsd:element name="skucode" type="varchar20"/>
+            <xsd:element name="barcode" type="varchar20"/>
+            <xsd:element name="item_number" type="ItemNum"/>
+            <xsd:element name="color_code" type="ColorCode"/>
+            <xsd:element name="size_code" type="SizeCode"/>
+        </xsd:sequence>
+    </xsd:group>
+
+    <xsd:complexType name="LineDiscountType">
+        <xsd:simpleContent>
+            <xsd:extension base="numeric19s4">
+                <xsd:attribute name="type" use="required">
+                    <xsd:annotation>
+                        <xsd:documentation>The type of discount is defined by what caused the discount. A promotion, promotional code, loyalty program usages, etc.
+                        </xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string"> </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:attribute>
+                <xsd:attribute name="code" type="varchar50">
+                    <xsd:annotation>
+                        <xsd:documentation>An identifying code that relates to a specific discount configuration.
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:attribute>
+                <xsd:attribute name="source" type="varchar20">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            A logical description of what action produced the discount such as a
+                            promotion (Buy 1 Get 1), promotional code, loyalty card, etc.
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:attribute>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+
+    <xsd:simpleType name="ItemNum">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[0-9A-Z\-]{1,16}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ColorCode">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[0-9A-Z/\-\.]{0,10}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="SizeCode">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[0-9A-Z/\-\.]{0,10}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="DeptCode">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[0-9A-Z]{0,30}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ClassCode">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[0-9A-Z]{0,20}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="VendorNum">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="10"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ShipCode">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="4"/>
+            <xsd:pattern value="[0-9A-Z]{1,4}|NULL|null"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="SkuStatus">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="ACTIVE"/>
+            <xsd:enumeration value="INACTIVE"/>
+            <xsd:enumeration value="DISCONTINUED"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="SkuReturnable">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="YES"/>
+            <xsd:enumeration value="NO"/>
+            <xsd:enumeration value="UNOPENED"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <!-- ////////////////////// DATA TYPES ////////////////////// -->
+    <xsd:simpleType name="alphaFixed2">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="2"/>
+            <xsd:minLength value="2"/>
+            <xsd:pattern value="[A-Z]{2}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="varchar3">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="3"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="varchar4">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="4"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="varchar6">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="6"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="varchar10">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="10"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="varchar11">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="11"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="varchar12">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="12"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="varchar15">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="15"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="digit19">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[0-9]{19}"/>
+            <xsd:maxLength value="19"/>
+            <xsd:minLength value="19"/>
+            <xsd:whiteSpace value="collapse"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="varchar20">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="20"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="varchar30">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="30"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="varchar35">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="35"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="varchar50">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="50"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="varchar100">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="100"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="varchar200">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="200"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="numeric7s2">
+        <xsd:restriction base="xsd:decimal">
+            <xsd:totalDigits value="7"/>
+            <xsd:fractionDigits value="2"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="numeric19s2">
+        <xsd:restriction base="xsd:decimal">
+            <xsd:totalDigits value="19"/>
+            <xsd:fractionDigits value="2"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="numeric19s4">
+        <xsd:restriction base="xsd:decimal">
+            <xsd:totalDigits value="19"/>
+            <xsd:fractionDigits value="4"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="IsoCountryCode">
+        <xsd:annotation>
+            <xsd:documentation>ISO 3166-1-alpha-2 country code (http://www.iso.org/iso/english_country_names_and_code_elements)
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[A-Z]{2}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="IsoDate">
+        <xsd:annotation>
+            <xsd:documentation>
+                Represents a single date. Format follows the date part of an ISO 8601 formatted date.
+                Format: YYYY-MM-DD, Y=Year, M=Month, D=Day
+                Ranges: Y=1000-3999 M=01-12 D=01-31
+                Examples: 2009-01-01, 2039-12-31
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="([1-3]{1}[0-9]{3})\-((0{1}[1-9]{1})|(1{1}[0-2]{1}))\-(([0-2]{1}\d{1})|(3{1}[0-1]{1}))"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="IsoDateTime">
+        <xsd:annotation>
+            <xsd:documentation>
+                Represents a single moment in time with optional regard to timezone.
+                Format follows a full ISO 8601 formatted date-time.
+                Format: "IsoDate HH:MM:SS", H=Hour, M=Minute, S=Second
+                Example: 2009-01-01 00:00:00 (midnight), 2009-12-31 12:00:00 (noon), 2010-10-26 14:12:00 (2:12 PM)
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="([1-3]{1}[0-9]{3})\-((0{1}[1-9]{1})|(1{1}[0-2]{1}))\-(([0-2]{1}\d{1})|(3{1}[0-1]{1}))[T ]{1}([0]{1}[0-9]{1}|[1]{1}[0-9]{1}|[2]{1}[0-3]{1}):[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}([\+\-]\d{4})?"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="DocumentVersionType">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[1-9]{1,}([0-9]*)?(\.[0-9]+){0,2}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="LineTypeAttr">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="shipped"/>
+            <xsd:enumeration value="returned"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType name="OrderAppeasementType">
+        <xsd:simpleContent>
+            <xsd:extension base="numeric7s2">
+                <xsd:attribute name="code" type="varchar10" use="required"/>
+                <xsd:attribute name="description" type="varchar100" use="required"/>
+                <xsd:attribute name="reference" type="varchar100"/>
+                <xsd:attribute name="date" type="IsoDate"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType name="OrderPayment">
+        <xsd:sequence>
+            <xsd:element name="type" type="varchar10"/>
+            <xsd:element name="amount" type="numeric7s2"/>
+            <xsd:element minOccurs="0" name="transaction_reference" type="varchar20">
+                <xsd:annotation>
+                    <xsd:documentation>A transaction reference code which should not be considered unique across all transactions for the order.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="date" type="IsoDateTime"/>
+            <xsd:element minOccurs="0" name="card_reference" type="varchar4">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        The last four digits of the card number used for payment.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="card_number" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Depending on client need, the full card number may be provided here.
+                        If extra security measures are needed this value could be encrypted by
+                        a public key provided to SpeedFC. 
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="token_id" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Initially to send ACI token retrieved for MFF
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="auxiliaries">
+                <xsd:complexType>
+                    <xsd:choice>
+                        <xsd:element maxOccurs="unbounded" name="auxiliary">
+                            <xsd:complexType>
+                                <xsd:simpleContent>
+                                    <xsd:extension base="xsd:string">
+                                        <xsd:attribute name="name" type="xsd:string"/>
+                                    </xsd:extension>
+                                </xsd:simpleContent>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:choice>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:group name="Order">
+        <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="number" type="varchar100"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="date" type="IsoDate"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="source" nillable="true" type="varchar100"/>
+            <xsd:element name="type" type="varchar50"/>
+            <xsd:element maxOccurs="1" minOccurs="0" name="business_type" type="varchar50"/>
+            <xsd:element maxOccurs="1" minOccurs="0" name="loyalty_identifier" nillable="true" type="varchar30"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="customer" type="CustomerType"/>
+            <xsd:element minOccurs="0" name="customer_purchase_order" type="varchar100"/>
+            <xsd:element name="shipping_amount">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="total" type="numeric7s2">
+                            <xsd:annotation>
+                                <xsd:documentation>The full order shipping tax amount.</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="tax" type="TaxAmount">
+                            <xsd:annotation>
+                                <xsd:documentation>The full order shipping amount.</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ship_via" type="ShipCode"/>
+            <xsd:element minOccurs="0" name="auxiliaries">
+                <xsd:complexType>
+                    <xsd:choice>
+                        <xsd:element maxOccurs="unbounded" name="auxiliary">
+                            <xsd:complexType>
+                                <xsd:simpleContent>
+                                    <xsd:extension base="xsd:string">
+                                        <xsd:attribute name="name" type="xsd:string"/>
+                                    </xsd:extension>
+                                </xsd:simpleContent>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:choice>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="appeasements">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element maxOccurs="unbounded" name="appeasement" type="OrderAppeasementType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:group>
+    <xsd:group name="OrderLine">
+        <xsd:sequence>
+            <xsd:element name="sku">
+                <xsd:complexType>
+                    <xsd:group ref="BaseSku"/>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="quantity" type="xsd:nonNegativeInteger"/>
+            <xsd:element name="unit_price" type="numeric19s4"/>
+            <xsd:element name="facility_cd" minOccurs="0"/>
+            <xsd:element minOccurs="0" name="discounts">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element maxOccurs="unbounded" name="discount" type="LineDiscountType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="shipping" type="numeric19s4" minOccurs="0"/>
+            <xsd:element name="tax" type="TaxAmount"/>
+            <xsd:element name="extended_price" type="numeric19s4">
+                <xsd:annotation>
+                    <xsd:documentation>
+                                    Represents the cumulative price of this sku. Includes unit price + discounts * quantity.
+                                </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="auxiliaries">
+                <xsd:complexType>
+                    <xsd:choice>
+                        <xsd:element maxOccurs="unbounded" name="auxiliary">
+                            <xsd:complexType>
+                                <xsd:simpleContent>
+                                    <xsd:extension base="xsd:string">
+                                        <xsd:attribute name="name" type="xsd:string"/>
+                                    </xsd:extension>
+                                </xsd:simpleContent>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:choice>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="line_number" type="xsd:int">
+                <xsd:annotation>
+                    <xsd:documentation>A line number will be provided if one is available. For instance, when one is provided during order importation.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:group>
+    <xsd:group name="ReportHeader">
+        <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="0" name="sequence" type="xsd:nonNegativeInteger"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="generated" type="IsoDateTime"/>
+            <xsd:choice>
+                <xsd:annotation>
+                    <xsd:documentation>
+                            Depending on the predetermined schedule for report generation, either a
+                            singular date or a period between two timestamps will be provided
+                            representing the period the data lay within.
+                        </xsd:documentation>
+                </xsd:annotation>
+                <xsd:element maxOccurs="1" minOccurs="0" name="report_date" type="IsoDate"/>
+                <xsd:element maxOccurs="1" minOccurs="0" name="report_period" type="Period"/>
+            </xsd:choice>
+        </xsd:sequence>
+    </xsd:group>
+    <xsd:group name="Carton">
+        <xsd:sequence>
+            <xsd:element name="tracking_number" type="varchar30"/>
+            <xsd:element name="carton_number" type="varchar20"/>
+            <xsd:element name="ship_date" type="IsoDate"/>
+            <xsd:element name="ship_via" type="ShipCode"/>
+            <xsd:element minOccurs="0" name="facility_cd" type="varchar20"/>
+            <xsd:element minOccurs="0" name="weight" type="numeric19s4"/>
+            <xsd:element minOccurs="0" name="carton_size" type="varchar3"/>
+            <xsd:element minOccurs="0" name="carton_type" type="varchar3"/>
+            <xsd:element minOccurs="0" name="bill_of_lading" type="varchar20"/>
+            <xsd:element minOccurs="0" name="pro_num" type="varchar20"/>
+            <xsd:element minOccurs="0" name="manifest_number" type="varchar10"/>
+            <xsd:element minOccurs="0" name="pick_ticket" type="varchar10"/>
+            <xsd:element minOccurs="0" name="return_label_number" type="varchar50"/>
+            <xsd:element minOccurs="0" name="deliver_confirmation_number" type="varchar50"/>
+        </xsd:sequence>
+    </xsd:group>
+    <xsd:attributeGroup name="OrderLineAttribute">
+        <xsd:attribute name="line_id" type="xsd:integer" use="required"/>
+        <xsd:attribute name="client_line_id" type="varchar100"/>
+    </xsd:attributeGroup>
+</xsd:schema>

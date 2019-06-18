@@ -1,0 +1,80 @@
+          <c:choose>
+            <c:when test='${lastActivity.type == "agentAssignment"}'>
+              <fmt:message var="agentAssignment" key="tooltip.agent-assignment" />
+              <div class="atgServiceFrameworkSystemMessageIcon" title="${agentAssignment}"></div>
+            </c:when>
+            <c:when test='${lastActivity.type == "agentResearchSession"}'>
+              <fmt:message var="agentResearch" key="tooltip.agent-research" />
+              <div class="atgServiceFrameworkKnowledgeSessionIcon" title="${agentResearch}"></div>
+            </c:when>
+            <c:when test='${lastActivity.type == "attachment"}'>
+              <fmt:message var="attachment" key="tooltip.attachment" />
+              <div class="atgServiceFrameworkAttachmentIcon" title="${attachment}"></div>
+            </c:when>
+            <c:when test='${lastActivity.type == "callNote"}'>
+              <fmt:message var="callNote" key="tooltip.call-note" />
+              <div class="atgServiceFrameworkPhoneIcon" title="${callNote}"></div>
+            </c:when>
+            <c:when test='${lastActivity.type == "callTicketCreation"}'>
+              <fmt:message var="phoneCall" key="tooltip.phonecall" />
+              <div class="atgServiceFrameworkPhoneIcon" title="${phoneCall}"></div>
+            </c:when>
+            <c:when test='${lastActivity.type == "ChangePassword"}'>
+              <fmt:message var="changePassword" key="tooltip.change-password" />
+              <div class="atgServiceFrameworkProfileIcon" title="${phoneCall}"></div>
+            </c:when>
+            <c:when test='${lastActivity.type == "escalationChange"}'>
+              <fmt:message var="escalationChange" key="tooltip.escalation" />
+              <dspel:img src="${imageLocation}/iconcatalog/21x21/table_icons/icon_systemMessage.gif" width="21" height="21" align="absmiddle" title="${escalationChange}" alt="${escalationChange}" />
+              <div class="atgServiceFrameworkArrowRight" title="${escalationChange}"></div>
+            </c:when>
+            <c:when test='${lastActivity.type == "groupAssignment"}'>
+              <fmt:message var="groupAssignment" key="tooltip.group-assignment" />
+              <div class="atgServiceFrameworkSystemMessageIcon" title="${groupAssignment}"></div>
+            </c:when>
+            <c:when test='${lastActivity.type == "inboundMessage"}'>
+              <fmt:message var="inboundMessage" key="tooltip.inbound-message" />
+              <div class="atgServiceFrameworkIncomingIcon" title="${inboundMessage}"></div>
+            </c:when>
+            <c:when test='${lastActivity.type == "problematicMessage"}'>
+              <fmt:message var="problematicMessage" key="tooltip.problematic-message" />
+              <div class="atgServiceFrameworkIncomingIcon" title="${problematicMessage}"></div>
+            </c:when>
+            <c:when test='${lastActivity.type == "outboundMessage"}'>
+              <fmt:message var="outboundMessage" key="tooltip.outbound-message" />
+              <div class="atgServiceFrameworkOutgoingIcon" title="${outboundMessage}"></div>
+            </c:when>
+            <c:when test='${lastActivity.type == "ProfileCreated"}'>
+              <fmt:message var="profileCreated" key="tooltip.profile-created" />
+              <div class="atgServiceFrameworkProfileIcon" title="${profileCreated}"></div>
+            </c:when>
+            <c:when test='${lastActivity.type == "ProfileUpdate"}'>
+              <fmt:message var="profileUpdated" key="tooltip.profile-updated" />
+              <div class="atgServiceFrameworkProfileIcon" title="${profileUpdated}"></div>
+            </c:when>
+            <c:when test='${lastActivity.type == "researchSession"}'>
+              <fmt:message var="researchSession" key="tooltip.research-session" />
+              <div class="atgServiceFrameworkResearchSessionIcon" title="${researchSession}"></div>
+            </c:when>
+            <c:when test='${lastActivity.type == "selfServiceResearchSession"}'>
+              <fmt:message var="customerResearch" key="tooltip.self-service-search" />
+              <div class="atgServiceFrameworkCustomerIcon" title="${customerResearch}"></div>
+            </c:when>
+            <c:when test='${lastActivity.type == "statusChange"}'>
+              <fmt:message var="statusChange" key="tooltip.status-change" />
+              <div class="atgServiceFrameworkSystemMessageIcon" title="${statusChange}"></div>
+            </c:when>
+            <c:when test='${lastActivity.type == "webTicketCreation"}'>
+              <fmt:message var="selfServiceEsc" key="tooltip.self-service-esc" />
+              <div class="atgServiceFrameworkSelfServiceIcon" title="${selfServiceEsc}"></div>/>
+            </c:when>
+            <c:when test='${lastActivity.type == "workNote"}'>
+              <fmt:message var="workNote" key="tooltip.work-note" />
+              <div class="atgServiceFrameworkAgentIcon" title="${workNote}"></div>
+            </c:when>
+            <c:otherwise>
+              <fmt:message var="custChannel" key="tooltip.customer-channel" />  
+              <div class="atgServiceFrameworkCustomChannelIcon" title="${custChannel}"></div> 
+            </c:otherwise>
+          </c:choose>
+<%-- @version $Id: //application/service-UI/version/11.2/framework/Agent/src/web-apps/ServiceFramework/include/lastTicketActivityIcon.jspf#1 $$Change: 946917 $--%>

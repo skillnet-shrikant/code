@@ -1,0 +1,5 @@
+<div class="price">
+	<span class="original-price">$xx.xx</span><span class="sale-price">$xx.xx</span>
+	<div class="compare-price">Compare at $xx.xx</div>
+	<div class="savings">you saved $ (or %)</div>
+</div>

@@ -1,0 +1,48 @@
+<!-- same as defaultError.jhtml -->
+<html>
+<head><title>Error occurred serving page</title></head>
+<body><h1>Error occurred serving page</h1><pre>
+An error has occurred processing this page.  Please try resubmitting your<br> 
+request and if the error persists, contact the site administrator for this
+site.
+</pre>
+<div  style="display:none;" ><701cf83a4e9f>errorPanelContent<701cf83a4e9f>overwrite<701cf83a4e9f>
+<table class="w98p">
+ <tr>
+  <td class="errorImage" rowspan="4">
+   <img width="35" height="28" src="/agent/image/iconcatalog/global/icon_alertBig.gif"></img>
+  </td>
+  <td class="w100p">
+   <div id="errorList">
+    <table>
+     <tr>
+      <td>
+       <strong>
+        Error occurred serving page.
+       </strong>
+      </td>
+     </tr>
+     <tr>
+      <td>
+       <span class="errorDetails">
+        <br/>
+ An error has occurred processing this page.  Please try resubmitting your<br> 
+request and if the error persists, contact the site administrator for this
+site.
+       </span>
+      </td>
+     </tr>
+    </table>
+   </div>
+  </td>
+ </tr>
+ </table>
+ <701cf83a4e9f></div>
+
+<div  style="display:none;" ><701cf83a4e9f>javascript<701cf83a4e9f>overwrite<701cf83a4e9f>
+ var targetElement = document.getElementById("errorPanel");
+ document.getElementById("errorPanel").style.display = "block";
+ document.getElementById("errorPanel").scrollIntoView(false);
+<701cf83a4e9f></div>
+
+</body></html>

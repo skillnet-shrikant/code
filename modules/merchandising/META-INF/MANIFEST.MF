@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+ATG-Required: KP.RS.main
+ATG-StagingConfig-Path: configlayers/stagingandprod
+ATG-PreviewConfig-Path: configlayers/preview
+ATG-Config-Path: config
+ATG-Web-Module: j2ee-apps/merch.war
+ATG-Class-Path: lib/merchandising.jar lib-external/commons-lang3-3.1.jar lib-external/jamon-2.74.jar
+ATG-Client-Class-Path: lib/merchandising.jar 
+ATG-Client-Update-File: true

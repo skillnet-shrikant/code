@@ -1,0 +1,1 @@
+alter table dcs_location_store modify hours varchar2(2000);

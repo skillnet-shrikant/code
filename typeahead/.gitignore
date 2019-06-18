@@ -1,0 +1,12 @@
+bin/**
+build/**
+lib/**
+eclipse_build/**
+/eclipse_build
+/build
+/lib
+!*.jar
+j2ee-apps/typeahead.war/WEB-INF/lib/typeahead.jar
+dist/*
+!dist/readme.txt
+src/mdex.properties

@@ -1,0 +1,1 @@
+alter table tmp_cat_chldprd drop(sec_asset_version,asset_version);

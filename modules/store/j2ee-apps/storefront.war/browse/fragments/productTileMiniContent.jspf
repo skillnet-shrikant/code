@@ -1,0 +1,24 @@
+<div class="product-tile mini">
+	<div class="product-image">
+		<img src="http://placehold.it/200x200">
+	</div>
+	<div class="product-details-container">
+		<div class="product-name">The Product</div>
+		<div class="product-brand">The Brand</div>
+		<div class="price">
+			<!-- not on sale -->
+			<!--<div class="regular-price">$29.99</div>-->
+			<!-- on sale -->
+			<div class="original-price">$19.99</div>
+			<div class="sale-price">$14.99</div>
+		</div>
+	</div>
+	<div class="ratings-container">
+		<div class="rating">
+			&#9733;&#9733;&#9733;&#9733;&#9733;
+		</div>
+		<div class="rating-count">
+			26 ratings
+		</div>
+	</div>
+</div>

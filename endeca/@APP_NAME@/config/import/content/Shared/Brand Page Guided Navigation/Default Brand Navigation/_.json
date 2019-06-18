@@ -1,0 +1,14 @@
+{
+    "workflowNote": "",
+    "userSegments": [],
+    "workflowState": "ACTIVE",
+    "ecr:lastModifiedBy": "admin",
+    "ecr:lastModified": "2017-01-06T15:52:27.693Z",
+    "startTime": "",
+    "endTime": "",
+    "mdexMerchRuleID": 8,
+    "priority": 20,
+    "triggers": [{"exactLocation": false}],
+    "ecr:createDate": "2017-01-06T15:52:27.693Z",
+    "ecr:type": "content-item"
+}

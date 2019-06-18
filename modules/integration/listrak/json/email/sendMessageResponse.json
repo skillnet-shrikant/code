@@ -1,0 +1,18 @@
+{
+  "type": "object",
+  "required": [],
+  "properties": {
+    "status": {
+      "type": "number"
+    },
+    "error": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "resourceId": {
+      "type": "string"
+    }
+  }
+}

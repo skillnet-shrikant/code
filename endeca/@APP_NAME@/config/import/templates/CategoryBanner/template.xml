@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2001, 2012, Oracle and/or its affiliates. All rights reserved.
+  ~ Oracle and Java are registered trademarks of Oracle and/or its
+  ~ affiliates. Other names may be trademarks of their respective owners.
+  ~ UNIX is a registered trademark of The Open Group.
+  ~
+  ~ This software and related documentation are provided under a license
+  ~ agreement containing restrictions on use and disclosure and are
+  ~ protected by intellectual property laws. Except as expressly permitted
+  ~ in your license agreement or allowed by law, you may not use, copy,
+  ~ reproduce, translate, broadcast, modify, license, transmit, distribute,
+  ~ exhibit, perform, publish, or display any part, in any form, or by any
+  ~ means. Reverse engineering, disassembly, or decompilation of this
+  ~ software, unless required by law for interoperability, is prohibited.
+  ~ The information contained herein is subject to change without notice
+  ~ and is not warranted to be error-free. If you find any errors, please
+  ~ report them to us in writing.
+  ~ U.S. GOVERNMENT END USERS: Oracle programs, including any operating
+  ~ system, integrated software, any programs installed on the hardware,
+  ~ and/or documentation, delivered to U.S. Government end users are
+  ~ "commercial computer software" pursuant to the applicable Federal
+  ~ Acquisition Regulation and agency-specific supplemental regulations.
+  ~ As such, use, duplication, disclosure, modification, and adaptation
+  ~ of the programs, including any operating system, integrated software,
+  ~ any programs installed on the hardware, and/or documentation, shall be
+  ~ subject to license terms and license restrictions applicable to the
+  ~ programs. No other rights are granted to the U.S. Government.
+  ~ This software or hardware is developed for general use in a variety
+  ~ of information management applications. It is not developed or
+  ~ intended for use in any inherently dangerous applications, including
+  ~ applications that may create a risk of personal injury. If you use
+  ~ this software or hardware in dangerous applications, then you shall
+  ~ be responsible to take all appropriate fail-safe, backup, redundancy,
+  ~ and other measures to ensure its safe use. Oracle Corporation and its
+  ~ affiliates disclaim any liability for any damages caused by use of this
+  ~ software or hardware in dangerous applications.
+  ~ This software or hardware and documentation may provide access to or
+  ~ information on content, products, and services from third parties.
+  ~ Oracle Corporation and its affiliates are not responsible for and
+  ~ expressly disclaim all warranties of any kind with respect to
+  ~ third-party content, products, and services. Oracle Corporation and
+  ~ its affiliates will not be responsible for any loss, costs, or damages
+  ~ incurred due to your access to or use of third-party content, products,
+  ~ or services.
+  -->
+<ContentTemplate xmlns="http://endeca.com/schema/content-template/2008"
+                 xmlns:editors="editors"
+                 xmlns:xavia="http://endeca.com/schema/xavia/2010"
+                 type="MainContent">
+  <Description>Archived - Use CategoryHeaderBanner Instead</Description>
+  <ThumbnailUrl>unavailable.png</ThumbnailUrl>
+  <ContentItem>
+    <Name>CategoryBanner</Name>
+	<Property name="anchorTag">
+      <String/>
+    </Property>
+    <Property name="imageURL1">
+      <String/>
+    </Property>
+		<Property name="imageAltText1">
+      <String/>
+    </Property>
+		<Property name="imageH2Text1">
+      <String/>
+    </Property>
+		<Property name="imageParaText1">
+      <String/>
+    </Property>
+	<Property name="imageLink1">
+		<String/>
+	</Property>
+    <Property name="idTag">
+      <String/>
+    </Property>
+	<Property name="mobileHide">
+        <Boolean>false</Boolean>
+	</Property>
+	<Property name="desktopHide">
+		<Boolean>false</Boolean>
+	</Property>
+	<Property name="active">
+		<Boolean>true</Boolean>
+	</Property>
+  </ContentItem>
+  <EditorPanel>
+    <BasicContentItemEditor>
+	<editors:BooleanEditor propertyName="active" label="Active" bottomLabel="When checked content will be active" enabled="true"/>
+	<editors:BooleanEditor propertyName="desktopHide" label="Hide in Desktop View" bottomLabel="When checked content will be hidden in desktop view Only available for mobile View" enabled="true"/>
+	<editors:BooleanEditor propertyName="mobileHide" label="Hide in Mobile View" bottomLabel="When checked content will be hidden in mobile view Only available for Desktop View" enabled="true"/>
+	<editors:StringEditor propertyName="anchorTag" label="Anchor Tag" bottomLabel="Label used for hyperlinking the section" enabled="true"/>
+      <GroupLabel label="PromoFullWidth"/>
+			<GroupLabel label="Promo1"/>
+      <editors:StringEditor propertyName="imageURL1" label="Image Path" bottomLabel="${property.media.bottomLabel}" enabled="true"/>
+			<editors:StringEditor propertyName="imageAltText1" label="Image Alt Text" bottomLabel="" enabled="true"/>
+			<editors:StringEditor propertyName="imageH2Text1" label="H2 Text on Image" bottomLabel="" enabled="true"/>
+			<editors:StringEditor propertyName="imageParaText1" label="Para Text on Image" bottomLabel="" enabled="true" height="72"/>
+			<editors:StringEditor propertyName="imageLink1" label="Hyperlink on Image" bottomLabel="" enabled="true"/>
+			<editors:StringEditor propertyName="idTag" label="Id Tag" bottomLabel="" enabled="true"/>
+    </BasicContentItemEditor>
+  </EditorPanel>
+</ContentTemplate>
+<!-- @version $Id: //hosting-blueprint/B2CBlueprint/version/11.2/Storefront/deploy/import/templates/MediaBanner/template.xml#1 $$Change: 953229 $-->

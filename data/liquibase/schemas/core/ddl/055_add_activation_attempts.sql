@@ -1,0 +1,1 @@
+alter table mff_item add activation_attempts integer;

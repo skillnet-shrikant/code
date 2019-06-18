@@ -1,0 +1,4 @@
+<div class="back-to-top" data-backtotop>
+	<div aria-hidden="true" class="icon icon-arrow-up"></div>
+	<div class="text">top</div>
+</div>

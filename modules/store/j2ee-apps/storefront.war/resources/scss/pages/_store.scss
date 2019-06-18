@@ -1,0 +1,588 @@
+/* Store Pages
+========================================================= */
+
+// store locator
+.three-column-container {
+	@include grid-row();
+	margin: 0 auto 20px;
+	position: relative;
+}
+.store-locator-left {
+	@include grid-column(12);
+	max-height: 565px;
+	overflow-y: auto;
+	@include media(medium-up) {
+		width: 25%;
+		float: left;
+	}
+	h3 {
+		@include rem-size(margin-bottom, 4px);
+	}
+	form {
+		@include rem-size(margin-bottom, 8px);
+	}
+}
+.store-locator-center {
+	@include grid-column(12);
+	@include media(medium-up) {
+		width: 50%;
+		float: left;
+	}
+}
+.store-locator-right {
+	@include grid-column(12);
+	@include media(medium-up) {
+		width: 25%;
+		float: left;
+	}
+}
+.map-container {
+	//@include rem-size(margin, 25px 0px);
+	border: 1px solid $border-color;
+	height: 565px;
+}
+.store-location-results {
+	@include rem-size(padding, 4px 8px);
+	@include rem-size(margin, 10px -8px);
+	 .card{
+		@include rem-size(margin-bottom, 12px);
+	}
+	.make-this-store{
+		@include rem-size(padding, 0px 12px);
+		cursor: pointer;
+		&:hover {
+			@include box-shadow(0, 0, 8px, $border-color);
+		}
+		a {
+			text-decoration: none;
+		}
+		color: $orange;
+		@include font-size(12px);
+		span.icon {
+			color: $orange;
+		}
+	}
+	.home-this-store {
+		@include rem-size(padding, 0px 12px);
+		cursor: default;
+		color: $orange;
+		@include font-size(12px);
+		span.icon {
+			color: $orange;
+		}
+	}
+	.view-store-details {
+		@include rem-size(margin, 8px 12px);
+	}
+}
+.store-location-results
+.location-details {
+	@include rem-size(padding, 8px 12px);
+	@include font-size(14px);
+	cursor: pointer;
+	strong {
+		@include font-size(16px);
+	}
+	.store-open-info {
+		@include font-size(12px);
+    	color: $dark-blue;
+    	position: relative;
+    	top: -4px;
+	}
+	.coming-store {
+		font-weight: $bold;
+		color: $orange;
+	}
+	/*&:hover {
+		@include box-shadow(0, 0, 8px, $border-color);
+	}*/
+	a {
+		text-decoration: none;
+	}
+}
+.map-bold {
+	font-weight: $bold;
+	color: $orange;
+	@include font-size(16px);
+}
+#map {
+	width: 100%;
+	height: 100%;
+}
+
+// store hours list
+.store-hours-title {
+	@include rem-size(margin, 20px 0px 4px);
+	font-weight: $bold;
+}
+.store-hours {
+	@include font-size(12px);
+	@include rem-size(line-height, 22px);
+}
+
+.dark {
+	color: $deepest-gray !important;
+	border: 2px solid $deepest-gray;
+}
+.primary-dark {
+	color: #fd6316;
+	border: 2px solid #fd6316;
+	background: #fff;
+}
+.mobile-store-view {
+	margin: 0.5rem 0.75rem;
+	@include media(medium-up){
+		display: none;
+	}
+}
+
+//store-locator
+.store-locator {
+	.two-column-container {
+		.store-locator-left {
+			@include grid-column();
+			@include media(medium-up) {
+				width: 33.333%;
+				float: left;
+			}
+			@include media(small-only) {
+				@include rem-size(margin, 12px 0px);
+			}
+			h3 {
+				@include rem-size(margin-bottom, 4px);
+			}
+			form {
+				@include rem-size(margin, 16px 0px);
+				.store-locator-zip {
+					width: 80%;
+					float: left;
+				}
+			}
+			.store-search-button {
+				width: 20%;
+			    @include rem-size(padding-left, 0px);
+			    @include rem-size(padding-right, 0px);
+			    height: 40px;
+			    @include rem-size(margin, 0px);
+			    .icon {
+					color: #fff;
+				    position: relative;
+				    top: 3px;
+				    left: 0px;
+			    }
+			}
+			.divider {
+				@include rem-size(margin, 16px 16px 0px 16px);
+			}
+			.store-card {
+				&:last-child {
+					.divider {
+						display: none;
+					}
+				}
+			}
+		}
+		
+		.store-locator-right {
+			@include grid-column();
+			@include media(medium-up) {
+				width: 66.666%;
+				float: left;
+			}
+		}
+	}
+}
+
+// store details
+.store-detail {
+	@include font-size(14px);
+	hr {
+		display: none;
+	}
+	hr.divider {
+		@include rem-size(margin, 10px 10px 0px 10px);
+		display: block;
+	}
+	.section-row {
+		@include rem-size(padding, 10px 0px);
+	}
+	.store-time {
+		text-transform: lowercase;
+	}
+	.actions {
+		@include media(medium-up) {
+			a.tertiary {
+				width: 100%;
+			}
+		}
+	}
+	.map-container {
+		height: 256px;
+	}
+	@include media(small-only) {
+		.map-container {
+			display: none;
+		}
+		hr {
+			display: block;
+		}
+	}
+	.store-hours-section {
+		li {
+			@include rem-size(margin, 0px);
+		}
+		.store-holidays-section {
+			@include rem-size(padding-top, 10px);
+			display: inline-block;
+			
+			.holiday-header {
+				@include rem-size(margin, 0px);
+				float:left;
+			}
+		}
+		.accordion-title {
+			width: 100%;
+			color: $dark-blue;
+		}
+		.icon-plus {
+			color: $dark-blue;
+			@include rem-size(padding-left, 10px);
+		}
+	}
+	.store-promo-section {
+		.location-details {
+			width: 200px;
+		}
+		.icon {
+			@include rem-size(margin, 12px 10px 0px 0px);
+		}
+		img {
+			@include rem-size(margin, 12px 4px 0px 0px);
+		}
+		.icon-facebook {
+			color: $white;
+		}	
+	}
+	.store-service-section {
+		.location-details {
+			width: 240px;
+			display: inline-block;
+		}
+	}
+	.store-location-list {
+		max-height: 330px;
+		overflow: hidden;
+	}
+	.priamry-dark {
+		.icon-locator {
+			color: #fd6316;
+		}
+	}
+	.home-store-section {
+		@include rem-size(margin, 0px 0px 24px 0px);
+	}
+	.show-on-mobile {
+		display: none;
+	}
+	@include media(small-only) {
+		.hide-on-mobile {
+			display: none;
+		}
+		.show-on-mobile {
+			display: block;
+			@include rem-size(margin, 16px 0px 0px 0px);
+		}
+	}
+	
+	.store-details-nav-list {
+		text-align: center;
+    	border: 1px solid $deepest-gray;
+    	@include media(small-only) {
+    		@include rem-size(margin-top, 10px);
+    	}
+    	.store-location-details {
+    		@include font-size(16px);
+    		.address {
+    			position: relative;
+    			top: -10px;
+    			line-height: 1.5rem;
+    		}
+    	}
+    	.store-title {
+    		position: relative;
+    		top: -10px;
+    		background: white;
+    		padding: 0 5px;
+    		text-transform: uppercase;
+    	}
+    	.store-today-info {
+    		@include rem-size(margin, 8px 12px);
+    		@include font-size(12px);
+    		span {
+    			&:first-child {
+	    			border-radius: 10px;
+	    			@include rem-size(padding, 1px 10px);
+	   				text-transform: capitalize;
+	   				cursor: none;
+	   				&:hover {
+	   					background: $orange;
+	   				}
+   				}
+   				&:last-child {
+   					@include rem-size(padding-left, 10px);
+   				}
+    		}
+    	}
+    	.actions {
+			width: 100%;
+			
+			display: inline-block;
+			.call-to-mobile {
+				display: none;
+			}
+		}
+		@include media(small-only) {
+			.actions {
+				@include rem-size(padding, 0px);
+				@include rem-size(margin, 0px);
+				.call-to-mobile {
+    				display: block;
+    			}
+				a{
+					width: 45%;
+					@include rem-size(margin, 8px);
+					float: left;
+				}
+			}
+		}
+	}
+	.store-detail-card {
+		display: inline-block;
+	}
+	
+	.store-event-section {
+		.event-card {
+			width: 100%;
+			background: $light-gray;
+			display: inline-block;
+			.event-date {
+				@include rem-size(padding, 8px 24px);
+				text-align: center;
+				float: left;
+   				 width: 40%;
+   				 .event-day {
+   				 	@include rem-size(padding-bottom, 5px);
+   				 	@include rem-size(margin, 0px);
+				    text-transform: uppercase;
+				    @include font-size(12px);
+   				 }
+   				 strong {
+   				 	 @include font-size(18px);
+   				 }
+			}
+			.event-details {
+				width: 60%;
+    			float: left;
+    			@include rem-size(padding, 8px);
+    			span {
+    				@include font-size(10px);
+    			}
+			}
+		}
+	}
+	
+	.store-location-list,
+	.store-service-section {
+		img{
+			@include rem-size(margin-right, 8px);
+		}
+	}
+	.store-grid {
+		.actions {
+			@include rem-size(padding, 8px 12px);
+		}
+	}
+	
+	.two-column-container {
+		 @include rem-size(margin-bottom, 0px);
+		.two-column-left {
+			@include grid-column();
+			display: block;
+    		position: relative;
+    		@include rem-size(padding-left, 0px);
+			@include media(medium-up) {
+				width: 33.333%;
+				float: left;
+			}
+			h3 {
+				@include rem-size(margin-top, 0px);
+			}
+			.mobile-refinements {
+				@include rem-size(padding, 10px 0px);
+			}
+			.facet-menu {
+				@include media(small-only) {
+					margin: 0px !important;
+				}
+			}
+			.section-title {
+				@include rem-size(padding, 10px 0px);
+			}
+			.address {
+				@include rem-size(padding, 0px 40px);
+			}
+			.actions {
+				@include rem-size(padding, 8px 12px);
+			}
+		}
+		.two-column-right {
+			@include media(medium-up) {
+				width: 66.666%;
+				float: left;
+			}
+			h2.title {
+				float: left;
+				width: 66.666%;
+				@include media(small-only) {
+					width: 100%;
+				}
+			}
+			.home-store-section {
+				width: 33.333%;
+				@include media(small-only) {
+					width: 100%;
+				}
+				float: left;
+				h3,.actions {
+					text-align: right;
+					color: $orange;
+					@include media(small-only) {
+						@include rem-size(margin, 0px);
+						text-align: left;
+					}
+				}
+				.icon {
+					color: $orange;
+				}
+				.actions {
+					@include rem-size(margin, 12px 0px);
+					@include media(small-only) {
+						@include rem-size(margin, 0px);
+						text-align: left;
+					}
+				}
+			}
+			.show-sidebar {
+				display: block;
+				@include media(medium-up) {
+					display: none;
+				}
+			}
+			.store-detail-section {
+				& + .store-detail-section {
+					@include rem-size(padding-top, 15px);
+				}
+				h3 {
+					color: $orange;
+					@include rem-size(margin-bottom, 0px);
+				}
+			}
+			.store-address {
+				@include rem-size(padding-top, 15px);
+				@include rem-size(line-height, 22px);
+			}
+			.store-map {
+				height: auto;
+				@include rem-size(padding, 10px 10px 20px 10px);
+				img {
+					background-repeat: no-repeat;
+					background-size: contain;
+				}
+			}
+		}
+	}
+	.store-output {
+		@include rem-size(margin-top, -20px);
+		img {
+			@include rem-size(padding-top, 10px);
+		}
+	}
+}
+.store-details-nav-list {
+	@include unlist();
+	li {
+		@include rem-size(padding-bottom, 10px);
+	}
+}
+
+/*******************/
+
+.store-grid {
+	@include rem-size(margin, 0px);
+	@include rem-size(padding, 0px);
+    width: 100%;
+	li {
+		list-style: none;
+		height: auto !important;
+	}
+	h2 {
+		@include font-size(14px);
+		letter-spacing: 0.5px;
+	}
+	.location-details {
+		h2 {
+			@include rem-size(margin-bottom, 0px);
+		}
+	}
+	a {
+		color: #25408f;
+    	@include font-size(12px);
+    	font-weight: $bold;
+	}
+	strong {
+		@include rem-size(margin, 0px);
+    	@include font-size(14px);
+    	letter-spacing: 0.5px;
+	}
+}
+.store-grid {
+	ul {
+		text-transform: capitalize;
+		@include rem-size(padding, 0px);
+		@include font-size(14px);
+		li {
+			@include rem-size(margin-bottom, 14px);
+			float: none;
+			img {
+				vertical-align: top;
+			}
+			.icon {
+				vertical-align: top;
+				@include font-size(32px);
+				@include rem-size(margin-bottom, 8px);
+				float: left;
+			}
+			.icon-plus {
+				@include font-size(10px);
+			}
+		}
+	}
+}
+@include media(medium-up) {
+	.store-grid-two {
+		@include block-grid(
+			$per-row: 2,
+			$spacing: 20px,
+			$base-style: true
+		);
+	}
+}
+@include media(medium-up) {
+	.store-grid-three {
+		@include block-grid(
+			$per-row: 3,
+			$spacing: 20px,
+			$base-style: true
+		);
+	}
+}

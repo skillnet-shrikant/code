@@ -1,0 +1,80 @@
+<!-- Individual Module Build File -->
+<!-- Version: $Id$ -->
+<project name="integration-fedex-addressvalidation" default="build" basedir=".">
+   <!-- Defining property name to access environmental variables -->
+   <property environment="env"/>
+   <!-- Importing build files and properties files -->
+   <property file="../../../../build.properties"/>
+   <property file="../../../../users/${user.name}.properties"/>
+   <property file="module.properties"/>
+   <import file="../../../../common-classpath.xml"/>
+
+   <path id="module.classpath">
+      	<path refid="common.classpath"/>
+    	<fileset dir="../../axis2client/lib">
+   	 		<include name="**/*.jar"/>
+     	</fileset>
+   		<fileset dir="../lib">
+   	 		<include name="*.jar"/>
+     	</fileset>
+		<fileset dir="./lib-external">
+			<include name="*.jar"/>
+		</fileset>
+   </path>
+	
+   <!--<target name="full" depends="fas-deploy"/> -->
+   <target name="build">
+      <echo message="Build: ${module.name}"/>
+      <mkdir dir="./build/classes"/>
+      <!-- Compiling Java files -->
+      <javac srcdir="./src/" destdir="./build/classes/" debug="on" >
+	 <classpath refid="module.classpath"/>
+      </javac>
+		<copy todir="./build/classes">
+			<fileset dir="src/">
+				<include name="**/*.properties" />
+				<include name="**/*.xml" />
+			</fileset>
+		</copy>
+	  <mkdir dir="./lib/"/>
+      <jar destfile="lib/${module.name}.jar" basedir="./build/classes" 
+	   includes="*.class,*.properties">
+	 <fileset dir="./build/classes"/>
+      </jar>
+      <echo message="Finished building ${module.name}"/>
+   </target>
+	
+
+   <target name="deploy">
+      <echo message="Deploy: ${module.name}"/>
+      <mkdir dir="${atg.dir}/${module.path}/${module.name}"/>
+      <copy todir="${atg.dir}/${module.path}/${module.name}">
+	 <fileset dir=".">
+	    <exclude name="**/sql/"/>
+	    <exclude name="**/src/"/>
+	    <exclude name="**/docs/"/>
+	    <exclude name="**/bin/"/>
+	    <exclude name="**/build/"/>
+	    <exclude name="**/eclipse_build/"/>
+	 	<exclude name="**/wsdl/"/>
+	    <exclude name="*.project"/>
+	    <exclude name="*.classpath"/>
+	    <exclude name="*.xml"/>
+	    <exclude name="*.properties"/>
+	 </fileset>
+      </copy>
+   </target>
+   <target name="clean" unless="clean-before-build">
+ 		<echo message="clean: ${module.name}"/>
+      <!-- Deleting classes directory -->
+      <delete includeemptydirs="true" failonerror="false">
+	 <fileset dir="./build/classes" />
+      </delete>
+   	  <delete dir="./build/"/>
+      <delete dir="./lib/"/>
+      <!-- Deleting the module diretory in ATG_DIR -->
+      <delete dir="${atg.dir}/${module.path}/${module.name}"/>
+   </target>
+	
+
+</project>

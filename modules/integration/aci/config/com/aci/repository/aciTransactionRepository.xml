@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE gsa-template 
+ PUBLIC "-//Art Technology Group, Inc.//DTD Dynamo Security//EN"
+   "http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
+<gsa-template >
+	<header>
+		<name>ACI Transaction Log Repository</name>
+		<author>DMI</author>
+	</header>
+	<item-descriptor name="aciTransaction" display-name="ACI Transaction" item-cache-timeout="180000" cache-mode="simple" id-separator=":" sub-type-property="type">
+		<table name="aci_transaction" type="primary" id-column-name="transaction_id">
+			<property readable="true" expert="true" hidden="false" data-type="enumerated" required="false" writable="true" queryable="true" cache-mode="inherit" backing-map-property="false" name="type" >
+				<attribute name="useCodeForValue" value="false"/>
+        		<option code="0" value="fraudTransaction"/>
+        		<option code="1" value="paymentTransaction"/>
+			</property>
+			<property name="atgArtifactId" data-type="string" column-name="atg_artifact_id" display-name="ATG Order Id" />
+			<property name="ordId" data-type="string" column-name="ord_id" display-name="ACI Order Id" />
+			<property name="actionCode" data-type="string" column-name="act_cd" display-name="ACI Action Code" />
+			<property name="divisionNumber" data-type="string" column-name="div_num" display-name="ACI Division Number" />
+			<property name="statusCode" data-type="string" column-name="stat_cd" display-name="ACI Status Code" />
+			<property name="requestId" data-type="string" column-name="req_id" display-name="ACI Request" />
+			<property name="requestType" data-type="string" column-name="req_type_cd" display-name="ACI Request" />
+			<property name="request" data-type="string" column-name="request" display-name="ACI Request" />
+			<property name="response" data-type="string" column-name="response" display-name="ACI Response" />
+			<property name="transactionTime" data-type="timestamp" column-name="transaction_time" display-name="transaction_time" />
+		</table>
+	</item-descriptor>
+	<item-descriptor  sub-type-value="fraudTransaction" writable="true" default="false" item-cache-timeout="180000" cache-mode="simple" id-separator=":" name="fraudTransaction" super-type="aciTransaction">
+		<table name="aci_fraud_transaction" type="auxiliary" id-column-name="transaction_id">
+			<property name="fraudRequestId" data-type="string" column-name="fraud_rec_id" display-name="ACI Fraud Req Id" />
+			<property name="fraudResponseCode" data-type="string" column-name="fraud_rsp_cd" display-name="ACI Fraud Response Code" />
+			<property name="fraudStateCode" data-type="string" column-name="fraud_stat_cd" display-name="ACI Fraud State" />
+			<property name="fraudResponseDescription" data-type="string" column-name="fraud_rsp_desc" display-name="ACI Fraud Response Description" />
+			<property name="fraudNeuralScore" data-type="string" column-name="fraud_neural" display-name="ACI Fraud Neural Score" />
+			<property name="fraudRuleCategory" data-type="string" column-name="fraud_rcf" display-name="ACI Fraud Rule category" />
+		</table>
+	</item-descriptor>	
+	<item-descriptor name="paymentTransaction" writable="true" default="false" item-cache-timeout="180000" cache-mode="simple" id-separator=":" super-type="aciTransaction">
+		<table name="aci_payment_transaction" type="auxiliary" id-column-name="transaction_id">
+			<property name="paymentResponseCode" data-type="string" column-name="rsp_cd" display-name="ACI Payment Response Code" />
+			<property name="paymentDate" data-type="timestamp" column-name="rsp_dt" display-name="ACI Payment Date" />
+			<property name="paymentTime" data-type="timestamp" column-name="rsp_tm" display-name="ACI Payment Time" />
+			<property name="paymentMessage" data-type="string" column-name="rsp_msg" display-name="ACI Message returned by entity" />
+		</table>
+	</item-descriptor>	
+</gsa-template>

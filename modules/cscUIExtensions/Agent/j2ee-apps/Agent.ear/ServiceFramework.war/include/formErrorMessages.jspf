@@ -1,0 +1,11 @@
+<span class="error">
+  <c:if test="${!empty mainFormHandler.formError}">
+    <c:if test="${!empty mainFormHandler.formExceptions}">
+      <c:forEach var="errorItem" items='${mainFormHandler.formExceptions}' varStatus="loop">
+        <c:out value="${errorItem.message}"/><br/>
+      </c:forEach>
+      <br />
+    </c:if>
+  </c:if>
+</span>
+<%-- @version $Id: //application/service-UI/version/11.2/framework/Agent/src/web-apps/ServiceFramework/include/formErrorMessages.jspf#1 $$Change: 946917 $--%>

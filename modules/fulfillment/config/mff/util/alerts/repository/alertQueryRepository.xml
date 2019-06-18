@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<!DOCTYPE gsa-template PUBLIC "-//Art Technology Group, Inc.//DTD General SQL Adapter//EN" "http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
+
+<gsa-template>
+
+	<header>
+		<name>Alert</name>
+		<author>DMI</author>
+		<description>Repository to hold monitoring sql queries</description>
+	</header>
+	
+	<item-descriptor name="alertQuery" display-name="Alert Query">
+		<table name="mff_alert_query" id-column-name="alert_id" type="primary">
+			<property column-name="alert_id"			data-type="string"		name="id"				required="true"  	queryable="true" />
+			<property column-name="job_name"			data-type="string"		name="jobName"			required="true"  	queryable="true" />
+			<property column-name="job_desc"			data-type="string"		name="jobDesc"			required="true"  	queryable="true" />
+			<property column-name="alert_query"			data-type="big string"	name="alertQuery"		required="true"  	queryable="true" />
+			<property column-name="schedule_string"		data-type="string"		name="scheduleString"	required="true"  	queryable="true" />
+			<property column-name="calendar_schedule"	data-type="boolean"		name="calendarSchedule"	required="true"  	queryable="true" default="true"/>
+			<property column-name="enabled"				data-type="boolean"		name="enabled"			required="true"  	queryable="true" default="true" />
+			<property column-name="job_id"				data-type="string"		name="jobId"			required="false"  	queryable="true" />
+			<property column-name="sender_email"		data-type="string"		name="senderEmail"		required="true"  	queryable="true" />
+			<property column-name="email_distro"		data-type="string"		name="emailDistro"		required="true"  	queryable="true" />
+			<property column-name="email_subject"		data-type="string"		name="emailSubject"		required="true"  	queryable="true" />
+			<property column-name="email_body"			data-type="string"		name="emailBody"		required="true"  	queryable="true" />
+		</table>
+	</item-descriptor>
+	
+
+</gsa-template>
+

@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+ATG-Required: KP.OMS.fulfillment
+ATG-Class-Path: lib/omsallocation.jar 
+ATG-Client-Class-Path: lib/omsallocation.jar 
+ATG-Config-Path: config
+
+Name: lib/omsallocation.jar
+ATG-Client-Update-File: true

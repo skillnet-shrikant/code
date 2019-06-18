@@ -1,0 +1,10 @@
+<%@ include file="tags.jspf" %>
+<%@ page contentType="text/html; charset=utf-8" %>
+
+<dsp:page>
+	<%-- Set the default value for the xml="..." attribute on the dsp:page tags. --%>
+	<dsp:setxml value="true"/>
+	<dsp:getvalueof var="locale" bean="/OriginatingRequest.requestLocale.locale"/>
+	<fmt:setLocale value="${locale}"/>
+	<dsp:getvalueof var="contextPath" vartype="java.lang.String" bean="/OriginatingRequest.contextPath" scope="request" />
+</dsp:page>

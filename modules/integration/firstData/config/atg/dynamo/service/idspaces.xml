@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<id-spaces>
+    <id-space name="fd_client_ref_id" seed="100000" batch-size="10"/>
+    <id-space name="journal_key_id" seed="10000000" batch-size="10"/>
+</id-spaces>

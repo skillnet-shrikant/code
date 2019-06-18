@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+ATG-Required: KP.OMS.fulfillment Fulfillment
+ATG-Class-Path: lib/core2oms.jar 
+ATG-Client-Class-Path: lib/core2oms.jar 
+ATG-Config-Path: config
+
+Name: lib/core2oms.jar
+ATG-Client-Update-File: true

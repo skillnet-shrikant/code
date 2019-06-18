@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+ATG-Required: DCS DafEar.Admin DPS.TextSearch.Index DAF.Endeca.Index DCS.Endeca.Index KP.integration.fedex.addressvalidation KP.integration.aci KP.integration.firstData KP.integration.vertex KP.integration.bazaarvoice KP.integration.googleadwords KP.integration.listrak.email
+ATG-Class-Path: lib/main.jar lib-external/fontbox-2.0.12.jar lib-external/pdfbox-2.0.12.jar lib-external/pdfbox-tools-2.0.12.jar lib-external/gson-2.2.2.jar lib-external/httpclient-4.5.2.jar lib-external/httpcore-4.4.4.jar lib-external/guava-14.0.jar lib-external/commons-lang3-3.3.2.jar lib-external/jsch-0.1.53.jar lib-external/metrics-core-3.1.0.jar lib-external/avalon-framework-4.2.0.jar 
+ lib-external/barcode4j.jar lib-external/bcprov-jdk15on-147.jar lib-external/bcpg-jdk15on-1.47.jar lib-external/commons-dbutils-1.6.jar
+ATG-Config-Path: config
+ATG-Client-Class-Path: lib/main.jar lib-external/fontbox-2.0.12.jar lib-external/pdfbox-2.0.12.jar lib-external/pdfbox-tools-2.0.12.jar lib-external/gson-2.2.2.jar lib-external/httpclient-4.5.2.jar lib-external/httpcore-4.4.4.jar lib-external/guava-14.0.jar lib-external/commons-lang3-3.3.2.jar lib-external/jsch-0.1.53.jar lib-external/metrics-core-3.1.0.jar lib-external/avalon-framework-4.2.0.jar 
+ lib-external/barcode4j.jar lib-external/bcprov-jdk15on-147.jar lib-external/bcpg-jdk15on-1.47.jar lib-external/commons-dbutils-1.6.jar
+Name: lib/main.jar
+ATG-Client-Update-File: true
+

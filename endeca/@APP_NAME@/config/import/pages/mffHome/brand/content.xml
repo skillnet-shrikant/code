@@ -1,0 +1,20 @@
+<ContentItem type="Page" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://endeca.com/schema/content/2008">
+  <TemplateId>PageSlot</TemplateId>
+  <Name>Static Page Slot</Name>
+  <Property name="contentPaths">
+    <List xmlns="http://endeca.com/schema/xavia/2010">
+      <String>/content/Web/Brand Landing Pages</String>
+    </List>
+  </Property>
+  <Property name="templateTypes">
+    <List xmlns="http://endeca.com/schema/xavia/2010">
+      <String>Page</String>
+    </List>
+  </Property>
+  <Property name="templateIds">
+    <aaa:List xmlns:aaa="http://endeca.com/schema/xavia/2010"/>
+  </Property>
+  <Property name="ruleLimit">
+    <String>1</String>
+  </Property>
+</ContentItem>

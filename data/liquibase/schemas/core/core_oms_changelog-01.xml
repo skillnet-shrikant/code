@@ -1,0 +1,1071 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+   <changeSet author="mastan" id="001_core_ddl">
+      <comment>Create MFF User table and Mff account lock table</comment>
+      <sqlFile path="schemas/core/ddl/001_core_ddl.sql"/>
+   </changeSet>
+
+   <changeSet author="mastan" id="002_core_ddl">
+      <comment>Create Tax exemption , user org address tables</comment>
+      <sqlFile path="schemas/core/ddl/002_core_ddl.sql"/>
+   </changeSet>
+
+   <changeSet author="mastan" id="003_core_ddl">
+      <comment>Create MFF credit card </comment>
+      <sqlFile path="schemas/core/ddl/003_core_ddl.sql"/>
+   </changeSet>
+
+   <changeSet author="mastan" id="004_core_ddl">
+      <comment>Create MFF Tax exemption table</comment>
+      <sqlFile path="schemas/core/ddl/004_core_ddl.sql"/>
+   </changeSet>
+
+   <changeSet author="cgopalan" id="005_extn_inventory">
+      <comment>Create extn inventory and store inventory tables</comment>
+      <sqlFile path="schemas/core/ddl/005_extn_inventory.sql"/>
+   </changeSet>
+
+   <changeSet author="vsingh" id="006_create_mff_item">
+      <comment>Create MFF commerce item table</comment>
+      <sqlFile path="schemas/core/ddl/006_create_mff_item.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/006_drop_mff_item.sql"/>
+      </rollback>
+   </changeSet>
+
+   <changeSet author="cgopalan" id="001_f_compute_distance" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>Procedure to compute distance between two lat/longs</comment>
+      <sqlFile path="schemas/core/ddl/oms/001_f_compute_distance.sql" splitStatements="false"/>
+   </changeSet>
+
+   <changeSet author="cgopalan" id="002_mff_allocation_log">
+      <comment>Create mff_allocation_log tables</comment>
+      <sqlFile path="schemas/core/ddl/oms/002_mff_allocation_log.sql"/>
+   </changeSet>
+
+   <changeSet author="cgopalan" id="003_order_item">
+      <comment>create order_item table</comment>
+      <sqlFile path="schemas/core/ddl/oms/003_order_item.sql"/>
+   </changeSet>
+
+   <changeSet author="cgopalan" id="004_tmp_rule_1_results">
+      <comment>Tmp table to store rule execution results</comment>
+      <sqlFile path="schemas/core/ddl/oms/004_tmp_rule_1_results.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="005_store_queue_ratio">
+      <comment>Tmp table to store queue ration</comment>
+      <sqlFile path="schemas/core/ddl/oms/005_store_queue_ratio.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="006_tmp_rule_2_results">
+      <comment>Tmp table to store rule execution results</comment>
+      <sqlFile path="schemas/core/ddl/oms/006_tmp_rule_2_results.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="007_tmp_rule_3_results">
+      <comment>Tmp table to store rule execution results</comment>
+      <sqlFile path="schemas/core/ddl/oms/007_tmp_rule_3_results.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="007_tmp_rule_3_results_1">
+      <comment>Recreate tmp table</comment>
+      <sqlFile path="schemas/core/ddl/oms/007_tmp_rule_3_results_1.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="007_zipcode_usa_ddl">
+      <comment>All US Zipcodes with lat/long mappings</comment>
+      <sqlFile path="schemas/core/ddl/007_zipcode_usa_ddl.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="008_zipcode_usa_indices">
+      <comment>Indices for zipcode table</comment>
+      <sqlFile path="schemas/core/ddl/008_zipcode_usa_indices.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="008_sku_inventory">
+      <comment>Tmp allocation results table</comment>
+      <sqlFile path="schemas/core/ddl/oms/008_sku_inventory.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="008_order_sku_1">
+      <comment>View of order grouped by commerce item</comment>
+      <sqlFile path="schemas/core/ddl/oms/008_order_sku_1.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="008_store_queue_ratio_2" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>Snapshot of store queue ratio</comment>
+      <sqlFile path="schemas/core/ddl/oms/008_store_queue_ratio_2.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="008_eligible_stores_3">
+      <comment>Tmp allocation results table</comment>
+      <sqlFile path="schemas/core/ddl/oms/008_eligible_stores_3.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="008_sku_inventory_alter_4">
+      <comment>Add max_queue_size column</comment>
+      <sqlFile path="schemas/core/ddl/oms/008_sku_inventory_alter_4.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="009_p_get_inventory_for_sku" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>Procedure to get inventory for a sku</comment>
+      <sqlFile path="schemas/core/ddl/oms/009_p_get_inventory_for_sku.sql" splitStatements="false"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="010_p_get_order_allocation">
+      <validCheckSum>any</validCheckSum>
+      <comment>Allocation procedure</comment>
+      <sqlFile path="schemas/core/ddl/oms/010_p_get_order_allocation.sql" splitStatements="false"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="011_f_get_order_allocation" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>Main allocation function</comment>
+      <sqlFile path="schemas/core/ddl/oms/011_f_get_order_allocation.sql" splitStatements="false"/>
+   </changeSet>
+   <changeSet author="vsingh" id="012_create_mff_store_allocation.sql">
+      <comment>create store allocation table</comment>
+      <sqlFile path="schemas/core/ddl/oms/012_create_mff_store_allocation.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/oms/012_drop_mff_store_allocation.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="vsingh" id="013_alter_mff_store_allocation.sql">
+      <comment>alter store allocation table</comment>
+      <sqlFile path="schemas/core/ddl/oms/013_alter_mff_store_allocation.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/oms/013_alter_mff_store_allocation.sql"/>
+      </rollback>
+   </changeSet>
+
+   <changeSet author="vsingh" id="009_alter_mff_item.sql">
+      <comment>Alter MFF commerce item table</comment>
+      <sqlFile path="schemas/core/ddl/009_alter_mff_item.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/009_alter_mff_item.sql"/>
+      </rollback>
+   </changeSet>
+
+   <changeSet author="vsingh" id="010_create_mff_ship_group.sql">
+      <comment>create mff shipping group table</comment>
+      <sqlFile path="schemas/core/ddl/010_create_mff_ship_group.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/010_drop_mff_ship_group.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="ocastro" id="011_create_mff_itemprev_allocations.sql">
+      <comment>create the table to hold the previous allocations in the commerce item </comment>
+      <sqlFile path="schemas/core/ddl/011_create_mff_itemprev_allocations.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/011_drop_mff_itemprev_allocations.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="vsingh" id="012_add_tracking_number.sql" failOnError="false">
+      <comment>adding trackingNumber to item and shipping group</comment>
+      <sqlFile path="schemas/core/ddl/012_add_tracking_number.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/012_drop_tracking_number.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="vsingh" id="013_add_cancel_description.sql">
+      <comment>adding cancel description to item</comment>
+      <sqlFile path="schemas/core/ddl/013_add_cancel_description.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/013_drop_cancel_description.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="savula" id="014_create_mff_gift_card.sql">
+      <comment>Initial implementation of gift card implementation</comment>
+      <sqlFile path="schemas/core/ddl/014_create_mff_gift_card.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/014_drop_gift_card.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="cgopalan" id="014_alter_order_item.sql">
+      <comment>alter order item</comment>
+      <sqlFile path="schemas/core/ddl/oms/014_alter_order_item.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="015_create_force_allocation.sql">
+      <comment>create force_allocation table</comment>
+      <sqlFile path="schemas/core/ddl/oms/015_create_force_allocation.sql"/>
+   </changeSet>
+   <changeSet author="mdevireddy" id="016_back_in_stock_item.sql">
+      <comment>Initial implementation of BackINStockItem</comment>
+      <sqlFile path="schemas/core/ddl/016_back_in_stock_item.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/016_drop_back_in_stock_item.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="bnuthalapati" id="017_create_mff_order">
+      <comment>Create MFF Order extension table</comment>
+      <sqlFile path="schemas/core/ddl/017_create_mff_order.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/017_drop_mff_order.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="ocastro" id="018_add_giftcard_number.sql" failOnError="false">
+      <comment>adding gift card number to commerce item</comment>
+      <sqlFile path="schemas/core/ddl/018_add_giftcard_number.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/018_drop_giftcard_number.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="vmateti" id="019_add_minimum_age.sql" failOnError="false">
+      <comment>adding minimum age to commerce item</comment>
+      <sqlFile path="schemas/core/ddl/019_add_minimum_age.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/019_drop_minimum_age.sql"/>
+      </rollback>
+   </changeSet>
+    <changeSet author="cgopalan" id="020_alter_mff_store_inventory" >
+      <comment>Adding damaged flag to store inventory table</comment>
+      <sqlFile path="schemas/core/ddl/020_alter_mff_store_inventory.sql"/>
+   </changeSet>
+   <changeSet author="vmateti" id="021_add_ffl_flag_item.sql" failOnError="false">
+      <comment>Adding ffl flag to commerce item</comment>
+      <sqlFile path="schemas/core/ddl/021_add_ffl_flag_item.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/020_drop_is_ffl_item.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="nkola" id="016_add_order_dashboard.sql" failOnError="false">
+      <comment>Adding ffl flag to commerce item</comment>
+      <sqlFile path="schemas/core/ddl/oms/016_add_order_dashboard.sql"/>
+      <rollback>
+       <sqlFile path="schemas/core/rollback/oms/016_drop_add_order_dashboard.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="cgopalan" id="016_alter_order_item.sql">
+      <comment>add split flags</comment>
+      <sqlFile path="schemas/core/ddl/oms/016_alter_order_item.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="017_create_alloc_rules.sql">
+      <comment>create allocation rules table</comment>
+      <sqlFile path="schemas/core/ddl/oms/017_create_alloc_rules.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="018_allocation_rules_pks" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>Alloc rules package spec</comment>
+      <sqlFile path="schemas/core/ddl/oms/018_allocation_rules_pks.sql" splitStatements="false"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="019_allocation_rules_pkb" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>Allocation rules package body</comment>
+      <sqlFile path="schemas/core/ddl/oms/019_allocation_rules_pkb.sql" splitStatements="false"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="020_allocation_pks" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>Alloc package spec</comment>
+      <sqlFile path="schemas/core/ddl/oms/020_allocation_pks.sql" splitStatements="false"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="021_allocation_pkb" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>Allocation package body</comment>
+      <sqlFile path="schemas/core/ddl/oms/021_allocation_pkb.sql" splitStatements="false"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="022_drop_p_get_order_alloc" >
+      <validCheckSum>any</validCheckSum>
+      <comment>drop unused proc</comment>
+      <sqlFile path="schemas/core/ddl/oms/022_drop_p_get_order_alloc.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="022_srch_facet_backing_tables">
+      <comment>Srch facet table and backing map tables</comment>
+      <sqlFile path="schemas/core/ddl/022_srch_facet_backing_tables.sql" splitStatements="true"/>
+   </changeSet> 
+    <changeSet author="vsingh" id="023_create_prorate_item.sql">
+      <comment>create pro rate item tables</comment>
+      <sqlFile path="schemas/core/ddl/023_create_prorate_item.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/023_create_prorate_item.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="vsingh" id="024_create_mff_exch_item.sql">
+      <comment>create pro rate item tables</comment>
+      <sqlFile path="schemas/core/ddl/024_create_mff_exch_item.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/024_create_mff_exch_item.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="tvallapu" id="025_add_locallockId_gcstatus">
+      <comment>Add Column locallockId  to Gift Card Payment Status table</comment>
+      <sqlFile path="schemas/core/ddl/025_add_locallockId_gcstatus.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/025_drop_locallockId_gcstatus.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="bnuthalapati" id="026_add_ip_address">
+      <comment>Column to store ip address</comment>
+      <sqlFile path="schemas/core/ddl/026_add_ip_address.sql"/>
+   </changeSet> 
+   <changeSet author="smyana" id="27_create_mff_zipcodes">
+      <comment>create mff_zipcodes table with unique data</comment>
+      <sqlFile path="schemas/core/ddl/27_create_mff_zipcodes.sql"/>
+	  <rollback>
+      	<sqlFile path="schemas/core/rollback/27_create_mff_zipcodes.sql"/>
+      </rollback>
+   </changeSet> 
+   <changeSet author="tvallapu" id="023_create_store_performance" failOnError="false">
+      <comment>Create Store Performance Stats Table</comment>
+      <sqlFile path="schemas/core/ddl/oms/023_create_store_performance.sql"/>
+      <rollback>
+       <sqlFile path="schemas/core/rollback/oms/023_drop_store_performance.sql"/>
+      </rollback>
+   </changeSet>
+    <changeSet author="vmateti" id="028_add_bopis_flag_order">
+      <comment>add is_bopis, bopis_store</comment>
+      <sqlFile path="schemas/core/ddl/028_add_bopis_flag_order.sql"/>
+	  <rollback>
+      	<sqlFile path="schemas/core/rollback/028_drop_is_bopis_order.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="bnuthalapati" id="029_recently_viewed">
+      <comment>tables for recently viewed products</comment>
+      <sqlFile path="schemas/core/ddl/029_recently_viewed.sql"/>
+	  <rollback>
+      	<sqlFile path="schemas/core/rollback/029_drop_recently_viewed.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="vsingh" id="030_alter_store_allocation.sql">
+      <comment>OMS changes for BOPIS fulfillment</comment>
+      <sqlFile path="schemas/core/ddl/030_alter_store_allocation.sql"/>
+	  <rollback>
+      	<sqlFile path="schemas/core/rollback/030_drop_store_allocation.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="vmateti" id="031_alter_mff_order.sql">
+      <comment>Alter mff_order, add bopis_person, bopis_email, contact_email columns</comment>
+      <sqlFile path="schemas/core/ddl/031_alter_mff_order.sql"/>
+	  <rollback>
+      	<sqlFile path="schemas/core/rollback/031_drop_bopis_person_order.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="vsingh" id="032_add_drop_ship.sql">
+      <comment>Alter mff_item to add drop ship flag</comment>
+      <sqlFile path="schemas/core/ddl/032_add_drop_ship.sql"/>
+	  <rollback>
+      	<sqlFile path="schemas/core/rollback/032_drop_drop_ship.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="vmateti" id="033_add_ffl_flag_order.sql">
+      <comment>Alter mff_order, add ffl_order columns</comment>
+      <sqlFile path="schemas/core/ddl/033_add_ffl_flag_order.sql"/>
+	  <rollback>
+      	<sqlFile path="schemas/core/rollback/033_drop_ffl_order.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="vmateti" id="034_add_ffl_dealerid_order.sql">
+      <comment>Alter mff_order, add ffl_dealer_id column</comment>
+      <sqlFile path="schemas/core/ddl/034_add_ffl_dealerid_order.sql"/>
+	  <rollback>
+      	<sqlFile path="schemas/core/rollback/034_drop_ffl_dealerid_order.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="vmateti" id="035_add_sat_delivery_ship.sql">
+      <comment>Alter mff_ship_group, add saturday_delivery column</comment>
+      <sqlFile path="schemas/core/ddl/035_add_sat_delivery_ship.sql"/>
+	  <rollback>
+      	<sqlFile path="schemas/core/rollback/035_drop_sat_delivery_ship.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="bnuthalapati" id="036_create_aci_log">
+      <comment>table for aci log.</comment>
+      <sqlFile path="schemas/core/ddl/036_create_aci_log.sql"/>
+	  <rollback>
+      	<sqlFile path="schemas/core/rollback/036_drop_aci_log.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="ocastro" id="025_return_reason_codes" runOnChange="true">
+   	   <validCheckSum>any</validCheckSum>
+      <comment>Return Reason Codes - corrected</comment>
+      <sqlFile path="schemas/core/ddl/oms/025_return_reason_codes.sql"/>
+   </changeSet>
+   <changeSet author="bnuthalapati" id="037_aci_order_extensions">
+  		<comment>aci extensions for order.</comment>
+  		<sqlFile path="schemas/core/ddl/037_aci_order_extensions.sql"/>
+		<rollback>
+			<sqlFile path="schemas/core/rollback/037_drop_aci_order_extensions.sql"/>
+		</rollback>
+	</changeSet>
+   <changeSet author="cgopalan" id="024_alter_order_item_drop_ship">
+      <comment>Add drop_ship flag</comment>
+      <sqlFile path="schemas/core/ddl/oms/024_alter_order_item_drop_ship.sql"/>
+   </changeSet>
+   <changeSet author="ocastro" id="026_return_disposition_codes">
+      <comment>Return Disposition Codes</comment>
+      <sqlFile path="schemas/core/ddl/oms/026_return_disposition_codes.sql"/>
+   </changeSet>
+   <changeSet author="tvallapu" id="038_alter_mffitem_addGC" failOnError="false">
+      <comment>Adds giftcard and giftcarddenomination columns</comment>
+      <sqlFile path="schemas/core/ddl/038_alter_mffitem_addGC.sql"/>
+      <rollback>
+       <sqlFile path="schemas/core/rollback/038_drop_mffitem_GC.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="rsirpal" id="039_add_ean_mff_gift_card">
+      <comment>Add Column ean to Gift Card Payment table</comment>
+      <sqlFile path="schemas/core/ddl/039_add_ean_mff_gift_card.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/039_drop_ean_mff_gift_card.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="pventrapragada" id="040_drop_aci_coulmns_mff_order">
+      <comment>Drop aci columns from mff_order table</comment>
+      <sqlFile path="schemas/core/ddl/040_drop_aci_coulmns_mff_order.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/039_drop_aci_coulmns_mff_order.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="pventrapragada" id="041_create_aci_order">
+      <comment>Add aci columns from mff_order table</comment>
+      <sqlFile path="schemas/core/ddl/041_create_aci_order.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/041_drop_aci_order.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="nkola" id="042_alter_mff_item">
+      <comment>Add Column ean line item for holding taxinfo</comment>
+      <sqlFile path="schemas/core/ddl/042_alter_mff_item.sql"/>
+      <rollback>
+         <sqlFile path="schemas/core/rollback/042_drop_alter_mff_item.sql"/>
+      </rollback>
+   </changeSet>   
+   <changeSet author="savula" id="037_settlement.sql">
+      <comment>Settlement repository changes</comment>
+      <sqlFile path="schemas/core/ddl/oms/037_settlement.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="043_create_mff_price">
+      <comment>Create mff_price table</comment>
+      <sqlFile path="schemas/core/ddl/043_create_mff_price.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="044_inventory_defaults">
+      <comment>setting default values for custom cols</comment>
+      <sqlFile path="schemas/core/ddl/044_inventory_defaults.sql"/>
+   </changeSet>
+   <changeSet author="vsingh" id="045_add_in_picking.sql">
+      <comment>Alter mff_store_allocation to add in picking flag</comment>
+      <sqlFile path="schemas/core/ddl/045_add_in_picking.sql"/>
+	  <rollback>
+      	<sqlFile path="schemas/core/rollback/045_drop_in_picking.sql"/>
+      </rollback>
+   </changeSet>
+   
+    <changeSet author="mmane" id="046_create_mff_order_price_info">
+      <comment>Create mff_order_price_info table</comment>
+      <sqlFile path="schemas/core/ddl/046_create_mff_order_price_info.sql"/>
+       <rollback>
+         <sqlFile path="schemas/core/rollback/042_drop_alter_mff_item.sql"/>
+      </rollback>
+   </changeSet>
+   
+   <changeSet author="mmane" id="047_create_mff_item_price_info">
+      <comment>Create mff_item_price_info table</comment>
+      <sqlFile path="schemas/core/ddl/047_create_mff_item_price_info.sql"/>
+      <rollback>
+         <sqlFile path="/schemas/core/rollback/44_create_mff_item_price_info.sql"/>
+      </rollback>
+   </changeSet>
+   
+   <changeSet author="rsirpal" id="048_add_response_mff_gift_card_status">
+       <comment>Add Column Resposnes to Gift Card Payment Status table</comment>
+       <sqlFile path="schemas/core/ddl/048_add_response_mff_gift_card_status.sql"/>
+       <rollback>
+       	<sqlFile path="schemas/core/rollback/046_drop_response_mff_gift_card_status.sql"/>
+       </rollback>
+   </changeSet>
+ 
+	<changeSet author="pventrapragada" id="050_drop_mff_credit_card">
+       <comment>Remove MFF Credit Card Table</comment>
+       <sqlFile path="schemas/core/ddl/050_drop_mff_credit_card.sql"/>
+	</changeSet>
+	
+	<changeSet author="pventrapragada" id="051_alter_aci_credit_card_status">
+       <comment>Alter ACI Credit card status table</comment>
+       <sqlFile path="schemas/core/ddl/051_alter_aci_credit_card_status.sql"/>
+       <rollback>
+       	<sqlFile path="schemas/core/rollback/051_alter_aci_credit_card_status.sql"/>
+       </rollback>
+	</changeSet>
+	
+	<changeSet author="pventrapragada" id="052_drop_aci_transaction_log">
+       <comment>Drop aci transaction log table</comment>
+       <sqlFile path="schemas/core/ddl/052_drop_aci_transaction_log.sql"/>
+       <rollback>
+       	<sqlFile path="schemas/core/rollback/052_create_aci_transaction_log.sql"/>
+       </rollback>
+	</changeSet>
+	
+	<changeSet author="pventrapragada" id="053_aci_transaction_repository">
+       <comment>Create aci transaction repository tables</comment>
+       <sqlFile path="schemas/core/ddl/053_aci_transaction_repository.sql"/>
+       <rollback>
+       	<sqlFile path="schemas/core/rollback/053_drop_aci_transaction_repository.sql"/>
+       </rollback>
+	</changeSet>
+	
+	<changeSet author="pventrapragada" id="054_alter_aci_order">
+       <comment>Alter aci order table</comment>
+       <sqlFile path="schemas/core/ddl/054_alter_aci_order.sql"/>
+       <rollback>
+       	<sqlFile path="schemas/core/rollback/054_alter_aci_order.sql"/>
+       </rollback>
+	</changeSet>
+   <changeSet author="ocastro" id="055_add_activation_attempts">
+      <comment>Adding number of GC activation attempts to commerce item table</comment>
+      <sqlFile path="schemas/core/ddl/055_add_activation_attempts.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/055_drop_activation_attempts.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="ocastro" id="056_add_storeId_returnItem">
+      <comment>Adding storeId to the returnItem</comment>
+      <sqlFile path="schemas/core/ddl/056_add_storeId_returnItem.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/056_drop_storeId_returnItem.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="cgopalan" id="038_alter_force_allocation">
+      <comment>Alter force_allocation table</comment>
+      <sqlFile path="schemas/core/ddl/oms/038_alter_force_allocation.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="039_alter_order_item">
+      <comment>Alter order item set default for gc</comment>
+      <sqlFile path="schemas/core/ddl/oms/039_alter_order_item.sql"/>
+   </changeSet>
+    <changeSet author="mmane" id="040_create_inventory_allocation_report">
+      <comment>Create inventory allocation report</comment>
+      <sqlFile path="schemas/core/ddl/oms/040_create_inventory_allocation_report.sql"/>
+   </changeSet>
+   <changeSet author="rsirpal" id="057_alter_gift_card_status">
+      <comment>Alter gift card status for cardnum and ean</comment>
+      <sqlFile path="schemas/core/ddl/057_alter_gift_card_status.sql"/>
+   </changeSet>
+   <changeSet author="bnuthalapati" id="058_alter_tax_exemption">
+      <comment>Tax exemption changes.</comment>
+      <sqlFile path="schemas/core/ddl/058_alter_tax_exemption.sql"/>
+   </changeSet>
+   <changeSet author="vsingh" id="059_prorate_changes.sql">
+      <comment>pro rate changes</comment>
+      <sqlFile path="schemas/core/ddl/059_prorate_changes.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/059_drop_prorate_changes.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="smyana" id="060_Zipcode_ddl.sql">
+      <comment>Zip code DDL</comment>
+      <sqlFile path="schemas/core/ddl/060_Zipcode_ddl.sql"/>
+   </changeSet>
+   <changeSet author="savula" id="060_alter_gift_card_status">
+      <comment>Clean up of gift card status</comment>
+      <sqlFile path="schemas/core/ddl/060_alter_gift_card_status.sql"/>
+   </changeSet>
+   <changeSet author="pventrapragada" id="061_alter_aci_order">
+       <comment>Alter aci order table</comment>
+       <sqlFile path="schemas/core/ddl/061_alter_aci_order.sql"/>
+       <rollback>
+       	<sqlFile path="schemas/core/rollback/061_alter_aci_order.sql"/>
+       </rollback>
+	</changeSet>
+	<changeSet author="bnuthalapati" id="062_alter_tax_exemption">
+      <comment>Added code to Tax exemption.</comment>
+      <sqlFile path="schemas/core/ddl/062_alter_tax_exemption.sql"/>
+   </changeSet>
+   <changeSet author="bnuthalapati" id="063_alter_mff_tax_exemption">
+      <comment>Alter columns to be nullable.</comment>
+      <sqlFile path="schemas/core/ddl/063_alter_mff_tax_exemption.sql"/>
+   </changeSet>
+   <changeSet author="pventrapragada" id="064_Zipcode_ddl_corrected.sql">
+      <comment>Zip code DDL</comment>
+      <sqlFile path="schemas/core/ddl/064_zipcode_ddl_corrected.sql"/>
+   </changeSet>
+
+   <changeSet author="rsirpal" id="065_alter_aci_credit_card_status">
+       <comment>Alter ACI Credit card status table</comment>
+       <sqlFile path="schemas/core/ddl/065_alter_aci_credit_card_status.sql"/>
+       <rollback>
+       	<sqlFile path="schemas/core/rollback/065_alter_aci_credit_card_status.sql"/>
+       </rollback>
+   </changeSet>   
+   <changeSet author="savula" id="066_alter_gift_card_status.sql">
+      <comment>Previous and New balances added</comment>
+      <sqlFile path="schemas/core/ddl/066_alter_gift_card_status.sql"/>
+   </changeSet>
+   <changeSet author="vsingh" id="067_add_bopis_reminder_date.sql">
+      <comment>bopis order reminder email send date</comment>
+      <sqlFile path="schemas/core/ddl/067_add_bopis_reminder_date.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/067_drop_bopis_reminder_date.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="vsingh" id="068_alter_tkt_dist_srv_stat.sql">
+      <comment>alter server_id column lengthe</comment>
+      <sqlFile path="schemas/core/ddl/068_alter_tkt_dist_srv_stat.sql"/>
+   </changeSet>
+   <changeSet author="savula" id="068_gift_card_refund_pg.sql">
+      <comment>Gift refund method extension</comment>
+      <sqlFile path="schemas/core/ddl/068_gift_card_refund_pg.sql"/>
+   </changeSet>   
+   <changeSet author="savula" id="069_gift_card_activation_retry.sql">
+      <comment>Added an activation attempts to gift card payment group</comment>
+      <sqlFile path="schemas/core/ddl/069_gift_card_activation_retry.sql"/>
+   </changeSet>  
+   <changeSet author="pventrapragada" id="070_alter_aci_credit_card">
+      <comment>Alter Aci Credit card to include mop type</comment>
+      <sqlFile path="schemas/core/ddl/070_alter_aci_credit_card.sql"/>
+   </changeSet> 
+   <changeSet author="vsingh" id="071_mff_exch_prorate_items.sql">
+      <comment>table to persist prorate item ids for return items</comment>
+      <sqlFile path="schemas/core/ddl/071_mff_exch_prorate_items.sql"/>
+   </changeSet> 
+   <changeSet author="mmane" id="041_alter_store_performance">
+      <comment>Alter store performance stat to include id column</comment>
+      <sqlFile path="/schemas/core/ddl/oms/041_alter_store_performance.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/041_alter_store_performance.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="mmane" id="042_alter_inventory_allocation_report">
+      <comment>Alter inventory report table to include reason code column</comment>
+      <sqlFile path="schemas/core/ddl/oms/042_alter_inventory_allocation_report.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/042_alter_inventory_allocation_report.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="pventrapragada" id="072_alter_mff_back_in_stock">
+      <comment>Alter mff_back_in_stock to include creation_date</comment>
+      <sqlFile path="schemas/core/ddl/072_alter_mff_back_in_stock.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/072_alter_mff_back_in_stock.sql"/>
+      </rollback>
+   </changeSet> 
+   <changeSet author="vsingh" id="073_add_bopis_ready_for_pickup_date.sql">
+      <comment>bopis order ready for pickup date</comment>
+      <sqlFile path="schemas/core/ddl/073_add_bopis_ready_for_pickup_date.sql"/>
+   </changeSet>
+   <changeSet author="savula" id="073_create_appeasement_refund_giftcard.sql">
+      <comment>Appeasement refund payment groups</comment>
+      <sqlFile path="schemas/core/ddl/073_create_appeasement_refund_giftcard.sql"/>
+   </changeSet>
+   <changeSet author="vsingh" id="074_order_lock.sql">
+      <comment>order lock table</comment>
+      <sqlFile path="schemas/core/ddl/074_order_lock.sql"/>
+   </changeSet>
+   <changeSet author="smyana" id="075_pw_reset_token.sql">
+      <comment>table to persist password tokens</comment>
+      <sqlFile path="schemas/core/ddl/075_pw_reset_token.sql"/>
+   </changeSet>
+   <changeSet author="pventrapragada" id="076_alter_aci_order">
+      <comment>Alter aci_order table to accomodate the who triggered the tieback response</comment>
+      <sqlFile path="schemas/core/ddl/076_alter_aci_order.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/076_alter_aci_order.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="bnuthalapati" id="077_alter_mff_user">
+      <comment>Column to store legacy boolean</comment>
+      <sqlFile path="schemas/core/ddl/077_alter_mff_user.sql"/>
+   </changeSet>
+      <changeSet author="pventrapragada" id="078_alter_aci_order">
+      <comment>Alter aci_order table to set default value to red fraud status</comment>
+      <sqlFile path="schemas/core/ddl/078_alter_aci_order.sql"/>
+   </changeSet>
+   <changeSet author="vmateti" id="079_create_mff_order_coupons">
+      <comment>Create create_mff_order_coupons to store coupon codes on the order</comment>
+      <sqlFile path="schemas/core/ddl/079_create_mff_order_coupons.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="043_allocation_errors_pks" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>Alloc errors package spec</comment>
+      <sqlFile path="schemas/core/ddl/oms/043_allocation_errors_pks.sql" splitStatements="false"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="044_allocation_errors_pkb" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>Allocation errors package body</comment>
+      <sqlFile path="schemas/core/ddl/oms/044_allocation_errors_pkb.sql" splitStatements="false"/>
+   </changeSet>
+   <changeSet author="savula" id="080_alter_mff_item_price">
+      <comment>Added a column to capture sales promo id</comment>
+      <sqlFile path="schemas/core/ddl/080_alter_mff_item_price.sql"/>
+   </changeSet> 
+   <changeSet author="pventrapragada" id="081_alter_dms_msg_properties">
+      <comment>Alter DMS_MSG_PROPERTIES table to extend the value column length to 300</comment>
+      <sqlFile path="schemas/core/ddl/081_alter_dms_msg_properties.sql"/>
+   </changeSet>  
+   <changeSet author="jvose" id="082_add_invoice_tables">
+      <comment>Add the Sales Audit Invoice Repository tables</comment>
+      <sqlFile path="schemas/core/ddl/082_add_invoice_tables.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/082_add_invoice_tables.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="vsingh" id="083_alter_mff_store_allocation.sql">
+      <comment>additional columns for store allocations</comment>
+      <sqlFile path="schemas/core/ddl/083_alter_mff_store_allocation.sql"/>
+   </changeSet>
+   <changeSet author="ocastro" id="084_add_returnable_pps_order.sql">
+      <comment>Alter mff_order, add returnable_pps column</comment>
+      <sqlFile path="schemas/core/ddl/084_add_returnable_pps_order.sql"/>
+	  <rollback>
+      	<sqlFile path="schemas/core/rollback/084_drop_returnable_pps_order.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="cgopalan" id="085_legacy_user_mig_pks" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>User migration package spec</comment>
+      <sqlFile path="schemas/core/ddl/085_legacy_user_mig_pks.sql" splitStatements="false"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="086_legacy_user_mig_pkb" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>user migration package body</comment>
+      <sqlFile path="schemas/core/ddl/086_legacy_user_mig_pkb.sql" splitStatements="false"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="087_alter_mff_tax_exemptions">
+      <comment>modifying primary key constraint</comment>
+      <sqlFile path="schemas/core/ddl/087_alter_mff_tax_exemptions.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="088_alter_mff_tax_exemptions_nick_name">
+      <comment>increasing col width</comment>
+      <sqlFile path="schemas/core/ddl/088_alter_mff_tax_exemptions_nick_name.sql"/>
+   </changeSet>   
+   <changeSet author="cgopalan" id="089_tax_mapping.sql">
+      <comment>create tax mappings table</comment>
+      <sqlFile path="schemas/core/ddl/089_tax_mapping.sql"/>
+   </changeSet>   
+   <changeSet author="cgopalan" id="090_alter_mff_invoice_returned.sql">
+      <comment>drop the not null constrainst on return_reason</comment>
+      <sqlFile path="schemas/core/ddl/090_alter_mff_invoice_returned.sql"/>
+   </changeSet>   
+   <changeSet author="ocastro" id="045_appeasement_reason_codes.sql">
+      <comment>adding new appeasement reason codes</comment>
+      <sqlFile path="schemas/core/ddl/oms/045_appeasement_reason_codes.sql"/>
+   </changeSet>
+   <changeSet author="vsingh" id="091_alter_mff_item.sql">
+      <comment>added shipping discount column</comment>
+      <sqlFile path="schemas/core/ddl/091_alter_mff_item.sql"/>
+   </changeSet>
+   <changeSet author="vmateti" id="092_alter_mff_invoice_line_shipped.sql">
+      <comment>added gift card number column</comment>
+      <sqlFile path="schemas/core/ddl/092_alter_mff_invoice_line_shipped.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="046_create_allocation_config">
+      <comment>Allocation configs table</comment>
+      <sqlFile path="schemas/core/ddl/oms/046_create_allocation_config.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="047_allocation_config_pks" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>Allocation configs pkg spec</comment>
+      <sqlFile path="schemas/core/ddl/oms/047_allocation_config_pks.sql" splitStatements="false"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="048_allocation_config_pkb" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>Allocation config package body</comment>
+      <sqlFile path="schemas/core/ddl/oms/048_allocation_config_pkb.sql" splitStatements="false"/>
+   </changeSet>
+   <changeSet author="rsirpal" id="092_alter_aci_credit_card_status">
+       <comment>Alter ACI Credit card status table</comment>
+       <sqlFile path="schemas/core/ddl/092_alter_aci_credit_card_status.sql"/>
+       <rollback>
+       	<sqlFile path="schemas/core/rollback/092_alter_aci_credit_card_status.sql"/>
+       </rollback>
+   </changeSet>    
+   <changeSet author="cgopalan" id="049_create_store_bandwidth" >
+      <validCheckSum>any</validCheckSum>
+      <comment>Create store bandwidth</comment>
+      <sqlFile path="schemas/core/ddl/oms/049_create_store_bandwidth.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="093_create_migration_log" >
+      <comment>Create mig log</comment>
+      <sqlFile path="schemas/core/ddl/093_create_migration_log.sql" />
+   </changeSet>
+   <changeSet author="savula" id="094_alter_dms_msg_properties" >
+      <comment>Modify the value of the msg table to 1024 characters</comment>
+      <sqlFile path="schemas/core/ddl/094_alter_dms_msg_properties.sql" />
+   </changeSet>
+   <changeSet author="pventrapragada" id="095_alter_aci_order" >
+      <comment>Increase ip address column length to accomodate ipv6</comment>
+      <sqlFile path="schemas/core/ddl/095_alter_aci_order.sql" />
+   </changeSet>     
+   <changeSet author="vsingh" id="096_alter_tracking_number.sql">
+      <comment>Increase length tracking number column</comment>
+      <sqlFile path="schemas/core/ddl/096_alter_tracking_number.sql"/>
+   </changeSet> 
+   <changeSet author="vsingh" id="097_alter_mff_item.sql">
+      <comment>added new column to capture rejection reason codes</comment>
+      <sqlFile path="schemas/core/ddl/097_alter_mff_item.sql"/>
+   </changeSet>
+	<changeSet author="bnuthalapati" id="098_create_fedx_ovrnght_restrcted">
+      <comment>Create FedEx overnight restricted table.</comment>
+      <sqlFile path="schemas/core/ddl/098_create_fedx_ovrnght_restrcted.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/098_drop_fedx_ovrnght_restrcted.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="pventrapragada" id="099_alter_aci_order_status">
+      <comment>Capture original auth date and time.</comment>
+      <sqlFile path="schemas/core/ddl/099_alter_aci_order_status.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/099_alter_aci_order_status.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="cgopalan" id="100_alter_mff_order_price">
+      <comment>persist additional price info attribs</comment>
+      <sqlFile path="schemas/core/ddl/100_alter_mff_order_price.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="100_alter_mff_zipcode_usa">
+      <comment>Add variant city names</comment>
+      <sqlFile path="schemas/core/ddl/100_alter_mff_zipcode_usa.sql"/>
+   </changeSet>
+   <changeSet author="bnuthalapati" id="101_create_mff_user_home_store">
+      <comment>Add home store location id.</comment>
+      <sqlFile path="schemas/core/ddl/101_create_mff_user_home_store.sql"/>
+       <rollback>
+      	<sqlFile path="schemas/core/rollback/100_drop_mff_user_home_store.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="pventrapragada" id="101_alter_aci_credit_card_status">
+      <comment>Capture original request id.</comment>
+      <sqlFile path="schemas/core/ddl/101_alter_aci_credit_card_status.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/101_alter_aci_credit_card_status.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="vsingh" id="102_alter_mff_order.sql">
+      <comment>added date of birth column</comment>
+      <sqlFile path="schemas/core/ddl/102_alter_mff_order.sql"/>
+   </changeSet>
+   <changeSet author="vsingh" id="103_alter_mff_store_allocation.sql">
+      <comment>added pick_up_instructions column</comment>
+      <sqlFile path="schemas/core/ddl/103_alter_mff_store_allocation.sql"/>
+   </changeSet>
+   <changeSet author="bnuthalapati" id="104_create_mff_contact_info">
+      <comment>Create mff_contact_info table to capture Attention.</comment>
+      <sqlFile path="schemas/core/ddl/104_create_mff_contact_info.sql"/>
+   </changeSet>
+   <changeSet author="vsingh" id="105_alter_mff_store_inventory.sql">
+      <comment>added inventory lock column</comment>
+      <sqlFile path="schemas/core/ddl/105_alter_mff_store_inventory.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="106_add_store_inv_idx">
+        <preConditions onFail="MARK_RAN">
+            <not>
+            	<indexExists schemaName="atg_core" indexName="MFF_STORE_INVENTORY_IDX1" />
+            </not>
+        </preConditions>   	
+      <comment>Adding new index</comment>
+      <sqlFile path="schemas/core/ddl/106_add_store_inv_idx.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="107_add_store_inv_idx">
+        <preConditions onFail="MARK_RAN">
+            <not>
+            	<indexExists schemaName="atg_core" indexName="MFF_STR_INV_CAT_REF_STORE_IDX" />
+            </not>
+        </preConditions>   	
+      <comment>Adding new index</comment>
+      <sqlFile path="schemas/core/ddl/107_add_store_inv_idx.sql" />
+   </changeSet>   
+    <changeSet author="tvallapu" id="108_alter_email_lengths.sql">
+      <validCheckSum>any</validCheckSum>	
+      <comment>Increasing column lengths of email fields to 255</comment>
+      <sqlFile path="schemas/core/ddl/108_alter_email_lengths.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="108_alter_mff_item">
+      <comment>Add gwp promo id column</comment>
+      <sqlFile path="schemas/core/ddl/108_alter_mff_item.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="109_alter_mff_item">
+      <comment>Add free shipping promo</comment>
+      <sqlFile path="schemas/core/ddl/109_alter_mff_item.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="110_alter_mff_item">
+      <comment>Add gwp value column</comment>
+      <sqlFile path="schemas/core/ddl/110_alter_mff_item.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="111_alter_mff_item">
+      <comment>Add gwp columns</comment>
+      <sqlFile path="schemas/core/ddl/111_alter_mff_item.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="112_alter_prorate_item">
+      <comment>Add gwp prorate columns</comment>
+      <sqlFile path="schemas/core/ddl/112_alter_prorate_item.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="113_alter_mff_item_price">
+      <comment>Add prorate detail columns</comment>
+      <sqlFile path="schemas/core/ddl/113_alter_mff_item_price.sql"/>
+   </changeSet>
+   <changeSet author="pventrapragada" id="115_tmp_tables_settlement_failures">
+      <comment>View to get settlement failures</comment>
+      <sqlFile path="schemas/core/ddl/115_tmp_tables_settlement_failures.sql" />
+   </changeSet>
+   <changeSet author="pventrapragada" id="116_mff_settlement_failures_pks" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>View to get settlement failures</comment>
+      <sqlFile path="schemas/core/ddl/116_mff_settlement_failures_pks.sql" splitStatements="false"/>
+   </changeSet>
+   <changeSet author="pventrapragada" id="117_mff_settlement_failures_pkb" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>View to get settlement failures</comment>
+      <sqlFile path="schemas/core/ddl/117_mff_settlement_failures_pkb.sql" splitStatements="false"/>
+   </changeSet>
+      <changeSet author="pventrapragada" id="118_alter_mff_order">
+      <comment>Capture Instance name onto order.</comment>
+      <sqlFile path="schemas/core/ddl/118_alter_mff_order.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/118_alter_mff_order.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="vsingh" id="119_mff_agent_log">
+      <comment>added inventory lock column</comment>
+      <sqlFile path="schemas/core/ddl/119_mff_agent_log.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="120_create_alert_query">
+      <comment>mff_alert_query table</comment>
+      <sqlFile path="schemas/core/ddl/120_create_alert_query.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="121_alter_alert_query">
+      <comment>added columns</comment>
+      <sqlFile path="schemas/core/ddl/121_alter_alert_query.sql"/>
+   </changeSet>
+   <changeSet author="vsingh" id="122_create_mff_tax_price_info">
+      <comment>added inventory lock column</comment>
+      <sqlFile path="schemas/core/ddl/122_create_mff_tax_price_info.sql"/>
+   </changeSet>
+   <changeSet author="smyana" id="123_add_bopis_second_reminder_date">
+      <comment>added bopis second reminder sent date</comment>
+      <sqlFile path="schemas/core/ddl/123_add_bopis_second_reminder_date.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="124_create_new_inv_tables">
+      <comment>new inventory tables</comment>
+      <sqlFile path="schemas/core/ddl/124_create_new_inv_tables.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="125_grant_permissions" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>new inventory tables</comment>
+      <sqlFile path="schemas/core/ddl/125_grant_permissions.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="126_add_damaged_column">
+      <comment>add is_damaged column</comment>
+      <sqlFile path="schemas/core/ddl/126_add_damaged_column.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="127_add_inv_idxes">
+      <comment>add inv indexes</comment>
+      <sqlFile path="schemas/core/ddl/127_add_inv_idxes.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="128_alter_mff_order">
+      <comment>increasing col size</comment>
+      <sqlFile path="schemas/core/ddl/128_alter_mff_order.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="050_grant_permissions">
+      <comment>grant permissions</comment>
+      <sqlFile path="schemas/core/ddl/oms/050_grant_permissions.sql"/>
+   </changeSet>
+   <changeSet author="tvallapu" id="051_create_mff_csr_order_cmts">
+      <comment>Creating custom agent comments table</comment>
+      <sqlFile path="schemas/core/ddl/oms/051_create_mff_csr_order_cmts.sql"/>
+   </changeSet>
+   <changeSet author="tvallapu" id="129_grant_permissions">
+      <comment>grant permissions</comment>
+      <sqlFile path="schemas/core/ddl/129_grant_permissions.sql"/>
+   </changeSet>
+   <changeSet author="pventrapragada" id="130_alter_mff_user">
+      <comment>Include boolean to force reset password</comment>
+      <sqlFile path="schemas/core/ddl/130_alter_mff_user.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/130_alter_mff_user.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="pventrapragada" id="131_grant_permissions">
+      <comment>grant permissions</comment>
+      <sqlFile path="schemas/core/ddl/131_grant_permissions.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="132_create_mff_employee">
+      <comment>table to store employee info</comment>
+      <sqlFile path="schemas/core/ddl/132_create_mff_employee.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="133_alter_mff_user">
+      <comment>adding employee columns</comment>
+      <sqlFile path="schemas/core/ddl/133_alter_mff_user.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="134_alter_mff_employee">
+      <comment>adding employee columns</comment>
+      <sqlFile path="schemas/core/ddl/134_alter_mff_employee.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="135_grant_permission">
+      <comment>adding employee columns</comment>
+      <sqlFile path="schemas/core/ddl/135_grant_permission.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="136_alter_mff_order">
+      <comment>adding employee columns</comment>
+      <sqlFile path="schemas/core/ddl/136_alter_mff_order.sql"/>
+   </changeSet> 
+   <changeSet author="cgopalan" id="137_alter_mff_invoice">
+      <comment>adding employee column to invoice</comment>
+      <sqlFile path="schemas/core/ddl/137_alter_mff_invoice.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="138_alter_encrypted_cols">
+      <comment>increase col widths for encrypted cols</comment>
+      <sqlFile path="schemas/core/ddl/138_alter_encrypted_cols.sql"/>
+   </changeSet>   
+   <changeSet author="tvallapu" id="132_add_inpicking_and_pickup_dates">
+      <comment>Add inPicking and ReadyForPickup dates</comment>
+      <sqlFile path="schemas/core/ddl/132_add_inpicking_and_pickup_dates.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/132_remove_inpicking_and_pickup_dates.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="pventrapragada" id="133_create_palnogram_structure">
+      <comment>Tables to capture planogram data</comment>
+      <sqlFile path="schemas/core/ddl/133_create_palnogram_structure.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/133_drop_palnogram_structure.sql"/>
+      </rollback>
+   </changeSet>
+      <changeSet author="pventrapragada" id="134_alter_palnogram_structure">
+      <comment>Modify planogram structure to include serial number</comment>
+      <sqlFile path="schemas/core/ddl/134_alter_palnogram_structure.sql"/>
+      <rollback>
+      	<sqlFile path="schemas/core/rollback/134_alter_palnogram_structure.sql"/>
+      </rollback>
+   </changeSet>
+   <changeSet author="tvallapu" id="135_grant_permissions">
+      <comment>Grant permissions for planogram tables to catfeed</comment>
+      <sqlFile path="schemas/core/ddl/135_grant_permissions.sql"/>
+   </changeSet>
+   <changeSet author="tvallapu" id="136_grant_permissions">
+      <comment>Grant permissions for planogram tables to catfeed</comment>
+      <sqlFile path="schemas/core/ddl/136_grant_permissions.sql"/>
+   </changeSet>
+   <changeSet author="tvallapu" id="137_alter_mff_store_allocation">
+      <comment>Alter store allocation to increase the size for first_name</comment>
+      <sqlFile path="schemas/core/ddl/137_alter_mff_store_allocation.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="138_missing_fk_indexes_1">
+        <preConditions onFail="MARK_RAN">
+            <not>
+            	<indexExists schemaName="atg_core" indexName="mff_ret_itm_idx" />
+            </not>
+        </preConditions>   	
+      <comment>Adding new index</comment>
+      <sqlFile path="schemas/core/ddl/138_missing_fk_indexes_1.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="138_missing_fk_indexes_2">
+        <preConditions onFail="MARK_RAN">
+            <not>
+            	<indexExists schemaName="atg_core" indexName="mff_itm_prv_all_idx" />
+            </not>
+        </preConditions>   	
+      <comment>Adding new index</comment>
+      <sqlFile path="schemas/core/ddl/138_missing_fk_indexes_2.sql" />
+   </changeSet>
+   
+   <changeSet author="cgopalan" id="138_missing_fk_indexes_1_oms">
+        <preConditions onFail="MARK_RAN">
+            <not>
+            	<indexExists schemaName="atg_oms" indexName="mff_ret_itm_idx" />
+            </not>
+        </preConditions>   	
+      <comment>Adding new index</comment>
+      <sqlFile path="schemas/core/ddl/138_missing_fk_indexes_1.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="138_missing_fk_indexes_2_oms">
+        <preConditions onFail="MARK_RAN">
+            <not>
+            	<indexExists schemaName="atg_oms" indexName="mff_itm_prv_all_idx" />
+            </not>
+        </preConditions>   	
+      <comment>Adding new index</comment>
+      <sqlFile path="schemas/core/ddl/138_missing_fk_indexes_2.sql" />
+   </changeSet>   
+</databaseChangeLog>

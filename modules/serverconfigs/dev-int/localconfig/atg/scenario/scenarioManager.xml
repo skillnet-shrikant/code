@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<process-manager-configuration>
+    <process-editor-server>
+      <server-name>797297-DEV-OMS01.millsfleetfarm.com:30150</server-name>
+    </process-editor-server>
+</process-manager-configuration>

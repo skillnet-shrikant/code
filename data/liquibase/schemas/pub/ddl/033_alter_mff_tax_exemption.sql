@@ -1,0 +1,1 @@
+alter table mff_tax_exemption add tax_classification_code varchar2(40);

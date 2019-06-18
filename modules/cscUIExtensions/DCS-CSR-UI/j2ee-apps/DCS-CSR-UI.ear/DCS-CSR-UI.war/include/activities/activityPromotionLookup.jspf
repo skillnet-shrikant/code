@@ -1,0 +1,8 @@
+<dsp:droplet name="/atg/commerce/promotion/PromotionLookup">
+  <dsp:param name="id" value="${activity.promotionId}"/>
+  <dsp:oparam name="output">
+    <dsp:getvalueof var="promotion" param="element"/>
+    <dsp:tomap var="promotionMap" value="${promotion}"/>
+  </dsp:oparam>
+</dsp:droplet>
+<%-- @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/include/activities/activityPromotionLookup.jspf#1 $$Change: 946917 $--%>

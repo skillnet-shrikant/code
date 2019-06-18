@@ -1,0 +1,125 @@
+// Use the components directory to construct the meat of your CSS.
+// Categorize your styles here based on element in the file name.
+
+// image viewer
+.product-image-viewer {
+	position: relative;
+}
+
+// main image + thumbnails
+.viewer-main-image {
+	background-color: transparent;
+	@include opacity(1);
+	&.is-active {
+		background-color: $black;
+		@include opacity(0.7);
+	}
+}
+
+.viewer-thumbnails {
+	@include rem-size(margin, 0px -4px 0px -2px);
+	display: block;
+	width: 100%;
+	img {
+		width: 100%;
+		&:hover {
+			cursor: pointer;
+		}
+	}
+	.viewer-thumb {
+		height: auto !important;
+	}
+}
+
+@include media(small-only) {
+	.viewer-main {
+		display: none;
+	}
+	.viewer-thumbnails {
+		max-width: 380px;
+		margin: 0 auto 36px;
+		&:not(.slick-initialized) {
+			.viewer-thumb:not(:first-child) {
+				display: none;
+			}
+		}
+		.vimeo-thumb img {
+			margin: 0 auto;
+			width: auto;
+		}
+	}
+}
+
+@include media(medium-up) {
+	.viewer-thumbnails {
+		@include rem-size(margin, 6px 0px 12px);
+		@include rem-size(padding, 0px 32px);
+		&:not(.slick-initialized) {
+			.viewer-thumb {
+				display: inline-block;
+				width: 20%;
+				&:not(:nth-child(-n+4)) {
+					display: none;
+				}
+			}
+		}
+		.slick-prev,
+		.slick-next {
+			height: 32px;
+			width: 32px;
+			&:before {
+			    font-size: 32px;
+			}
+			&.slick-disabled {
+				display: none !important;
+			}
+		}
+		.slick-prev {
+			left: 0;
+		}
+		.slick-next {
+			right: 0;
+		}
+	}
+	.viewer-thumb {
+		@include rem-size(margin-right, 5px);
+		border: 2px solid transparent;
+		outline: none;
+		&.active {
+			border-color: $black;
+		}
+	}
+}
+
+// zoom
+.zoom-lens {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: none;
+	background-color: $white;
+	border: solid 1px $border-color;
+	@include opacity(1);
+	overflow: hidden;
+	z-index: 10;
+	.viewer-main-image {
+		position: absolute;
+		max-width: none;
+		cursor: crosshair !important;
+	}
+}
+.zoom-magnified {
+	width: 364px;
+	height: 364px;
+	position: absolute;
+	top: 0;
+	display: none;
+	z-index: 1000;
+	overflow: hidden;
+	background-color: $white;
+	border: solid 2px $border-color;
+}
+.zoom-magnified-image {
+	position: absolute;
+	max-width: none;
+}

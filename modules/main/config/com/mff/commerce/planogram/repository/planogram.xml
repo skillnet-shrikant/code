@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE gsa-template 
+ PUBLIC "-//Art Technology Group, Inc.//DTD Dynamo Security//EN"
+   "http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
+<gsa-template >
+	<header>
+		<name>Planogram Data repository</name>
+		<author>DMI</author>
+	</header>
+	
+	<item-descriptor name="department" display-name="item-department" item-cache-timeout="180000" cache-mode="simple">
+		<table name="item_department" type="primary" id-column-name="item_id">
+			 <property name="itemId" data-type="string" column-name="item_id" display-name="Item Id" />
+			 <property name="departmentName" data-type="string" column-name="department_name" display-name="Department Name" />
+		</table>
+	</item-descriptor>
+	
+		<item-descriptor name="planoGram" display-name="item-planogram" item-cache-timeout="180000" cache-mode="simple">
+		<table name="item_planogram" type="primary" id-column-name="planogram_id">
+			 <property name="planogramId" data-type="string" column-name="planogram_id" display-name="Planogram Id" />
+			 <property name="itemId" data-type="string" column-name="item_id" display-name="Item Id" />
+			 <property name="storeId" data-type="string" column-name="store_id" display-name="Store Id" />
+			 <property name="planogramName" data-type="string" column-name="planogram_name" display-name="Planogram Name" />
+			 <property name="planogramAddress" data-type="string" column-name="planogram_address" display-name="Planogram Address" />
+			 <property name="serialNumber" data-type="string" column-name="serialnumber" display-name="Serial Number" />
+		</table>
+	</item-descriptor>
+	
+</gsa-template>
+
+
+

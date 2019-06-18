@@ -1,0 +1,15 @@
+<actor-template default-chain-id="accessRight" xsi:noNamespaceSchemaLocation="http://www.atg.com/xsds/actorChain_1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+<actor-chain id="accessRight" transaction="TX_SUPPORTS">
+  <droplet id="hasAccessRight" name="/atg/svc/security/droplet/HasAccessRight" var="accessRight">
+     <input name="accessRight" value="${param.accessRight}"/>
+      	<oparam name="accessGranted">
+      		<output id="accessGranted" name="accessGranted" value="true" />
+		</oparam>
+        <oparam name="accessDenied">
+          	<output id="accessGranted" name="accessGranted" value="false" />
+        </oparam>
+  </droplet>
+</actor-chain>
+
+</actor-template>

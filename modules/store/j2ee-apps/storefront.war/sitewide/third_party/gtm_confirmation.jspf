@@ -1,0 +1,174 @@
+<dsp:page>
+	<dsp:importbean bean="/atg/dynamo/droplet/ForEach" />
+	<dsp:importbean bean="/atg/commerce/catalog/ProductLookup"/>
+	<dsp:importbean bean="/atg/commerce/catalog/SKULookup"/>
+	<dsp:importbean bean="/com/mff/droplet/MFFDynamicAttributesBySkuDroplet"/>
+	<dsp:importbean bean="/com/mff/commerce/order/purchase/LineItemTotalPriceDroplet"/>
+	<dsp:importbean bean="/com/mff/commerce/order/purchase/MFFPaymentStackDroplet"/>
+	<dsp:importbean bean="/atg/userprofiling/Profile"/>
+	<dsp:importbean bean="/com/mff/commerce/order/purchase/MFFMerchandiseTotalDroplet"/>
+	<dsp:importbean bean="/atg/commerce/ShoppingCart" />
+	
+	<dsp:getvalueof var="gtmEnabled" bean="/mff/MFFEnvironment.gtmEnabled"/>
+	<c:if test="${gtmEnabled}">
+	
+		<dsp:getvalueof var="isBopisOrder" param="order.bopisOrder" />
+		<c:choose>
+			<c:when test="${isBopisOrder}">
+				<dsp:getvalueof var="orderType" value="Bopis Store" />
+			</c:when>
+			<c:otherwise>
+				<dsp:getvalueof var="orderType" value="Online Store" />
+			</c:otherwise>
+		</c:choose>
+		
+		<%-- merchandise total and total savings on order--%>
+		<dsp:droplet name="MFFMerchandiseTotalDroplet">
+		<dsp:param name="order" param="order"/>
+		<dsp:oparam name="output">
+			<dsp:getvalueof param="merchandiseTotal" var="revenueVal"/>
+		</dsp:oparam>
+		</dsp:droplet>
+
+		<!-- Google Tag Manager (GTM) Order Confirmation -->
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			dataLayer.push({
+				'event': 'Purchase',
+				'ecommerce' : {
+					'purchase' : {
+						'actionField' : {
+							'id': '<dsp:valueof param="order.orderNumber"/>',
+							'affiliation': '${orderType}',
+							'revenue': ${revenueVal},
+							'tax': <dsp:valueof param="order.priceInfo.tax" />,
+							'shipping': <dsp:valueof param="order.priceInfo.shipping" />,
+							'coupon':[
+								<dsp:droplet name="MFFPaymentStackDroplet">
+									<dsp:param name="order" param="order" />
+									<dsp:param name="activePromotions" bean="Profile.activePromotions" />
+									<dsp:oparam name="output">
+										<dsp:getvalueof var="globalDiscountMap" param="globalDiscountAmount" vartype="java.util.Map" />
+										<dsp:getvalueof var="shippingPromos" param="shippingPromos" />
+										<dsp:getvalueof var="shippingPromoToDiscMap" param="shippingPromoToDiscMap" vartype="java.util.Map" />
+										<dsp:droplet name="ForEach">
+											<dsp:param name="array" param="globalPromotions"/>
+											<dsp:oparam name="output">
+												<dsp:getvalueof var="couponCode" param="key" idtype="java.lang.String" />
+												"${couponCode}"
+											</dsp:oparam>
+										</dsp:droplet>
+										
+										<dsp:droplet name="ForEach">
+											<dsp:param name="array" param="orderAppliedPromotions" />
+											<dsp:oparam name="output">
+												<dsp:getvalueof var="discountType" param="element.discountType"/>
+												<dsp:getvalueof var="couponDiscount" param="element.discountAmount" idtype="java.lang.Double" />
+												<dsp:getvalueof var="promoName" param="element.promoName"/>
+													<c:if test="${not empty couponDiscount && couponDiscount > 0 }">
+														"${promoName}"
+													</c:if>
+											</dsp:oparam>
+										</dsp:droplet>
+	
+										<dsp:droplet name="ForEach">
+											<dsp:param name="array" param="shippingPromos" />
+											<dsp:oparam name="output">
+												<dsp:getvalueof var="shipPromoName" param="key" idtype="java.lang.String" />
+												<dsp:getvalueof var="shipPromoDesc" param="element" idtype="java.lang.String" />
+												"${shipPromoName}"
+											</dsp:oparam>
+										</dsp:droplet>
+									
+									</dsp:oparam>
+								</dsp:droplet>
+							]
+						},
+						'products' : [
+							<dsp:droplet name="ForEach">
+							<dsp:param name="array" param="order.commerceItems"/>
+							<dsp:param name="elementName" value="commerceItem"/>
+							<dsp:oparam name="output">
+
+								<dsp:droplet name="/atg/dynamo/droplet/Compare">
+									<dsp:param name="obj1" param="commerceItem.priceInfo.salePrice" />
+									<dsp:param name="obj2" param="commerceItem.priceInfo.listPrice" />
+									<dsp:oparam name="lessthan">
+										<dsp:getvalueof var="actualPrice" param="commerceItem.priceInfo.salePrice" scope="request" />
+									</dsp:oparam>
+									<dsp:oparam name="default">
+										<dsp:getvalueof var="actualPrice" param="commerceItem.priceInfo.listPrice" scope="request" />
+									</dsp:oparam>
+								</dsp:droplet>
+
+								<dsp:getvalueof var="productName" param="commerceItem.auxiliaryData.productRef.description" />
+								<dsp:getvalueof var="productId" param="commerceItem.auxiliaryData.productId" />
+								<dsp:getvalueof var="productBrand" param="commerceItem.auxiliaryData.productRef.brand" />
+								
+								<dsp:droplet name="ForEach">
+									<dsp:param name="array" param="commerceItem.auxiliaryData.productRef.parentCategories"/>
+									<dsp:param name="elementName" value="category"/>
+									<dsp:oparam name="output">
+										<dsp:getvalueof var="catName" param="category.displayName" />
+									</dsp:oparam>
+								</dsp:droplet>
+								<dsp:droplet name="MFFDynamicAttributesBySkuDroplet">
+									<dsp:param name="product" param="commerceItem.auxiliaryData.productRef" />
+									<dsp:param name="sku" param="commerceItem.auxiliaryData.catalogRef" />
+									<dsp:oparam name="output">
+										<dsp:droplet name="ForEach">
+											<dsp:param name="array" param="dynAttributes"/>
+											<dsp:param name="elementName" value="attributeValue"/>
+											<dsp:oparam name="output">
+												<dsp:getvalueof var="key" param="key"/>
+												<dsp:getvalueof var="attributeValue" param="attributeValue"/>
+											</dsp:oparam>
+										</dsp:droplet>
+									</dsp:oparam>
+								</dsp:droplet>
+								
+								
+								<dsp:droplet name="LineItemTotalPriceDroplet">
+									<dsp:param name="commerceItem" param="commerceItem"/>
+									<dsp:oparam name="output">
+										<dsp:getvalueof var="totalLinePrice" param="totalLinePrice"/>
+										<dsp:getvalueof var="itemPromos" param="lineItemPromos"/>
+									</dsp:oparam>
+								</dsp:droplet>
+					
+								<dsp:droplet name="ForEach">
+									<dsp:param name="array" value="${itemPromos}"/>
+									<dsp:param name="elementName" value="promoItem"/>
+									<dsp:oparam name="output">
+										<dsp:getvalueof var="promoDisplayName" param="promoItem.displayName" idtype="java.lang.String" />
+										<dsp:getvalueof var="shortDescription" param="promoItem.shortDescription" idtype="java.lang.String" />
+										<dsp:getvalueof var="description" param="promoItem.description" idtype="java.lang.String" />
+									</dsp:oparam>
+								</dsp:droplet>
+
+								<dsp:getvalueof var="index" param="index" />
+								<c:if test="${index > 0}">,</c:if>
+								{
+									'name': '${fn:escapeXml(productName)}',
+									'id': '${productId}',
+									'price': <c:out value="${actualPrice}" />,
+									'brand': '${fn:escapeXml(productBrand)}',
+									'category': '${fn:escapeXml(catName)}',
+									'variant': '${attributeValue}',
+									'quantity': <dsp:valueof param="commerceItem.quantity"/>,
+									'coupon': '${promoDisplayName}'
+								} 
+
+							</dsp:oparam>
+						</dsp:droplet>
+						]
+					}
+				}
+			});
+		</script>
+		<!-- /Google Tag Manager (GTM) Order Confirmation -->
+
+	</c:if>
+
+</dsp:page>
+

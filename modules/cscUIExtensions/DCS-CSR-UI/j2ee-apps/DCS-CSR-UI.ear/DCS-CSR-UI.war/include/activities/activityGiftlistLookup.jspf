@@ -1,0 +1,11 @@
+  <dsp:droplet name="/atg/targeting/RepositoryLookup">
+  <dsp:param bean="/atg/commerce/gifts/Giftlists" name="repository"/>
+  <dsp:param name="id" value="${activity.giftlistId}"/>
+  <dsp:param name="itemDescriptor" value="gift-list"/>
+  <dsp:param name="elementName" value="giftlist"/>
+  <dsp:oparam name="output">
+    <dsp:getvalueof var="giftlist" param="giftlist"/>
+    <dsp:tomap var="giftlistMap" value="${giftlist}"/>
+  </dsp:oparam>
+  </dsp:droplet>
+<%-- @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/include/activities/activityGiftlistLookup.jspf#1 $$Change: 946917 $--%>

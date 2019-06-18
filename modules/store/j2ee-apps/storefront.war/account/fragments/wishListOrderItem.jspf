@@ -1,0 +1,229 @@
+<dsp:page>
+
+	<%-- Imports --%>
+	<dsp:importbean bean="/atg/commerce/pricing/priceLists/PriceDroplet"/>
+	<dsp:importbean bean="/atg/commerce/pricing/priceLists/PriceListManager"/>
+	<dsp:importbean bean="/atg/commerce/gifts/GiftlistFormHandler"/>
+	<dsp:importbean bean="/com/mff/droplet/MFFDynamicAttributesBySkuDroplet"/>
+	<dsp:importbean bean="/atg/dynamo/droplet/ForEach"/>
+
+	<%-- Page Variables --%>
+	<dsp:getvalueof id="requestURL" idtype="java.lang.String" bean="/OriginatingRequest.requestURI"/>
+	<dsp:getvalueof var="giftItemId" vartype="java.lang.String" param="giftItem.repositoryId"/>
+	<dsp:getvalueof var="messageFormId" vartype="java.lang.String" value="formid_${giftItemId}"/>
+	<dsp:getvalueof var="productId" param="giftItem.productId" />
+	<dsp:getvalueof var="productName" param="giftItem.description" />
+	<dsp:getvalueof var="productImageRoot" bean="/mff/MFFEnvironment.productImageRoot"/>
+
+	<dsp:droplet name="/com/mff/droplet/ProductUrlGeneratorDroplet">
+		<dsp:param name="productId" value="${productId}"/>
+		<dsp:oparam name="output">
+			<dsp:droplet name="/atg/dynamo/droplet/ProtocolChange">
+				<dsp:param name="inUrl" param="url"/>
+				<dsp:oparam name="output">
+					<dsp:getvalueof var="productUrl" scope="request" param="secureUrl"/>
+				</dsp:oparam>
+			</dsp:droplet>
+		</dsp:oparam>
+	</dsp:droplet>
+
+	<dsp:droplet name="/com/mff/browse/droplet/IsInactiveProduct">
+		<dsp:param name="productId" value="${productId}"/>
+		<dsp:oparam name="output">
+			<dsp:getvalueof var="isInactiveProd" param="isInActiveProduct"/>
+			<dsp:getvalueof var="isActiveTeaser" param="isActiveTeaser"/>
+		</dsp:oparam>
+	</dsp:droplet>
+
+	<%-- get price info --%>
+	<dsp:droplet name="PriceDroplet">
+		<dsp:param name="sku" param="giftSkuItem.id" />
+		<dsp:param name="priceList" bean="PriceListManager.defaultPriceListId" />
+		<dsp:oparam name="output">
+			<dsp:getvalueof param="price.listPrice" var="listPrice" vartype="java.lang.Double" />
+			<c:set var="listCurrency" scope="request">
+				<dsp:valueof param="price.listPrice" converter="currency" />
+			</c:set>
+		</dsp:oparam>
+	</dsp:droplet>
+	<dsp:droplet name="PriceDroplet">
+		<dsp:param name="sku" param="giftSkuItem.id" />
+		<dsp:param name="priceList" bean="PriceListManager.defaultSalePriceListId" />
+		<dsp:oparam name="output">
+			<dsp:getvalueof param="price.listPrice" var="salePrice" vartype="java.lang.Double" />
+			<c:set var="saleCurrency">
+				<dsp:valueof param="price.listPrice" converter="currency" />
+			</c:set>
+		</dsp:oparam>
+	</dsp:droplet>
+
+	<dsp:form action="${requestURL}" method="post" name="${messageFormId}" id="${messageFormId}" formid="${messageFormId}">
+		<dsp:input type="hidden" bean="GiftlistFormHandler.removeItemsFromGiftlistSuccessURL" value="${contextPath}/account/json/removeWishListItemSuccess.jsp" />
+		<dsp:input type="hidden" bean="GiftlistFormHandler.removeItemsFromGiftlistErrorURL" value="${contextPath}/account/json/removeWishListItemError.jsp" />
+
+		<dsp:getvalueof var="isHidePrice" param="giftProductItem.hidePrice"/>
+
+		<div class="order-item">
+			<div class="item-image order-item-section">
+				<a href="${productUrl}">
+					<dsp:droplet name="/com/mff/browse/droplet/ProductImageDroplet">
+						<dsp:param name="productId" value="${productId}" />
+						<dsp:param name="imageSize" value="s" />
+						<dsp:oparam name="output">
+							<dsp:getvalueof var="defaultImage" param="productImages[0]" />
+							<picture>
+								<!--[if IE 9]><video style="display: none;"><![endif]-->
+								<source srcset="${productImageRoot}/${productId}/xs/${defaultImage}" media="(min-width: 768px)">
+								<!--[if IE 9]></video><![endif]-->
+								<img src="${productImageRoot}/${productId}/s/${defaultImage}" alt="${productName}" />
+							</picture>
+						</dsp:oparam>
+						<dsp:oparam name="empty">
+							<picture>
+								<!--[if IE 9]><video style="display: none;"><![endif]-->
+								<source srcset="${productImageRoot}/unavailable/xs.jpg" media="(min-width: 768px)">
+								<!--[if IE 9]></video><![endif]-->
+								<img src="${productImageRoot}/unavailable/s.jpg" alt="Image Unavailable" />
+							</picture>
+						</dsp:oparam>
+					</dsp:droplet>
+				</a>
+			</div>
+			<div class="item-details order-item-section">
+				<div class="product-name">
+					<a href="${productUrl}">${productName}</a>
+				</div>
+				<div class="price">
+					<c:choose>
+						<c:when test="${salePrice < listPrice}">
+							<div class="original-price">
+								${listCurrency}
+							</div>
+							<div class="sale-price">
+								${saleCurrency}
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="regular-price">
+								${listCurrency}
+							</div>
+						</c:otherwise>
+					</c:choose>
+				</div>
+				<div class="product-sku">
+					<span class="label">SKU:</span>
+					<span><dsp:valueof param="giftSkuItem.id" /></span>
+				</div>
+				<div class="product-selections">
+					<dsp:droplet name="MFFDynamicAttributesBySkuDroplet">
+						<dsp:param name="product" param="giftProductItem" />
+						<dsp:param name="sku" param="giftSkuItem" />
+						<dsp:oparam name="output">
+							<dsp:droplet name="ForEach">
+								<dsp:param name="array" param="dynAttributes"/>
+								<dsp:param name="elementName" value="attributeValue"/>
+								<dsp:oparam name="output">
+									<dsp:getvalueof var="attributeValue" param="attributeValue"/>
+									<c:if test="${not empty attributeValue}">
+										<div class="variant">
+											<span class="label"><dsp:valueof param="key" />:</span>
+											<span>${attributeValue}</span>
+										</div>
+									</c:if>
+								</dsp:oparam>
+							</dsp:droplet>
+						</dsp:oparam>
+					</dsp:droplet>
+				</div>
+				<%-- minimum age --%>
+				<dsp:droplet name="/atg/dynamo/droplet/Switch">
+					<dsp:param name="value" param="giftProductItem.minimumAge"/>
+					<dsp:oparam name="18">
+						<div class="product-message">
+							<span class="icon icon-error"></span> You must be at least 18 years old to purchase this item.
+						</div>
+					</dsp:oparam>
+					<dsp:oparam name="21">
+						<div class="product-message">
+							<span class="icon icon-error"></span> You must be at least 21 years old to purchase this item
+						</div>
+					</dsp:oparam>
+				</dsp:droplet>
+			</div>
+			<div class="item-price-unit order-item-section">
+				<div class="price">
+				<c:choose>
+					<c:when test="${isHidePrice eq 'true'}">
+						<div class="discontinued-map-pricing-label">
+							<span>Add to Cart for price</span>
+							<a class="view-details modal-trigger" href="/browse/ajax/addToCartToSeePriceModal.jsp" data-target="discontinued-item-policy-modal" data-size="small">
+								details
+							</a>
+						</div>
+					</c:when>
+					<c:when test="${isActiveTeaser}">
+						<dsp:droplet name="/atg/dynamo/droplet/IsEmpty">
+							<dsp:param name="value" param="giftProductItem.teaserPDPMessage"/>
+							<dsp:oparam name="true">
+								<dsp:droplet name="/atg/dynamo/droplet/RQLQueryForEach">
+											<dsp:param name="queryRQL" value="infoKey=\"EVENT_ITEM_PDP\""/>
+											<dsp:param name="repository" value="/com/mff/content/repository/MFFContentRepository"/>
+											<dsp:param name="itemDescriptor" value="infoMessage"/>
+											<dsp:param name="elementName" value="contentItem"/>
+											
+											<dsp:oparam name="output">
+										<div class="regular-price">
+											<span itemprop="price" content="content">
+												<dsp:valueof param="contentItem.infoMsg" valueishtml="true"/>
+											</span>
+										</div>
+											</dsp:oparam>
+								</dsp:droplet>
+							</dsp:oparam>
+							<dsp:oparam name="false">
+									<div class="regular-price">
+										<span itemprop="price" content="content">
+											<dsp:valueof param="giftProductItem.teaserPDPMessage" valueishtml="true"/>
+										</span>
+									</div>
+							</dsp:oparam>												
+						</dsp:droplet>
+					</c:when>
+					<c:otherwise>
+						<c:choose>
+							<c:when test="${salePrice < listPrice}">
+								<div class="original-price">
+										${listCurrency}
+								</div>
+								<div class="sale-price">
+										${saleCurrency}
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div class="regular-price">
+										${listCurrency}
+								</div>
+							</c:otherwise>
+						</c:choose>
+						</c:otherwise>
+					</c:choose>
+				</div>
+			</div>
+
+			<dsp:getvalueof var="giftlistId" param="giftlistId"/>
+			<dsp:getvalueof var="removeGiftitemId" param="giftItem.id"/>
+
+			<div class="item-action-links order-item-section">
+				<dsp:a href="${productUrl}" class="button primary add-to-cart"> View Item
+					<dsp:param name="addFromWishList" value="true" />
+				</dsp:a>
+				<dsp:a href="#" class="item-remove" data-form-id="${messageFormId}">Remove from Wish List</dsp:a>
+				<dsp:input bean="GiftlistFormHandler.removeItemsFromGiftlist" type="hidden" value="Remove from Wish List"/>
+				<input name="giftlistId" type="hidden" value="${giftlistId}"/>
+				<input name="removeGiftitemId" type="hidden" value="${removeGiftitemId}"/>
+			</div>
+
+		</div>
+	</dsp:form>
+
+</dsp:page>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+
+<!DOCTYPE RECSEARCH_INDEXES SYSTEM "recsearch_indexes.dtd">
+<RECSEARCH_INDEXES DICTIONARY_MAX_NGRAM_LENGTH="5" DICTIONARY_WILDCARD="TRUE" MAX_NGRAM_LENGTH="5" MAX_WORD_LENGTH="16" MIN_WORD_LENGTH="3" MIN_WORD_OCCURRENCES="4">
+
+  <RECSEARCH_INDEX NAME="parentCategory.displayName">
+    <SEARCH_INDEX/>
+  </RECSEARCH_INDEX>
+  
+  <RECSEARCH_INDEX NAME="parentCategory.tags">
+    <SEARCH_INDEX/>
+  </RECSEARCH_INDEX>
+  
+  <RECSEARCH_INDEX NAME="product.tags">
+    <SEARCH_INDEX/>
+  </RECSEARCH_INDEX>
+  
+  <RECSEARCH_INDEX NAME="product.displayName">
+    <SEARCH_INDEX/>
+  </RECSEARCH_INDEX>
+
+  <RECSEARCH_INDEX NAME="sku.displayName">
+    <SEARCH_INDEX/>
+  </RECSEARCH_INDEX>
+
+  <RECSEARCH_INDEX NAME="sku.repositoryId">
+    <SEARCH_INDEX/>
+  </RECSEARCH_INDEX>
+
+  <RECSEARCH_INDEX NAME="product.brand">
+    <SEARCH_INDEX/>
+  </RECSEARCH_INDEX>
+
+  <RECSEARCH_INDEX NAME="product.description">
+    <SEARCH_INDEX/>
+  </RECSEARCH_INDEX>
+
+  <RECSEARCH_INDEX NAME="product.sellingPoints">
+    <SEARCH_INDEX/>
+  </RECSEARCH_INDEX>
+  
+  <RECSEARCH_INDEX NAME="product.longDescription">
+    <SEARCH_INDEX/>
+  </RECSEARCH_INDEX>
+  
+  <RECSEARCH_INDEX NAME="product.repositoryId">
+    <SEARCH_INDEX/>
+  </RECSEARCH_INDEX>
+  
+  <RECSEARCH_INDEX NAME="product.repositoryIdWithoutZeros">
+    <SEARCH_INDEX/>
+  </RECSEARCH_INDEX>
+  
+  <RECSEARCH_INDEX NAME="sku.repositoryIdWithoutZeros">
+    <SEARCH_INDEX/>
+  </RECSEARCH_INDEX>
+  
+  <RECSEARCH_INDEX NAME="sku.vpn">
+    <SEARCH_INDEX/>
+  </RECSEARCH_INDEX>
+
+</RECSEARCH_INDEXES>

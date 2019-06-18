@@ -1,0 +1,55 @@
+<%--
+Renders the link to load the order and confirmation text 
+
+@version $Id:
+@updated $DateTime: 2015/01/26 17:26:27 $$Author: jsiddaga $
+--%>
+<ul class="atg_commerce_csr_simpleList">
+<c:choose>
+<c:when test="${order.stateAsString eq 'TEMPLATE'}">
+  <li><fmt:message key='confirmOrder.scheduledOrder.updated'>
+  <fmt:param> 
+    <strong><a href="#" class="blueU" onclick="atg.commerce.csr.order.viewExistingOrder('${order.id}','${order.stateAsString}');return false;">${fn:escapeXml(order.id)}</a></strong>
+  </fmt:param>
+  </fmt:message>
+  </li>
+  <li>
+  <dsp:importbean bean="/atg/commerce/order/scheduled/ScheduledOrderLookup"/>
+  <dsp:droplet name="ScheduledOrderLookup">
+  <dsp:param name="templateId" value="${order.id}"/>
+  <dsp:oparam name="output">
+    <dsp:getvalueof var="scheduledOrders" param="scheduledOrders"/>
+    <c:set var="failedOrInactive" value="false"/>
+    <c:forEach var="scheduledOrder" items="${scheduledOrders}">
+      <dsp:tomap var="scheduledOrderMap" value="${scheduledOrder}"/>
+      
+      <c:if test="${scheduledOrderMap.state eq 'error'}">
+        <c:set var="failedOrInactive" value="true"/>
+      </c:if>
+      <c:if test="${scheduledOrderMap.state eq 'inactive'}">
+      <c:set var="failedOrInactive" value="true"/>
+    </c:if>
+    </c:forEach>
+    
+    <c:if test="${failedOrInactive eq  'true'}">
+      <fmt:message key='confirmOrder.scheduledOrder.failedOrInactive'/> 
+    </c:if>
+  
+  </dsp:oparam>
+  </dsp:droplet>
+  </li>
+  </ul>
+</c:when>
+<c:otherwise>
+  <li><fmt:message key='confirmOrder.start.newOrderNumber.description'>
+  <fmt:param> 
+    <strong><a href="#" class="blueU" onclick="atg.commerce.csr.order.viewExistingOrder('${order.id}','${order.stateAsString}');return false;">${fn:escapeXml(order.orderNumber)}</a></strong>
+  </fmt:param>
+  </fmt:message>
+  </li>
+  <li><fmt:message key='confirmOrder.start.successMessage'/></li>
+  </ul>
+</c:otherwise>
+</c:choose>
+
+<%-- @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/include/order/confirm/viewOrder.jspf#1 $$Change: 946917 $--%>

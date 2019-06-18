@@ -1,0 +1,77 @@
+<%--
+
+@version $Id: //application/service-UI/version/11.2/framework/Agent/src/web-apps/ServiceFramework/include/response/debugSetup.jspf#1 $$Change: 946917 $
+@updated $DateTime: 2015/01/26 17:26:27 $$Author: jsiddaga $
+
+--%>
+
+<%@ page import= "atg.arm.respond.bean.*"   %>
+<%@ page import= "atg.arm.respond.bean.attachment.*"   %>
+<%@ page import= "java.util.*"  %>
+
+    <%
+    OutboundMessage msg = new OutboundMessage();
+    //InboundMessage msg = new InboundMessage();
+    msg.setDate(new Date());
+    
+    Address to = new Address();
+    Address from = new Address();
+    from.setAddress("customer@foo.com");
+    from.setPersonalName("A Customer");
+    to.setAddress("support@acme.com");
+    to.setPersonalName("ACME Support");
+    ArrayList toList = new ArrayList();
+    toList.add(to);
+    msg.setFromAddress(from);
+    msg.setToAddressList(toList);
+    
+    msg.setEncoding("iso-8859-1");
+    
+    msg.setSubject("This is the test subject");
+    msg.setTextBody("Inim nibh scillum, autatie facilisse, molestie hymenaeos, accummy rostisi eugiate delendipis blaore. Volorerci porttitor tis nam exercipsum, molestie urna niam vullandio ullutat adipsusto eugiat scelerisque iurem. Euisi alisit etiam. Enisit commodolor iscipit ea estio verostin tatet. Uissit acilit faciliquis summy lorpercidunt cillum eniscip, dio ing ultrices augiat odionsequip torquent.");
+    
+    Group group = new Group();
+    group.setName("Support Group");
+    group.setDescription("Group Description");
+    
+    Category cat1 = new Category();
+    cat1.setName("Foo Category");
+    Category cat2 = new Category();
+    cat2.setName("Bar Category");
+    
+    Classification classification1 = new Classification();
+    classification1.setClassifiedGroup(group);
+    classification1.setCategory(cat1);
+    classification1.setCategoryConfidence((short)75);
+    
+    Classification classification2 = new Classification();
+    classification2.setClassifiedGroup(group);
+    classification2.setCategory(cat2);
+    classification2.setCategoryConfidence((short)12);
+    
+    
+    ArrayList classificationList = new ArrayList();
+    classificationList.add(classification1);
+    classificationList.add(classification2);
+    //msg.setClassifications(classificationList);
+    
+    Attachment attach1 = new SystemAttachment();
+    attach1.setFilename("Financial Report.pdf");
+    attach1.setSize(16000);
+    
+    Attachment attach2 = new SystemAttachment();
+    attach2.setFilename("Holiday.jpg");
+    attach2.setSize(2453000);
+    
+    ArrayList attachments = new ArrayList();
+    attachments.add(attach1);
+    attachments.add(attach2);
+    
+    msg.setAttachments(attachments);
+    
+    pageContext.setAttribute("msg", msg);	
+    %>
+    
+    
+    <!-- $Id: //application/service-UI/version/11.2/framework/Agent/src/web-apps/ServiceFramework/include/response/debugSetup.jspf#1 $$Change: 946917 $$DateTime: 2015/01/26 17:26:27 $ -->
+<%-- @version $Id: //application/service-UI/version/11.2/framework/Agent/src/web-apps/ServiceFramework/include/response/debugSetup.jspf#1 $$Change: 946917 $--%>

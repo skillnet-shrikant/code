@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actor-template default-chain-id="login"
+  xsi:noNamespaceSchemaLocation="http://www.atg.com/xsds/actorChain_1.0.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+
+  <!-- success chain for internal user login  -->
+  <actor-chain id="login-success" xml-combine="append">
+    <!-- output id of the user logged in -->
+    <component id="profile" name="/atg/userprofiling/Profile" component-var="profile">
+      <output id="userId" name="userId" value="${profile.repositoryId}" />
+      <output id="firstName" name="firstName" value="${profile.firstName}" />
+      <output id="lastName" name="lastName" value="${profile.lastName}" />
+      <output id="storeId" name="storeId" value="${profile.storeId}" />
+      <output id="accessRights" name="accessRights" value="${profile.accessRights}" />
+    </component>
+  </actor-chain>
+
+</actor-template>

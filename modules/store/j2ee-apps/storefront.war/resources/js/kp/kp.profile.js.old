@@ -1,0 +1,112 @@
+/*global jQuery, KP, s*/
+/*jslint regexp: true*/
+/**
+ * should not create globals
+ * create a KP mediator if one does not exist then install it
+ * create one subscription for init
+ */
+
+(function (global, $, namespace, profile) {
+	"use strict";
+
+	/* internals */
+	var loading = false,
+			loggingDebug = namespace && namespace.config.loggingDebug;
+
+	/**
+	 * default config
+	 * @type {null}
+	 */
+	profile.config = null;
+
+	profile.profileData = null;
+
+	profile.loadProfile = function() {
+		if (loggingDebug) {
+			console.log('profile: starting loadProfile');
+		}
+		if (loading) return;
+		$.ajax({
+			url: this.config.profileServiceUrl,
+			success: profile.loadSuccess,
+			error: profile.loadError,
+			dataType: json
+		});
+		loading = true;
+	};
+
+	profile.loadSuccess = function(data, textStatus, jqXHR) {
+    jstestdriver.console.log('Load success');
+		profile.profileData = data;
+		loading = false;
+		this.publish("profile/profile response")(profile.profileData);
+		if (loggingDebug) {
+			console.log('profile: profile loaded successfully. profile is ' + profile.profileData);
+		}
+	};
+
+	profile.loadError = function() {
+		if (loggingDebug) {
+			console.log('profile: starting loadError');
+		}
+		loading = false;
+		this.publish("profile/error")();
+	};
+
+	profile.logOut = function() {
+		profile.profileData = null;
+		if (loggingDebug) {
+			console.log('profile: logOut, setting profile to' + profile.profileData);
+		}
+	};
+
+	profile.getProfile = function(){
+		if (loggingDebug) {
+			console.log('profile: getProfile, current profile is' + profile.profileData);
+		}
+		if (profile.profileData == null) {
+			if (loggingDebug) {
+				console.log('profile: profile was null. sending request.');
+			}
+			 this.loadProfile();
+		} else {
+			this.publish("profile/profile response")(profile.profileData);
+		}
+	};
+
+	/**
+	 * profile should not add handlers when not configured
+	 * profile should not apply handlers twice
+	 * @param config [{Object}]
+	 */
+	profile.init = function (config) {
+		if (loggingDebug) {
+			console.log('profile: initializing...');
+		}
+		var prev = this.config;
+		this.config = config;
+		if (!prev && this.config) {
+			//bind dom events here
+			//$doc.on('do.something', function (event) {
+			//		profile.logout();
+			//});
+			this.subscribe("profile/logout", this.logOut, this);
+			this.subscribe("profile/profile request", this.getProfile, this);
+		}
+		this.publish("profile/initialized")(this.config);
+	};
+	/**
+	 * create initialization subscriber
+	 * @lends profile.publish
+	 * @lends profile.subscribe
+	 */
+	if (namespace && namespace.Mediator) {
+		if (!namespace.mediator) {
+			namespace.mediator = new namespace.Mediator();
+		}
+		namespace.mediator.installTo(profile);
+		profile.subscribe("profile/init", profile.init, profile);
+	}
+
+
+}(this, jQuery, KP, {}));

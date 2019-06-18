@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE gsa-template
+		PUBLIC "-//Art Technology Group, Inc.//DTD General SQL Adapter//EN"
+		"http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
+
+<gsa-template xml-combine="append">
+	<item-descriptor name="siteConfiguration">
+
+		<table name="mff_site_configuration" type="auxiliary" id-column-names="site_id">
+
+			<property name="itemQuantityThreshold" column-names="item_quantity_threshold" data-type="long" default="0" required="true" category="categoryBasics" display-name="Item Quantity Threshold">
+				<attribute name="propertySortPriority" value="160"/>
+			</property>
+
+			<property name="orderQuantiyThreshold" column-names="order_quantity_threshold" data-type="long" default="0" required="true" category="categoryBasics" display-name="Order Quantity Threshold">
+				<attribute name="propertySortPriority" value="162"/>
+			</property>
+
+			<property name="isEnableMillsMoney" column-names="enable_mills_money" data-type="boolean" default="0" required="false" category="categoryBasics" display-name="Enable Bonus Bucks">
+				<attribute name="propertySortPriority" value="163"/>
+			</property>
+			<property name="isEnableListrak" column-names="enable_listrak" data-type="boolean" default="0" required="false" category="categoryBasics" display-name="Enable Listrak">
+				<attribute name="propertySortPriority" value="164"/>
+			</property>
+		</table>
+	</item-descriptor>
+</gsa-template>

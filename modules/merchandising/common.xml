@@ -1,0 +1,64 @@
+<project name="CommonClasspath" basedir=".">
+    <!-- The dynamo class path -->
+  <path id="dynamo.classpath">
+    <fileset dir="${dynamo.home}/../DAS/lib">
+      <include name="**/*.jar" />
+    </fileset>
+    <fileset dir="${dynamo.home}/../DAS-UI/lib">
+      <include name="**/*.jar" />
+    </fileset>
+    <fileset dir="${dynamo.home}/../DPS/lib">
+      <include name="**/*.jar" />
+    </fileset>
+    <fileset dir="${dynamo.home}/../DSS/lib">
+      <include name="**/*.jar" />
+    </fileset>
+    <fileset dir="${dynamo.home}/../DCS/lib">
+      <include name="**/*.jar" />
+    </fileset>
+    <fileset dir="${dynamo.home}/../BCC/lib">
+      <include name="**/*.jar" />
+    </fileset>
+    <fileset dir="${dynamo.home}/../WebUI/lib">
+      <include name="**/*.jar" />
+    </fileset>
+    <fileset dir="${dynamo.home}/../AssetUI/lib">
+      <include name="**/*.jar" />
+    </fileset>
+    <fileset dir="${dynamo.home}/../PublishingAgent/base/lib">
+      <include name="**/*.jar" />
+    </fileset>
+    <fileset dir="${dynamo.home}/../DAF/Search/Base/lib">
+      <include name="**/*.jar" />
+    </fileset>
+    <fileset dir="${dynamo.home}/../DAF/Search/Index/lib">
+      <include name="**/*.jar" />
+    </fileset>
+    <fileset dir="${dynamo.home}/../DAF/Search/Query/lib">
+      <include name="**/*.jar" />
+    </fileset>
+    <fileset dir="${dynamo.home}/../DAF/Search/Routing/lib">
+      <include name="**/*.jar" />
+    </fileset>
+	<fileset dir="${dynamo.home}/../Store/EStore/lib">
+      <include name="**/*.jar" />
+    </fileset>	
+	<fileset dir="${dynamo.home}/../Store/DCS-CSR/lib">
+      <include name="**/*.jar" />
+    </fileset>
+
+  </path>
+
+  <!-- Other things to watch for in the classpath -->
+  <patternset id="resource.files">
+    <include name="**/*.properties" />
+    <include name="**/*.xml" />
+    <include name="**/*.dtd" />
+    <include name="**/*.wsdl" />
+    <include name="**/*.xsd" />
+    <include name="**/*.p12" />
+  </patternset>
+
+
+</project>
+

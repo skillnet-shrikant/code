@@ -1,0 +1,7 @@
+{
+    "runWeeklyReports": false,
+    "dayOfTheWeek": 1,
+    "runDailyReports": false,
+    "ecr:createDate": "2016-07-22T21:49:16.682Z",
+    "ecr:type": "report-settings"
+}

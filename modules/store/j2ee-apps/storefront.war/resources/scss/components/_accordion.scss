@@ -1,0 +1,42 @@
+/* only use styles in here that you want to apply to all accordions on the site. Otherwise contextually style
+(ex: .parentClass .accordion-title) or add additional classes to the accordion element. */
+.product .site-wrapper {
+	.accordion-container {
+		@include rem-size(padding, 8px 10px);
+		border-top: 1px solid $border-color;
+		border-bottom: 1px solid $border-color;
+
+		& + .accordion-container {
+			border-top: none;
+		}
+	}
+	.accordion-title {
+		@include font-size(18px);
+	}
+	.accordion-body {
+		@include font-size(14px);
+		@include rem-size(padding-top, 8px);
+	}
+}
+.product-spec-image {
+	@include rem-size(margin, 8px 4px 0px 0px);
+}
+
+.accordion-title {
+	cursor: pointer;
+	font-weight: $bold;
+	.icon {
+		float: right;
+		@include rem-size(line-height, 24px);
+	}
+}
+.accordion-body {
+	display: none;
+	ul{
+		margin: 0;
+		@include rem-size(padding-left, 16px);
+	}
+	p {
+		margin: 0;
+	}
+}

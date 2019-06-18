@@ -1,0 +1,35 @@
+<%--
+Renders the link to load the order 
+
+@version $Id:
+@updated $DateTime: 2015/01/26 17:26:27 $$Author: jsiddaga $
+--%>
+<dsp:layeredBundle basename="atg.commerce.csr.order.WebAppResources">
+<div class="atg_svc_subPanel">
+  <div class="atg_svc_subPanelHeader" >       
+      <ul class="atg_svc_panelToolBar">
+        <li class="atg_svc_header">
+          <h4 id="atg_commerce_csr_orderconfirm_sendConfirmation"><fmt:message key='confirmOrder.confirmationMessage.header'/> </h4>
+        </li>       
+       </ul>
+    </div>
+
+<dsp:include page="/panels/order/confirm/sendConfirmationMessage.jsp">
+<dsp:param name="confirmationInfo" value="${confirmationInfo}"/>
+</dsp:include>
+
+<%--Include the send confirmation page--%>
+<c:if test="${confirmationInfo.autoConfirmationSent}">
+  <%--An email has already been sent --%>        
+  <%--Add a comment to notify the user a message has been sent.--%>       
+  <ul class="atg_commerce_csr_simpleList">      
+    <li>
+      <fmt:message key='confirmOrder.confirmationMessage.successMessage'>
+        <fmt:param><c:out value="${confirmationInfo.autoConfirmationEmailAddress}"/></fmt:param>
+      </fmt:message>
+    </li>
+  </ul>        
+</c:if>
+</div>
+</dsp:layeredBundle>
+<%-- @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/include/order/confirm/sendConfirm.jspf#1 $$Change: 946917 $--%>

@@ -1,0 +1,496 @@
+// Use the components directory to construct the meat of your CSS.
+// Categorize your styles here based on element in the file name.
+
+.modal {
+	display: none;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	z-index: 1000;
+}
+
+.modal-backdrop {
+	background: rgba($black, 0.6);
+	height: 100%;
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 10;
+}
+
+.modal-window {
+	background: none repeat scroll 0 0 white;
+	border: 1px solid $border-color;
+	@include box-shadow(0, 0, 9px, rgba(0, 0, 0, 0.18));
+	left: 50%;
+	top: 19.5%;
+	@include opacity(0);
+	position: absolute;
+	text-align: left;
+	z-index: 10;
+	width: 98%;
+	margin-left: -49%;
+
+	&.x-small {
+		width: 300px;
+		margin-left: -150px;
+	}
+	@include media(medium-up) {
+		width: 70%;
+		margin-left: -35%;
+
+		&.small {
+			width: 500px;
+			margin-left: -250px;
+		}
+		&.medium {
+			width: 700px;
+			margin-left: -350px;
+		}
+	}
+	@include media(large-up) {
+		width: $row-width;
+		margin-left: -$row-width/2;
+	}
+	&.fade.in {
+		@include opacity(1);
+	}
+}
+.modal-close {
+	position: absolute;
+	right: 12px;
+	top: 12px;
+	cursor: pointer !important;
+	@include media(medium-up){
+		right: 22px;
+		top: 22px;
+	}
+}
+.modal-content {
+	@include rem-size(margin, 10px);
+
+	@include media(medium-up){
+		@include rem-size(margin, 20px);
+	}
+
+	#avsModal & {
+		margin-bottom: 0;
+	}
+}
+.modal-content.fade.in {
+	@include opacity(1);
+}
+
+.modal-header {
+	@include grid-row();
+	h2 {
+		@include grid-column(12);
+		text-transform: uppercase;
+		border-bottom: solid 1px $border-color;
+		margin: 0 auto 10px;
+		@include rem-size(padding, 0px 32px 5px 0px);
+		.icon {
+			@include font-size(18px);
+			@include rem-size(margin-right, 4px);
+		}
+	}
+}
+
+.modal-body {
+	@include grid-row();
+
+	h3 {
+		@include rem-size(margin-bottom, 4px);
+	}
+	ol {
+		@include rem-size(margin-top, 0px);
+
+		ol {
+			list-style-type: lower-alpha;
+		}
+	}
+}
+
+.modal-footer {
+	@include grid-row();
+
+	.button {
+		width: 100%;
+		//@include rem-size(margin-top, 10px);
+		~ input, ~ a {
+			&.button {
+				margin-top: 10px;
+			}
+		}
+
+		@include media(medium-up) {
+			@include rem-size(margin-top, 0px);
+			width: calc(50% - 5px);
+
+			& ~ input, & ~ a {
+				&.button {
+					@include rem-size(margin, 0px 0px 0px 10px);
+
+					&.add-ffl-to-cart-submit {
+						@include rem-size(margin-left, 6px);
+					}
+				}
+			}
+			& + input {
+				&.button {
+					@include rem-size(margin, 0px 0px 0px 6px);
+				}
+			}
+			& ~ input[type="hidden"] {
+				& ~ input,
+				& ~ a {
+					&.button {
+						@include rem-size(margin-left, 6px);
+					}
+				}
+			}
+		}
+	}
+}
+
+#delete-address-modal .delete-button {
+	@include rem-size(margin-left, 10px);
+}
+
+/* Quick View Modal
+   ========================================================= */
+#quick-view-modal {
+	@include media(small-only) {
+		display: none;
+	}
+	.modal-window {
+		@include media(medium-up) {
+			width: 98%;
+			margin-left: -49%;
+		}
+		@include media(large-up) {
+			width: $row-width;
+			margin-left: -$row-width/2;
+		}
+	}
+}
+.quick-view-modal {
+	.product-details {
+		width: 50%;
+	}
+	.add-to-cart-actions {
+		@include rem-size(margin, 20px 0px);
+	}
+	.accordion-title {
+		@include font-size(18px);
+	}
+	.accordion-container {
+		padding: 0.5rem 0.625rem;
+		border-top: 1px solid #ccc;
+		border-bottom: 1px solid #ccc;
+
+		& + .accordion-container {
+			border-top: none;
+		}
+	}
+}
+.promo-details-modal {
+	.total-row {
+		display: table;
+		@include font-size(12px);
+		line-height: 1rem;
+		width: 100%;
+		font-weight: $bold;
+		.total-label , .total-amount {
+			display: table-cell;
+			text-align: left;
+			vertical-align: top;
+			padding: 0.25rem 0.625rem;
+		}
+		.total-amount {
+			text-align: right;
+		}
+	}
+	.total-row.total {
+		padding-bottom: 1rem;
+		font-weight: $normal;
+	}
+}
+
+#update-store-modal,
+.bopis-store-modal,
+.bopis-modal {
+	#style-1::-webkit-scrollbar-track
+	{
+		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+		-webkit-border-radius: 10px;
+		-moz-border-radius: 10px;
+		border-radius: 10px;
+		background-color: #F5F5F5;
+	}
+
+	#style-1::-webkit-scrollbar
+	{
+		width: 12px;
+		@include media(small-only){
+			width: 10px;
+		}
+		background-color: #F5F5F5;
+	}
+
+	#style-1::-webkit-scrollbar-thumb
+	{
+		-webkit-border-radius: 10px;
+		-moz-border-radius: 10px;
+		border-radius: 10px;
+		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+		background-color: #555;
+	}
+
+}
+
+#update-store-modal
+ {
+	.modal-header {
+		@include media(small-only) {
+			h2 {
+				@include font-size(14px);
+			}
+		}
+	}
+	.modal-close {
+		@include media(small-only) {
+			.icon {
+				@include font-size(12px);
+			}
+		}
+	}
+	.modal-content {
+		.card-content {
+			width: 50%;
+			float: left;
+			@include media(small-only) {
+				p {
+					@include font-size(13px);
+				}
+			}
+			p.title {
+				text-transform: uppercase;
+			}
+		}
+	}
+	.card {
+		border: none;
+		box-shadow: none;
+		.label {
+			background: $light-gray;
+			@include font-size(12px);
+			width: 100%;
+			@include rem-size(padding, 0px 10px);
+			@include media(medium-up){
+				width: 109%;
+				@include rem-size(margin-left, -20px);
+				@include rem-size(padding, 0px 20px);
+			}
+
+		}
+	}
+	.store-search-form, .update-search-form {
+		@include rem-size(margin, 10px 0px);
+		input {
+			width: calc(100% - 150px);
+			display: inline-block;
+			margin-left: 0;
+		}
+		.button {
+			width: 140px;
+			position: absolute;
+			right: 0px;
+			top: 0px;
+		}
+		.error + .button {
+			@include rem-size(margin-top, -64px);
+		}
+		@include media(small-only) {
+			input {
+				width: calc(100% - 130px);
+			}
+			.button.primary {
+				width: 120px;
+				padding: 6px;
+			}
+		}
+	}
+	.results-zip-code {
+		@include media(small-only) {
+			@include font-size(12px);
+		}
+	}
+	.scrollbar {
+		float: left;
+		max-height: 310px;
+		overflow-y: scroll;
+	}
+	@include media(small-only) {
+		.scrollbar {
+			max-height: 400px;
+		}
+	}
+	.home-results-list {
+		border: 1px solid $base-gray;
+		width: 100%;
+		&.callout {
+			background-color: $light-gray;
+		}
+		.bopis-results-list {
+			max-height: 185px;
+			li {
+				width: 95%;
+				@include rem-size(margin, 0px 10px);
+				border-bottom: 1px solid #ccc;
+				border-top: none;
+				@include rem-size(padding, 16px 0px);
+				@include media(small-only) {
+					@include rem-size(padding, 10px 0px);
+				}
+				h3 {
+					@include media(small-only) {
+						@include font-size(14px);
+						@include rem-size(margin-top, 4px);
+					}
+				}
+				@include media(small-only){
+					.actions {
+						@include rem-size(padding, 0px 0px 10px);
+						@include rem-size(margin, 0px);
+						.button {
+							padding: 2px 24px;
+							width: 98%;
+						}
+					}
+				}
+			}
+			li:last-child {
+				border-bottom: none;
+			}
+		}
+	}
+
+}
+
+.bopis-store-modal,
+.bopis-modal {
+	h2.bopis-title {
+		text-transform: capitalize;
+	}
+	.card {
+		border: none;
+		box-shadow: none;
+		.card-content {
+			width: 50%;
+			float: left;
+			padding: 0px 0px !important;
+			&:first-child {
+				font-weight: $bold;
+			}
+		}
+		.label {
+			background: $light-gray;
+			width: 100%;
+			@include font-size(12px);
+			@include rem-size(margin-top, 10px);
+			@include rem-size(margin-bottom, 10px);
+			@include rem-size(padding, 0px 10px);
+		}
+	}
+	.bopis-store-search-form {
+		label {
+			display: none;
+		}
+	}
+	.scrollbar {
+		float: left;
+		max-height: 470px;
+		overflow-x: hidden;
+		overflow-y: auto;
+	}
+	@include media(small-only) {
+		.scrollbar {
+			max-height: 350px;
+		}
+	}
+	.home-results-list {
+		border: 1px solid $base-gray;
+		width: 100%;
+		&.callout {
+			background-color: $light-gray;
+		}
+		.bopis-results-list{
+			li {
+				@include rem-size(margin, 0px 10px);
+				width: 95%;
+				h3 {
+					@include media(small-only){
+						@include font-size(14px);
+						@include rem-size(margin-top, 4px);
+					}
+				}
+			}
+			li:first-child {
+				border-top: none;
+			}
+		}
+	}
+	.item-inventory-details {
+		@include font-size(11px);
+		font-weight: $normal;
+		line-height: 130%;
+		border-top: 1px solid $light-gray;
+		float: left;
+		> p:last-child {
+			margin-bottom: 0;
+		}
+	}
+	a {
+		@include font-size(14px);
+	}
+
+	@include media(medium-up) {
+		h2.bopis-title {
+			.icon {
+				@include font-size(22px);
+			}
+		}
+		.card {
+			.label {
+				width: 102%;
+				@include rem-size(margin-left, -10px);
+			}
+		}
+		.bopis-store-search-form {
+			.button {
+				top: 0px;
+				right: 10px;
+				width: 140px;
+			}
+		}
+	}
+}
+
+.bopis-store-modal.active,
+ .bopis-modal.active{
+	.bopis-store-details {
+		display: none;
+	}
+	@include media(medium-up) {
+		.bopis-store-search-form {
+			.button {
+				top: 25px;
+			}
+		}
+	}
+}

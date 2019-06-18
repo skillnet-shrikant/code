@@ -1,0 +1,9 @@
+  <dsp:importbean bean="/atg/commerce/order/AdminOrderLookup" />
+  <dsp:droplet name="AdminOrderLookup">
+  <dsp:param name="orderId" value="${activity.orderId}"/>
+  <dsp:oparam name="output">
+    <dsp:getvalueof var="orderresult" param="result"/>
+    <c:set var="order" value="${orderresult}" scope="request"/>
+  </dsp:oparam>
+  </dsp:droplet>
+<%-- @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/include/activities/activityOrderLookup.jspf#1 $$Change: 946917 $--%>

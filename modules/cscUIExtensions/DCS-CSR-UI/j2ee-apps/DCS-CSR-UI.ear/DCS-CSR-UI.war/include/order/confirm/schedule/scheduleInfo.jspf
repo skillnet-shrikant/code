@@ -1,0 +1,22 @@
+<%--
+Renders the message of the new order confirmation
+
+@version $Id:
+@updated $DateTime: 2015/01/26 17:26:27 $$Author: jsiddaga $
+--%>
+<%@ page import="atg.commerce.csr.order.ConfirmationInfo, atg.repository.RepositoryItem" %>
+<ul class="atg_commerce_csr_simpleList">
+<dsp:tomap var="confirmationInfoMap" value="${confirmationInfo}"/>
+<li>
+<%
+  /* this converts the single item into an item array that can be used by displaySchedules */
+  atg.commerce.csr.order.ConfirmationInfo info = (atg.commerce.csr.order.ConfirmationInfo)pageContext.getAttribute("confirmationInfo");
+  atg.repository.RepositoryItem [] items = new atg.repository.RepositoryItem [1];
+  items[0] = (atg.repository.RepositoryItem) info.getExtraData().get("scheduledOrderItem");
+%>
+<dsp:include src="/panels/order/displaySchedulesTable.jsp">
+<dsp:param name="scheduledOrderItems" value="<%=items%>"/>
+</dsp:include>
+</ul>
+
+<%-- @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/include/order/confirm/schedule/scheduleInfo.jspf#1 $$Change: 946917 $--%>

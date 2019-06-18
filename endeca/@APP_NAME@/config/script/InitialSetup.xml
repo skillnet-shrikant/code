@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<spr:beans xmlns:spr="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns="http://www.endeca.com/schema/eacToolkit"
+  xsi:schemaLocation="
+      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+      http://www.endeca.com/schema/eacToolkit http://www.endeca.com/schema/eacToolkit/eacToolkit.xsd">
+
+  <!--
+    ########################################################################
+    # Script to run in intialize services to prevent overwriting
+    # an existing application.
+    #
+  -->
+  <script id="AssertNotDefined">
+    <bean-shell-script>
+      <![CDATA[
+
+      // Get the necessary application configuration
+      // from a provisionable object, like Dgidx
+      provObj = Dgidx;
+
+      // Construct an Application object
+      app = new Application();
+      app.setAppName(provObj.getAppName());
+      app.setEacHost(provObj.getEacHost());
+      app.setEacPort(provObj.getEacPort());
+      app.setDataPrefix(provObj.getDataPrefix());
+      app.setSslEnabled(provObj.isSslEnabled());
+
+      // If the application is already defined
+      // log an error and exit with code 1
+      if (app.isDefined()) {
+        log.severe("An application already exists with the name, \"" + provObj.getAppName() + "\". " +
+                  "Please use the '--force' option if you want to replace all existing configuration.");
+        System.exit(1);
+      }
+
+      ]]>
+    </bean-shell-script>
+  </script>
+
+  <!--
+    ########################################################################
+    # Script to perform initial setup tasks, like uploading initial config
+    # to Workbench, if integration is enabled. This script is invoked by
+    # initialize_services.bat/.sh, so any setup activities can be added here.
+    #
+  -->
+  <script id="InitialSetup">
+    <bean-shell-script>
+      <![CDATA[
+    IFCR.provisionSite();
+    CAS.importDimensionValueIdMappings("@APP_NAME@-dimension-value-id-manager",
+        	"@ENDECA_APPS_DIR@/@APP_NAME@/test_data/initial_dval_id_mappings.csv");
+
+      ]]>
+    </bean-shell-script>
+  </script>
+
+</spr:beans>
+<!-- @version $Id: //hosting-blueprint/B2CBlueprint/version/11.2/Storefront/deploy/script/InitialSetup.xml#2 $$Change: 953229 $-->

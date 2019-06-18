@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE pipelinemanager
+	PUBLIC "-//Art Technology Group, Inc.//DTD Dynamo Pipeline Manager//EN"
+	'http://www.atg.com/dtds/pipelinemanager/pipelinemanager_1.0.dtd'>
+
+<pipelinemanager>
+
+	
+	<!-- ************************************************************* -->
+	<!--  Extend order allocation to add reporting of new orders and   -->
+	<!--  handle store declines reporting.							   -->	
+	<!-- ************************************************************* -->
+	<pipelinechain name="handleStoreShipment" transaction="TX_REQUIRED">
+		<!-- Updating the definition of the last processor in omsallocation modules pipeline definition -->
+		<pipelinelink name="updateShipOrderStates" transaction="TX_MANDATORY" xml-combine="replace">
+			<processor jndi="/oms/allocation/processor/UpdateOrderStates" />
+			<transition returnvalue="1" link="createSettlementRecords" />
+		</pipelinelink>			
+
+		<!-- Creates settlement record -->	
+		<pipelinelink name="createSettlementRecords" transaction="TX_MANDATORY">
+			<processor jndi="/oms/commerce/settlement/processor/CreateSettlementRecordForShippment"/>
+			<transition returnvalue="1" link="sendShipStatusEmail" />
+		</pipelinelink>
+		
+	</pipelinechain>	
+
+	
+</pipelinemanager>

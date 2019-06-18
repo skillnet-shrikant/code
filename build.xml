@@ -1,0 +1,660 @@
+<project name="mff-root" default="all" basedir=".">
+   <taskdef resource="net/sf/antcontrib/antlib.xml">
+      <classpath>
+	 <pathelement location="./modules/main/lib-external/ant-contrib-0.6.jar" />
+      </classpath>
+   </taskdef>
+   <!-- Defining property name to access environmental variables -->
+   <property environment="env"/>
+   <condition property="envName" value="${env.ENV_NAME}">
+      <and>
+	 <not>
+	    <equals arg1="${env.ENV_NAME}" arg2=""/>
+	 </not>
+	 <not>
+	    <equals arg1="${env.ENV_NAME}" arg2="$${env.ENV_NAME}"/>
+	 </not>
+      </and>
+   </condition>
+   <!-- otherwise set the default env name as "dev" -->
+   <property name="envName" value="dev"/>
+
+   <!-- Importing build files and properties files -->
+   <property file="users/${envName}.properties" />
+
+   <property file="build.properties"/>
+   <tstamp>
+      <!-- used in modules -->
+      <format property="build.uniquestring"
+	       pattern="yyyyMMdd_hhmm_SSS_z"
+		  unit="hour" />
+   </tstamp>
+
+   <target name="all" depends="printEnv,build,deploy"/>
+
+   <!-- printEnv -->
+   <target name="printEnv">
+      <echo message="Printing Env Configurations..."/>
+      <echo message="ATG_DIR...:${atg.dir}"/>
+      <echo message="DYNAMO_HOME...:${dynamo.home}"/>
+      <echo message="WLS_HOME...:${wls.home}"/>
+      <echo message="build.uniquestring...:${build.uniquestring}" />
+      <echo message="envName: ${envName}"/>
+      <echo message="environment: ${environment}"/>
+   </target>
+   <filelist id="build-order" dir="./modules/">
+      <file name="./integration/security/build.xml"/>
+      <file name="./integration/aci/build.xml"/>
+      <file name="./integration/firstData/build.xml"/>
+      <file name="./integration/fedex/build.xml"/>
+      <file name="./integration/vertex/build.xml"/>
+	  <file name="./integration/bazaarvoice/build.xml"/>
+	  <file name="./integration/googleadwords/build.xml"/>
+	  <file name="./integration/listrak/build.xml"/>
+      <file name="./main/build.xml"/>
+      <file name="./emails/build.xml"/>
+	  <file name="./integration/dashboard/build.xml"/>
+      <file name="./store/build.xml"/>
+      <file name="./merchandising/build.xml"/>
+      <file name="./fulfillment/build.xml"/>
+      <file name="./fulfillment/core2oms/build.xml"/>
+      <file name="./fulfillment/omsallocation/build.xml"/>
+      <file name="./fulfillment/settlement/build.xml"/>      
+
+      <file name="./fulfillment/dropship/build.xml"/>
+      <file name="./csc/build.xml"/>
+      <file name="./fulfillment/salesAudit/build.xml"/>
+      <file name="./rest/build.xml"/>
+   </filelist>
+
+   <filelist id="typeahead-build" dir=".">
+      <file name="./typeahead/build.xml"/>
+   </filelist>
+
+
+   <!-- build only -->
+   <target name="build" depends="clean">
+      <echo message="Building modules....."/>
+      <!-- fasCommon should be build first -->
+      <subant target="build" failonerror="true">
+	 <filelist refid="build-order"/>
+      </subant>
+
+      <echo message="Modules finished building"/>
+   </target>
+
+   <!-- deploys to atg.fas directory, this is the original deploy -->
+   <target name="deploy">
+      <subant target="deploy" failonerror="true">
+	 <property name="build.uniquestring" value="${build.uniquestring}"/>
+	 <fileset dir=".">
+	    <include name="modules/**/build.xml"/>
+	 </fileset>
+      </subant>
+   </target>
+
+   <!-- THIS WILL ONLY DO A CLEAN BASED ON THE clean-before-build-flag FLAG IN PROPERTIES FILE  -->
+   <target name="clean" unless="clean-before-build">
+      <script language="javascript">
+    	var cleanBeforeBuildFlag = project.getProperty("clean-before-build-flag");
+    	//set flag only on false.
+    	if (cleanBeforeBuildFlag == "false") {
+		project.setProperty("clean-before-build", "false");
+    	}
+      </script>
+      <antcall target="-clean"/>
+   </target>
+
+   <target name="-clean" unless="clean-before-build">
+      <subant target="clean" failonerror="true">
+	 <filelist refid="build-order"/>
+      </subant>
+   </target>
+
+   <!-- THIS WILL DO A CLEAN REGARDLESS OF ANY FLAG  -->
+   <target name="clean-override" >
+      <!-- Override clean-before-build default property -->
+      <script language="javascript">
+	 project.setProperty("clean-before-build-flag", "true");
+      </script>
+      <antcall target="clean"/>
+      <subant target="clean-EAR" failonerror="false" inheritall="true">
+	 <fileset dir=".">
+	    <include name="modules/store/build.xml"/>
+	    <include name="modules/main/build.xml"/>
+		<include name="modules/emails/build.xml"/>
+	    <include name="modules/merchandising/build.xml"/>
+	    <include name="modules/fulfillment/build.xml"/>
+	    <include name="modules/csc/build.xml"/>
+	 </fileset>
+      </subant>
+   </target>
+
+   <!-- Begin assemble tasks -->
+   <taskdef name="assemble-jar" classname="atg.appassembly.ant.CreateUnpackedEarTask" classpath="${dynamo.home}/lib/assembler.jar"/>
+
+   <!-- -RUN-ASSEMBLER -->
+   <target name="-run-assembler">
+      <!-- set default 'options' to empty, if not set -->
+      <condition property="options" value="">
+	 <not>
+	    <isset property="options"/>
+	 </not>
+      </condition>
+      <!-- set default 'layers' to empty, if not set -->
+      <condition property="layers" value="">
+	 <not>
+	    <isset property="layers"/>
+	 </not>
+      </condition>
+      <!-- set parameters -->
+      <property name="assembler-parameters"
+	       value="${options} -server ${server-name} ${deploypath}/${ear-filename} ${layers} -m ${dynamo-module-list}"/>
+      <echo message="assembler-parameters: ${assembler-parameters}" />
+      <!-- windows -->
+      <exec dir="${dynamo.home}/bin" executable="cmd" os="${os.windows}">
+	 <arg value="/c" />
+	 <arg value="runAssembler.bat ${assembler-parameters}" />
+      </exec>
+      <!-- linux -->
+      <exec dir="${dynamo.home}/bin" executable="sh" os="${os.unix}">
+	 <arg value="runAssembler" />
+	 <arg value=" ${assembler-parameters}" />
+      </exec>
+      <!-- touch dodeploy file -->
+      <echo message="${ear-filename}" file="${deploypath}/${ear-filename}.dodeploy" />
+   </target>
+
+   <!-- -RUN-ASSEMBLER-STANDALONE -->
+   <target name="-run-assembler-standalone" depends="clean-EAR, -deploy-standalone-serverconfigs">
+      <!-- set default 'options' to empty, if not set -->
+      <condition property="options" value="">
+	 <not>
+	    <isset property="options"/>
+	 </not>
+      </condition>
+      <condition property="layers" value="">
+	 <not>
+	    <isset property="layers"/>
+	 </not>
+      </condition>
+      <!-- call the parent -run-assembler -->
+      <!--
+      <antcall target="-run-assembler">
+	 <param name="options" value="${options} -liveconfig -standalone"/>
+	 <param name="deploypath" value="${deploypath}"/>
+	 <param name="ear-filename" value="${ear-filename}"/>
+	 <param name="dynamo-module-list" value="${dynamo-module-list}"/>
+      </antcall>
+      -->
+      <property name="assembler-parameters"
+	       value="${options} -liveconfig -standalone ${deploypath}/${ear-filename} ${layers} -m ${dynamo-module-list}"/>
+      <echo message="assembler-parameters: ${assembler-parameters}" />
+      <!-- windows -->
+      <exec dir="${dynamo.home}/bin" executable="cmd" os="${os.windows}">
+	 <arg value="/c" />
+	 <arg value="runAssembler.bat ${assembler-parameters}" />
+      </exec>
+      <!-- linux -->
+      <exec dir="${dynamo.home}/bin" executable="sh" os="${os.unix}">
+	 <arg value="runAssembler" />
+	 <arg value=" ${assembler-parameters}" />
+      </exec>
+      <!-- copy over the ATG security folder -->
+      <copy todir="${deploypath}/${ear-filename}/atg_bootstrap.war/WEB-INF/ATG-INF/home/security" overwrite="true">
+	 <fileset dir="../security/sso/atg" includes="**/*" />
+      </copy>
+
+      <copy todir="${deploypath}/${ear-filename}/atg_bootstrap.war/WEB-INF/ATG-INF/home/security/bootstrap" overwrite="true">
+	 <fileset dir="../security/sso/atg" includes="**/*" />
+      </copy>
+   </target>
+
+   <target name="clean-EAR" description="Deletes the contents of the install and build directories.">
+      <echo message="Deleting:" />
+      <echo message=" ${deploypath}/${ear-filename}" />
+      <delete dir="${deploypath}/${ear-filename}" failonerror="false" includeEmptyDirs="true"/>
+   </target>
+
+   <!-- assemble-csc -->
+   <target name="assemble-csc" description="assembles csc ear file with search">
+      <antcall target="deploy-csc">
+	 <param name="deploy.serverconfigs" value="set"/>
+      </antcall>
+      <echo message="Starting to assemble..." />
+      <antcall target="clean-EAR">
+	 <param name="deploypath" value="${csc.deploy.path}"/>
+	 <param name="ear-filename" value="${csc.ear}"/>
+      </antcall>
+      <antcall target="-run-assembler">
+	 <param name="server-name" value="${csc.server}"/>
+	 <param name="deploypath" value="${csc.deploy.path}"/>
+	 <param name="ear-filename" value="${csc.ear}"/>
+	 <param name="dynamo-module-list" value="${csc.modules}"/>
+	 <!-- <param name="options" value="-prependJars ${csc.hotfix.jars}"/> -->
+      </antcall>
+   </target>
+
+   <!-- assemble-csc-fulfill -->
+   <target name="assemble-csc-fulfill" description="assembles csc ear file with fulfillment">
+      <antcall target="deploy-csc">
+	 <param name="deploy.serverconfigs" value="set"/>
+      </antcall>
+      <echo message="Starting to assemble..." />
+      <antcall target="clean-EAR">
+	 <param name="deploypath" value="${csc-fulfill.deploy.path}"/>
+	 <param name="ear-filename" value="${csc-fulfill.ear}"/>
+      </antcall>
+      <antcall target="-run-assembler">
+	 <param name="server-name" value="${csc-fulfill.server}"/>
+	 <param name="deploypath" value="${csc-fulfill.deploy.path}"/>
+	 <param name="ear-filename" value="${csc-fulfill.ear}"/>
+	 <param name="dynamo-module-list" value="${csc-fulfill.modules}"/>
+	 <!-- <param name="options" value="-prependJars ${csc.hotfix.jars}"/> -->
+      </antcall>
+   </target>
+
+   <target name="assemble-csc-fulfill-withoutbuild" description="assembles csc ear file with fulfillment">
+      <echo message="Starting to assemble..." />
+      <antcall target="-run-assembler">
+	 <param name="server-name" value="${csc-fulfill.server}"/>
+	 <param name="deploypath" value="${csc-fulfill.deploy.path}"/>
+	 <param name="ear-filename" value="${csc-fulfill.ear}"/>
+	 <param name="dynamo-module-list" value="${csc-fulfill.modules}"/>
+	 <!--<param name="options" value="-prependJars ${csc.hotfix.jars}"/> -->
+      </antcall>
+   </target>
+
+
+   <target name="deploy-csc" depends="build, deploy">
+      <if>
+	 <isset property="deploy.serverconfigs"/>
+	 <then>
+	    <antcall target="-deploy-serverconfigs">
+	       <param name="server" value="${csc.server}"/>
+	       <param name="configlayer" value="csc"/>
+	    </antcall>
+	 </then>
+      </if>
+   </target>
+
+   <target name="create-merch-server">
+      <copy todir="${merch.deploy.path}/.." failonerror="false">
+	 <fileset dir="${merch.deploy.path}/../../default" excludes="**/atg-ds.xml" />
+      </copy>
+
+      <copy todir="${merch.deploy.path}" file="./modules/data/bootstrap/atg-oracle-merch-ds.xml" />
+   </target>
+
+   <!-- assemble-merch -->
+   <target name="assemble-merch" description="assembles merch ear file with search">
+      <antcall target="deploy-merch">
+	 <param name="deploy.serverconfigs" value="set"/>
+      </antcall>
+      <echo message="Starting to assemble..." />
+      <echo message="build.home - ${basedir}" />
+      <antcall target="-run-assembler">
+	 <param name="server-name" value="${merch.server}"/>
+	 <param name="deploypath" value="${merch.deploy.path}"/>
+	 <param name="ear-filename" value="${merch.ear}"/>
+	 <param name="layers" value="-layer preview"/>
+	 <param name="dynamo-module-list" value="${merch.modules}"/>
+	 <!--<param name="options" value="-prependJars ${merch.hotfix.jars}"/> -->
+      </antcall>
+   </target>
+
+   <target name="deploy-merch" depends="build, deploy">
+      <if>
+	 <isset property="deploy.serverconfigs"/>
+	 <then>
+	    <antcall target="-deploy-serverconfigs">
+	       <param name="server" value="${merch.server}"/>
+	       <param name="configlayer" value="merch"/>
+	    </antcall>
+	 </then>
+      </if>
+   </target>
+
+   <target name="create-merch-server-with-stage">
+      <copy todir="${merch.deploy.path}/.." failonerror="false">
+	 <fileset dir="${merch.deploy.path}/../../default" excludes="**/atg-ds.xml" />
+      </copy>
+
+      <copy todir="${merch.deploy.path}" file="./modules/data/bootstrap/atg-oracle-merch-ds.xml" />
+      <copy todir="${merch.deploy.path}" file="./modules/data/bootstrap/atg-oracle-stage-store-ds.xml" />
+   </target>
+
+   <!-- assemble-merch-with-stage -->
+   <target name="assemble-merch-with-stage" description="assembles merch ear file with search">
+      <antcall target="deploy-merch-with-stage">
+	 <param name="deploy.serverconfigs" value="set"/>
+      </antcall>
+      <echo message="Starting to assemble..." />
+      <echo message="build.home - ${basedir}" />
+      <antcall target="-run-assembler">
+	 <param name="server-name" value="${merch.server}"/>
+	 <param name="deploypath" value="${merch.deploy.path}"/>
+	 <param name="ear-filename" value="${merch.ear}"/>
+	 <param name="layer" value="-layer preview -layer staging"/>
+	 <param name="dynamo-module-list" value="${merch.modules}"/>
+	 <!--<param name="options" value="-prependJars ${merch.hotfix.jars}"/> -->
+      </antcall>
+   </target>
+
+   <target name="deploy-merch-with-stage" depends="build, deploy">
+      <if>
+	 <isset property="deploy.serverconfigs"/>
+	 <then>
+	    <antcall target="-deploy-serverconfigs">
+	       <param name="server" value="${merch.server}"/>
+	       <param name="configlayer" value="merch"/>
+	       <param name="environment" value="uat"/>
+	    </antcall>
+	 </then>
+      </if>
+   </target>
+
+   <!-- assemble-store -->
+   <target name="assemble-store" description="assembles store ear file with search">
+
+      <echo message="Starting to assemble..." />
+      <echo message="build.home - ${basedir}" />
+      <antcall target="deploy-store">
+	 <param name="deploy.serverconfigs" value="set"/>
+      </antcall>
+      <!-- Not using assemble-jar of ATG-11.0.0 as it is has known issues for jboss. Instead using the runAssembler script
+      <assemble-jar dynamoRoot="${dynamo.home}/../"
+      dynamoModules="${store.modules}"
+      serverName="${store.server}"
+      destinationFile="${store.deploy.path}/${store.ear}"
+      />
+      -->
+      <antcall target="-run-assembler">
+	 <param name="server-name" value="${store.server}"/>
+	 <param name="deploypath" value="${store.deploy.path}"/>
+	 <param name="ear-filename" value="${store.ear}"/>
+	 <param name="dynamo-module-list" value="${store.modules}"/>
+	 <param name="layers" value="-layer EndecaPreview"/>
+	 <!--<param name="options" value="-prependJars ${store.hotfix.jars}"/>-->
+      </antcall>
+	  
+	  <antcall target="typeahead">
+	  
+	  </antcall>
+	  
+   </target>
+
+   <!-- assemble-store -->
+   <target name="assemble-store-with-index" description="assembles store ear file with search">
+      <antcall target="deploy-store">
+	 <param name="deploy.serverconfigs" value="set"/>
+      </antcall>
+
+      <echo message="Starting to assemble..." />
+      <echo message="build.home - ${basedir}" />
+      <antcall target="-run-assembler">
+	 <param name="server-name" value="${store.server}"/>
+	 <param name="deploypath" value="${store.deploy.path}"/>
+	 <param name="ear-filename" value="${store.ear}"/>
+	 <param name="dynamo-module-list" value="${store-with-index-modules}"/>
+	 <!--<param name="options" value="-prependJars ${store.hotfix.jars}"/> -->
+      </antcall>
+   </target>
+
+
+
+   <!-- THIS TARGET IS NO LONGER USED -->
+   <target name="rewrite-application-xml" >
+      <!-- backup the original application.xml file as .old -->
+      <copy file="${store.deploy.path}/${store.ear}/META-INF/application.xml"
+	  tofile="${store.deploy.path}/${store.ear}/META-INF/application-xml.old" overwrite="true"/>
+      <!-- overwrite with new -->
+      <copy file="modules/data/overwrite/store-application.xml"
+	  tofile="${store.deploy.path}/${store.ear}/META-INF/application.xml" overwrite="true"/>
+   </target>
+
+   <target name="deploy-store" depends="build, deploy">
+      <if>
+	 <isset property="deploy.serverconfigs"/>
+	 <then>
+	    <antcall target="-deploy-serverconfigs">
+	       <param name="server" value="${store.server}"/>
+	       <param name="configlayer" value="store"/>
+	    </antcall>
+	 </then>
+      </if>
+   </target>
+
+   <target name="create-stage-server">
+      <copy todir="${stage.store.deploy.path}/.." failonerror="false">
+	 <fileset dir="${stage.store.deploy.path}/../../default" excludes="**/atg-ds.xml" />
+      </copy>
+
+      <copy todir="${stage.store.deploy.path}" file="./modules/data/bootstrap/atg-oracle-stage-store-ds.xml" />
+   </target>
+
+   <target name="create-server">
+      <copy todir="${store.deploy.path}/.." failonerror="false">
+	 <fileset dir="${store.deploy.path}/../../default" excludes="**/atg-ds.xml" />
+      </copy>
+
+      <copy todir="${store.deploy.path}" file="./modules/data/bootstrap/atg-oracle-store-ds.xml" />
+   </target>
+
+   <!-- assemble-stage-store -->
+   <target name="assemble-stage-store" description="assembles store ear file with search">
+      <antcall target="deploy-stage-store">
+	 <param name="deploy.serverconfigs" value="set"/>
+      </antcall>
+
+      <echo message="Starting to assemble..." />
+      <echo message="build.home - ${basedir}" />
+      <antcall target="-run-assembler">
+	 <param name="server-name" value="${stage.store.server}"/>
+	 <param name="deploypath" value="${stage.store.deploy.path}"/>
+	 <param name="ear-filename" value="${stage.store.ear}"/>
+	 <param name="dynamo-module-list" value="${stage.store.modules}"/>
+	 <param name="layers" value="-layer EndecaPreview"/>
+      </antcall>
+   </target>
+
+   <target name="deploy-stage-store" depends="build, deploy">
+      <if>
+	 <isset property="deploy.serverconfigs"/>
+	 <then>
+	    <antcall target="-deploy-serverconfigs">
+	       <param name="server" value="${stage.store.server}"/>
+	       <param name="configlayer" value="stagestore"/>
+	       <param name="environment" value="uat"/>
+	    </antcall>
+	 </then>
+      </if>
+   </target>
+
+
+   <target name="assemble-fulfill" description="assembles fulfillment ear">
+      <antcall target="deploy-fulfill">
+	 <param name="deploy.serverconfigs" value="set"/>
+      </antcall>
+
+      <echo message="Starting to assemble..." />
+      <echo message="build.home - ${basedir}" />
+      <echo message="fulfill.modules - ${fulfill.modules}" />
+      <mkdir dir="${fulfill.deploy.path}"/>
+      <antcall target="-run-assembler">
+	 <param name="server-name" value="${fulfill.server}"/>
+	 <param name="deploypath" value="${fulfill.deploy.path}"/>
+	 <param name="ear-filename" value="${fulfill.ear}"/>
+	 <param name="dynamo-module-list" value="${fulfill.modules}"/>
+      </antcall>
+   </target>
+
+   <target name="assemble-fulfill-withoutbuild" description="assembles fulfill ear file on fulfillment without build">
+      <echo message="Starting to assemble..." />
+      <mkdir dir="${fulfill.deploy.path}"/>
+      <antcall target="-run-assembler">
+	 <param name="server-name" value="${fulfill.server}"/>
+	 <param name="deploypath" value="${fulfill.deploy.path}"/>
+	 <param name="ear-filename" value="${fulfill.ear}"/>
+	 <param name="dynamo-module-list" value="${fulfill.modules}"/>
+      </antcall>
+   </target>
+
+   <target name="deploy-fulfill" depends="build, deploy">
+      <if>
+	 <isset property="deploy.serverconfigs"/>
+	 <then>
+	    <antcall target="-deploy-serverconfigs">
+	       <param name="server" value="${fulfill.server}"/>
+	       <param name="configlayer" value="fulfillment"/>
+	    </antcall>
+	 </then>
+      </if>
+   </target>
+
+   <!-- server configs -->
+   <target name="clean-serverconfigs" description="Cleans named server localconfig">
+      <delete includeemptydirs="true" failonerror="false">
+	 <fileset dir="${dynamo.home}/servers/${server}/localconfig" includes="**/*" />
+      </delete>
+   </target>
+
+   <target name="-clean-standalone-serverconfigs" description="Cleans named server localconfig">
+      <delete includeemptydirs="true" failonerror="false">
+	 <fileset dir="${dynamo.home}/servers/" includes="**/*" />
+      </delete>
+   </target>
+
+
+   <target name="-deploy-standalone-serverconfigs" depends="-clean-standalone-serverconfigs" description="Deploy standalone serverconfigurations">
+      <echo>Copying into ${dynamo.home}/servers for the environments ${standalone-serverconfig-envs}</echo>
+      <for list="${standalone-serverconfig-envs}" param="standalone-env">
+	 <sequential>
+	    <echo>Copying from @{standalone-env}</echo>
+	    <copy todir="${dynamo.home}/servers/" failonerror="false">
+	       <fileset dir="modules/serverconfigs/@{standalone-env}/servers" excludes="**/*.properties, **/*.xml, **/*.svn"/>
+	    </copy>
+	    <copy todir="${dynamo.home}/servers/" failonerror="false">
+	       <fileset dir="modules/serverconfigs/@{standalone-env}/servers" includes="**/CONFIG.properties"/>
+	    </copy>
+	 </sequential>
+      </for>
+   </target>
+   <target name="-deploy-serverconfigs" depends="clean-serverconfigs" description="Deploy development named-server configuration.">
+      <echo>Copying into ${dynamo.home}/servers/${server}/localconfig</echo>
+      <echo> from serverconfigs/${environment}/localconfig and serverconfigs/${environment}/${configlayer}/localconfig </echo>
+      <copy todir="${dynamo.home}/servers/${server}/localconfig" failonerror="false">
+	 <fileset dir="modules/serverconfigs/${environment}/localconfig" excludes="**/*.svn" />
+	 <fileset dir="modules/serverconfigs/${environment}/${configlayer}/localconfig" excludes="**/*.svn" />
+      </copy>
+      <copy todir="${dynamo.home}/data" failonerror="false">
+	 <fileset dir="modules/serverconfigs/${environment}/data" excludes="**/*.svn" />
+      </copy>
+   </target>
+
+   <target name="assemble-store-standalone" depends="clean,deploy-store" description="assembles store standalone EAR file">
+      <echo message="Deploy serverconfigs for standalone mode..."/>
+
+      <echo message="Starting to assemble store standalone ear..." />
+      <antcall target="-run-assembler-standalone">
+	 <param name="server-name" value="${store.server}"/>
+	 <param name="deploypath" value="${store.deploy.path}"/>
+	 <param name="ear-filename" value="${store.ear}"/>
+	 <param name="dynamo-module-list" value="${store.modules}"/>
+	 <!--	<param name="options" value="-prependJars ${store.hotfix.jars}"/> -->
+      </antcall>
+	  <antcall target="typeahead">
+	  </antcall>
+   </target>
+
+   <target name="assemble-stage-store-standalone" depends="clean,deploy-stage-store" description="assembles stage-store standalone EAR file">
+      <echo message="Starting to assemble stage-store standalone ear..." />
+      <antcall target="-run-assembler-standalone">
+	 <param name="server-name" value="${stage.store.server}"/>
+	 <param name="deploypath" value="${stage.store.deploy.path}"/>
+	 <param name="ear-filename" value="${stage.store.ear}"/>
+	 <param name="dynamo-module-list" value="${stage.store.modules}"/>
+	 <param name="layers" value="-layer EndecaPreview"/>
+	 <!--<param name="options" value="-prependJars ${store.hotfix.jars}"/> -->
+      </antcall>
+	  <antcall target="typeahead">
+	  </antcall>
+   </target>
+
+   <target name="assemble-fulfill-standalone" depends="clean,deploy-fulfill" description="assembles fulfill standalone EAR file">
+      <echo message="Starting to assemble fulfill standalone ear..." />
+      <antcall target="-run-assembler-standalone">
+			<param name="server-name" value="${fulfill.server}"/>
+			<param name="deploypath" value="${fulfill.deploy.path}"/>
+	  	<param name="ear-filename" value="${fulfill.ear}"/>
+	  	<param name="dynamo-module-list" value="${fulfill.modules}"/>
+		<!-- <param name="options" value="-prependJars ${store.hotfix.jars}"/> -->
+	  </antcall>
+    </target>
+
+	<target name="assemble-merch-standalone" depends="clean,deploy-merch" description="assembles merch standalone EAR file">
+    <echo message="Starting to assemble merch standalone ear..." />
+ 	  <antcall target="-run-assembler-standalone">
+			<param name="server-name" value="${merch.server}"/>
+			<param name="deploypath" value="${merch.deploy.path}"/>
+	  	<param name="ear-filename" value="${merch.ear}"/>
+			<param name="layers" value="-layer preview"/>
+	  	<param name="dynamo-module-list" value="${merch.modules}"/>
+		<!-- <param name="options" value="-prependJars ${merch.hotfix.jars}"/> -->
+	  </antcall>
+  </target>
+
+	<target name="assemble-merch-with-stage-standalone" depends="clean,deploy-merch" description="assembles merch standalone EAR file">
+    <echo message="Starting to assemble merch standalone ear..." />
+ 	  <antcall target="-run-assembler-standalone">
+			<param name="server-name" value="${merch.server}"/>
+			<param name="deploypath" value="${merch.deploy.path}"/>
+	  	<param name="ear-filename" value="${merch.ear}"/>
+			<param name="layers" value="-layer preview -layer staging"/>
+	  	<param name="dynamo-module-list" value="${merch.modules}"/>
+			<!--<param name="options" value="-prependJars ${merch.hotfix.jars}"/> -->
+	  </antcall>
+  </target>
+
+	<target name="assemble-csc-standalone" depends="clean,deploy-csc" description="assembles csc-fulfill standalone EAR file">
+    <echo message="Starting to assemble csc standalone ear..." />
+ 	  <antcall target="-run-assembler-standalone">
+			<param name="server-name" value="${csc.server}"/>
+			<param name="deploypath" value="${csc.deploy.path}"/>
+	  	<param name="ear-filename" value="${csc.ear}"/>
+	  	<param name="dynamo-module-list" value="${csc.modules}"/>
+		</antcall>
+  </target>
+
+	<target name="assemble-csc-fulfill-standalone" depends="clean,deploy-csc" description="assembles csc-fulfill standalone EAR file">
+    <echo message="Starting to assemble csc-fulfill standalone ear..." />
+ 	  <antcall target="-run-assembler-standalone">
+			<param name="server-name" value="${csc-fulfill.server}"/>
+			<param name="deploypath" value="${csc-fulfill.deploy.path}"/>
+	  	<param name="ear-filename" value="${csc-fulfill.ear}"/>
+	  	<param name="dynamo-module-list" value="${csc-fulfill.modules}"/>
+		<!--<param name="options" value="-prependJars ${csc.hotfix.jars}"/> -->
+	  </antcall>
+  </target>
+
+	<!-- deploy only web assets for store -->
+	<target name="webdeploy" description="Deploys JSPs and web assets to target from store module.">
+		<!-- use the "quick-webdeploy" target in the store build.xml -->
+	</target>
+
+
+   <!-- build typeahead -->
+   <target name="typeahead" description="builds the standalone typeahead WAR file">
+      <echo message="Building typeahead....."/>
+	  <echo message="Building env ${envName}"/>
+      <subant target="war" failonerror="true">
+	 <filelist refid="typeahead-build"/>
+      </subant>
+
+      <echo message="Typeahead finished building"/>
+   </target>
+
+
+
+
+</project>

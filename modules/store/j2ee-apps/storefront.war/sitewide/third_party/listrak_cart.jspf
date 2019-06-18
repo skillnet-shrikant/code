@@ -1,0 +1,31 @@
+<dsp:page>
+
+	<dsp:getvalueof var="listrakEnabled" bean="/mff/MFFEnvironment.listrakEnabled"/>
+	<c:if test="${listrakEnabled}">
+
+		<!-- Listrak Cart -->
+		<script type="text/javascript">
+			(function(d) { if (document.addEventListener) document.addEventListener('ltkAsyncListener', d);
+			else {e = document.documentElement; e.ltkAsyncProperty = 0; e.attachEvent('onpropertychange', function (e) {
+				if (e.propertyName == 'ltkAsyncProperty'){d();}});}})(function() {
+				/********** Begin Custom Code **********/
+				<c:choose>
+					<c:when test="${empty listrakCart}">
+						_ltk.SCA.ClearCart();
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="cartItems" items="${fn:split(listrakCart, ';')}">
+							<c:set var="properties" value="${fn:split(cartItems, ',')}" />
+							_ltk.SCA.AddItemWithLinks('${properties[0]}', ${properties[1]}, '${properties[2]}', '${fn:escapeXml(properties[3])}', '${properties[4]}', '${properties[5]}');
+						</c:forEach>
+						_ltk.SCA.Submit();
+					</c:otherwise>
+				</c:choose>
+				/********** End Custom Code **********/
+			});
+		</script>
+		<!-- /Listrak Cart -->
+
+	</c:if>
+
+</dsp:page>

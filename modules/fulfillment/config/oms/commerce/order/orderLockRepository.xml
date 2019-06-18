@@ -1,0 +1,20 @@
+<!DOCTYPE gsa-template PUBLIC "-//Art Technology Group, Inc.//DTD Dynamo Security//EN" 
+	"http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
+
+<gsa-template>
+	<header>
+		<name>Order Lock Repository</name>
+		<author>KnowledgePath Solutions Inc</author>
+		<description>Defines the Order Lock Repository used by CSC / OMS</description>
+	</header>
+
+	<item-descriptor name="lockedOrder" display-property="orderId" cache-mode="disabled">
+		<table name="oms_order_lock" type="primary" id-column-name="order_id">
+			<property name="orderId" column-name="order_id" display-name="Order Id" data-type="string" required="true" />
+			<property name="lockId" column-name="lock_id" display-name="Agent Id" data-type="string" required="true" />
+			<property name="serverIp" column-name="server_ip" display-name="Server IpAddress" data-type="string" required="true" />
+			<property name="lockTime" column-name="lock_time" display-name="Lock Time" data-type="timestamp" required="true" />
+		</table>
+	</item-descriptor>
+
+</gsa-template>

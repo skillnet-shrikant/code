@@ -1,0 +1,13 @@
+{
+    "workflowNote": "",
+    "userSegments": [],
+    "workflowState": "ACTIVE",
+    "ecr:lastModifiedBy": "admin",
+    "ecr:lastModified": "2016-12-05T14:03:29.717Z",
+    "startTime": "",
+    "endTime": "",
+    "priority": 10,
+    "triggers": [{"exactLocation": false}],
+    "ecr:createDate": "2016-10-14T15:14:43.790Z",
+    "ecr:type": "content-item"
+}

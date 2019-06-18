@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<spr:beans xmlns:spr="http://www.springframework.org/schema/beans"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:tx="http://www.springframework.org/schema/tx"
+           xmlns:aop="http://www.springframework.org/schema/aop"
+           xmlns="http://www.endeca.com/schema/eacToolkit"
+           xsi:schemaLocation="
+  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+  http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+  http://www.endeca.com/schema/eacToolkit http://www.endeca.com/schema/eacToolkit/eacToolkit.xsd">
+
+  <!--
+    ########################################################################
+    # App Server Clusters
+    #
+  -->
+  <app-server-cluster id="StageAppServerCluster">
+    <app-server ref="StageAppServer" />
+  </app-server-cluster>
+
+  <app-server-cluster id="LiveAppServerCluster">
+    <app-server ref="UATApp01LiveStore01" />
+    <app-server ref="UATApp01LiveStore02" />
+    <app-server ref="UATApp01LiveStore03" />
+    <app-server ref="UATApp02LiveStore04" />
+    <app-server ref="UATApp02LiveStore05" />
+    <app-server ref="UATApp02LiveStore06" />
+    <app-server ref="UATOms01LiveStore07" />
+  </app-server-cluster>
+
+  <!--
+    ########################################################################
+    # App Servers
+    #
+  -->
+
+  <app-server id="StageAppServer" hostName="172.25.32.165" port="20080">
+    <web-app ref="assemblerAdmin" />
+  </app-server>
+
+  <app-server id="UATApp01LiveStore01" hostName="172.25.32.163" port="20580">
+    <web-app ref="assemblerAdmin" />
+  </app-server>
+
+  <app-server id="UATApp01LiveStore02" hostName="172.25.32.163" port="20680">
+    <web-app ref="assemblerAdmin" />
+  </app-server>
+
+  <app-server id="UATApp01LiveStore03" hostName="172.25.32.163" port="20780">
+    <web-app ref="assemblerAdmin" />
+  </app-server>
+
+  <app-server id="UATApp02LiveStore04" hostName="172.25.32.164" port="20580">
+    <web-app ref="assemblerAdmin" />
+  </app-server>
+
+  <app-server id="UATApp02LiveStore05" hostName="172.25.32.164" port="20680">
+    <web-app ref="assemblerAdmin" />
+  </app-server>
+
+  <app-server id="UATApp02LiveStore06" hostName="172.25.32.164" port="20780">
+    <web-app ref="assemblerAdmin" />
+  </app-server>
+
+  <app-server id="UATOms01LiveStore07" hostName="172.25.32.168" port="20580">
+    <web-app ref="assemblerAdmin" />
+  </app-server>
+
+  <!--
+    ########################################################################
+    # Web Applications
+    #
+  -->
+  <web-app id="assemblerAdmin" contextPath="/dyn/admin/assemblerAdmin"/>
+</spr:beans>
+<!-- @version $Id: //hosting-blueprint/B2CBlueprint/version/11.2/Storefront/deploy/script/LiveAppServerCluster.xml#2 $$Change: 953229 $-->

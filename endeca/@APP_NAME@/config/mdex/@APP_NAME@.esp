@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE STUDIO_PROJECT SYSTEM "studio_project.dtd">
+<STUDIO_PROJECT APP_VERSION="6.1" NAME="Commerce Reference Store" VERSION="1110">
+
+  <PROJECT_PIPELINE URL="pipeline.epx"/>
+
+  <PROJECT_FILE TYPE="DERIVED_PROPS" URL="@APP_NAME@.derived_props.xml"/>
+
+  <PROJECT_FILE TYPE="DIMENSION_REFS" URL="@APP_NAME@.dimension_refs.xml"/>
+
+  <PROJECT_FILE TYPE="DIMSEARCH_CONFIG" URL="@APP_NAME@.dimsearch_config.xml"/>
+
+  <PROJECT_FILE TYPE="DIMSEARCH_INDEX" URL="@APP_NAME@.dimsearch_index.xml"/>
+
+  <PROJECT_FILE TYPE="DVAL_RANKS" URL="@APP_NAME@.dval_ranks.xml"/>
+
+  <PROJECT_FILE TYPE="DVAL_REFS" URL="@APP_NAME@.dval_refs.xml"/>
+
+  <PROJECT_FILE HIGHEST_ID="18" TYPE="MERCH_RULES" URL="@APP_NAME@.merch_rules.xml"/>
+
+  <PROJECT_FILE TYPE="MERCHSTYLES" URL="@APP_NAME@.merchstyles.xml"/>
+
+  <PROJECT_FILE TYPE="MERCHZONES" URL="@APP_NAME@.merchzones.xml"/>
+
+  <PROJECT_FILE TYPE="PRECEDENCE_RULES" URL="@APP_NAME@.precedence_rules.xml"/>
+
+  <PROJECT_FILE TYPE="PROP_REFS" URL="@APP_NAME@.prop_refs.xml"/>
+
+  <PROJECT_FILE TYPE="RECORD_FILTER" URL="@APP_NAME@.record_filter.xml"/>
+
+  <PROJECT_FILE TYPE="RECORD_SORT_CONFIG" URL="@APP_NAME@.record_sort_config.xml"/>
+
+  <PROJECT_FILE TYPE="RECORD_SPEC" URL="@APP_NAME@.record_spec.xml"/>
+
+  <PROJECT_FILE TYPE="RECSEARCH_CONFIG" URL="@APP_NAME@.recsearch_config.xml"/>
+
+  <PROJECT_FILE TYPE="RECSEARCH_INDEXES" URL="@APP_NAME@.recsearch_indexes.xml"/>
+  
+  <PROJECT_FILE TYPE="REFINEMENTS_CONFIG" URL="@APP_NAME@.refinement_config.xml"/>
+
+  <PROJECT_FILE TYPE="RELRANK_STRATEGIES" URL="@APP_NAME@.relrank_strategies.xml"/>
+
+  <PROJECT_FILE TYPE="ROLLUPS" URL="@APP_NAME@.rollups.xml"/>
+
+  <PROJECT_FILE TYPE="SEARCH_CHARS" URL="@APP_NAME@.search_chars.xml"/>
+
+  <PROJECT_FILE TYPE="STOP_WORDS" URL="@APP_NAME@.stop_words.xml"/>
+
+  <PROJECT_FILE TYPE="STEMMING" URL="@APP_NAME@.stemming.xml"/>
+
+  <PROJECT_FILE TYPE="PHRASES" URL="@APP_NAME@.phrases.xml"/>
+
+  <PROJECT_FILE TYPE="KEY_PROPS" URL="@APP_NAME@.key_props.xml"/>
+
+  <PROJECT_FILE TYPE="LANGUAGES" URL="@APP_NAME@.languages.xml"/>
+
+  <PROJECT_FILE TYPE="CRAWLER_GLOBAL_CONFIG" URL="@APP_NAME@.crawler_global_config.xml"/>
+
+  <PROJECT_FILE TYPE="CRAWLER_DEFAULTS" URL="@APP_NAME@.crawler_defaults.properties"/>
+
+  <PROJECT_FILE TYPE="CRAWL_PROFILES" URL="@APP_NAME@.crawl_profiles.xml"/>
+
+  <PROJECT_FILE TYPE="CRAWL_PROFILE" URL="crawl_profile_1.xml"/>
+
+</STUDIO_PROJECT>

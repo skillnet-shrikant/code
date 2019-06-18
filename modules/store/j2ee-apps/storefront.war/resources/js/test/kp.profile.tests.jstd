@@ -1,0 +1,12 @@
+server: http://localhost:4224
+
+load:
+  - ../core/kp.config.js
+  - ../core/jquery-1.11.1.js
+  - ../core/kp.mediator.js
+  - ../modules/kp.profile.js
+
+test:
+  - kp.profile.tests.js
+
+timeout: 90

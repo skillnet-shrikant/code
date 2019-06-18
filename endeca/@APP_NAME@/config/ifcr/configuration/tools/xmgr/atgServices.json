@@ -1,0 +1,3 @@
+{
+   profileGroupsConnectionUrl:"http://@MERCH_HOST@:@MERCH_PORT@/rest/model/atg/userprofiling/ProfileGroupsActor/getAllProfileGroups?atg-rest-output=json&atg-preview=false"
+}

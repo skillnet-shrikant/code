@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<!DOCTYPE gsa-template PUBLIC "-//Art Technology Group, Inc.//DTD General SQL Adapter//EN" "http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
+
+<gsa-template>
+
+	<header>
+		<name>Inactive Product Redirects</name>
+		<author>DMI</author>
+		<description>Repository to define landing pages for inactive products</description>
+	</header>
+	
+	<item-descriptor name="redirect" display-property="productId" display-name="Redirect" last-modified-property="modifiedDate"
+		cache-mode="simple" item-expire-timeout="1800000" query-expire-timeout="1800000" item-cache-size="60000">
+		<attribute name="updateLastModified" value="true"/>
+	    	<table name="ff_prod_redirect" type="primary" id-column-name="id">
+			<property name="productId" data-type="string" column-name="product_id" display-name="Old Product ID" required="true">
+				<attribute name="propertySortPriority" value="1"/>
+			</property>
+			<!-- 
+			<property name="inactiveURL" data-type="string" column-name="inactive_url" display-name="Inactive URL" required="true">
+				<attribute name="propertySortPriority" value="2"/>
+			</property>
+			<property name="redirectURL" data-type="string" column-name="redirect_url" display-name="Redirect URL" required="true">
+				<attribute name="propertySortPriority" value="3"/>
+			</property>
+			 -->
+			<property name="redirectProductId" data-type="string" column-name="redirect_product_id" display-name="New Product Id" required="true">
+				<attribute name="propertySortPriority" value="3"/>
+			</property>
+			
+			<property name="isInactive" data-type="boolean" column-name="is_inactive" display-name="Is Inactive?" default="false">
+				<attribute name="propertySortPriority" value="4"/>
+			</property>
+			<!-- 
+			<property name="isVIP" data-type="boolean" column-name="is_vip" display-name="Is VIP?" default="false">
+				<attribute name="propertySortPriority" value="5"/>
+			</property>
+			 -->
+			<property name="creationDate" data-type="timestamp" column-name="creation_date" display-name="Creation Date">
+				<attribute name="propertySortPriority" value="6"/>
+				<attribute name="useNowForDefault" value="true"/>
+			</property>
+			<property name="modifiedDate" data-type="timestamp" column-name="modified_date" display-name="Modified Date">
+				<attribute name="propertySortPriority" value="7"/>
+			</property>			
+		</table>
+	</item-descriptor>
+	<item-descriptor name="productConfig" display-property="productId" display-name="Product Config" last-modified-property="modifiedDate"
+		cache-mode="simple" item-expire-timeout="1800000" query-expire-timeout="1800000" item-cache-size="60000">
+		<attribute name="updateLastModified" value="true"/>
+	    	<table name="ff_prod_config" type="primary" id-column-name="id">
+			<property name="productId" data-type="string" column-name="product_id" display-name="Inactive Product ID" required="true">
+				<attribute name="propertySortPriority" value="1"/>
+			</property>
+			<property name="isExcludeFromReport" data-type="boolean" column-name="is_exclude_from_report" display-name="Is Exclude From Report?" default="false">
+				<attribute name="propertySortPriority" value="4"/>
+			</property>
+			<property name="isVIP" data-type="boolean" column-name="is_vip" display-name="Is VIP?" default="false">
+				<attribute name="propertySortPriority" value="5"/>
+			</property>
+			<property name="creationDate" data-type="timestamp" column-name="creation_date" display-name="Creation Date">
+				<attribute name="propertySortPriority" value="6"/>
+				<attribute name="useNowForDefault" value="true"/>
+			</property>
+			<property name="modifiedDate" data-type="timestamp" column-name="modified_date" display-name="Modified Date">
+				<attribute name="propertySortPriority" value="7"/>
+			</property>			
+		</table>
+	</item-descriptor>	
+
+</gsa-template>

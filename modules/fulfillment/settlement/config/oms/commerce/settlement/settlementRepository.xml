@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<!DOCTYPE gsa-template PUBLIC "-//Art Technology Group, Inc.//DTD General SQL Adapter//EN" "http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
+<gsa-template>
+	<header>
+		<name>Settlement Repository</name>
+		<author>Knowledgepath Solutions Inc</author>
+	</header>
+	
+	<item-descriptor name="paymentSettlement" display-name="Payment Settlements" cache-mode="disabled">
+		<table name="oms_settlement" type="primary" id-column-name="settlement_id">
+			<property name="id" data-type="string" column-name="settlement_id"></property>
+			<property name="creationDate" data-type="date" column-name="create_date" display-name="Creation Date"/>
+			<property name="orderId" data-type="string" column-name="order_id" display-name="Order Id"/>
+			<property name="orderNumber" data-type="string" column-name="order_number" display-name="Order Number"/>
+			<property name="pgDesc" data-type="string" column-name="pg_desc" display-name="Payment Desc"/>
+			<property name="pgId" data-type="string" column-name="pg_id" display-name="Payment Group Id"/>
+			<property name="pgIdRepo" column-name="pg_id" display-name="Payment Group Id" expert="false" readable="true" item-type="paymentGroup" cache-mode="inherit" repository="/oms/commerce/order/OMSOrderRepository" required="false" queryable="true"/>
+			<property name="partialSettlement" data-type="boolean" column-name="part_settlement" display-name="Is Partial Settlement"/>
+			<property name="settlementStatus" data-type="enumerated" column-name="settlement_status" display-name="Settlement Status">
+			  <attribute name="useCodeForValue" value="false"/>
+			  <option code="0" value="INITIAL"/>
+			  <option code="1" value="SETTLED"/>
+			  <option code="2" value="ERROR"/>
+			  <option code="3" value="FAILURE"/>
+			</property>
+			<property name="settlementType" data-type="enumerated" column-name="settlement_type" display-name="Settlement Type">
+			  <attribute name="useCodeForValue" value="false"/>
+			  <option code="0" value="CREDIT"/>
+			  <option code="1" value="DEBIT"/>
+			  <option code="2" value="ADJUSTMENT"/>
+			  <option code="3" value="INITIAL"/>
+			</property>
+			<property name="settlementAmount" data-type="double" column-name="amount" display-name="Settlement Amount"/>
+			<property name="settlementDate" data-type="timestamp" column-name="settle_date" display-name="Settlement Date"/>
+			<property name="errorMessage" data-type="string" column-name="error_message" display-name="Error Message"/>
+			
+			<property name="settlementRetryCount" data-type="int" column-name="settlement_retry_count" display-name="Settlement retry count"/>
+		</table>
+	</item-descriptor>
+</gsa-template>

@@ -1,0 +1,68 @@
+<dsp:page>
+
+	<dsp:getvalueof var="listrakEnabled" bean="/mff/MFFEnvironment.listrakEnabled"/>
+	<c:if test="${listrakEnabled}">
+
+		<!-- Listrak Order Confirmation -->
+		<c:set var="listrakName" value="${billingName}" scope="request" />
+		<c:if test="${empty listrakName}">
+			<c:set var="listrakName" scope="request">
+				<c:choose>
+					<c:when test="${bopis}">
+						<dsp:valueof param="order.bopisPerson"/>
+					</c:when>
+					<c:otherwise>
+						<dsp:valueof param="shippingGroup.shippingAddress.firstName"/>&nbsp;<dsp:valueof param="shippingGroup.shippingAddress.lastName"/>
+					</c:otherwise>
+				</c:choose>
+			</c:set>
+		</c:if>
+
+		<script type="text/javascript">
+			(function(d) { if (document.addEventListener) document.addEventListener('ltkAsyncListener', d);
+			else {e = document.documentElement; e.ltkAsyncProperty = 0; e.attachEvent('onpropertychange', function (e) {
+				if (e.propertyName == 'ltkAsyncProperty'){d();}});}})(function() {
+					/********** Begin Custom Code **********/
+					/** Handle ORDER **/
+					_ltk.Order.SetCustomer('<dsp:valueof param="order.contactEmail"/>', '${listrakName}', '');
+					_ltk.Order.OrderNumber = '<dsp:valueof param="order.orderNumber"/>';
+					_ltk.Order.ItemTotal = '<dsp:valueof param="order.priceInfo.rawSubtotal" />';
+					_ltk.Order.ShippingTotal = '<dsp:valueof param="order.priceInfo.shipping" />';
+					_ltk.Order.TaxTotal = '<dsp:valueof param="order.priceInfo.tax" />';
+					_ltk.Order.HandlingTotal = '';
+					_ltk.Order.OrderTotal = '<dsp:valueof param="order.priceInfo.total" />';
+
+					<dsp:droplet name="ForEach">
+						<dsp:param name="array" param="order.commerceItems"/>
+						<dsp:param name="elementName" value="commerceItem"/>
+						<dsp:oparam name="output">
+
+							<dsp:droplet name="/atg/dynamo/droplet/Compare">
+								<dsp:param name="obj1" param="commerceItem.priceInfo.salePrice" />
+								<dsp:param name="obj2" param="commerceItem.priceInfo.listPrice" />
+								<dsp:oparam name="lessthan">
+									<dsp:getvalueof var="actualPrice" param="commerceItem.priceInfo.salePrice" scope="request" />
+								</dsp:oparam>
+								<dsp:oparam name="default">
+									<dsp:getvalueof var="actualPrice" param="commerceItem.priceInfo.listPrice" scope="request" />
+								</dsp:oparam>
+							</dsp:droplet>
+
+							_ltk.Order.AddItem('<dsp:valueof param="commerceItem.catalogrefId" />', <dsp:valueof param="commerceItem.quantity"/>, '${actualPrice}'); // one line per item ordered
+						</dsp:oparam>
+					</dsp:droplet>
+
+					_ltk.Order.Submit();
+
+					/** Handle CONVERSION TRACKING **/
+					_ltk.SCA.SetCustomer('<dsp:valueof param="order.contactEmail"/>', '${listrakName}', '');
+					_ltk.SCA.OrderNumber = '<dsp:valueof param="order.orderNumber"/>';
+					_ltk.SCA.Submit();
+				/********** End Custom Code **********/
+			});
+		</script>
+		<!-- /Listrak Order Confirmation -->
+
+	</c:if>
+
+</dsp:page>

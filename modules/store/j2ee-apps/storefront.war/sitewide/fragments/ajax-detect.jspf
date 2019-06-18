@@ -1,0 +1,8 @@
+<c:choose>
+	<c:when test="${header['X-Requested-With'] == 'XMLHttpRequest'}">
+		<c:set var="isAjax" value="true" scope="request" />
+	</c:when>
+	<c:otherwise>
+		<c:set var="isAjax" value="false" scope="request" />
+	</c:otherwise>
+</c:choose>

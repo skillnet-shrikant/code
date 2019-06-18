@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE pipelinemanager
+        PUBLIC "-//Art Technology Group, Inc.//DTD Dynamo Pipeline Manager//EN"
+        'http://www.atg.com/dtds/pipelinemanager/pipelinemanager_1.0.dtd'>
+
+<pipelinemanager>
+
+	<pipelinechain headlink="validateShippingGroupsInfo"
+		classname="atg.service.pipeline.PipelineChain" name="validateShippingInfo"
+		transaction="TX_REQUIRED">
+		<pipelinelink name="validateShippingGroupsInfo"
+			transaction="TX_MANDATORY" xml-combine="replace">
+			<processor
+				jndi="/atg/commerce/order/processor/ValidateShippingGroupsForCheckout" />
+			<transition returnvalue="1" link="addOrderNumber" />
+		</pipelinelink>
+
+		<pipelinelink name="addOrderNumber" transaction="TX_MANDATORY"
+			xml-combine="append">
+			<processor jndi="/atg/commerce/order/processor/AddOrderNumber" />
+		</pipelinelink>
+
+	</pipelinechain>
+
+	<!-- Extend moveToPurchaseInfo chain to verify inventory -->
+	<pipelinechain name="moveToPurchaseInfo" headlink="validateOrderForCheckout2">
+		<pipelinelink transaction="TX_MANDATORY" name="validateOrderForCheckout2"
+			xml-combine="replace">
+			<processor jndi="/atg/commerce/order/processor/ValidateOrderForCheckout" />
+			<transition returnvalue="1" link="ValidateInventoryForCheckout" />
+		</pipelinelink>
+		<pipelinelink transaction="TX_MANDATORY" name="ValidateInventoryForCheckout"
+			xml-combine="replace">
+			<processor
+				jndi="/atg/commerce/order/processor/ValidateInventoryForCheckout" />
+		</pipelinelink>
+	</pipelinechain>
+
+	<pipelinechain name="validateForCheckout" headlink="validateOrderForCheckout">
+		<pipelinelink transaction="TX_MANDATORY" name="validateInStorePaymentAmount"
+			xml-combine="replace">
+			<processor
+				jndi="/atg/commerce/order/processor/ValidateInStorePaymentAmount" />
+			<transition returnvalue="1" link="validatePaymentGroupsForCheckout" />
+		</pipelinelink>
+		<pipelinelink transaction="TX_MANDATORY" name="creditCardModCheck"
+			xml-combine="remove">
+			<processor jndi="/atg/commerce/order/processor/CreditCardModCheck" />
+			<transition returnvalue="1" link="validatePaymentGroupsForCheckout" />
+		</pipelinelink>
+	</pipelinechain>
+
+	<!-- This chain is an extension to the ValidatePaymentGroup chain to validate 
+		Gift Card payment group -->
+	<pipelinechain name="validatePaymentGroup">
+		<pipelinelink name="dispatchOnPGType" transaction="TX_MANDATORY">
+			<processor jndi="/atg/commerce/order/processor/ValidatePaymentGroupByType" />
+			<transition returnvalue="4010" link="validateGiftCardPG" />
+		</pipelinelink>
+		<pipelinelink name="validateGiftCardPG" transaction="TX_MANDATORY">
+			<processor jndi="/atg/commerce/order/processor/ValidateGiftCard" />
+		</pipelinelink>
+	</pipelinechain>
+
+	<!-- This chain is an extension to the ValidatePaymentGroup chain to validate 
+		Gift Card payment group -->
+	<pipelinechain name="validatePaymentGroupPreConfirmation">
+		<pipelinelink name="dispatchOnPGTypePreConfirmation"
+			transaction="TX_MANDATORY">
+			<processor jndi="/atg/commerce/order/processor/ValidatePaymentGroupByType" />
+			<transition returnvalue="4010"
+				link="validateGiftCardPGPreConfirmation" />
+		</pipelinelink>
+		<pipelinelink name="validateGiftCardPGPreConfirmation"
+			transaction="TX_MANDATORY">
+			<processor jndi="/atg/commerce/order/processor/ValidateGiftCard" />
+		</pipelinelink>
+	</pipelinechain>
+
+	<!-- This chain is an extension to the ValidatePaymentGroup chain to validate 
+		Gift Card payment group -->
+	<pipelinechain name="validatePaymentGroupPostApproval">
+		<pipelinelink name="dispatchOnPGTypePostApproval"
+			transaction="TX_MANDATORY">
+			<processor jndi="/atg/commerce/order/processor/ValidatePaymentGroupByType" />
+			<transition returnvalue="4010" link="validateGiftCardPGPostApproval" />
+		</pipelinelink>
+		<pipelinelink name="validateGiftCardPGPostApproval"
+			transaction="TX_MANDATORY">
+			<processor jndi="/atg/commerce/order/processor/ValidateGiftCard" />
+		</pipelinelink>
+	</pipelinechain>
+
+	<pipelinechain name="validatePaymentGroupNoApproval">
+		<pipelinelink name="dispatchOnPGTypeNoApproval"
+			transaction="TX_MANDATORY">
+			<processor jndi="/atg/commerce/order/processor/ValidatePaymentGroupByType" />
+			<transition returnvalue="4010" link="validateGiftCardPGNoApproval" />
+		</pipelinelink>
+		<pipelinelink name="validateGiftCardPGNoApproval"
+			transaction="TX_MANDATORY">
+			<processor class="atg.service.pipeline.processor.EmptyProcessor" />
+		</pipelinelink>
+	</pipelinechain>
+
+
+	<!-- Check to ensure that order number has been added to the order at the 
+		time of submission -->
+	<pipelinechain name="processOrder" headlink="validateOrderNumber">
+		<pipelinelink transaction="TX_MANDATORY" name="validateOrderNumber"
+			xml-combine="replace">
+			<processor jndi="/atg/commerce/order/processor/AddOrderNumber" />
+			<transition returnvalue="1" link="addEmployeeId" />
+		</pipelinelink>
+		
+		<pipelinelink transaction="TX_MANDATORY" name="addEmployeeId">
+			<processor jndi="/atg/commerce/order/processor/AddEmployeeId" />
+			<transition returnvalue="1" link="executeValidateForCheckoutChain" />
+		</pipelinelink>
+		
+		<pipelinelink transaction="TX_MANDATORY" name="sendGiftPurchasedMessage"
+			xml-combine="replace">
+			<processor jndi="/atg/commerce/order/processor/SendGiftPurchasedMessage" />
+			<transition returnvalue="1" link="enableTestVoidTransaction" />
+		</pipelinelink>
+
+		<!-- This processor is created to throw manual error to test the gift card 
+			auth reversal in case of any errors post auth processor -->
+		<!-- Processor should be disabled in all the environments -->
+		<pipelinelink name="enableTestVoidTransaction"
+			transaction="TX_MANDATORY">
+			<processor jndi="/com/mff/commerce/order/processor/TestGCAuthReversal" />
+			<transition returnvalue="1" link="addOrderToRepository" />
+		</pipelinelink>
+	</pipelinechain>
+</pipelinemanager>

@@ -1,0 +1,38 @@
+  <tr class="inlineEditor">
+  <td colspan="5">
+    <div class="editArea">
+      <div class="currentActivity">
+        <h5><fmt:message key="activityDetails" /></h5>
+        <dl class="status">
+          <c:forEach var="propertyName" items="${activityInfo.options.detailPageProperties}">
+            <strong>
+              <fmt:message key="${propertyName}" />
+            </strong> :
+             <c:choose>
+               <c:when test="${propertyName eq 'orderId'}">
+                 <%@ include file="/include/activities/activityViewOrder.jspf"%>
+               </c:when>
+               <c:when test="${propertyName eq 'replacementOrderId'}">
+                 <dsp:importbean bean="/atg/commerce/order/AdminOrderLookup" />
+                 <dsp:droplet name="AdminOrderLookup">
+                 <dsp:param name="orderId" value="${activity.replacementOrderId}"/>
+                 <dsp:oparam name="output">
+                   <dsp:getvalueof var="orderresult" param="result"/>
+                   <c:set var="order" value="${orderresult}" scope="request"/>
+                 </dsp:oparam>
+                 </dsp:droplet>
+               <%@ include file="/include/activities/activityViewOrder.jspf"%>
+               </c:when>
+
+             <c:otherwise>
+              <c:out escapeXml="true" value="${activity[propertyName]}"/>
+             </c:otherwise> 
+             </c:choose>
+            <br />
+          </c:forEach>
+        </dl>
+      </div>
+    </div>
+  </td>
+</tr>
+<%-- @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/include/activities/orderEventActivityDefaultDetail.jspf#2 $$Change: 1192807 $--%>

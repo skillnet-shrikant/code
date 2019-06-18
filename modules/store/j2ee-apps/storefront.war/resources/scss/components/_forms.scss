@@ -1,0 +1,294 @@
+// Use the components directory to construct the meat of your CSS.
+// Categorize your styles here based on element in the file name.
+
+// Form definitions, including fields, headings and utility features
+
+/* General: Forms
+--------------------------------------------------------------*/
+
+$labelBottomMargin: 1px;
+
+select, input, textarea, button {
+	font: 99% $form-font-family;
+	margin: 0;
+}
+select, input, textarea {
+	color: $deep-gray;
+	@include transition(all, 0.15s, ease-in-out);
+}
+input, select {
+	vertical-align: middle;
+}
+textarea {
+	overflow: auto;
+}
+
+input[type="radio"] {
+	vertical-align: text-bottom;
+}
+input[type="checkbox"] {
+	vertical-align: bottom;
+}
+
+select {
+	border: 1px solid $border-color;
+	height: 40px;
+	line-height: 40px;
+	vertical-align: middle;
+	width: 100%;
+	padding: 3px 5px;
+	.ie8 & , .ie9 & {
+		height: 34px;
+		line-height: 40px;
+	}
+	&:focus {
+		outline: none;
+		@include box-shadow(0px, 0px, 1px, $border-color);
+	}
+	&.disabled {
+		cursor: not-allowed;
+		@include opacity(0.65);
+		pointer-events: none;
+	}
+}
+
+button {
+	width: auto;
+	overflow: visible;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+textarea {
+	border: 1px solid $border-color;
+	color: $deep-gray;
+	@include font-size(14px);
+	@include rem-size(height, $field-height); // ie doesn't recognize line-height on inputs
+	@include rem-size(line-height, $field-line-height);
+	padding: $field-vertical-padding 12px;
+	vertical-align: middle;
+	width: 100%;
+	&:focus {
+		outline: none;
+		@include box-shadow(0px, 0px, 4px, $primary-color);
+	}
+	&.disabled {
+		@include box-shadow(0px, 0px, 0px, rgba(255, 255, 255, 0));
+		background-color: transparent;
+		border: none;
+		padding: 0 0 0.2em;
+	}
+}
+
+label,
+input[type="button"],
+input[type="submit"],
+input[type="image"],
+button {
+	cursor: pointer;
+}
+.disabled label {
+	cursor: default !important;
+	color: $base-gray;
+}
+.form-label,
+label,
+.legend {
+	display: block;
+	@include font-size(12px);
+	margin-bottom: $labelBottomMargin;
+}
+label {
+	position: relative;
+}
+
+input:not([type="hidden"]) ~ input:not([type="hidden"]),
+select + select {
+	margin-left: 4px;
+}
+
+.field-note {
+	color: $info-color;
+	@include font-size(10px);
+	font-weight: $normal;
+	line-height: 1.25;
+	p {
+		@include rem-size(margin-top, 17px);
+		@include rem-size(margin-bottom, 1px);
+	}
+	a {
+		color: $medium-gray;
+		&:hover, &:focus, &:active {
+			color: $link-color;
+		}
+	}
+}
+
+p.field-note {
+	clear: left;
+	margin: 0;
+}
+
+.delimiter {
+	color: $medium-gray;
+	display: inline-block;
+	@include font-size(13px);
+	margin: 0 4px;
+	vertical-align: middle;
+}
+
+/* form structure */
+
+.field-group {
+	@include grid-row();
+	position:relative;
+	clear:both;
+	@include rem-size(margin-bottom, 12px);
+}
+
+.form-actions {
+	margin-bottom: 27px;
+}
+
+.field {
+	@include grid-column(6);
+	position:relative;
+
+	.three-fields & {
+		@include grid-column(4);
+	}
+}
+.field:first-child{
+	padding-left:0;
+}
+.field:last-child{
+	padding-right:0;
+}
+
+.field.checkbox {
+	width:auto
+}
+.radio, .checkbox {
+	display: block;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	position: relative;
+	label {
+		cursor: pointer;
+		margin-bottom: 0;
+		@include rem-size(min-height, 20px);
+		@include rem-size(padding-left, 20px);
+		font-weight: $normal;
+	}
+	&.disabled label {
+		font-color: lighten($black, 30);
+	}
+}
+
+.radio input[type="radio"],
+.checkbox input[type="checkbox"] {
+	@include rem-size(margin-left, -20px);
+	@include rem-size(margin-top, 6px);
+	position: absolute;
+}
+.radio + .radio, .checkbox + .checkbox {
+	margin-top: -5px;
+}
+
+/* small disclaimer text below form */
+.form-disclaimer {
+	color: lighten($black, 46.7);
+	@include font-size(10px);
+	@include rem-size(line-height, 17px);
+	@include rem-size(margin-top, 20px);
+	@include rem-size(margin-bottom, 20px);
+	a {
+		text-decoration:underline;
+		color: lighten($black, 46.7);
+	}
+}
+
+/* for single field form where button is aligned with field */
+.inline-form {
+	width:100%;
+	position: relative;
+	input[type="text"], input[type="email"] {
+		float:left;
+		// width will need to be set on a case-by-case basis
+		width:auto;
+	}
+	.button {
+		float:left;
+	}
+	&.rounded {
+		input[type="text"] {
+			width:100%;
+			@include rounded(20px);
+		}
+		.button {
+			position: absolute;
+			right: -1px;
+			top:0;
+			@include rounded(0 20px 20px 0);
+		}
+		/* use the general sibling selector because ATG will add hidden input fields in the form */
+		label ~ input + .button {
+			/* this is the line height of the label plus it's bottom margin */
+			top: 24px + $labelBottomMargin;
+		}
+	}
+}
+
+
+/* inline errors */
+label.error {
+	color: $error-color;
+}
+input.error,
+select.error,
+textarea.error {
+	//color: $error-color; // no error text color: 1583
+	border: solid 2px $error-color;
+	&:focus {
+		@include box-shadow(0px, 0px, 4px, $error-color);
+		border-color: darken($error-color, 10);
+	}
+}
+
+.field-error-text {
+	@include font-size(10px);
+	color: $error-color;
+	@include rem-size(line-height, 16px);
+	@include rem-size(margin-top, 4px);
+
+	ul {
+		margin: 0;
+		@include rem-size(padding-left, 20px);
+	}
+	.inline-form & {
+		clear: left;
+	}
+	.icon {
+		@include align-icon-middle();
+	}
+}
+
+@include placeholder{
+	font-style: normal;
+	color: $medium-gray;
+	font-weight: $light;
+}
+
+
+/* error messages */
+.error-container {
+	@include grid-row();
+}
+.error-messages {
+	@include grid-column(12);
+}
+.error-message {
+
+}

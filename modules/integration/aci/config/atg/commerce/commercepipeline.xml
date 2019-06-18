@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE pipelinemanager
+        PUBLIC "-//Art Technology Group, Inc.//DTD Dynamo Pipeline Manager//EN"
+        'http://www.atg.com/dtds/pipelinemanager/pipelinemanager_1.0.dtd'>
+
+<pipelinemanager>
+
+
+	
+	<pipelinechain headlink="executeValidateForCheckoutChain" classname="atg.service.pipeline.PipelineChain" name="processOrder" resultclassname="atg.service.pipeline.PipelineResultImpl" transaction="TX_REQUIRED">
+         <pipelinelink name="sendPromotionUsedMessage" transaction="TX_MANDATORY" xml-combine="replace">
+            <processor jndi="/atg/commerce/order/processor/SendPromotionUsedMessage"/>
+            <transition returnvalue="1" link="IsFraudProcessRequired"/>
+        </pipelinelink>
+        <pipelinelink name="IsFraudProcessRequired" transaction="TX_MANDATORY" xml-combine="append">
+            <processor jndi="/com/aci/commerce/order/processor/ProcessIsFraudCheckRequired"/>
+            <transition returnvalue="1" link="processOrderForFraud"/>
+            <transition returnvalue="2" link="sendFulfillmentMessage"/>
+        </pipelinelink>
+        <pipelinelink name="processOrderForFraud" transaction="TX_MANDATORY" xml-combine="append">
+            <processor jndi="/com/aci/commerce/order/processor/ProcessOrderForFraud"/>
+            <transition returnvalue="1" link="sendFulfillmentMessage"/>
+        </pipelinelink>
+	</pipelinechain>
+	
+</pipelinemanager>

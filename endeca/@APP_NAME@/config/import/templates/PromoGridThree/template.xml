@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2001, 2012, Oracle and/or its affiliates. All rights reserved.
+  ~ Oracle and Java are registered trademarks of Oracle and/or its
+  ~ affiliates. Other names may be trademarks of their respective owners.
+  ~ UNIX is a registered trademark of The Open Group.
+  ~
+  ~ This software and related documentation are provided under a license
+  ~ agreement containing restrictions on use and disclosure and are
+  ~ protected by intellectual property laws. Except as expressly permitted
+  ~ in your license agreement or allowed by law, you may not use, copy,
+  ~ reproduce, translate, broadcast, modify, license, transmit, distribute,
+  ~ exhibit, perform, publish, or display any part, in any form, or by any
+  ~ means. Reverse engineering, disassembly, or decompilation of this
+  ~ software, unless required by law for interoperability, is prohibited.
+  ~ The information contained herein is subject to change without notice
+  ~ and is not warranted to be error-free. If you find any errors, please
+  ~ report them to us in writing.
+  ~ U.S. GOVERNMENT END USERS: Oracle programs, including any operating
+  ~ system, integrated software, any programs installed on the hardware,
+  ~ and/or documentation, delivered to U.S. Government end users are
+  ~ "commercial computer software" pursuant to the applicable Federal
+  ~ Acquisition Regulation and agency-specific supplemental regulations.
+  ~ As such, use, duplication, disclosure, modification, and adaptation
+  ~ of the programs, including any operating system, integrated software,
+  ~ any programs installed on the hardware, and/or documentation, shall be
+  ~ subject to license terms and license restrictions applicable to the
+  ~ programs. No other rights are granted to the U.S. Government.
+  ~ This software or hardware is developed for general use in a variety
+  ~ of information management applications. It is not developed or
+  ~ intended for use in any inherently dangerous applications, including
+  ~ applications that may create a risk of personal injury. If you use
+  ~ this software or hardware in dangerous applications, then you shall
+  ~ be responsible to take all appropriate fail-safe, backup, redundancy,
+  ~ and other measures to ensure its safe use. Oracle Corporation and its
+  ~ affiliates disclaim any liability for any damages caused by use of this
+  ~ software or hardware in dangerous applications.
+  ~ This software or hardware and documentation may provide access to or
+  ~ information on content, products, and services from third parties.
+  ~ Oracle Corporation and its affiliates are not responsible for and
+  ~ expressly disclaim all warranties of any kind with respect to
+  ~ third-party content, products, and services. Oracle Corporation and
+  ~ its affiliates will not be responsible for any loss, costs, or damages
+  ~ incurred due to your access to or use of third-party content, products,
+  ~ or services.
+  -->
+<ContentTemplate xmlns="http://endeca.com/schema/content-template/2008"
+                 xmlns:editors="editors"
+                 xmlns:xavia="http://endeca.com/schema/xavia/2010"
+                 type="MainContent">
+  <Description>Archived - Use PromoSlotRow Instead</Description>
+  <ThumbnailUrl>unavailable.png</ThumbnailUrl>
+  <ContentItem>
+    <Name>PromoGridThree</Name>
+		<Property name="sectionTitle">
+      <String/>
+    </Property>
+    <Property name="imageURL1">
+      <String/>
+    </Property>
+		<Property name="imageAltText1">
+      <String/>
+    </Property>
+		<Property name="imageH2Text1">
+      <String/>
+    </Property>
+		<Property name="imageParaText1">
+      <String/>
+    </Property>
+		<Property name="overlay1">
+			<String/>
+		</Property>
+		<Property name="overlayVerticalAlignment1">
+			<String>top</String>
+		</Property>
+		<Property name="overlayHorizontalAlignment1">
+			<String>left</String>
+		</Property>
+		<Property name="imageButtonLabel1">
+      <String/>
+    </Property>
+		<Property name="imageButtonHref1">
+      <String/>
+    </Property>
+		<Property name="imageURL2">
+      <String/>
+    </Property>
+		<Property name="imageAltText2">
+      <String/>
+    </Property>
+		<Property name="imageH2Text2">
+      <String/>
+    </Property>
+		<Property name="imageParaText2">
+      <String/>
+    </Property>
+		<Property name="overlay2">
+			<String/>
+		</Property>
+		<Property name="overlayVerticalAlignment2">
+			<String>top</String>
+		</Property>
+		<Property name="overlayHorizontalAlignment2">
+			<String>left</String>
+		</Property>
+		<Property name="imageButtonLabel2">
+      <String/>
+    </Property>
+		<Property name="imageButtonHref2">
+      <String/>
+    </Property>
+		<Property name="imageURL3">
+      <String/>
+    </Property>
+		<Property name="imageAltText3">
+      <String/>
+    </Property>
+		<Property name="imageH2Text3">
+      <String/>
+    </Property>
+		<Property name="imageParaText3">
+      <String/>
+    </Property>
+		<Property name="overlay3">
+			<String/>
+		</Property>
+		<Property name="overlayVerticalAlignment3">
+			<String>top</String>
+		</Property>
+		<Property name="overlayHorizontalAlignment3">
+			<String>left</String>
+		</Property>
+		<Property name="imageButtonLabel3">
+      <String/>
+    </Property>
+		<Property name="imageButtonHref3">
+      <String/>
+    </Property>
+    <Property name="idTag1">
+      <String/>
+    </Property>
+    <Property name="idTag2">
+      <String/>
+    </Property> 
+    <Property name="idTag3">
+      <String/>
+    </Property>
+	<Property name="buttonCustomWidthEnabled1">
+        <Boolean>false</Boolean>
+    </Property>
+	<Property name="buttonCustomWidth1">
+		<String/>
+	</Property>
+	<Property name="noOverLayEnabled1">
+        <Boolean>false</Boolean>
+    </Property>
+	<Property name="buttonCustomWidthEnabled2">
+        <Boolean>false</Boolean>
+    </Property>
+	<Property name="buttonCustomWidth2">
+		<String/>
+	</Property>
+	<Property name="noOverLayEnabled2">
+        <Boolean>false</Boolean>
+    </Property>
+	<Property name="buttonCustomWidthEnabled3">
+        <Boolean>false</Boolean>
+    </Property>
+	<Property name="buttonCustomWidth3">
+		<String/>
+	</Property>
+	<Property name="noOverLayEnabled3">
+        <Boolean>false</Boolean>
+    </Property>
+  </ContentItem>
+  <EditorPanel>
+    <BasicContentItemEditor>
+      <GroupLabel label="PromoGrid"/>
+			<editors:StringEditor propertyName="sectionTitle" label="Section Title" bottomLabel="" enabled="true"/>
+			<GroupLabel label="Promo1"/>
+      <editors:StringEditor propertyName="imageURL1" label="Image Path" bottomLabel="${property.media.bottomLabel}" enabled="true"/>
+			<editors:StringEditor propertyName="imageAltText1" label="Image Alt Text" bottomLabel="" enabled="true"/>
+			<editors:StringEditor propertyName="imageH2Text1" label="H2 Text on Image" bottomLabel="" enabled="true"/>
+			<editors:StringEditor propertyName="imageParaText1" label="Para Text on Image" bottomLabel="" enabled="true" height="72"/>
+			<editors:BooleanEditor propertyName="noOverLayEnabled1" label="Display Overlay Text below Banner Image" enabled="true" bottomLabel="When Selected Overlay text is displayed below the Image"/>
+			<editors:ChoiceEditor propertyName="overlay1" label="${property.overlay.label}" enabled="true">
+				<choice label="none (default)" value=""/>
+				<choice label="light" value="light"/>
+				<choice label="dark" value="dark"/>
+				<choice label="hidden" value="hidden"/>
+			</editors:ChoiceEditor>
+			<editors:ChoiceEditor propertyName="overlayVerticalAlignment1" label="${property.overlay.alignment.vertical.label}" enabled="true">
+				<choice label="top (default)" value="top"/>
+				<choice label="middle" value="middle"/>
+				<choice label="bottom" value="bottom"/>
+			</editors:ChoiceEditor>
+			<editors:ChoiceEditor propertyName="overlayHorizontalAlignment1" label="${property.overlay.alignment.horizontal.label}" enabled="true">
+				<choice label="left (default)" value="left"/>
+				<choice label="center" value="center"/>
+				<choice label="right" value="right"/>
+			</editors:ChoiceEditor>
+			<editors:StringEditor propertyName="imageButtonLabel1" label="Button Label on Image" bottomLabel="" enabled="true"/>
+			<editors:StringEditor propertyName="imageButtonHref1" label="Button Hyperlink on Image" bottomLabel="" enabled="true"/>
+			<editors:StringEditor propertyName="idTag1" label="Id Tag" bottomLabel="" enabled="true"/>
+			<GroupLabel label="Button1 Custom Width Configuration"/>
+			<editors:BooleanEditor propertyName="buttonCustomWidthEnabled1" label="Enable Custom Width For Button" enabled="true"/>
+			<editors:NumericStepperEditor propertyName="buttonCustomWidth1" label="Custom Width For Button" bottomLabel="Enter custom Width to be applied for the Button in Percentage" minValue="0" maxValue="100" stepSize="1" enabled="true"/>
+			<GroupLabel label="Promo2"/>
+			<editors:StringEditor propertyName="imageURL2" label="Image Path" bottomLabel="${property.media.bottomLabel}" enabled="true"/>
+			<editors:StringEditor propertyName="imageAltText2" label="Image Alt Text" bottomLabel="" enabled="true"/>
+			<editors:StringEditor propertyName="imageH2Text2" label="H2 Text on Image" bottomLabel="" enabled="true"/>
+			<editors:StringEditor propertyName="imageParaText2" label="Para Text on Image" bottomLabel="" enabled="true" height="72"/>
+			<editors:BooleanEditor propertyName="noOverLayEnabled2" label="Display Overlay Text below Banner Image" enabled="true" bottomLabel="When Selected Overlay text is displayed below the Image"/>
+			<editors:ChoiceEditor propertyName="overlay2" label="${property.overlay.label}" enabled="true">
+				<choice label="none (default)" value=""/>
+				<choice label="light" value="light"/>
+				<choice label="dark" value="dark"/>
+				<choice label="hidden" value="hidden"/>
+			</editors:ChoiceEditor>
+			<editors:ChoiceEditor propertyName="overlayVerticalAlignment2" label="${property.overlay.alignment.vertical.label}" enabled="true">
+				<choice label="top (default)" value="top"/>
+				<choice label="middle" value="middle"/>
+				<choice label="bottom" value="bottom"/>
+			</editors:ChoiceEditor>
+			<editors:ChoiceEditor propertyName="overlayHorizontalAlignment2" label="${property.overlay.alignment.horizontal.label}" enabled="true">
+				<choice label="left (default)" value="left"/>
+				<choice label="center" value="center"/>
+				<choice label="right" value="right"/>
+			</editors:ChoiceEditor>
+			<editors:StringEditor propertyName="imageButtonLabel2" label="Button Label on Image" bottomLabel="" enabled="true"/>
+			<editors:StringEditor propertyName="imageButtonHref2" label="Button Hyperlink on Image" bottomLabel="" enabled="true"/>
+			<editors:StringEditor propertyName="idTag2" label="Id Tag" bottomLabel="" enabled="true"/>
+			<GroupLabel label="Button2 Custom Width Configuration"/>
+			<editors:BooleanEditor propertyName="buttonCustomWidthEnabled2" label="Enable Custom Width For Button" enabled="true"/>
+			<editors:NumericStepperEditor propertyName="buttonCustomWidth2" label="Custom Width For Button" bottomLabel="Enter custom Width to be applied for the Button in Percentage" minValue="0" maxValue="100" stepSize="1" enabled="true"/>
+			<GroupLabel label="Promo3"/>
+			<editors:StringEditor propertyName="imageURL3" label="Image Path" bottomLabel="${property.media.bottomLabel}" enabled="true"/>
+			<editors:StringEditor propertyName="imageAltText3" label="Image Alt Text" bottomLabel="" enabled="true"/>
+			<editors:StringEditor propertyName="imageH2Text3" label="H2 Text on Image" bottomLabel="" enabled="true"/>
+			<editors:StringEditor propertyName="imageParaText3" label="Para Text on Image" bottomLabel="" enabled="true" height="72"/>
+			<editors:BooleanEditor propertyName="noOverLayEnabled3" label="Display Overlay Text below Banner Image" enabled="true" bottomLabel="When Selected Overlay text is displayed below the Image"/>
+			<editors:ChoiceEditor propertyName="overlay3" label="${property.overlay.label}" enabled="true">
+				<choice label="none (default)" value=""/>
+				<choice label="light" value="light"/>
+				<choice label="dark" value="dark"/>
+				<choice label="hidden" value="hidden"/>
+			</editors:ChoiceEditor>
+			<editors:ChoiceEditor propertyName="overlayVerticalAlignment3" label="${property.overlay.alignment.vertical.label}" enabled="true">
+				<choice label="top (default)" value="top"/>
+				<choice label="middle" value="middle"/>
+				<choice label="bottom" value="bottom"/>
+			</editors:ChoiceEditor>
+			<editors:ChoiceEditor propertyName="overlayHorizontalAlignment3" label="${property.overlay.alignment.horizontal.label}" enabled="true">
+				<choice label="left (default)" value="left"/>
+				<choice label="center" value="center"/>
+				<choice label="right" value="right"/>
+			</editors:ChoiceEditor>
+			<editors:StringEditor propertyName="imageButtonLabel3" label="Button Label on Image" bottomLabel="" enabled="true"/>
+			<editors:StringEditor propertyName="imageButtonHref3" label="Button Hyperlink on Image" bottomLabel="" enabled="true"/>
+			<editors:StringEditor propertyName="idTag3" label="Id Tag" bottomLabel="" enabled="true"/>
+			<GroupLabel label="Button3 Custom Width Configuration"/>
+			<editors:BooleanEditor propertyName="buttonCustomWidthEnabled3" label="Enable Custom Width For Button" enabled="true"/>
+			<editors:NumericStepperEditor propertyName="buttonCustomWidth3" label="Custom Width For Button" bottomLabel="Enter custom Width to be applied for the Button in Percentage" minValue="0" maxValue="100" stepSize="1" enabled="true"/>
+    </BasicContentItemEditor>
+  </EditorPanel>
+</ContentTemplate>
+<!-- @version $Id: //hosting-blueprint/B2CBlueprint/version/11.2/Storefront/deploy/import/templates/MediaBanner/template.xml#1 $$Change: 953229 $-->

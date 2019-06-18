@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+
+<project name="typeahead" default="war">
+   <taskdef resource="net/sf/antcontrib/antlib.xml">
+      <classpath>
+	 <pathelement location="../modules/main/lib-external/ant-contrib-0.6.jar" />
+      </classpath>
+   </taskdef>
+
+	<property environment="env" />
+	<condition property="envName" value="${env.ENV_NAME}">
+      		<and>
+	 		<not>
+	    			<equals arg1="${env.ENV_NAME}" arg2=""/>
+	 	</not>
+	 		<not>
+	    			<equals arg1="${env.ENV_NAME}" arg2="$${env.ENV_NAME}"/>
+	 		</not>
+      		</and>
+   	</condition>
+   	<!-- otherwise set the default env name as "dev" -->
+   	<property name="envName" value="dev"/>
+	<property file="environments/${envName}.properties" />
+
+	<property file="build.properties" />
+
+	<path id="compile.classpath">
+		<fileset dir="j2ee-apps/typeahead.war/WEB-INF/lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<target name="init">
+		<mkdir dir="build/classes" />
+		<mkdir dir="dist" />
+		<if>
+			<available file="${typeahead.deploy.path}" type="dir" />
+			<then>
+				<echo message="Typeahead deployment directory (${typeahead.deploy.path}) exists" />
+			</then>
+			<else>
+				<echo message="Typeahead deployment directory (${typeahead.deploy.path}) does not exist...creating" />
+				<mkdir dir="${typeahead.deploy.path}" />
+			</else>
+		</if>
+	</target>
+
+	<target name="copyresources">
+	<copy todir="build/classes">
+			<fileset dir="src">
+				 <exclude name="**/*.java"/>
+			</fileset>
+	</copy>
+	</target>
+
+	<target name="copyconfig">
+	<copy file="environments/mdex.properties" tofile="src/mdex.properties" overwrite="true">
+    		<!-- env specific conf files -->
+    		<filterset refid="mdex.variables"/>
+	</copy>
+	</target>
+
+	<target name="compile" depends="init">
+		<javac destdir="build/classes" debug="true" srcdir="src">
+			<classpath refid="compile.classpath" />
+		</javac>
+	</target>
+
+	<target name="war" depends="copyconfig,copyresources,compile">
+		<war destfile="${typeahead.deploy.path}/typeahead.war" webxml="j2ee-apps/typeahead.war/WEB-INF/web.xml">
+			<fileset dir="j2ee-apps/typeahead.war" />
+			<lib dir="j2ee-apps/typeahead.war/WEB-INF/lib" />
+			<classes dir="build/classes" />
+		</war>
+	</target>
+
+	<target name="clean">
+		<delete dir="dist" />
+		<delete dir="build" />
+		<delete dir="${typeahead.deploy.path}" />
+	</target>
+
+	<filterset id="mdex.variables">
+		<filter token="TERM_MDEX_HOST" value="${term.mdex.host}"/>
+		<filter token="TERM_MDEX_PORT" value="${term.mdex.port}"/>
+		<filter token="PRODUCT_MDEX_HOST" value="${product.mdex.host}"/>
+		<filter token="PRODUCT_MDEX_PORT" value="${product.mdex.port}"/>
+	</filterset>
+
+</project>

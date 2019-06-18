@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE gsa-template
+        PUBLIC "-//Art Technology Group, Inc.//DTD General SQL Adapter//EN"
+        "http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
+
+<gsa-template>
+ <header>
+  <name>Internal Profile Extensions</name>
+  <author>KnowledgePath Team</author>
+ </header>
+
+ <item-descriptor name="agent" xml-combine="append">
+	<table name="mff_csr_agent" id-column-name="id">		
+		<property name="storeId" display-name="storeId" column-name="store_id" data-type="string" />
+	</table>
+ </item-descriptor>
+ 
+</gsa-template>
+
+

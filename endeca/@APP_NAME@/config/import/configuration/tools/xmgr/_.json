@@ -1,0 +1,37 @@
+{
+    "profileGroupsConnectionUrl": "http://@MERCH_HOST@:@MERCH_PORT@/rest/model/atg/userprofiling/ProfileGroupsActor/getAllProfileGroups?atg-rest-output=json&atg-preview=false",
+    "services": [
+        {
+            "wildcardSearchEnabled": false,
+            "recordFilter": "",
+            "port": "@WORKBENCH_MDEX_PORT@",
+            "recordNameField": "product.displayName",
+            "host": "@WORKBENCH_MDEX_HOST@",
+            "aggregationKey": "product.repositoryId",
+            "name": "dataservice",
+            "recordSpecName": "common.id",
+            "fields": {
+                "sku.activePrice": "currency",
+                "product.displayName": "plain",
+                "product.briefDescription": ""
+            }
+        },
+        {
+            "recImgUrlProp": "",
+            "recDisplayProps": [
+                "product.displayName",
+                "sku.activePrice",
+                "product.briefDescription"
+            ],
+            "textSearchKey": "All",
+            "recSpecProp": "common.id",
+            "name": "productdataservice",
+            "recAggregationKey": "product.repositoryId",
+            "textSearchMatchMode": "ALLPARTIAL",
+            "recDisplayNameProp": "product.displayName",
+            "recFilter": ""
+        }
+    ],
+    "ecr:createDate": "2016-07-22T21:49:16.682Z",
+    "ecr:type": "configuration-xmgr"
+}

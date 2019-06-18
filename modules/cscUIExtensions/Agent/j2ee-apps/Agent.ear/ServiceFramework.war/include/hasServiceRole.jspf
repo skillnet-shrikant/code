@@ -1,0 +1,13 @@
+<%--
+
+  This fragment will set a page scope variable named 'hasRole' to
+  the current role requested, a comma delimited list of roles set in page scope  
+  variable. 
+
+@version $Id: //application/service-UI/version/11.2/framework/Agent/src/web-apps/ServiceFramework/include/hasServiceRole.jspf#1 $$Change: 946917 $
+@updated $DateTime: 2015/01/26 17:26:27 $$Author: jsiddaga $
+
+--%>
+<dspel:importbean var="hasRoleBean" bean="/atg/svc/repository/service/UIService" />
+<c:set var="hasRole" value="${hasRoleBean.hasWorkspaceRight and hasRoleBean.isAgentUserType}" />
+<%-- @version $Id: //application/service-UI/version/11.2/framework/Agent/src/web-apps/ServiceFramework/include/hasServiceRole.jspf#1 $$Change: 946917 $--%>

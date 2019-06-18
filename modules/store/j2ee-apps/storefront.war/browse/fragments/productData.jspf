@@ -1,0 +1,338 @@
+<%-- Imports --%>
+<dsp:importbean bean="/atg/commerce/pricing/priceLists/PriceDroplet"/>
+<dsp:importbean bean="/atg/commerce/pricing/priceLists/PriceListManager"/>
+<dsp:importbean bean="/atg/commerce/pricing/PriceRangeDroplet"/>
+<dsp:importbean bean="/atg/commerce/ShoppingCart"/>
+
+<json:property name="productId">
+	<dsp:valueof param="product.id"/>
+</json:property>
+<json:property name="productName">
+	<dsp:valueof param="product.displayName"/>
+</json:property>
+<json:property name="productName">
+	<dsp:valueof param="product.brand"/>
+</json:property>
+<json:property name="template">
+	<dsp:valueof param="product.pickerTemplate"/>
+</json:property>
+<json:property name="hidePrice">
+	<dsp:valueof param="product.hidePrice"/>
+</json:property>
+<json:property name="sizeChartUrl">
+	<%-- TODO: Phase 2 - add size chart url --%>
+	<%--<dsp:valueof param="product.sizeChart"/>--%>
+</json:property>
+
+<dsp:getvalueof var="skus" param="skus"/>
+<dsp:getvalueof var="prevSku" param="prevSku"/>
+<dsp:getvalueof param="stockLevelForSkusOfProduct" var="stockLevelForSkusOfProduct"/>
+
+<json:property name="prevSku">
+	<dsp:valueof param="prevSku"/>
+</json:property>
+
+<%-- 2427 --%>
+<json:property name="isBopisOrder">
+	<dsp:valueof bean="ShoppingCart.current.bopisOrder"/>
+</json:property>
+<json:property name="isEdsPPSOnlyOrder">
+	<dsp:valueof bean="ShoppingCart.current.edsPPSOnly"/>
+</json:property>
+
+<dsp:getvalueof var="fulfillmentMethod" param="product.fulfillmentMethod"/>
+
+<c:choose>
+	<c:when test="${fulfillmentMethod eq '8'}">
+		<json:property name="isEdsPPSOnly">
+			true
+		</json:property>
+	</c:when>
+	<c:otherwise>
+		<json:property name="isEdsPPSOnly">
+			false
+		</json:property>
+	</c:otherwise>
+</c:choose>
+<json:property name="productOutOfStock">
+	<dsp:valueof param="productOutOfStock" />
+</json:property>
+<json:property name="bopisOnlyAvailable">
+	<dsp:valueof param="bopisOnlyAvailable" />
+</json:property>
+<%-- min/max pricing --%>
+<dsp:droplet name="PriceRangeDroplet">
+	<dsp:param name="productId" param="product.repositoryId"/>
+	<dsp:param name="priceList" bean="PriceListManager.defaultPriceListId"/>
+	<dsp:param name="salePriceList" bean="PriceListManager.defaultSalePriceListId"/>
+	<dsp:oparam name="output">
+		<dsp:getvalueof var="highestPrice" param="highestPrice"/>
+		<dsp:getvalueof var="lowestPrice" param="lowestPrice"/>
+		<c:choose>
+			<c:when test="${highestPrice ne lowestPrice}">
+				<%-- if there's a price range, display it. when a user selects a sku, the actual price will be displayed --%>
+				<json:property name="priceRange">
+					true
+				</json:property>
+				<json:property name="minPrice">
+					<dsp:valueof param="lowestPrice" converter="currency"/>
+				</json:property>
+				<json:property name="maxPrice">
+					<dsp:valueof param="highestPrice" converter="currency"/>
+				</json:property>
+			</c:when>
+			<c:otherwise>
+				<%-- there's not a price range. we need to figure out if it's a regular or sale price. --%>
+				<%-- since there's no price range, the first sku should have the price of all the skus --%>
+				<dsp:droplet name="PriceDroplet">
+					<dsp:param name="sku" value="${skus[0]}" />
+					<dsp:param name="priceList" bean="PriceListManager.defaultPriceListId" />
+					<dsp:oparam name="output">
+						<dsp:getvalueof param="price.listPrice" var="listPrice" />
+					</dsp:oparam>
+				</dsp:droplet>
+				<dsp:droplet name="PriceDroplet">
+					<dsp:param name="sku" value="${skus[0]}" />
+					<dsp:param name="priceList" bean="PriceListManager.defaultSalePriceListId" />
+					<dsp:oparam name="output">
+						<dsp:getvalueof param="price.listPrice" var="salePrice" />
+					</dsp:oparam>
+				</dsp:droplet>
+				<dsp:param name="salePrice" value="${salePrice}" />
+				<dsp:param name="listPrice" value="${listPrice}" />
+
+				<c:if test="${not empty listPrice}">
+					<%-- there is a list price --%>
+					<c:choose>
+						<c:when test="${not empty salePrice}">
+							<%-- there is a sale price --%>
+							<c:choose>
+								<c:when test="${listPrice ne salePrice}">
+									<%-- list and sale price are different, display sale --%>
+									<json:property name="sale">
+										true
+									</json:property>
+									<json:property name="originalPrice">
+										<dsp:valueof param="listPrice" converter="currency" />
+									</json:property>
+									<json:property name="salePrice">
+										<dsp:valueof param="salePrice" converter="currency" />
+									</json:property>
+								</c:when>
+								<c:otherwise>
+									<%-- list and sale price are equal, display regular --%>
+									<json:property name="sale">
+										false
+									</json:property>
+									<json:property name="regularPrice">
+										<dsp:valueof param="listPrice" converter="currency" />
+									</json:property>
+								</c:otherwise>
+							</c:choose>
+						</c:when>
+						<c:otherwise>
+							<%-- there is only list price, display regular --%>
+							<json:property name="sale">
+								false
+							</json:property>
+							<json:property name="regularPrice">
+								<dsp:valueof param="listPrice" converter="currency" />
+							</json:property>
+						</c:otherwise>
+					</c:choose>
+				</c:if>
+
+			</c:otherwise>
+		</c:choose>
+	</dsp:oparam>
+</dsp:droplet>
+
+<dsp:droplet name="ProductPickerDetailsDroplet">
+	<dsp:param name="product" param="product"/>
+	<dsp:param name="childSKUs" param="skus"/>
+	<dsp:oparam name="output">
+
+		<%-- Iterating through pickersData --%>
+		<dsp:droplet name="ForEach">
+			<dsp:param name="array" param="pickersData"/>
+			<dsp:oparam name="output">
+
+				<dsp:droplet name="Switch">
+					<dsp:param name="value" param="key"/>
+					<dsp:oparam name="pickerTypes">
+
+						<%-- skus --%>
+						<json:array name="variantTypes">
+
+							<dsp:droplet name="ForEach">
+								<dsp:param name="array" param="element"/>
+								<dsp:param name="elementName" value="pickerTypeValue"/>
+								<dsp:oparam name="output">
+									<json:object>
+										<json:property name="id">
+											<dsp:valueof param="index"/>
+										</json:property>
+										<json:property name="displayName">
+											<dsp:valueof param="pickerTypeValue"/>
+										</json:property>
+									</json:object>
+								</dsp:oparam>
+							</dsp:droplet>
+
+						</json:array>
+
+					</dsp:oparam>
+					<dsp:oparam name="skus">
+
+						<%-- skus --%>
+						<json:array name="skus">
+
+							<%-- Iterating through skus --%>
+							<dsp:droplet name="ForEach">
+								<dsp:param name="array" param="element"/>
+								<dsp:param name="elementName" value="skus"/>
+								<dsp:oparam name="output">
+
+									<json:object>
+
+										<dsp:getvalueof var="skuIndex" param="index" />
+
+										<dsp:droplet name="ForEach">
+											<dsp:param name="array" param="skus"/>
+											<dsp:param name="elementName" value="sku"/>
+											<dsp:oparam name="output">
+												<dsp:getvalueof var="catalogRefId" param="sku" />
+												<dsp:droplet name="Switch">
+													<dsp:param name="value" param="key"/>
+													<dsp:oparam name="catalogRefId">
+														<json:property name="catalogRefId">
+															<dsp:valueof param="sku"/>
+														</json:property>
+														
+														<json:property name="inventory">
+															${stockLevelForSkusOfProduct[catalogRefId].stockLevel}
+														</json:property>
+														<json:property name="productOutOfStock">
+															<dsp:valueof param="productOutOfStock"/>
+														</json:property>
+														<json:property name="bopisOnlyAvailable">
+															${stockLevelForSkusOfProduct[catalogRefId].storeAvailability}
+														</json:property>														
+
+														<%-- get list and sale prices --%>
+														<dsp:droplet name="PriceDroplet">
+															<dsp:param name="sku" value="${skus[skuIndex]}" />
+															<dsp:param name="priceList" bean="PriceListManager.defaultPriceListId" />
+															<dsp:oparam name="output">
+																<dsp:getvalueof param="price.listPrice" var="listPrice" />
+															</dsp:oparam>
+														</dsp:droplet>
+														<dsp:droplet name="PriceDroplet">
+															<dsp:param name="sku" value="${skus[skuIndex]}" />
+															<dsp:param name="priceList" bean="PriceListManager.defaultSalePriceListId" />
+															<dsp:oparam name="output">
+																<dsp:getvalueof param="price.listPrice" var="salePrice" />
+															</dsp:oparam>
+														</dsp:droplet>
+														<dsp:param name="salePrice" value="${salePrice}" />
+														<dsp:param name="listPrice" value="${listPrice}" />
+
+														<c:if test="${not empty listPrice}">
+															<%-- there is a list price --%>
+															<c:choose>
+																<c:when test="${not empty salePrice}">
+																	<%-- there is a sale price --%>
+																	<c:choose>
+																		<c:when test="${listPrice ne salePrice}">
+																			<%-- list and sale price are different, display sale --%>
+																			<json:property name="sale">
+																				true
+																			</json:property>
+																			<json:property name="originalPrice">
+																				<dsp:valueof param="listPrice" converter="currency" />
+																			</json:property>
+																			<json:property name="salePrice">
+																				<dsp:valueof param="salePrice" converter="currency" />
+																			</json:property>
+																		</c:when>
+																		<c:otherwise>
+																			<%-- list and sale price are equal, display regular --%>
+																			<json:property name="sale">
+																				false
+																			</json:property>
+																			<json:property name="regularPrice">
+																				<dsp:valueof param="listPrice" converter="currency" />
+																			</json:property>
+																		</c:otherwise>
+																	</c:choose>
+																</c:when>
+																<c:otherwise>
+																	<%-- there is only list price, display regular --%>
+																	<json:property name="sale">
+																		false
+																	</json:property>
+																	<json:property name="regularPrice">
+																		<dsp:valueof param="listPrice" converter="currency" />
+																	</json:property>
+																</c:otherwise>
+															</c:choose>
+														</c:if>
+													</dsp:oparam>
+													<dsp:oparam name="pickers">
+														<dsp:getvalueof param="sku" var="id"/>
+														<json:array name="variants">
+
+															<dsp:droplet name="ForEach">
+																<dsp:param name="array" param="sku"/>
+																<dsp:param name="elementName" value="picker"/>
+																<dsp:oparam name="output">
+
+																	<dsp:getvalueof var="pickerId" param="index"/>
+																	<json:object>
+																		<json:property name="id">
+																			<dsp:valueof param="index"/>
+																		</json:property>
+																		<json:property name="displayName">
+																			<dsp:valueof param="picker"/>
+																		</json:property>
+																	</json:object>
+
+																</dsp:oparam>
+															</dsp:droplet>
+
+														</json:array>
+													</dsp:oparam>
+													<dsp:oparam name="clearance">
+														<json:property name="clearance">
+															<dsp:valueof param="sku"/>
+														</json:property>
+													</dsp:oparam>
+													<dsp:oparam name="hidePrice">
+														<json:property name="hidePrice">
+															<dsp:valueof param="sku"/>
+														</json:property>
+													</dsp:oparam>
+													<dsp:oparam name="modelNumber">
+														<json:property name="modelNumber">
+															<dsp:valueof param="sku"/>
+														</json:property>
+													</dsp:oparam>
+												</dsp:droplet>
+											</dsp:oparam>
+										</dsp:droplet>
+
+									</json:object>
+
+								</dsp:oparam>
+							</dsp:droplet>
+
+						</json:array>
+
+					</dsp:oparam>
+				</dsp:droplet>
+
+			</dsp:oparam>
+		</dsp:droplet>
+
+	</dsp:oparam>
+</dsp:droplet>

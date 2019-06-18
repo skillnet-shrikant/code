@@ -1,0 +1,119 @@
+/* only use styles in here that you want to apply to all typea on the site. Otherwise contextually style
+(.parentClass .accordion) or add addtional classes to the accordion element. */
+
+/* only use styles in here that you want to apply to all typea on the site. Otherwise contextually style
+(.parentClass .accordion) or add addtional classes to the accordion element. */
+
+.typeahead {
+	position: absolute;
+	top: 58px;
+	width: calc(100% - 10px);
+	@include rem-size(margin-left, 10px);
+	z-index: 999;
+	background-color: $white;
+	@include box-shadow(0, 0, 20px, rgba(0, 0, 0, .25), false, 3px);
+}
+.typeahead-container {
+	@include grid-row();
+
+	ul {
+		@include unlist();
+	}
+	li {
+		@include rem-size(line-height, 32px);
+	}
+	a {
+		color: $black;
+		font-weight: $normal;
+		&:hover {
+			font-weight: $normal;
+			text-decoration: underline;
+		}
+	}
+	.product-tile .product-tile-text {
+		min-height: 56px;
+	}
+}
+
+.typeahead-suggestions {
+	@include grid-column(12);
+	@include rem-size(padding, 12px 10px);
+	@include font-size(12px);
+	@include media(medium-up){
+		width: 33.333%
+	}
+	h4 {
+		margin: 0;
+		@include rem-size(line-height, 32px);
+		@include font-size(12px);
+	}
+}
+
+.typeahead-details {
+	@include grid-column(12);
+	@include font-size(12px);
+	padding: 0;
+	@include media(medium-up){
+		width: 66.667%
+	}
+}
+
+.typeahead-details-top,
+.typeahead-details-bottom {
+	@include grid-row();
+	background-color: $white;
+}
+
+.typeahead-details-top {
+	@include rem-size(padding, 16px 10px 0px);
+}
+.typeahead-details-bottom {
+	@include rem-size(padding, 0px 10px 16px);
+}
+
+.typeahead-details-top-grid {
+	@include block-grid(
+		$per-row: 1,
+		$spacing: 20px,
+		$base-style: true
+	);
+	& > li {
+		padding-bottom: 0 !important;
+	}
+	@include media(medium-up) {
+		@include block-grid(
+			$per-row: 3,
+			$spacing: 20px,
+			$base-style: false
+		);
+	}
+	.product-tile {
+		@include rem-size(padding, 8px);
+		@include rem-size(line-height, 18px);
+	}
+}
+
+.typeahead-details-bottom-grid {
+	@include block-grid(
+		$per-row: 1,
+		$spacing: 20px,
+		$base-style: true
+	);
+	@include media(medium-up) {
+		@include block-grid(
+			$per-row: 2,
+			$spacing: 20px,
+			$base-style: false
+		);
+	}
+
+	h4 {
+		margin-bottom: 0;
+	}
+	ul {
+		list-style: none;
+	}
+	li {
+		@include rem-size(line-height, 24px);
+	}
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<spr:beans xmlns:spr="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns="http://www.endeca.com/schema/eacToolkit"
+  xsi:schemaLocation="
+      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+      http://www.endeca.com/schema/eacToolkit http://www.endeca.com/schema/eacToolkit/eacToolkit.xsd">
+
+  <!--
+    ########################################################################
+    # Global Dgraph Settings - inherited by all dgraph components.
+    #
+  -->
+  <dgraph-defaults>
+    <properties>
+      <property name="srcIndexDir" value="./data/dgidx_output" />
+      <property name="srcIndexHostId" value="ITLHost" />
+      <property name="srcPartialsDir" value="./data/cas_output" />
+      <property name="srcPartialsHostId" value="ITLHost" />
+      <property name="srcCumulativePartialsDir" value="./data/partials/cumulative_partials" />
+      <property name="srcCumulativePartialsHostId" value="ITLHost" />
+      <property name="srcDgraphConfigDir" value="./data/workbench/dgraph_config" />
+      <property name="srcDgraphConfigHostId" value="ITLHost" />
+      <property name="numLogBackups" value="10" />
+      <property name="shutdownTimeout" value="30" />
+      <property name="numIdleSecondsAfterStop" value="0" />
+    </properties>
+    <directories>
+      <directory name="localIndexDir">./data/dgraphs/local_dgraph_input</directory>
+      <directory name="localCumulativePartialsDir">./data/dgraphs/local_cumulative_partials</directory>
+      <directory name="localDgraphConfigDir">./data/dgraphs/local_dgraph_config</directory>
+    </directories>
+    <args>
+      <arg>--threads</arg>
+      <arg>3</arg>
+      <arg>--whymatch</arg>
+      <arg>--spl</arg>
+      <arg>--dym</arg>
+      <arg>--dym_hthresh</arg>
+      <arg>5</arg>
+      <arg>--dym_nsug</arg>
+      <arg>3</arg>
+      <arg>--stat-abins</arg>
+    </args>
+    <startup-timeout>120</startup-timeout>
+  </dgraph-defaults>
+
+</spr:beans>
+<!-- @version $Id: //hosting-blueprint/B2CBlueprint/version/11.2/Storefront/deploy/script/DgraphDefaults.xml#2 $$Change: 953229 $-->

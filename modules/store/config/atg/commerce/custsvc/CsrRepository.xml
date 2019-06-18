@@ -1,0 +1,10 @@
+<gsa-template xml-combine="append">
+
+  <item-descriptor display-name-resource="itemDescriptorReturnItem" default="false" expert="false" folder="false" hidden="false" cache-mode="simple" id-separator=":" name="returnItem" use-id-for-path="false" content="false" writable="true">
+    <table shared-table-sequence="1" name="csr_exch_item" id-column-name="id" type="primary">
+      <property readable="true" queryable="true" display-name-resource="quantityWithFractionToReturn" expert="false" hidden="false" cache-mode="inherit" backing-map-property="false" name="quantityWithFractionToReturn" column-name="qty_with_fraction_to_return" data-type="double" required="false" writable="true" xml-combine="remove"/>
+      <property readable="true" queryable="true" display-name-resource="quantityWithFractionToReplace" expert="false" hidden="false" cache-mode="inherit" backing-map-property="false" name="quantityWithFractionToExchange" column-name="qty_with_fraction_to_repl" data-type="double" required="false" writable="true" xml-combine="remove"/>
+      <property readable="true" queryable="true" display-name-resource="quantityWithFractionReceived" expert="false" hidden="false" cache-mode="inherit" backing-map-property="false" name="quantityWithFractionReceived" column-name="qty_with_fraction_received" data-type="double" required="false" writable="true" xml-combine="remove"/>
+    </table>
+  </item-descriptor>
+</gsa-template>

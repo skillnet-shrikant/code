@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE pipelinemanager
+	PUBLIC "-//Art Technology Group, Inc.//DTD Dynamo Pipeline Manager//EN"
+	'http://www.atg.com/dtds/pipelinemanager/pipelinemanager_1.0.dtd'>
+
+<pipelinemanager>
+
+	<!-- ************************************************************* -->
+	<!--  This chain processes the allocation for an order   		   -->
+	<!-- ************************************************************* -->
+	<pipelinechain name="handleAllocateOrder" transaction="TX_REQUIRED" headlink="allocateItems">
+	
+		<!-- Allocate Items -->
+		<pipelinelink name="allocateItems" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/processor/AllocateItems" />
+			<transition returnvalue="1" link="splitCommerceItemsForAllocation" />
+		</pipelinelink>		
+		
+		<pipelinelink name="splitCommerceItemsForAllocation" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/processor/SplitCommerceItemsForAllocation" />
+			<transition returnvalue="1" link="updateInventoryForAllocation" />
+		</pipelinelink>
+		
+		<!-- Update Inventory -->
+		<pipelinelink name="updateInventoryForAllocation" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/processor/UpdateInventory" />
+			<transition returnvalue="1" link="createStoreAllocations" />
+		</pipelinelink>	
+		
+		<!-- Create Store Allocations -->
+		<pipelinelink name="createStoreAllocations" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/processor/CreateStoreAllocations" />
+			<transition returnvalue="1" link="addInventoryAllocationReport" />
+		</pipelinelink>
+		
+		<!-- Create Inventory Allocated Report -->
+		<pipelinelink name="addInventoryAllocationReport" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/processor/InventoryAllocationReportForAllocation" />
+			<transition returnvalue="1" link="addStoreIdToOrderDashboard" />
+		</pipelinelink>
+		
+		<!-- Create Store Allocated Report Dashboard -->
+		<pipelinelink name="addStoreIdToOrderDashboard" transaction="TX_MANDATORY">
+			<processor jndi="/oms/dashboard/processor/AddOrderStoreIdReportToDashboard" />
+			<transition returnvalue="1" link="setOrderStates" />
+		</pipelinelink>
+		
+		<!-- Set Order States -->
+		<pipelinelink name="setOrderStates" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/processor/SetOrderStates" />
+			<transition returnvalue="1" link="updateOrderStates" />
+		</pipelinelink>				
+
+		<!-- Update Order States -->
+		<pipelinelink name="updateOrderStates" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/processor/UpdateOrderStates" />
+		</pipelinelink>				
+	</pipelinechain>
+
+
+	<!-- ************************************************************* -->
+	<!--   This chain handles shipment for store fulfilled items       -->
+	<!-- ************************************************************* -->
+
+	<pipelinechain name="handleStoreShipment" transaction="TX_REQUIRED" headlink="validateAuthorizationsForStoreShipment">
+		<!--  Validates if authorizations are still valid -->
+		<pipelinelink name="validateAuthorizationsForStoreShipment" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/processor/ValidatePaymentAuthorizations"/>
+			<transition returnvalue="1" link="setShippedItemStates" />
+		</pipelinelink>
+	
+		<!-- Set the item states and update inventory -->
+		<pipelinelink name="setShippedItemStates" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/store/processor/SetShippedItemStates" />
+			<transition returnvalue="1" link="updateShippedStoreAllocation" />
+		</pipelinelink>	
+		
+		<!-- Update the store allocations for the shipped items -->
+		<pipelinelink name="updateShippedStoreAllocation" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/store/processor/UpdateShippedStoreAllocation" />
+			<transition returnvalue="1" link="updateShippedOrderToDashboard" />
+		</pipelinelink>
+		
+		<!-- Update the store allocations for the shipped items -->
+		<pipelinelink name="updateShippedOrderToDashboard" transaction="TX_MANDATORY">
+			<processor jndi="/oms/dashboard/processor/AddShipedOrderReportToDashboard" />
+			<transition returnvalue="1" link="createProrateItem" />
+		</pipelinelink>
+		
+		<!-- Create Prorate items -->
+		<pipelinelink name="createProrateItem" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/store/processor/CreateProrateItem" />
+			<transition returnvalue="1" link="updateShipOrderStates" />
+		</pipelinelink>	
+		
+		<!-- Update Order States -->
+		<pipelinelink name="updateShipOrderStates" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/processor/UpdateOrderStates" />
+		</pipelinelink>	
+		
+		<!-- transition is after settlement -->
+		<!-- Send the Order Status Email -->
+		<pipelinelink name="sendShipStatusEmail" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/store/processor/SendShippedOrderStatusEmail" />
+			<transition returnvalue="1" link="createAgentLog" />
+		</pipelinelink>		
+		
+		<!-- Create AgentLog -->
+		<pipelinelink name="createAgentLog" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/store/processor/CreateAgentLog" />
+		</pipelinelink>	
+
+	</pipelinechain>
+	
+	<!-- ************************************************************* -->
+	<!--   This chain handles the gift card transition from            -->
+	<!--   pending fulfillment to pending activation                   -->
+	<!-- ************************************************************* -->
+	<pipelinechain name="handleGiftCardFulfillActivation" transaction="TX_REQUIRED" headlink="setPendingActivationItemStates">
+		<!-- Set the item states -->
+		<pipelinelink name="setPendingActivationItemStates" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/store/processor/SetPendingActivationItemStates" />
+			<transition returnvalue="1" link="updateActivationOrderStates" />
+		</pipelinelink>	
+		
+		<!-- Update Order States -->
+		<pipelinelink name="updateActivationOrderStates" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/processor/UpdateOrderStates" />
+		</pipelinelink>	
+
+	</pipelinechain>
+
+	<!-- ************************************************************* -->
+	<!--   This chain handles cancels for store fulfilled items 	   -->
+	<!-- ************************************************************* -->
+	<pipelinechain name="handleCancel" transaction="TX_REQUIRED" headlink="setCancelItemStates">
+		<!-- Set the item states and update inventory -->
+		<pipelinelink name="setCancelItemStates" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/store/processor/SetCancelledItemStates" />
+			<transition returnvalue="1" link="updateCancelStoreAllocation" />
+		</pipelinelink>	
+				
+		<!-- Update the store allocations for the shipped items -->
+		<pipelinelink name="updateCancelStoreAllocation" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/store/processor/UpdateCancelledStoreAllocation" />
+			<transition returnvalue="1" link="addInventoryDeallocationReport" />
+		</pipelinelink>
+		
+		<!-- Create Inventory De-Allocated Report -->
+		<pipelinelink name="addInventoryDeallocationReport" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/processor/InventoryAllocationReportForCancel" />
+			<transition returnvalue="1" link="cancelledOrderReportToDashboard" />
+		</pipelinelink>
+		
+		<!-- Update the store allocations for the shipped items -->
+		<pipelinelink name="cancelledOrderReportToDashboard" transaction="TX_MANDATORY">
+			<processor jndi="/oms/dashboard/processor/AddCancelledOrderReportToDashboard" />
+			<transition returnvalue="1" link="updateCancelOrderStates" />
+		</pipelinelink>
+		
+		<!-- Update Order States -->
+		<pipelinelink name="updateCancelOrderStates" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/processor/UpdateOrderStates" />
+			<transition returnvalue="1" link="cancelPaymentAuthorizations" />
+		</pipelinelink>	
+		
+		<pipelinelink name="cancelPaymentAuthorizations" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/processor/CancelPaymentGroupAuthorizations" />
+			<transition returnvalue="1" link="updateOrder" />
+		</pipelinelink>
+		
+		<!-- Update Order States -->
+		<pipelinelink name="updateOrder" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/processor/UpdateOrderStates" />
+			<transition returnvalue="1" link="sendCancelStatusEmail" />
+		</pipelinelink>	
+
+		<!-- Send the Order Status Email -->		
+		<pipelinelink name="sendCancelStatusEmail" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/store/processor/SendCancelledOrderStatusEmail" />
+		</pipelinelink>			
+		
+	</pipelinechain>
+	
+	<!-- ************************************************************* -->
+	<!--   This chain handles automated cancels of bopis orders			 	   -->
+	<!-- ************************************************************* -->
+	<pipelinechain name="handleBopisCancel" transaction="TX_REQUIRED" headlink="setCancelItemStatesBopis">
+		<!-- Set the item states and update inventory -->
+		<pipelinelink name="setCancelItemStatesBopis" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/store/processor/SetCancelledItemStates" />
+			<transition returnvalue="1" link="updateCancelOrderStatesBopis" />
+		</pipelinelink>	
+		
+		<!-- Update the store allocations for the shipped items 
+		<pipelinelink name="updateCancelStoreAllocationBopis" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/store/processor/UpdateCancelledStoreAllocation" />
+			<transition returnvalue="1" link="updateCancelOrderStatesBopis" />
+		</pipelinelink>
+		-->
+		<!-- Update Order States -->
+		<pipelinelink name="updateCancelOrderStatesBopis" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/processor/UpdateOrderStates" />
+		</pipelinelink>	
+		
+		<!-- Place holder for issue refund -->		
+		
+		<!-- Place holder for reporting on Bopis cancel -->	
+		
+		<!-- Place holder for Sending the Bopis Order Cancellation Email -->		
+		
+	</pipelinechain>
+	
+	<!-- ************************************************************* -->
+	<!--   This chain sends readyToPickup Reminder email     -->
+	<!-- ************************************************************* -->
+	<pipelinechain name="handleBopisReminderEmail" transaction="TX_REQUIRED" headlink="sendBopisReminderEmail">
+		<!-- Sends the Reminder Email -->
+		<pipelinelink name="sendBopisReminderEmail" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/store/processor/SendBopisReminderEmail" />
+			<transition returnvalue="1" link="setBopisReminderSentDateOnOrder" />
+		</pipelinelink>	
+		
+		<!-- Updates the bopis reminder sent date on the order -->
+		<pipelinelink name="setBopisReminderSentDateOnOrder" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/store/processor/SetBopisReminderSentDateOnOrder" />
+		</pipelinelink>	
+		
+	</pipelinechain>
+
+	<!-- ************************************************************* -->
+	<!--   This chain handles Store Declines 	   					   -->
+	<!-- ************************************************************* -->
+	<pipelinechain name="handleStoreDecline" transaction="TX_REQUIRED" headlink="setDeclineItemStates">
+		<!-- Set the item states and update inventory -->
+		<pipelinelink name="setDeclineItemStates" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/store/processor/SetDeclineItemStates" />
+			<transition returnvalue="1" link="updateDeclineStoreAllocation" />
+		</pipelinelink>	
+		
+		<!-- Update the store allocations for the shipped items -->
+		<pipelinelink name="updateDeclineStoreAllocation" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/store/processor/UpdateDeclineStoreAllocation" />
+			<transition returnvalue="1" link="inventoryDeallocationOnDecline" />
+		</pipelinelink>
+		
+		<!-- Create Inventory Allocated Report -->
+		<pipelinelink name="inventoryDeallocationOnDecline" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/processor/InventoryAllocationReportForDecline" />
+			<transition returnvalue="1" link="storeDeclineReportToDashboard" />
+		</pipelinelink>
+		
+		<!-- Create Inventory Allocated Report -->
+		<pipelinelink name="storeDeclineReportToDashboard" transaction="TX_MANDATORY">
+			<processor jndi="/oms/dashboard/processor/AddStoreDeclineReportToDashboard" />
+			<transition returnvalue="1" link="updateDeclineOrderStates" />
+		</pipelinelink>
+		
+		<!-- Update Order States -->
+		<pipelinelink name="updateDeclineOrderStates" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/processor/UpdateOrderStates" />
+		</pipelinelink>
+		
+		<!-- Place holder for reporting of Store Declines -->
+
+	</pipelinechain>
+	
+	<!-- ************************************************************* -->
+	<!--   This chain handles Store Items ReadyForPickUp 					   -->
+	<!-- ************************************************************* -->
+	<pipelinechain name="handleStoreReadyForPickUp" transaction="TX_REQUIRED" headlink="setReadyForPickUpItemStates">
+	
+		<!-- Set the item states and update inventory -->
+		<pipelinelink name="setReadyForPickUpItemStates" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/store/processor/SetReadyForPickUpItemStates" />
+			<transition returnvalue="1" link="updateReadyForPickUpStoreAllocation" />
+		</pipelinelink>	
+		
+		<!-- Update the store allocations for the ready for pickup items -->
+		<pipelinelink name="updateReadyForPickUpStoreAllocation" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/store/processor/UpdateReadyForPickUpStoreAllocation" />
+			<transition returnvalue="1" link="updateReadyForPickUpOrderStates" />
+		</pipelinelink>
+		
+		<!-- Update Order States -->
+		<pipelinelink name="updateReadyForPickUpOrderStates" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/processor/UpdateOrderStates" />
+			<transition returnvalue="1" link="sendReadyForPickUpEmail" />
+		</pipelinelink>
+		
+		<!-- Sending ReadyToPick up Email -->	
+		<pipelinelink name="sendReadyForPickUpEmail" transaction="TX_MANDATORY">
+			<processor jndi="/oms/allocation/store/processor/SendReadyForPickUpEmail" />
+		</pipelinelink>	
+		
+		<!-- Place holder for Create Settlement Record --> 
+		
+
+	</pipelinechain>
+	
+	<pipelinechain  transaction="TX_REQUIRED" name="handleStoreProcess" headlink="executeHandleStoreShipmentChain">
+       <pipelinelink transaction="TX_MANDATORY" name="executeHandleStoreShipmentChain">
+          <processor jndi="/oms/allocation/store/processor/ExecuteHandleStoreShipmentChain"/>
+          <transition returnvalue="1" link="executeHandleStoreDeclineChain"/>
+       </pipelinelink>
+       <pipelinelink transaction="TX_MANDATORY" name="executeHandleStoreDeclineChain">
+          <processor jndi="/oms/allocation/store/processor/ExecuteHandleStoreDeclineChain"/>
+          <transition returnvalue="1" link="executeHandleStoreCancelChain"/>
+       </pipelinelink>
+       <pipelinelink transaction="TX_MANDATORY" name="executeHandleStoreCancelChain">
+          <processor jndi="/oms/allocation/store/processor/ExecuteHandleStoreCancelChain"/>
+          <transition returnvalue="1" link="executeHandleStoreReadyForPickUpChain"/>
+       </pipelinelink>
+       <pipelinelink transaction="TX_MANDATORY" name="executeHandleStoreReadyForPickUpChain">
+          <processor jndi="/oms/allocation/store/processor/ExecuteHandleStoreReadyForPickUpChain"/>
+       </pipelinelink>
+    </pipelinechain>
+	
+</pipelinemanager>

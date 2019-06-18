@@ -1,0 +1,52 @@
+  <tr class="inlineEditor"> 
+      <td colspan="5">
+        <div class="editArea">
+          <div class="currentActivity">
+            <h5><fmt:message key="changedProperties" /></h5>
+            <div class="activityView">
+              <dl class="status">
+                <table>
+                  <tr>
+                    <td><fmt:message key="property" /></td>
+                    <td><fmt:message key="oldValue" /></td>
+                    <td><fmt:message key="newValue" /></td>
+                  </tr>
+                  <c:forEach var="changedItem" items="${activity.propertyUpdates}">
+                    <dsp:tomap var="change" value="${changedItem}"/>
+                    <tr>
+                      <td>
+                      <fmt:message var="propname" key="${change.propertyName}"></fmt:message>
+                        <c:out escapeXml="true" value="${propname}"/>
+                      </td>
+                      <td>
+                        <c:choose>
+                        <c:when test="${change.propertyName eq 'shippingAddress'}">
+                          <c:set var="addressId" value="${change.oldValue}"/>
+                          <%@ include file="/include/activities/displayAddress.jspf"%>
+                        </c:when>
+                        <c:otherwise>
+                          <c:out escapeXml="true" value="${change['oldValue']}"/>
+                        </c:otherwise>
+                        </c:choose>
+                      </td>
+                      <td>
+                      <c:choose>
+                      <c:when test="${change.propertyName eq 'shippingAddress'}">
+                        <c:set var="addressId" value="${change.newValue}"/>
+                        <%@ include file="/include/activities/displayAddress.jspf"%>
+                      </c:when>
+                      <c:otherwise>
+                        <c:out escapeXml="true" value="${change['newValue']}"/>
+                      </c:otherwise>
+                      </c:choose>
+                      </td>
+                    </tr>
+                  </c:forEach>
+                </table>
+              </dl>
+            </div> <!-- activityView -->
+          </div> <!-- currentActivity -->
+        </div> <!-- editArea -->
+      </td>
+    </tr>
+<%-- @version $Id: //application/DCS-CSR-UI/version/11.2/src/web-apps/DCS-CSR-UI/include/activities/giftActivityChangedProperties.jspf#2 $$Change: 1192807 $--%>

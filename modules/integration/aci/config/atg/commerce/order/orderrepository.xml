@@ -1,0 +1,91 @@
+<gsa-template xml-combine="append">
+
+  <header>
+    <name>Order extensions for ACI</name>
+    <author>DMI</author>
+  </header>
+
+	<item-descriptor name="order" xml-combine="append">
+	    <table name="ACI_ORDER" type="auxiliary" id-column-name="order_id">
+	    	<property name="buyerIpAddress" column-name="ip_address" display-name="Buyer IP Address" category="ACI Order Extensions" data-type="string"/>
+	    	<property name="redShieldDeviceId" column-name="red_shield_deviceid" display-name="Redshield Device Id" category="ACI Order Extensions" data-type="string"/>
+	    	<property name="redFraudStatus" column-name="red_fraud_status" display-name="Red Fraud Status" category="ACI Order Extensions" data-type="enumerated">
+	    		<attribute value="false" name="useCodeForValue"/>
+				<option code="0" value="NO_FRAUD"/>
+				<option code="1" value="FRAUD_REJECT"/>
+				<option code="2" value="FRAUD_REVIEW"/>	
+				<option code="3" value="FRAUD_ERROR"/>
+	    	</property>
+	    	<property name="tiebackAgentId" column-name="tieback_agentId" display-name="Tieback Agent Id" category="ACI Order Extensions" data-type="string"/>
+		</table>
+	</item-descriptor>
+	
+  	<item-descriptor name="creditCard" xml-combine="append">
+		<table name="aci_credit_card" type="auxiliary" id-column-name="payment_group_id">
+			<property name="nameOnCard" column-name="name_on_card" data-type="string" category-resource="categoryBasics" display-name="Name On Card"/>
+			<property column-name="token_number" name="tokenNumber" property-type="com.security.repository.property.EncryptionPropertyDescriptor" category-resource="categoryBasics" display-name="Aci Token">
+				<attribute name="encryptor" bean="/com/security/crypto/AESEncryptor"/>
+				<attribute name="trace" value="Token num"/>
+			</property>
+			<property name="mopTypeCode" column-name="mop_type_code" data-type="string" category-resource="categoryBasics" display-name="Mop Type Code"/>
+		</table>
+	</item-descriptor>
+	
+	<item-descriptor name="creditCardStatus" xml-combine="append">
+		<table type="auxiliary" id-column-name="status_id" name="aci_credit_card_status">
+			<property column-name="auth_code" name="authCode" property-type="com.security.repository.property.EncryptionPropertyDescriptor">
+				<attribute name="encryptor" bean="/com/security/crypto/AESEncryptor"/>
+				<attribute name="trace" value="Token num"/>
+			</property>	
+			<property column-name="response_code" data-type="string" name="responseCode" />
+			<property column-name="response_code_msg" data-type="string" name="responseCodeMsg" />
+			<property column-name="cvv_verification_code" data-type="string" name="cvvVerificationCode" />
+			<property column-name="call_type" data-type="string" name="callType" />
+			<property column-name="store_number" data-type="string" name="storeNumber" /> 
+			<property column-name="terminal_number" data-type="string" name="terminalNumber" />
+			<property column-name="transaction_number" data-type="string" name="transactionNumber" />
+			<property column-name="tender_sequence" data-type="string" name="tenderSequence" />
+			<property column-name="record_identifier" data-type="string" name="recordIdentifier" />
+			<property column-name="key_sequence" data-type="string" name="keySequence" />
+			<property column-name="journal_key" data-type="string" name="journalKey" />
+			<property column-name="operator_number" data-type="string" name="operatorNumber" />
+			<property column-name="transaction_date" data-type="string" name="transactionDate" /> 
+			<property column-name="processing_identifier" data-type="string" name="processingIdentifier" />
+			<property column-name="tender_amount" data-type="string" name="tenderAmount" />
+			<property column-name="transaction_type" data-type="string" name="transactionType" />
+			<property column-name="invoice_number" data-type="string" name="invoiceNumber" />
+			<property column-name="tender_type" data-type="string" name="tenderType" />
+			<property column-name="account_number" data-type="string" name="accountNumber" />
+			<property column-name="expiration_date" data-type="string" name="expirationDate" />
+			<property column-name="authorization_code" data-type="string" name="authorizationCode" />
+			<property column-name="authorization_date" data-type="string" name="authorizationDate" />
+			<property column-name="authorization_time" data-type="string" name="authorizationTime" />
+			<property column-name="authorization_source" data-type="string" name="authorizationSource" />
+			<property column-name="pos_entry_mode" data-type="string" name="posEntryMode" />
+			<property column-name="currency_code" data-type="string" name="currencyCode" />
+			<property column-name="user_data" data-type="string" name="userData" />
+			<property column-name="order_number" data-type="string" name="orderNumber" />
+			<property column-name="pos_condition_code" data-type="string" name="pointofSaleConditionCode" />
+			<property column-name="pos_terminal_type" data-type="string" name="pointofSaleTerminalType" />
+			<property column-name="pos_terminal_entry_capability" data-type="string" name="pointofSaleTerminalEntryCapability" />
+			<property column-name="re_auth_process_indicator" data-type="string" name="reAuthProcessIndicator" />
+			<property column-name="retry_counter" data-type="string" name="retryCounter" />
+			<property column-name="card_start_date" data-type="string" name="cardStartDate" />
+			<property column-name="card_issue_number" data-type="string" name="cardIssueNumber" />
+			<property column-name="tran_billing_method_indicator" data-type="string" name="transactionBillingMethodIndicator" />
+			<property column-name="mcc_code" data-type="string" name="mccCode" />
+			<property column-name="cash_back_amount" data-type="string" name="cashBackAmount" />
+			<property column-name="local_time" data-type="string" name="localTime" />
+			<property column-name="network_id" data-type="string" name="networkID" />
+			<property column-name="retrieval_feference_num" data-type="string" name="retrievalReferenceNum" />
+			<property column-name="ebt_voucher_number" data-type="string" name="ebtVoucherNumber" />
+			<property column-name="product_delivery_method" data-type="string" name="productDeliveryMethod" />
+			<property column-name="account_number_length" data-type="string" name="accountNumberLength" />
+			<property column-name="org_journal_key" data-type="string" name="originalJournalKey" />
+			<property column-name="org_aci_date" data-type="string" name="originalAciAuthDate" />
+			<property column-name="org_aci_time" data-type="string" name="originalAciAuthTime" />
+			<property column-name="org_req_id" data-type="string" name="originalReqId" />
+		</table>
+	</item-descriptor>
+	
+</gsa-template>

@@ -1,0 +1,50 @@
+// Use the components directory to construct the meat of your CSS.
+// Categorize your styles here based on element in the file name.
+
+// Tabs definitions
+.tabs {
+	& > ul {
+		padding: 0;
+		font-size: 0;
+	}
+	.tab-title {
+		display: inline-block;
+		@include rem-size(padding, 6px 12px);
+		border: 1px solid $medium-gray;
+		cursor: pointer;
+		background: $light-gray;
+		@include font-size(14px);
+
+		&:hover {
+			background: $base-gray !important;
+		}
+		&.active {
+			border-bottom: 1px solid $white;
+			background: $white;
+
+			&:hover {
+				border-bottom: 1px solid $medium-gray;
+			}
+		}
+		& + .tab-title {
+			border-left: 0;
+		}
+	}
+	.tabs-content {
+		border: 1px solid $medium-gray;
+		@include rem-size(padding, 12px 16px);
+		margin-top: -1px;
+
+		ul {
+			@include rem-size(padding-left, 16px);
+			margin: 0;
+		}
+	}
+	.tab-body {
+		display: none;
+
+		&.active {
+			display: block;
+		}
+	}
+}

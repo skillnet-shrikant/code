@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE gsa-template SYSTEM "dynamosystemresource:/atg/dtds/gsa/gsa_1.0.dtd">
+
+<gsa-template>
+
+  <header>
+    <name>SearchFacets</name>
+    <author>DMI</author>
+    
+  </header>
+
+  <item-descriptor display-name="skuFacet" expert="false" hidden="false" use-id-for-path="false" 
+  	content="false" writable="true" default="true" folder="false" item-cache-timeout="180000" 
+  	cache-mode="simple" id-separator=":" name="skuSearchFacet" >
+
+   <table name="mff_sku_facet" id-column-name="sku_id" type="primary">
+      
+      <property readable="true" queryable="true" expert="true" display-name="skuId" hidden="false" 
+      	cache-mode="inherit" backing-map-property="false" name="skuId" column-name="sku_id" required="false" 
+      	writable="false" category-resource="categoryInfo">
+      </property>
+   </table>
+ </item-descriptor>
+</gsa-template>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE find-configuration SYSTEM "dynamosystemresource:/atg/dtds/find-configuration/find-configuration_1.0.dtd">
+
+<find-configuration site-filtering="true" xml-combine="append">
+		<!-- MFF Content Repo Find View-->
+	<asset-family id="fleetcontent" site-filtering="false">
+		<display-name>Fleet Static Content</display-name>
+				<result-list page-size="100"/>
+				<default-asset-type>mffStaticLeftNav</default-asset-type>
+
+				<asset-type id="mffStaticLeftNav" exclude-subtypes="false" site-filtering="false">
+						<display-name>Navigation</display-name>
+						<repository-path>/com/mff/content/repository/MFFContentRepository</repository-path>
+						<repository-item-type>mffStaticLeftNav</repository-item-type>
+				</asset-type>
+
+				<asset-type id="taxExmpClassification" exclude-subtypes="false" site-filtering="false">
+						<display-name>Tax Exempt Classification</display-name>
+						<repository-path>/com/mff/content/repository/MFFContentRepository</repository-path>
+						<repository-item-type>taxExmpClassification</repository-item-type>
+				</asset-type>
+
+				<asset-type id="mffStaticContent" exclude-subtypes="false" site-filtering="false">
+						<display-name>Content</display-name>
+						<repository-path>/com/mff/content/repository/MFFContentRepository</repository-path>
+						<repository-item-type>mffStaticContent</repository-item-type>
+				</asset-type>
+
+				<asset-type id="ppsMessage" exclude-subtypes="false" site-filtering="false">
+						<display-name>PPS Messages</display-name>
+						<repository-path>/com/mff/content/repository/MFFContentRepository</repository-path>
+						<repository-item-type>ppsMessage</repository-item-type>
+				</asset-type>
+				
+				<asset-type id="infoMessage" exclude-subtypes="false" site-filtering="false">
+						<display-name>PPS Messages</display-name>
+						<repository-path>/com/mff/content/repository/MFFContentRepository</repository-path>
+						<repository-item-type>infoMessage</repository-item-type>
+				</asset-type>				
+	</asset-family>
+
+	<asset-family id="dynMetaData" site-filtering="false">
+		<display-name>Dynamic Facets</display-name>
+				<result-list page-size="100"/>
+				<default-asset-type>dynProps</default-asset-type>
+
+				<asset-type id="dynProps" exclude-subtypes="false" site-filtering="false">
+						<display-name>Facets</display-name>
+						<repository-path>/atg/repository/dynamic/DynamicMetadataRepository</repository-path>
+						<repository-item-type>das_gsa_dynamic_prop</repository-item-type>
+				</asset-type>
+		</asset-family>
+
+	<asset-family id="zipcodes" site-filtering="false">
+		<display-name>Zip Codes</display-name>
+		<result-list page-size="100"/>
+		<default-asset-type>zipcode</default-asset-type>
+
+		<asset-type id="zips" exclude-subtypes="false" site-filtering="false">
+				<display-name>Zips</display-name>
+				<repository-path>/com/mff/content/repository/ZipcodeRepository</repository-path>
+				<repository-item-type>zipcode</repository-item-type>
+		</asset-type>
+
+		<asset-type id="fedex-overnite" exclude-subtypes="false" site-filtering="false">
+				<display-name>Overnight Delivery Restrictions</display-name>
+				<repository-path>/com/mff/content/repository/ZipcodeRepository</repository-path>
+				<repository-item-type>fedExOvernightRestricted</repository-item-type>
+		</asset-type>
+
+	</asset-family>
+		
+	<asset-family id="suggestedTerms" site-filtering="false">
+		<display-name>Suggested Terms</display-name>
+				<result-list page-size="100"/>
+				<default-asset-type>suggestedTerm</default-asset-type>
+
+				<asset-type id="suggestedTerm" exclude-subtypes="false" site-filtering="false">
+						<display-name>Terms</display-name>
+						<repository-path>/mff/search/SuggestedTerms</repository-path>
+						<repository-item-type>suggestedTerm</repository-item-type>
+				</asset-type>
+		</asset-family>
+		
+	
+	<asset-family id="googleMffCategoryMaps" site-filtering="false">
+		<display-name>Google Mff Category Map</display-name>
+		<result-list page-size="100"/>
+		<default-asset-type>googleMffCategoryMap</default-asset-type>
+		<asset-type id="googleMffCatMap" exclude-subtypes="false" site-filtering="false">
+				<display-name>Google Mff Category Maps</display-name>
+				<repository-path>/com/googleadwords/repository/GoogleMFFCategoryMapRepository</repository-path>
+				<repository-item-type>googleMffCategoryMap</repository-item-type>
+		</asset-type>
+	</asset-family>
+	
+	<asset-family id="globalMessages" site-filtering="false">
+		<display-name>Global Alerts and Messages</display-name>
+		<result-list page-size="100"/>
+		<default-asset-type>globalMessages</default-asset-type>
+		<asset-type id="globalMessages" exclude-subtypes="false" site-filtering="false">
+				<display-name>Global Alerts and Messages</display-name>
+				<repository-path>/com/mff/globalmessages/repository/GlobalMessagesRepository</repository-path>
+				<repository-item-type>globalMessages</repository-item-type>
+		</asset-type>
+	</asset-family>
+	
+	  <asset-family id="stores" site-filtering="false" xml-combine="replace">
+
+		    <display-name-resource>assetfamily.stores.label</display-name-resource>
+		    <result-list page-size="100"/>
+		    <default-asset-type>store</default-asset-type>
+		
+		    <asset-type id="store" site-filtering="false">
+		      <display-name-resource>find.assetType.stores</display-name-resource>
+		      <repository-path>/atg/commerce/locations/LocationRepository</repository-path>
+		      <repository-item-type>store</repository-item-type>
+		    </asset-type>
+		    
+		    <asset-type id="storeHours" site-filtering="false">
+		      <display-name>Store Hours</display-name>
+		      <repository-path>/atg/commerce/locations/LocationRepository</repository-path>
+		      <repository-item-type>storeHours</repository-item-type>
+		    </asset-type>
+		    
+		    <asset-type id="storeEvent" site-filtering="false">
+		      <display-name>Store Event</display-name>
+		      <repository-path>/atg/commerce/locations/LocationRepository</repository-path>
+		      <repository-item-type>storeEvent</repository-item-type>
+		    </asset-type>
+		
+		  </asset-family>
+</find-configuration>

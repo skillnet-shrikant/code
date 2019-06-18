@@ -1,0 +1,53 @@
+<ContentItem type="SecondaryContent" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://endeca.com/schema/content/2008">
+  <TemplateId>UtilityNavigation</TemplateId>
+  <Name>UtilityNavigation</Name>
+  <Property name="sectionTitle">
+    <String>Guides</String>
+  </Property>
+  <Property name="UtilityLinks">
+    <ContentItemList type="UtilityLink">
+      <ContentItem type="UtilityLink">
+        <TemplateId>UtilityLink</TemplateId>
+        <Name>UtilityLink</Name>
+        <Property name="linkURL">
+          <Item class="com.endeca.infront.cartridge.model.LinkBuilder" xmlns="http://endeca.com/schema/xavia/2010">
+            <Property name="path">/promos/Garden-Center-Plant-Guide</Property>
+            <Property name="linkType">Navigation State</Property>
+            <Property name="queryString"/>
+          </Item>
+        </Property>
+        <Property name="linkText">
+          <String>Plant Guide</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="UtilityLink">
+        <TemplateId>UtilityLink</TemplateId>
+        <Name>UtilityLink</Name>
+        <Property name="linkURL">
+          <Item class="com.endeca.infront.cartridge.model.LinkBuilder" xmlns="http://endeca.com/schema/xavia/2010">
+            <Property name="path">/promos/Garden-Center-Zone-Map</Property>
+            <Property name="linkType">Navigation State</Property>
+            <Property name="queryString"/>
+          </Item>
+        </Property>
+        <Property name="linkText">
+          <String>Hardiness Zone Map</String>
+        </Property>
+      </ContentItem>
+      <ContentItem type="UtilityLink">
+        <TemplateId>UtilityLink</TemplateId>
+        <Name>UtilityLink</Name>
+        <Property name="linkURL">
+          <Item class="com.endeca.infront.cartridge.model.LinkBuilder" xmlns="http://endeca.com/schema/xavia/2010">
+            <Property name="path">/promos/Garden-Center-Monthly-Guide</Property>
+            <Property name="linkType">Navigation State</Property>
+            <Property name="queryString"/>
+          </Item>
+        </Property>
+        <Property name="linkText">
+          <String>Monthly Guide</String>
+        </Property>
+      </ContentItem>
+    </ContentItemList>
+  </Property>
+</ContentItem>

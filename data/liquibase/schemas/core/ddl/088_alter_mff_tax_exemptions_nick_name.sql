@@ -1,0 +1,1 @@
+alter table mff_tax_exemptions modify nick_name varchar2(100);
