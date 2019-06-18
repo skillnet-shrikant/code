@@ -267,6 +267,7 @@
 													<div class="global-promo-content">
 														<div class="global-promo-text">
 															<dsp:valueof param="contentItem.displayName" valueishtml="true" /> <a href="${redirectUrl}"><dsp:valueof param="contentItem.urlTitle" valueishtml="true" /></a>
+															<h1>SHRIKANT</h1>
 														</div>
 														<%-- lisa : remove global promo close button --%>
 														<%--<span class="icon icon-close" data-target="#global-promo" aria-hidden="true"></span>--%>

@@ -1,0 +1,78 @@
+<project name="data_init" default="init" basedir=".">
+   
+   <import file="../liquibase_includes.xml" />
+
+   <target name="rollback">
+     <for list="cata-db,catb-db,core-db,pub-db,service-db,oms-db,catfeed-db"
+      param="liquibase.dbref">
+      <for list="core-db" param="liquibase.dbref">
+      <sequential>
+        <antcall target="liquibase_includes.liquibase-rollback-everything">
+          <param name="liquibase.changelog" value="init_changelog.xml" />
+          <param name="liquibase.dbref" value="@{liquibase.dbref}" />
+         </antcall>
+       </sequential>
+    </for>
+	</for>
+   </target>
+
+   <target name="init">
+   	
+    <for list="cata-db,catb-db,core-db,pub-db,service-db,oms-db,catfeed-db"
+      param="liquibase.dbref">
+      
+      <sequential>
+
+        <antcall target="liquibase_includes.liquibase-execute-changelog">
+          <param name="liquibase.changelog" value="init_changelog.xml" />
+          <param name="liquibase.dbref" value="@{liquibase.dbref}" />
+         </antcall>
+
+         <antcall target="liquibase_includes.liquibase-tag-database">
+          <param name="liquibase.dbref" value="@{liquibase.dbref}" />
+          <param name="liquibase.databaseTag" value="data_init"/>
+         </antcall>
+
+      </sequential>
+    </for>
+   	
+   </target>
+
+  <target name="init-with-staging">
+   <for list="stage-cata-db,stage-catb-db,stage-core-db" param="liquibase.dbref">
+     <sequential>
+
+       <antcall target="liquibase_includes.liquibase-execute-changelog">
+         <param name="liquibase.changelog" value="init_changelog.xml" />
+         <param name="liquibase.dbref" value="@{liquibase.dbref}" />
+        </antcall>
+
+        <antcall target="liquibase_includes.liquibase-tag-database">
+         <param name="liquibase.dbref" value="@{liquibase.dbref}" />
+         <param name="liquibase.databaseTag" value="data_init"/>
+        </antcall>
+
+     </sequential>
+   </for>
+  	
+  </target>
+	
+
+	<target name="init-with-schema">
+		<fail unless="schema">schema is not set</fail>
+		<for list="${schema}" param="liquibase.dbref">
+			<sequential>
+				<antcall target="liquibase_includes.liquibase-execute-changelog">
+				  <param name="liquibase.changelog" value="init_changelog.xml" />
+				  <param name="liquibase.dbref" value="@{liquibase.dbref}" />
+				 </antcall>
+		
+				 <antcall target="liquibase_includes.liquibase-tag-database">
+				  <param name="liquibase.dbref" value="@{liquibase.dbref}" />
+				  <param name="liquibase.databaseTag" value="data_init"/>
+				 </antcall>
+		  </sequential>
+		</for>
+	</target>
+
+</project>

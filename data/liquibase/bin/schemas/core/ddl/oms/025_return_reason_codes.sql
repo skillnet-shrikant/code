@@ -1,0 +1,16 @@
+delete from CSR_EXCH_ITEMS;
+delete from MFF_EXCH_ITEM;
+delete from CSR_EXCH_ITEM;
+delete from csr_exch_reasons;
+insert into csr_exch_reasons (ID,DESCRIPTION) values ('changedMind','changedMind');
+insert into csr_exch_reasons (ID,DESCRIPTION) values ('giftNotWanted','giftNotWanted');
+insert into csr_exch_reasons (ID,DESCRIPTION) values ('wrongItemOrdered','wrongItemOrdered');
+insert into csr_exch_reasons (ID,DESCRIPTION) values ('wrongSizeOrdered','wrongSizeOrdered');
+insert into csr_exch_reasons (ID,DESCRIPTION) values ('notAsPictured','notAsPictured');
+insert into csr_exch_reasons (ID,DESCRIPTION) values ('qualityNotAsExpected','qualityNotAsExpected');
+insert into csr_exch_reasons (ID,DESCRIPTION) values ('damagedInShipping','damagedInShipping');
+insert into csr_exch_reasons (ID,DESCRIPTION) values ('defective','defective');
+insert into csr_exch_reasons (ID,DESCRIPTION) values ('wrongItemShipped','wrongItemShipped');
+insert into csr_exch_reasons (ID,DESCRIPTION) values ('returnVoid','returnVoid');
+insert into csr_exch_reasons (ID,DESCRIPTION) values ('refusedUndeliverable','refusedUndeliverable');
+commit;

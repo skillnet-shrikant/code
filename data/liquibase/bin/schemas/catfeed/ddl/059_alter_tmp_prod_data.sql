@@ -1,0 +1,1 @@
+alter table tmp_prod_data add is_hide_price number(1);

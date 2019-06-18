@@ -1,0 +1,1 @@
+drop table MFF_STORE_PERFORMANCE;

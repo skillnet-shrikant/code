@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+   <changeSet author="cgopalan" id="001_grant_permissions" runAlways="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>grants various permissions</comment>
+      <sqlFile path="schemas/system/ddl/001_grant_permissions.sql" />
+   </changeSet>   
+   <changeSet dbms="oracle" author="cgopalan" id="002_grant_io_permissions" runAlways="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>grants io permissions</comment>
+      <sql>
+        <![CDATA[
+	     call dbms_java.grant_permission( 'ATG_CATFEED', 'SYS:java.io.FilePermission', '/vagrant/feeds/csv/inventory/full', 'read,write,delete' );
+	     call dbms_java.grant_permission( 'ATG_CATFEED', 'SYS:java.io.FilePermission', '/vagrant/feeds/csv/inventory/full/*', 'read,write,delete' );
+	     call dbms_java.grant_permission( 'ATG_CATFEED', 'SYS:java.io.FilePermission', '/vagrant/feeds/csv/inventory/full/archive', 'read,write,delete' );
+	     call dbms_java.grant_permission( 'ATG_CATFEED', 'SYS:java.io.FilePermission', '/vagrant/feeds/csv/inventory/full/archive/*', 'read,write,delete' );
+	     
+	     call dbms_java.grant_permission( 'ATG_CATFEED', 'SYS:java.io.FilePermission', '/vagrant/feeds/csv/inventory/delta', 'read,write,delete' );
+	     call dbms_java.grant_permission( 'ATG_CATFEED', 'SYS:java.io.FilePermission', '/vagrant/feeds/csv/inventory/delta/*', 'read,write,delete' );
+	     call dbms_java.grant_permission( 'ATG_CATFEED', 'SYS:java.io.FilePermission', '/vagrant/feeds/csv/inventory/delta/archive', 'read,write,delete' );
+	     call dbms_java.grant_permission( 'ATG_CATFEED', 'SYS:java.io.FilePermission', '/vagrant/feeds/csv/inventory/delta/archive/*', 'read,write,delete' );	     
+
+	     call dbms_java.grant_permission( 'ATG_CATFEED', 'SYS:java.io.FilePermission', '/vagrant/feeds/csv/pricing', 'read,write,delete' );
+	     call dbms_java.grant_permission( 'ATG_CATFEED', 'SYS:java.io.FilePermission', '/vagrant/feeds/csv/pricing/*', 'read,write,delete' );
+	     call dbms_java.grant_permission( 'ATG_CATFEED', 'SYS:java.io.FilePermission', '/vagrant/feeds/csv/pricing/archive', 'read,write,delete' );
+	     call dbms_java.grant_permission( 'ATG_CATFEED', 'SYS:java.io.FilePermission', '/vagrant/feeds/csv/pricing/archive/*', 'read,write,delete' );
+
+	     call dbms_java.grant_permission( 'ATG_CATFEED', 'SYS:java.io.FilePermission', '/vagrant/feeds/xml/facets', 'read,write,delete' );
+	     call dbms_java.grant_permission( 'ATG_CATFEED', 'SYS:java.io.FilePermission', '/vagrant/feeds/xml/facets/*', 'read,write,delete' );
+	     call dbms_java.grant_permission( 'ATG_CATFEED', 'SYS:java.io.FilePermission', '/vagrant/feeds/xml/facets/archive', 'read,write,delete' );
+	     call dbms_java.grant_permission( 'ATG_CATFEED', 'SYS:java.io.FilePermission', '/vagrant/feeds/xml/facets/archive/*', 'read,write,delete' );
+
+	     call dbms_java.grant_permission( 'ATG_CATFEED', 'SYS:java.io.FilePermission', '/vagrant/feeds/xml/catalog', 'read,write,delete' );
+	     call dbms_java.grant_permission( 'ATG_CATFEED', 'SYS:java.io.FilePermission', '/vagrant/feeds/xml/catalog/*', 'read,write,delete' );
+	     call dbms_java.grant_permission( 'ATG_CATFEED', 'SYS:java.io.FilePermission', '/vagrant/feeds/xml/catalog/archive', 'read,write,delete' );
+	     call dbms_java.grant_permission( 'ATG_CATFEED', 'SYS:java.io.FilePermission', '/vagrant/feeds/xml/catalog/archive/*', 'read,write,delete' );
+
+	     call dbms_java.grant_permission( 'ATG_CATFEED', 'SYS:java.io.FilePermission', '/vagrant/feeds/csv/employee', 'read,write,delete' );
+	     call dbms_java.grant_permission( 'ATG_CATFEED', 'SYS:java.io.FilePermission', '/vagrant/feeds/csv/employee/*', 'read,write,delete' );
+	     call dbms_java.grant_permission( 'ATG_CATFEED', 'SYS:java.io.FilePermission', '/vagrant/feeds/csv/employee/archive', 'read,write,delete' );
+	     call dbms_java.grant_permission( 'ATG_CATFEED', 'SYS:java.io.FilePermission', '/vagrant/feeds/csv/employee/archive/*', 'read,write,delete' );
+	     
+	     commit;
+	 ]]>
+      </sql>
+   </changeSet>   
+
+
+   
+</databaseChangeLog>

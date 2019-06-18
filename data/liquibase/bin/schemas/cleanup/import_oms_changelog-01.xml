@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+   <changeSet author="cgopalan" id="001_alloc_rules_config">
+	<comment>Master alloc rules config</comment>
+	<sqlFile path="schemas/import/dml/oms/001_alloc_rules_config.sql"/>
+   </changeSet> 
+   <changeSet author="cgopalan" id="002_return_reason_codes">
+	<comment>Return Reason Codes</comment>
+	<sqlFile path="schemas/import/dml/oms/002_return_reason_codes.sql"/>
+   </changeSet>
+</databaseChangeLog>

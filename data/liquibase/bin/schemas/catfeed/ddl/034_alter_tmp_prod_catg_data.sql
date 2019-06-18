@@ -1,0 +1,1 @@
+alter table tmp_prod_catg_data add catg_change number(1) default 0;

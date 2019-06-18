@@ -1,0 +1,1 @@
+drop table fedx_ovrnght_restrcted;

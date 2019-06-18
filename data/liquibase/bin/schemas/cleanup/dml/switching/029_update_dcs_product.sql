@@ -1,0 +1,1 @@
+update dcs_product set display_name=description;

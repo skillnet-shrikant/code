@@ -1,0 +1,1 @@
+ALTER TABLE mff_gift_card ADD activation_attempts INTEGER DEFAULT 0;

@@ -1,0 +1,11 @@
+insert into mff_inventory (inventory_id,version,creation_date,display_name,catalog_ref_id,avail_status,stock_level,location_id,sold,allocated,shipped) values('inv-100799054',1,sysdate,'inv-100799054','100799054',1000,-1,4000,0,0,0);
+insert into mff_inventory (inventory_id,version,creation_date,display_name,catalog_ref_id,avail_status,stock_level,location_id,sold,allocated,shipped) values('inv-100799055',1,sysdate,'inv-100799055','100799055',1000,-1,4000,0,0,0);
+insert into mff_inventory (inventory_id,version,creation_date,display_name,catalog_ref_id,avail_status,stock_level,location_id,sold,allocated,shipped) values('inv-100799056',1,sysdate,'inv-100799056','100799056',1000,-1,4000,0,0,0);
+insert into mff_inventory (inventory_id,version,creation_date,display_name,catalog_ref_id,avail_status,stock_level,location_id,sold,allocated,shipped) values('inv-100799200',1,sysdate,'inv-100799200','100799200',1000,-1,4000,0,0,0);
+insert into mff_inventory (inventory_id,version,creation_date,display_name,catalog_ref_id,avail_status,stock_level,location_id,sold,allocated,shipped) values('inv-100799197',1,sysdate,'inv-100799197','100799197',1000,-1,4000,0,0,0);
+insert into mff_inventory (inventory_id,version,creation_date,display_name,catalog_ref_id,avail_status,stock_level,location_id,sold,allocated,shipped) values('inv-100799198',1,sysdate,'inv-100799198','100799198',1000,-1,4000,0,0,0);
+insert into mff_inventory (inventory_id,version,creation_date,display_name,catalog_ref_id,avail_status,stock_level,location_id,sold,allocated,shipped) values('inv-100799199',1,sysdate,'inv-100799199','100799199',1000,-1,4000,0,0,0);
+insert into mff_inventory (inventory_id,version,creation_date,display_name,catalog_ref_id,avail_status,stock_level,location_id,sold,allocated,shipped) values('inv-100799201',1,sysdate,'inv-100799201','100799201',1000,-1,4000,0,0,0);
+insert into mff_inventory (inventory_id,version,creation_date,display_name,catalog_ref_id,avail_status,stock_level,location_id,sold,allocated,shipped) values('inv-100799202',1,sysdate,'inv-100799202','100799202',1000,-1,4000,0,0,0);
+insert into mff_inventory (inventory_id,version,creation_date,display_name,catalog_ref_id,avail_status,stock_level,location_id,sold,allocated,shipped) values('inv-100799203',1,sysdate,'inv-100799203','100799203',1000,-1,4000,0,0,0);
+

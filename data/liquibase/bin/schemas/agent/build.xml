@@ -1,0 +1,78 @@
+<project name="agent_update" default="liquibase-update" basedir=".">
+
+  <import file="${basedir}/../../liquibase_includes.xml" />
+  
+  <target name="liquibase-update">
+    <antcall target="-update-agent">
+      <param name="update-agent.command" value="liquibase_includes.liquibase-execute-changelog"/>
+    </antcall>
+  </target>
+	
+	<target name="liquibase-rollback-with-tag">
+		<antcall target="-rollback-with-tag-agent">
+		   <param name="rollback-with-tag.command" value="liquibase_includes.liquibase-rollback-changelog"/>
+		   <param name="rollback-with-tag.tagId" value="${rollback-tagId}" />
+		</antcall>
+	</target>
+	
+	<target name="liquibase-rollback-with-count">
+		<antcall target="-rollback-with-count-agent">
+		   <param name="rollback-with-count.command" value="liquibase_includes.liquibase-rollback-changelog-count"/>
+		   <param name="rollback-with-count.count" value="${rollback-count}" />
+		</antcall>
+	</target>
+  
+  <target name="liquibase-update-staging">
+    <echo message="Staging doesnt exist for agent" />
+  </target>
+  
+  <target name="-update-agent">
+    <fail unless="update-agent.command">update-agent.command is not set</fail>
+
+    <!-- constants get installed in system and catfeed -->
+    <for list="service-db" param="liquibase.dbref">
+      <sequential>
+         <antcall target="${update-agent.command}">
+            <param name="liquibase.changelog" value="master_agent_changelog.xml" />
+            <param name="liquibase.dbref" value="@{liquibase.dbref}" />
+         </antcall>
+      </sequential>
+    </for>
+
+  </target>
+	
+	<target name="-rollback-with-tag-agent">
+	    <fail unless="rollback-with-tag.command">rollback-with-tag.command is not set</fail>
+		<fail unless="rollback-with-tag.tagId">rollback-with-tag.tagId is not set</fail>
+	
+	    <!-- constants get installed in system and catfeed -->
+	    <for list="service-db" param="liquibase.dbref">
+	      <sequential>
+	         <antcall target="${rollback-with-tag.command}">
+	            <param name="liquibase.changelog" value="master_agent_changelog.xml" />
+	            <param name="liquibase.dbref" value="@{liquibase.dbref}" />
+	         	<param name="liquibase.rollbackTag" value="${rollback-with-tag.tagId}"/>
+	         </antcall>
+	      </sequential>
+	    </for>
+	
+	  </target>	
+	
+	<target name="-rollback-with-count-agent">
+		    <fail unless="rollback-with-count.command">rollback-with-count.command is not set</fail>
+			<fail unless="rollback-with-count.count">rollback-with-count.count is not set</fail>
+		
+		    <!-- constants get installed in system and catfeed -->
+		    <for list="service-db" param="liquibase.dbref">
+		      <sequential>
+		         <antcall target="${rollback-with-count.command}">
+		            <param name="liquibase.changelog" value="master_agent_changelog.xml" />
+		            <param name="liquibase.dbref" value="@{liquibase.dbref}" />
+		         	<param name="liquibase.rollbackCount" value="${rollback-with-count.count}"/>
+		         </antcall>
+		      </sequential>
+		    </for>
+		
+		  </target>	
+
+</project>

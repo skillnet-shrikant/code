@@ -1,0 +1,1 @@
+alter table mff_product drop(wt_description,dim_description);

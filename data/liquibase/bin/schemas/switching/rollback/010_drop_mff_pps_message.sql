@@ -1,0 +1,1 @@
+drop table mff_pps_message;

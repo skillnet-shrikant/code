@@ -1,0 +1,1 @@
+alter table tmp_sku_data add prod_exists number(1) default 0;

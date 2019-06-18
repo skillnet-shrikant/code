@@ -1,0 +1,1 @@
+drop table mff_user_home_store;

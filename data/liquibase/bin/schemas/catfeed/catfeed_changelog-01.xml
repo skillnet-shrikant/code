@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+<!--
+   <changeSet author="dmi" id="001_test_table">
+      <comment>Create a test table</comment>
+      <sqlFile path="schemas/catfeed/ddl/001_test_table.sql"/>
+   </changeSet>
+   -->
+   <changeSet author="cgopalan" id="001_mff_logger">
+      <preConditions>
+	<not>
+	  <tableExists tableName="alarm" schemaName="public"/>
+	</not>
+      </preConditions>   
+      <comment>Create table for logging</comment>
+      <sqlFile path="schemas/catfeed/ddl/001_mff_logger.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="002_mff_job_status" runOnChange="true">
+   <validCheckSum>any</validCheckSum>
+      <comment>job status view</comment>
+      <sqlFile path="schemas/catfeed/ddl/002_mff_job_status.sql"/>
+   </changeSet>   
+   <changeSet author="cgopalan" id="003_mff_logger_pks" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>package spec for logging</comment>
+      <sqlFile path="schemas/catfeed/ddl/003_mff_logger_pks.sql" splitStatements="false"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="004_mff_logger_pkb" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>package body for logging</comment>
+      <sqlFile path="schemas/catfeed/ddl/004_mff_logger_pkb.sql" splitStatements="false"/>
+   </changeSet>
+   
+   <changeSet author="cgopalan" id="005_create_tmp_tables_1">
+      <comment>Create tmp tables for storing feeds</comment>
+      <sqlFile path="schemas/catfeed/ddl/005_create_tmp_tables_1.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="005_create_tmp_tables_2">
+      <comment>Create tmp tables for storing feeds</comment>
+      <sqlFile path="schemas/catfeed/ddl/005_create_tmp_tables_2.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="005_create_tmp_tables_3">
+      <comment>Create tmp tables for storing feeds</comment>
+      <sqlFile path="schemas/catfeed/ddl/005_create_tmp_tables_3.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="005_create_tmp_tables_4">
+      <comment>Create tmp tables for storing feeds</comment>
+      <sqlFile path="schemas/catfeed/ddl/005_create_tmp_tables_4.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="005_create_tmp_tables_5">
+      <comment>Create tmp tables for storing feeds</comment>
+      <sqlFile path="schemas/catfeed/ddl/005_create_tmp_tables_5.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="005_create_tmp_tables_6">
+      <comment>Create tmp tables for storing feeds</comment>
+      <sqlFile path="schemas/catfeed/ddl/005_create_tmp_tables_6.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="005_create_tmp_tables_7">
+      <comment>Create tmp tables for storing feeds</comment>
+      <sqlFile path="schemas/catfeed/ddl/005_create_tmp_tables_7.sql" />
+   </changeSet>   
+   <changeSet author="cgopalan" id="005_create_tmp_tables_8" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>Create tmp tables for storing feeds</comment>
+      <sqlFile path="schemas/catfeed/ddl/005_create_tmp_tables_8.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="005_create_tmp_tables_9">
+      <comment>Create tmp tables for storing feeds</comment>
+      <sqlFile path="schemas/catfeed/ddl/005_create_tmp_tables_9.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="005_create_tmp_tables_10">
+      <comment>Create tmp tables for storing feeds</comment>
+      <sqlFile path="schemas/catfeed/ddl/005_create_tmp_tables_10.sql" />
+   </changeSet>
+   <!--
+   <include file="schemas/catfeed/ddl/006_mff_import_dir.sql" />
+   -->
+
+   <changeSet author="cgopalan" id="006_mff_import_dir" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>Java source - dir utils</comment>
+      <sqlFile path="schemas/catfeed/ddl/006_mff_import_dir.sql" splitStatements="false" />
+   </changeSet>
+   <changeSet author="cgopalan" id="007_mff_import_dir_pks" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>package spec for importing feeds into tmp tables</comment>
+      <sqlFile path="schemas/catfeed/ddl/007_mff_import_dir_pks.sql" splitStatements="false" />
+   </changeSet>
+   <changeSet author="cgopalan" id="008_mff_import_dir_pkb" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>package body importing feeds into tmp tables</comment>
+      <sqlFile path="schemas/catfeed/ddl/008_mff_import_dir_pkb.sql" splitStatements="false" />
+   </changeSet>
+   
+   <changeSet author="cgopalan" id="009_mff_price_pks" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>package spec for importing price data</comment>
+      <sqlFile path="schemas/catfeed/ddl/009_mff_price_pks.sql" splitStatements="false"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="010_mff_price_pkb" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>package body for price import</comment>
+      <sqlFile path="schemas/catfeed/ddl/010_mff_price_pkb.sql" splitStatements="false"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="011_mff_inventory_pks" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>package spec for inventory import</comment>
+      <sqlFile path="schemas/catfeed/ddl/011_mff_inventory_pks.sql" splitStatements="false"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="012_mff_inventory_pkb" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>package body for inventory import</comment>
+      <sqlFile path="schemas/catfeed/ddl/012_mff_inventory_pkb.sql" splitStatements="false"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="013_catalog_import_tmp_tables_1">
+      <comment>Temp tables related to catalog import</comment>
+      <sqlFile path="schemas/catfeed/ddl/013_catalog_import_tmp_tables_1.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="013_catalog_import_tmp_tables_2">
+      <comment>Temp tables related to catalog import</comment>
+      <sqlFile path="schemas/catfeed/ddl/013_catalog_import_tmp_tables_2.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="013_catalog_import_tmp_tables_3">
+      <comment>Temp tables related to catalog import</comment>
+      <sqlFile path="schemas/catfeed/ddl/013_catalog_import_tmp_tables_3.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="013_catalog_import_tmp_tables_4">
+      <comment>Temp tables related to catalog import</comment>
+      <sqlFile path="schemas/catfeed/ddl/013_catalog_import_tmp_tables_4.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="013_catalog_import_tmp_tables_5">
+      <comment>Temp tables related to catalog import</comment>
+      <sqlFile path="schemas/catfeed/ddl/013_catalog_import_tmp_tables_5.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="013_catalog_import_tmp_tables_6">
+      <comment>Temp tables related to catalog import</comment>
+      <sqlFile path="schemas/catfeed/ddl/013_catalog_import_tmp_tables_6.sql"/>
+   </changeSet>   
+   <changeSet author="cgopalan" id="013_catalog_import_tmp_tables_7">
+      <comment>Temp tables related to catalog import</comment>
+      <sqlFile path="schemas/catfeed/ddl/013_catalog_import_tmp_tables_7.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="013_catalog_import_tmp_tables_8">
+      <comment>Temp tables related to catalog import</comment>
+      <sqlFile path="schemas/catfeed/ddl/013_catalog_import_tmp_tables_8.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="013_catalog_import_tmp_tables_9">
+      <comment>Temp tables related to catalog import</comment>
+      <sqlFile path="schemas/catfeed/ddl/013_catalog_import_tmp_tables_9.sql"/>
+   </changeSet>      
+   <changeSet author="cgopalan" id="014_mff_catalog_loader_pks" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>package spec to import catalog</comment>
+      <sqlFile path="schemas/catfeed/ddl/014_mff_catalog_loader_pks.sql" splitStatements="false"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="015_mff_catalog_loader_pkb" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>package body to import catalog</comment>
+      <sqlFile path="schemas/catfeed/ddl/015_mff_catalog_loader_pkb.sql" splitStatements="false"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="016_create_dir_facet">
+      <validCheckSum>any</validCheckSum>
+      <comment>creating directory for incoming facet feeds</comment>
+      <sqlFile path="schemas/catfeed/ddl/016_create_dir_facet.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="017_tmp_facet_tables">
+      <validCheckSum>any</validCheckSum>
+      <comment>creating tmp tables for facets</comment>
+      <sqlFile path="schemas/catfeed/ddl/017_tmp_facet_tables.sql" />
+   </changeSet>   
+   <changeSet author="cgopalan" id="018_mff_facet_loader_pks" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>package spec to import sku facets</comment>
+      <sqlFile path="schemas/catfeed/ddl/018_mff_facet_loader_pks.sql" splitStatements="false"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="019_mff_facet_loader_pkb" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>package body to import sku facets</comment>
+      <sqlFile path="schemas/catfeed/ddl/019_mff_facet_loader_pkb.sql" splitStatements="false"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="020_alter_tmp_prod_data">
+      <validCheckSum>any</validCheckSum>
+      <comment>alter tmp_prod_data table</comment>
+      <sqlFile path="schemas/catfeed/ddl/020_alter_tmp_prod_data.sql" />
+   </changeSet>   
+   <changeSet author="cgopalan" id="021_alter_tmp_sku_data">
+      <validCheckSum>any</validCheckSum>
+      <comment>alter tmp_sku_data table</comment>
+      <sqlFile path="schemas/catfeed/ddl/021_alter_tmp_sku_data.sql" />
+   </changeSet>      
+   <changeSet author="cgopalan" id="022_alter_tmp_sku_data">
+      <validCheckSum>any</validCheckSum>
+      <comment>alter tmp_sku_data table</comment>
+      <sqlFile path="schemas/catfeed/ddl/022_alter_tmp_sku_data.sql" />
+   </changeSet> 
+   <changeSet author="cgopalan" id="023_alter_tmp_prod_data">
+      <validCheckSum>any</validCheckSum>
+      <comment>alter tmp_prod_data table</comment>
+      <sqlFile path="schemas/catfeed/ddl/023_alter_tmp_prod_data.sql" />
+   </changeSet>  
+   <changeSet author="cgopalan" id="024_create_tmp_sku_pickers">
+      <validCheckSum>any</validCheckSum>
+      <comment>create tmp sku picker data</comment>
+      <sqlFile path="schemas/catfeed/ddl/024_create_tmp_sku_pickers.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="025_alter_tmp_sku_data">
+      <validCheckSum>any</validCheckSum>
+      <comment>add prod_exists col to tmp_sku_data</comment>
+      <sqlFile path="schemas/catfeed/ddl/025_alter_tmp_sku_data.sql" />
+   </changeSet> 
+   <changeSet author="cgopalan" id="026_tmp_update_rels">
+      <validCheckSum>any</validCheckSum>
+      <comment>create tmp_update_rels table</comment>
+      <sqlFile path="schemas/catfeed/ddl/026_tmp_update_rels.sql" />
+   </changeSet> 
+   <changeSet author="cgopalan" id="027_alter_tmp_cat_chldprd">
+      <validCheckSum>any</validCheckSum>
+      <comment>alter table tmp_cat_chldprd</comment>
+      <sqlFile path="schemas/catfeed/ddl/027_alter_tmp_cat_chldprd.sql" />
+   </changeSet> 
+   <changeSet author="cgopalan" id="028_create_tmp_sku_orig_prod">
+      <validCheckSum>any</validCheckSum>
+      <comment>create table 028_create_tmp_sku_orig_prod</comment>
+      <sqlFile path="schemas/catfeed/ddl/028_create_tmp_sku_orig_prod.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="029_alter_tmp_prod_data">
+      <validCheckSum>any</validCheckSum>
+      <comment>029_alter_tmp_prod_data</comment>
+      <sqlFile path="schemas/catfeed/ddl/029_alter_tmp_prod_data.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="030_alter_tmp_sku_data">
+      <validCheckSum>any</validCheckSum>
+      <comment>030_alter_tmp_sku_data</comment>
+      <sqlFile path="schemas/catfeed/ddl/030_alter_tmp_sku_data.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="031_alter_tmp_sku_data">
+      <validCheckSum>any</validCheckSum>
+      <comment>030_alter_tmp_sku_data</comment>
+      <sqlFile path="schemas/catfeed/ddl/031_alter_tmp_sku_data.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="032_alter_tmp_price_csv">
+      <comment>add promo id col</comment>
+      <sqlFile path="schemas/catfeed/ddl/032_alter_tmp_price_csv.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="033_recreate_tmp_ext_price_csv">
+      <comment>add promo id col</comment>
+      <sqlFile path="schemas/catfeed/ddl/033_recreate_tmp_ext_price_csv.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="036_mff_computed_property_pks" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>create computed props spec</comment>
+      <sqlFile path="schemas/catfeed/ddl/036_mff_computed_property_pks.sql" splitStatements="false"/>
+   </changeSet>   
+   <changeSet author="cgopalan" id="037_mff_computed_property_pkb" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>create computed props body</comment>
+      <sqlFile path="schemas/catfeed/ddl/037_mff_computed_property_pkb.sql" splitStatements="false"/>
+   </changeSet>   
+   <changeSet author="cgopalan" id="034_alter_tmp_prod_catg_data">
+      <comment>add catg_change col</comment>
+      <sqlFile path="schemas/catfeed/ddl/034_alter_tmp_prod_catg_data.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="035_create_tmp_cat_prod_rel_change">
+      <comment>create tmp_cat_prod_rel_change</comment>
+      <sqlFile path="schemas/catfeed/ddl/035_create_tmp_cat_prod_rel_change.sql" />
+   </changeSet>   
+   <changeSet author="cgopalan" id="038_create_tmp_chld_skus">
+      <comment>create tmp_cat_prod_rel_change</comment>
+      <sqlFile path="schemas/catfeed/ddl/038_create_tmp_chld_skus.sql" />
+   </changeSet>   
+   <changeSet author="cgopalan" id="039_create_tmp_chld_skus_headline">
+      <comment>create tmp_cat_prod_rel_change</comment>
+      <sqlFile path="schemas/catfeed/ddl/039_create_tmp_chld_skus_headline.sql" />
+   </changeSet>   
+   <changeSet author="cgopalan" id="040_alter_tmp_sku_data">
+      <comment>alter tmp_sku_data to include pps_msg and upcs columns</comment>
+      <sqlFile path="schemas/catfeed/ddl/040_alter_tmp_sku_data.sql" />
+   </changeSet>   
+   <changeSet author="cgopalan" id="041_alter_tmp_prod_data">
+      <comment>alter tmp_prod_data to include fulfillment and image columns</comment>
+      <sqlFile path="schemas/catfeed/ddl/041_alter_tmp_prod_data.sql" />
+   </changeSet>   
+   <changeSet author="cgopalan" id="042_alter_tmp_sku_data">
+      <comment>alter tmp_prod_data to include orig_prod column</comment>
+      <sqlFile path="schemas/catfeed/ddl/042_alter_tmp_sku_data.sql" />
+   </changeSet>   
+   <changeSet author="cgopalan" id="043_add_indices_tmp">
+      <comment>Indices to improve import performance</comment>
+      <sqlFile path="schemas/catfeed/ddl/043_add_indices_tmp.sql" />
+   </changeSet>   
+   <changeSet author="cgopalan" id="044_add_indices">
+      <comment>Indices to improve import performance</comment>
+      <sqlFile path="schemas/catfeed/ddl/044_add_indices.sql" />
+   </changeSet>   
+   <changeSet author="cgopalan" id="045_alter_tmp_prod_data">
+      <comment>Add deactivate data column</comment>
+      <sqlFile path="schemas/catfeed/ddl/045_alter_tmp_prod_data.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="046_alter_tmp_prod_data">
+      <comment>Add picker_change column</comment>
+      <sqlFile path="schemas/catfeed/ddl/046_alter_tmp_prod_data.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="047_alter_tmp_sku_data">
+      <comment>Add deactivate and picker_change column</comment>
+      <sqlFile path="schemas/catfeed/ddl/047_alter_tmp_sku_data.sql" />
+   </changeSet>   
+
+   <changeSet author="cgopalan" id="048_alter_tmp_catg_data">
+      <comment>alter tmp_catg_data to include additional cols</comment>
+      <sqlFile path="schemas/catfeed/ddl/048_alter_tmp_catg_data.sql" />
+   </changeSet>   
+   <changeSet author="cgopalan" id="049_create_tmp_cat_chldcat">
+      <comment>create tmp_cat_chldcat</comment>
+      <sqlFile path="schemas/catfeed/ddl/049_create_tmp_cat_chldcat.sql" />
+   </changeSet>   
+   <changeSet author="cgopalan" id="050_create_tmp_changed_cats">
+      <comment>Create tmp_changed_cats table</comment>
+      <sqlFile path="schemas/catfeed/ddl/050_create_tmp_changed_cats.sql" />
+   </changeSet>   
+   <changeSet author="cgopalan" id="051_alter_tmp_sku_data">
+      <comment>alter tmp_sku_data</comment>
+      <sqlFile path="schemas/catfeed/ddl/051_alter_tmp_sku_data.sql" />
+   </changeSet>   
+   <changeSet author="cgopalan" id="052_alter_tmp_sku_data">
+      <comment>Added columns for free shipping and discountable</comment>
+      <sqlFile path="schemas/catfeed/ddl/052_alter_tmp_sku_data.sql" />
+   </changeSet>   
+   <changeSet author="cgopalan" id="053_tmp_inv_csv_add_idxs">
+        <preConditions onFail="MARK_RAN">
+            <not>
+            	<indexExists schemaName="atg_catfeed" indexName="TMP_INV_CSV_SKU_IDX" />
+            </not>
+        </preConditions>   	
+      <comment>Adding new index</comment>
+      <sqlFile path="schemas/catfeed/ddl/053_tmp_inv_csv_add_idxs.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="054_tmp_inv_csv_add_idxs">
+        <preConditions onFail="MARK_RAN">
+            <not>
+            	<indexExists schemaName="atg_catfeed" indexName="TMP_INV_CSV_STORE_IDX" />
+            </not>
+        </preConditions>   	
+      <comment>Adding new index</comment>
+      <sqlFile path="schemas/catfeed/ddl/054_tmp_inv_csv_add_idxs.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="055_tmp_inv_csv_add_idxs">
+        <preConditions onFail="MARK_RAN">
+            <not>
+            	<indexExists schemaName="atg_catfeed" indexName="TMP_INV_CSV_INV_IDX" />
+            </not>
+        </preConditions>   	
+      <comment>Adding new index</comment>
+      <sqlFile path="schemas/catfeed/ddl/055_tmp_inv_csv_add_idxs.sql" />
+   </changeSet>
+   <changeSet author="pventrapragada" id="056_tmp_bvreviews_data_table">
+      <comment>Temp table for bvreviews import</comment>
+      <sqlFile path="schemas/catfeed/ddl/056_tmp_bvreviews_data_table.sql" />
+   </changeSet>
+   <changeSet author="pventrapragada" id="056_alter_tmp_bvreviews_data_table">
+   	<comment>Alter Temp table for bvreviews import</comment>
+   	<sqlFile path="schemas/catfeed/ddl/056_alter_tmp_bvreviews_data_table.sql" />
+   </changeSet>
+   <changeSet author="pventrapragada" id="057_mff_bvreviews_loader_pks" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>package spec for bvreviews import</comment>
+      <sqlFile path="schemas/catfeed/ddl/057_mff_bvreviews_loader_pks.sql" splitStatements="false"/>
+   </changeSet>  
+   <changeSet author="pventrapragada" id="058_mff_bvreviews_loader_pkb" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>package body for bvreviews import</comment>
+      <sqlFile path="schemas/catfeed/ddl/058_mff_bvreviews_loader_pkb.sql" splitStatements="false"/>
+   </changeSet>  
+   <changeSet author="cgopalan" id="059_alter_tmp_prod_data">
+      <comment>MAP price column</comment>
+      <sqlFile path="schemas/catfeed/ddl/059_alter_tmp_prod_data.sql"/>
+   </changeSet>  
+   <changeSet author="pventrapragada" id="060_temp_google_feed_tables">
+      <comment>Google feeds temp table</comment>
+      <sqlFile path="schemas/catfeed/ddl/060_temp_google_feed_tables.sql"/>
+   </changeSet>
+   <changeSet author="pventrapragada" id="060_add_column_temp_google_feed_tables">
+      <comment>Add description column to google tables</comment>
+      <sqlFile path="schemas/catfeed/ddl/060_add_column_temp_google_feed_tables.sql"/>
+   </changeSet>
+	<changeSet author="pventrapragada" id="060_alter_temp_google_feed_tables">
+		<comment>Add age_group, gender, color, size columns</comment>
+		<sqlFile path="schemas/catfeed/ddl/060_alter_temp_google_feed_tables.sql"/>
+	</changeSet>
+	<changeSet author="pventrapragada" id="060_flmt_temp_google_feed_tables">
+		<comment>Add fulfillment_method column</comment>
+		<sqlFile path="schemas/catfeed/ddl/060_flmt_temp_google_feed_tables.sql"/>
+	</changeSet>
+	<changeSet author="pventrapragada" id="060_add_sku_attr_google_feed_tables">
+		<comment>Add sku attributes required to calculate shipping</comment>
+		<sqlFile path="schemas/catfeed/ddl/060_add_sku_attr_google_feed_tables.sql"/>
+	</changeSet>
+	<changeSet author="pventrapragada" id="060_tmp_str_inv_gle_fd_tbls">
+		<comment>Add new tables for google local inventory feeds</comment>
+		<sqlFile path="schemas/catfeed/ddl/060_tmp_str_inv_gle_fd_tbls.sql"/>
+	</changeSet>
+	<changeSet author="pventrapragada" id="060_tmp_str_inv_gle_fd_tbls_2">
+		<comment>Add new tables for google local inventory feeds</comment>
+		<sqlFile path="schemas/catfeed/ddl/060_tmp_str_inv_gle_fd_tbls_2.sql"/>
+	</changeSet>
+	<changeSet author="pventrapragada" id="061_function_get_category_google" runOnChange="true">
+	  <validCheckSum>any</validCheckSum>
+	  <comment>Function to capture category id</comment>
+	  <sqlFile path="schemas/catfeed/ddl/061_function_get_category_google.sql" splitStatements="false"/>
+	</changeSet>  
+   <changeSet author="pventrapragada" id="062_mff_google_feed_creator_pks" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>package spec for google feed creator</comment>
+      <sqlFile path="schemas/catfeed/ddl/062_mff_google_feed_creator_pks.sql" splitStatements="false"/>
+   </changeSet>  
+    <changeSet author="pventrapragada" id="062_gle_lcl_str_inv_fd_crtr_pks" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>package spec for local store inventory google feed creator</comment>
+      <sqlFile path="schemas/catfeed/ddl/062_gle_lcl_str_inv_fd_crtr_pks.sql" splitStatements="false"/>
+   </changeSet>     <changeSet author="pventrapragada" id="063_mff_google_feed_creator_pkb" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>Package body for google feed creator</comment>
+      <sqlFile path="schemas/catfeed/ddl/063_mff_google_feed_creator_pkb.sql" splitStatements="false"/>
+   </changeSet>  
+   <changeSet author="pventrapragada" id="063__gle_lcl_str_inv_fd_crtr__pkb" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>Package body for local store inventory google feed creator</comment>
+      <sqlFile path="schemas/catfeed/ddl/063__gle_lcl_str_inv_fd_crtr__pkb.sql" splitStatements="false"/>
+   </changeSet> 
+   <changeSet author="pventrapragada" id="062_recompile_gle_pkg_pks" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>Recompile package spec</comment>
+      <sqlFile path="schemas/catfeed/ddl/062_recompile_gle_pkg_pks.sql" splitStatements="false"/>
+   </changeSet>
+   <changeSet author="pventrapragada" id="063_recompile_gle_pkg_pkb" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>Recompile package spec</comment>
+      <sqlFile path="schemas/catfeed/ddl/063_recompile_gle_pkg_pkb.sql" splitStatements="false"/>
+   </changeSet>  
+   <changeSet author="cgopalan" id="064_alter_tmp_prod_data">
+      <comment>Added columns for event products</comment>
+      <sqlFile path="schemas/catfeed/ddl/064_alter_tmp_prod_data.sql" />
+   </changeSet>   
+   <changeSet author="cgopalan" id="065_alter_tmp_sku_data">
+      <comment>Added columns for order qty limits</comment>
+      <sqlFile path="schemas/catfeed/ddl/065_alter_tmp_sku_data.sql" />
+   </changeSet>   
+   <changeSet author="cgopalan" id="066_create_adj_tbl">
+      <comment>New tables for inventory adjustments</comment>
+      <sqlFile path="schemas/catfeed/ddl/066_create_adj_tbl.sql" />
+   </changeSet> 
+   <changeSet author="cgopalan" id="067_create_adj_tbl">
+      <comment>New tables for inventory adjustments</comment>
+      <sqlFile path="schemas/catfeed/ddl/067_create_adj_tbl.sql" />
+   </changeSet>
+   <changeSet author="pventrapragada" id="068_invalidate_account_data_pks" runOnChange="true" >
+	  <validCheckSum>any</validCheckSum>
+      <comment>New package to invalidate account data</comment>
+      <sqlFile path="schemas/catfeed/ddl/068_invalidate_account_data_pks.sql"  splitStatements="false"/>
+   </changeSet>
+   <changeSet author="tvallapu" id="069_create_tmp_skudepartment_data">
+      <comment>Create temp table for sku department</comment>
+      <sqlFile path="schemas/catfeed/ddl/069_create_tmp_skudepartment_data.sql"/>
+   </changeSet>
+   <changeSet author="tvallapu" id="070_create_planogram_temp_table">
+      <comment>Create temp table for planogram</comment>
+      <sqlFile path="schemas/catfeed/ddl/070_create_planogram_temp_table.sql"/>
+   </changeSet>
+   <changeSet author="tvallapu" id="071_create_mff_planogram_loader_pks" runOnChange="true" >
+	  <validCheckSum>any</validCheckSum>
+      <comment>Create package for planogram import</comment>
+      <sqlFile path="schemas/catfeed/ddl/071_create_mff_planogram_loader_pks.sql"  splitStatements="false"/>
+   </changeSet>
+   <changeSet author="tvallapu" id="072_create_mff_planogram_loader_pkb" runOnChange="true" >
+	  <validCheckSum>any</validCheckSum>
+      <comment>Create package body for planogram import</comment>
+      <sqlFile path="schemas/catfeed/ddl/072_create_mff_planogram_loader_pkb.sql"  splitStatements="false"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="069_create_emp_directory">
+      <comment>Create employee directory</comment>
+      <sqlFile path="schemas/catfeed/ddl/069_create_emp_directory.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="070_create_emp_ext_table">
+      <comment>Create employee external table</comment>
+      <sqlFile path="schemas/catfeed/ddl/070_create_emp_ext_table.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="071_create_tmp_emp_table">
+      <comment>Create employee tmp table</comment>
+      <sqlFile path="schemas/catfeed/ddl/071_create_tmp_emp_table.sql" />
+   </changeSet>
+   <changeSet author="cgopalan" id="072_mff_employee_pks" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>package spec for importing employee data</comment>
+      <sqlFile path="schemas/catfeed/ddl/072_mff_employee_pks.sql" splitStatements="false"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="073_mff_employee_pkb" runOnChange="true">
+      <validCheckSum>any</validCheckSum>
+      <comment>package body for employee import</comment>
+      <sqlFile path="schemas/catfeed/ddl/073_mff_employee_pkb.sql" splitStatements="false"/>
+   </changeSet>
+</databaseChangeLog>

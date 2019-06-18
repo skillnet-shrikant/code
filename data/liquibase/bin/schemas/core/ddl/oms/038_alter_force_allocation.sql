@@ -1,0 +1,1 @@
+alter table force_allocation add threshold number default 0;

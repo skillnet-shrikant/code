@@ -1,0 +1,14 @@
+delete from EPUB_AGENT_TRNPRT;
+delete from EPUB_WF_COLL_TRANS;
+delete from EPUB_WF_IND_TRANS;
+delete from DSI_COLL_TRANS;
+delete from DSI_IND_TRANS;
+delete from DSS_COLL_TRANS;
+delete from DSS_IND_TRANS;
+delete from DSS_SERVER_ID;
+delete from EPUB_WF_SERVER_ID;
+delete from DSI_SERVER_ID;
+delete from DSS_SERVER_ID;
+delete FROM epub_tr_agents;
+delete FROM epub_includ_asset;
+delete FROM epub_princ_asset;

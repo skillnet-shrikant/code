@@ -1,0 +1,1 @@
+drop table mff_location_addln_cat;

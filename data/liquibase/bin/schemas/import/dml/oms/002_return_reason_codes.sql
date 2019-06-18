@@ -1,0 +1,10 @@
+insert into CSR_EXCH_REASONS (ID,DESCRIPTION) values ('changedMind','Changed Mind');
+insert into CSR_EXCH_REASONS (ID,DESCRIPTION) values ('giftNotWanted','Gift Not Wanted');
+insert into CSR_EXCH_REASONS (ID,DESCRIPTION) values ('wrongItemOrdered','Wrong Item Ordered');
+insert into CSR_EXCH_REASONS (ID,DESCRIPTION) values ('wrongSizeOrdered','Wrong Size Ordered');
+insert into CSR_EXCH_REASONS (ID,DESCRIPTION) values ('notAsPictured','Not as Pictured');
+insert into CSR_EXCH_REASONS (ID,DESCRIPTION) values ('qualityNotAsExpected','Quality not as Expected');
+insert into CSR_EXCH_REASONS (ID,DESCRIPTION) values ('damagedInShipping','Damaged in Shipping');
+insert into CSR_EXCH_REASONS (ID,DESCRIPTION) values ('wrongItemShipped','Wrong Item Shipped');
+insert into CSR_EXCH_REASONS (ID,DESCRIPTION) values ('returnVoid','Return Void');
+insert into CSR_EXCH_REASONS (ID,DESCRIPTION) values ('refused','Refused/Undeliverable');

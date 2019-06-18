@@ -1,0 +1,1 @@
+alter table mff_static_left_nav add display_order integer null;

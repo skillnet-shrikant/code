@@ -1,0 +1,1 @@
+alter table mff_exch_item drop store_id;

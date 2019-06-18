@@ -1,0 +1,1 @@
+update mff_location set max_queue_size=5;

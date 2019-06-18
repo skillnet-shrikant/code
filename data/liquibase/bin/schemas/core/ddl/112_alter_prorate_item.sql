@@ -1,0 +1,1 @@
+alter table mff_prorate_item add gwp_amount number(19,7) default 0;

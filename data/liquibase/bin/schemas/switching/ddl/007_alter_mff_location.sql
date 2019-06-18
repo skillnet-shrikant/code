@@ -1,0 +1,1 @@
+alter table mff_location add max_queue_size number(5,0);

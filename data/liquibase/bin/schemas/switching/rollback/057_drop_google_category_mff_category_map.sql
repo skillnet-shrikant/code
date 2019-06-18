@@ -1,0 +1,1 @@
+drop table google_mff_category_map PURGE;

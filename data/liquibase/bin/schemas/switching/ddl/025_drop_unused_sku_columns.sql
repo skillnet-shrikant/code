@@ -1,0 +1,1 @@
+alter table mff_sku drop(caliber_gauge,recurring_allowed,customize_max_char,customize,serial_tracking,lot_tracking,sold_at);

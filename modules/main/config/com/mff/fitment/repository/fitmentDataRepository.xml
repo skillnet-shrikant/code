@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE gsa-template 
+ PUBLIC "-//Art Technology Group, Inc.//DTD Dynamo Security//EN"
+   "http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
+<gsa-template >
+	<header>
+		<name>Tire/Parts Fitment Data Repository</name>
+		<author>Skillnet</author>
+	</header>
+	<item-descriptor name="partsFitmentData" display-name="Parts Fitment Data" item-cache-timeout="180000" cache-mode="simple"  >
+		<table name="parts_fitment_data" type="primary" id-column-names="cyear,make,cmodel,engine,country">		
+		<property name="id" column-names="cyear,make,cmodel,engine,country"
+        data-types="string,string,string,string,string"/>	
+			<property name="year" data-type="string" column-name="cyear" display-name="Year" >
+				<attribute name="propertySortPriority" value="10"/>
+			</property>				
+			<property name="make" data-type="string" column-name="make" display-name="Make" >
+				<attribute name="propertySortPriority" value="20"/>
+			</property>
+			<property name="model" data-type="string" column-name="cmodel" display-name="Model" >
+				<attribute name="propertySortPriority" value="30"/>
+			</property>
+			<property name="engine" data-type="string" column-name="engine" display-name="Engine" >
+				<attribute name="propertySortPriority" value="40"/>
+			</property>
+			<property name="country" data-type="string" column-name="country" display-name="Country" >
+				<attribute name="propertySortPriority" value="50"/>
+			</property>
+			<property name="vehicleType" data-type="string" column-name="vehicle_type" display-name="Vehicle Type" >	
+				<attribute name="propertySortPriority" value="60"/>
+			</property>		
+			<property name="createTimestamp" data-type="timestamp" column-name="create_timestamp" display-name="Create Timestamp" >
+				 <attribute name="useNowForDefault" value="true"/>
+				 <attribute name="propertySortPriority" value="70"/>
+			</property>
+		</table>
+	</item-descriptor>
+	
+	<item-descriptor name="tireFitmentData" display-name="Tire Fitment Data" item-cache-timeout="180000" cache-mode="simple"  >
+		<table name="tire_fitment_data" type="primary" id-column-name="car_tire_id">
+			<property name="countryId" data-type="string" column-name="country_id" display-name="Country Id" >
+				<attribute name="propertySortPriority" value="1"/>
+			</property>
+			<property name="sizeId" data-type="string" column-name="size_id" display-name="Size Id" >
+				<attribute name="propertySortPriority" value="2"/>
+			</property>			
+			<property name="year" data-type="string" column-name="cyear" display-name="Year" >
+				<attribute name="propertySortPriority" value="3"/>
+			</property>
+			<property name="make1" data-type="string" column-name="make_1" display-name="Make 1" >
+				<attribute name="propertySortPriority" value="4"/>
+			</property>
+			<property name="make2" data-type="string" column-name="make_2" display-name="Make 2" >
+				<attribute name="propertySortPriority" value="5"/>
+			</property>
+			<property name="model" data-type="string" column-name="cmodel" display-name="Model" >
+				<attribute name="propertySortPriority" value="6"/>
+			</property>
+			<property name="option1" data-type="string" column-name="option_1" display-name="Option 1" >
+				<attribute name="propertySortPriority" value="7"/>
+			</property>
+			<property name="option2" data-type="string" column-name="option_2" display-name="option 2" >
+				<attribute name="propertySortPriority" value="8"/>
+			</property>
+			
+			<property name="tireSize" data-type="string" column-name="tire_size" display-name="Tire Size" >
+				<attribute name="propertySortPriority" value="9"/>
+			</property>
+			<property name="sizeDesc" data-type="string" column-name="size_desc" display-name="Size Desc" >
+				<attribute name="propertySortPriority" value="10"/>
+			</property>
+			<property name="rawSize" data-type="string" column-name="raw_size" display-name="Raw Size" >
+				<attribute name="propertySortPriority" value="11"/>
+			</property>
+			
+			<property name="sizePart1" data-type="string" column-name="size_part_1" display-name="Size Part 1" >
+				<attribute name="propertySortPriority" value="12"/>
+			</property>
+			<property name="sizePart2" data-type="string" column-name="size_part_2" display-name="Size Part 2" >
+				<attribute name="propertySortPriority" value="13"/>
+			</property>
+			<property name="sizePart3" data-type="string" column-name="size_part_3" display-name="Size Part 3" >
+				<attribute name="propertySortPriority" value="14"/>
+			</property>
+			
+			<property name="base" data-type="string" column-name="base" display-name="Base" >
+				<attribute name="propertySortPriority" value="15"/>
+			</property>
+			<property name="prefix" data-type="string" column-name="prefix" display-name="Prefix">
+				<attribute name="propertySortPriority" value="16"/>
+			</property>
+			<property name="suffix" data-type="string" column-name="suffix" display-name="Suffix" >		
+				<attribute name="propertySortPriority" value="17"/>
+			</property>
+			
+			
+			<property name="vehicleType" data-type="string" column-name="vehicle_type" display-name="Vehicle Type" >
+				<attribute name="propertySortPriority" value="18"/>
+			</property>			
+			<property name="createTimestamp" data-type="timestamp" column-name="create_timestamp" display-name="Create Timestamp" >
+				<attribute name="useNowForDefault" value="true"/>
+				<attribute name="propertySortPriority" value="19"/>
+			</property>
+		</table>
+	</item-descriptor>
+	
+</gsa-template>

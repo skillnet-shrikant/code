@@ -1,0 +1,1 @@
+alter table tmp_sku_data add restricted_locations varchar2(254);

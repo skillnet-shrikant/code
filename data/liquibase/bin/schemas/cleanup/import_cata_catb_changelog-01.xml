@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+   <changeSet author="cgopalan" id="001_dcs_location_dml">
+	<comment>imports zip code data</comment>
+	<sqlFile path="schemas/import/dml/switching/001_dcs_location_dml.sql"/>
+   </changeSet> 	  
+
+   <changeSet author="cgopalan" id="002_dcs_location_addr_dml">
+	<comment>imports zip code data</comment>
+	<sqlFile path="schemas/import/dml/switching/002_dcs_location_addr_dml.sql"/>
+   </changeSet>
+   
+   <changeSet author="cgopalan" id="003_dcs_location_store_dml">
+	<comment>imports zip code data</comment>
+	<sqlFile path="schemas/import/dml/switching/003_dcs_location_store_dml.sql"/>
+   </changeSet>
+   
+   <changeSet author="cgopalan" id="004_mff_location_dml">
+	<comment>imports zip code data</comment>
+	<sqlFile path="schemas/import/dml/switching/004_mff_location_dml.sql"/>
+   </changeSet>
+   
+   <changeSet author="cgopalan" id="005_mff_location_max_q_update">
+	<comment>imports zip code data</comment>
+	<sqlFile path="schemas/import/dml/switching/005_mff_location_max_q_update.sql"/>
+   </changeSet>
+   
+   <changeSet author="cgopalan" id="006_location_update_lat_long">
+	<comment>imports zip code data</comment>
+	<sqlFile path="schemas/import/dml/switching/006_location_update_lat_long.sql"/>
+   </changeSet>
+   
+   <changeSet author="smyana" id="007_update_siteconfiguration_endeca">
+	<comment>Update endeca site name and type</comment>
+	<sqlFile path="schemas/import/dml/switching/007_update_siteconfiguration_endeca.sql"/>
+   </changeSet>
+   
+   <changeSet author="bnuthalapati" id="008_store_details_dml">
+	<comment>Populate Store details data</comment>
+	<sqlFile path="schemas/import/dml/switching/008_store_details_dml.sql"/>
+   </changeSet>
+
+   <changeSet author="cgopalan" id="009_create_prod_updates">
+	<comment>Tmp prod update table</comment>
+	<sqlFile path="schemas/import/dml/switching/009_create_prod_updates.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="010_create-sku_updates">
+	<comment>tmp sku update table</comment>
+	<sqlFile path="schemas/import/dml/switching/010_create-sku_updates.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="011_prod_updates">
+	<comment>populate tmp prod updates</comment>
+	<sqlFile path="schemas/import/dml/switching/011_prod_updates.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="012_sku_updates">
+	<comment>populate tmp sku updates</comment>
+	<sqlFile path="schemas/import/dml/switching/012_sku_updates.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="013_prod_pickers">
+	<comment>insert prod pickers</comment>
+	<sqlFile path="schemas/import/dml/switching/013_prod_pickers.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="014_sku_pickers">
+	<comment>insert sku pickers</comment>
+	<sqlFile path="schemas/import/dml/switching/014_sku_pickers.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="015_update_mff_product">
+	<comment>update main product table</comment>
+	<sqlFile path="schemas/import/dml/switching/015_update_mff_product.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="016_update_mff_sku">
+	<comment>update main sku table</comment>
+	<sqlFile path="schemas/import/dml/switching/016_update_mff_sku.sql"/>
+   </changeSet>
+   
+   <changeSet author="bnuthalapati" id="017_store_details_dml">
+	<comment>Populate Store landing page mappings</comment>
+	<sqlFile path="schemas/import/dml/switching/017_store_details_dml.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="018_drop_prod_updates">
+	<comment>update main sku table</comment>
+	<sqlFile path="schemas/import/dml/switching/018_drop_prod_updates.sql"/>
+   </changeSet>   
+   <changeSet author="cgopalan" id="019_create_prod_updates">
+	<comment>update main sku table</comment>
+	<sqlFile path="schemas/import/dml/switching/019_create_prod_updates.sql"/>
+   </changeSet>   
+   <changeSet author="cgopalan" id="020_tmp_prod_updates">
+	<comment>update main sku table</comment>
+	<sqlFile path="schemas/import/dml/switching/020_tmp_prod_updates.sql"/>
+   </changeSet>   
+   <changeSet author="cgopalan" id="021_update_dcs_product">
+	<comment>update main sku table</comment>
+	<sqlFile path="schemas/import/dml/switching/021_update_dcs_product.sql"/>
+   </changeSet>   
+   <changeSet author="cgopalan" id="022_drop_prod_updates">
+	<comment>update main sku table</comment>
+	<sqlFile path="schemas/import/dml/switching/022_drop_prod_updates.sql"/>
+   </changeSet>   
+   <changeSet author="cgopalan" id="023_drop_sku_updates">
+	<comment>update main sku table</comment>
+	<sqlFile path="schemas/import/dml/switching/023_drop_sku_updates.sql"/>
+   </changeSet>
+   <changeSet author="bnuthalapati" id="024_static_content_test_data">
+   <validCheckSum>any</validCheckSum>
+	<comment>static content test data</comment>
+	<sqlFile path="schemas/import/dml/switching/024_static_content_test_data.sql"/>
+   </changeSet>
+   <changeSet author="pventrapragada" id="025_static_content_test_data">
+	<comment>static content test data</comment>
+	<sqlFile path="schemas/import/dml/switching/025_static_content_test_data.sql"/>
+   </changeSet>
+   <changeSet author="bnuthalapati" id="026_mff_tax_exmp_classification">
+	<comment>Tax exemption classifications</comment>
+	<sqlFile path="schemas/import/dml/switching/026_mff_tax_exmp_classification.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="027_update_store_data">
+	<comment>Updated store data with correct classification for pps and bopis</comment>
+	<sqlFile path="schemas/import/dml/switching/027_update_store_data.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="028_update_store_data">
+	<comment>Delete unused stores</comment>
+	<sqlFile path="schemas/import/dml/switching/028_update_store_data.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="029_update_dcs_product">
+	<comment>Delete unused stores</comment>
+	<sqlFile path="schemas/import/dml/switching/029_update_dcs_product.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="030_update_dcs_sku">
+	<comment>Delete unused stores</comment>
+	<sqlFile path="schemas/import/dml/switching/030_update_dcs_sku.sql"/>
+   </changeSet>   
+   <changeSet author="cgopalan" id="031_dyn_prop">
+	<comment>creating dynamic properties</comment>
+	<sqlFile path="schemas/import/dml/switching/031_dyn_prop.sql"/>
+   </changeSet>  
+   <changeSet author="cgopalan" id="032_dyn_prop_attr">
+	<comment>creating dyn prop attributes</comment>
+	<sqlFile path="schemas/import/dml/switching/032_dyn_prop_attr.sql"/>
+   </changeSet>  
+   <changeSet author="cgopalan" id="033_update_store_lat_long">
+	<comment>update lat/long with mff provided data</comment>
+	<sqlFile path="schemas/import/dml/switching/033_update_store_lat_long.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="034_store_default_hours">
+	<comment>default store hours</comment>
+	<sqlFile path="schemas/import/dml/switching/034_store_default_hours.sql"/>
+   </changeSet>
+
+   <changeSet author="cgopalan" id="035_update_root_cats">
+	<comment>update root catgs</comment>
+	<sqlFile path="schemas/import/dml/switching/035_update_root_cats.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="036_create_tmp_tables">
+	<comment>create tmp tables to hold template data</comment>
+	<sqlFile path="schemas/import/dml/switching/036_create_tmp_tables.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="037_insert_tmp_table_prod">
+	<comment>insert import data</comment>
+	<sqlFile path="schemas/import/dml/switching/037_insert_tmp_table_prod.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="038_insert_tmp_pick_prod">
+	<comment>insert import data</comment>
+	<sqlFile path="schemas/import/dml/switching/038_insert_tmp_pick_prod.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="039_update_prod_picker_templates">
+	<comment>update mff prod table</comment>
+	<sqlFile path="schemas/import/dml/switching/039_update_prod_picker_templates.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="040_drop_tmp_tables">
+	<comment>drop temp tables</comment>
+	<sqlFile path="schemas/import/dml/switching/040_drop_tmp_tables.sql"/>
+   </changeSet>
+
+   <changeSet author="cgopalan" id="042_insert_prod_dim">
+	<comment>add prod dimensions as pickers</comment>
+	<sqlFile path="schemas/import/dml/switching/042_insert_prod_dim.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="043_insert_sku_dim">
+	<comment>add sku dimensions as pickers</comment>
+	<sqlFile path="schemas/import/dml/switching/043_insert_sku_dim.sql"/>
+   </changeSet>
+	<changeSet author="cgopalan" id="044_update_store_hours">
+	<comment>updating store hours in mff_location</comment>
+	<sqlFile path="schemas/import/dml/switching/044_update_store_hours.sql"/>
+   </changeSet>
+   <changeSet author="bnuthalapati" id="045_update_default_store_hours">
+	<comment>updating default store hours content</comment>
+	<sqlFile path="schemas/import/dml/switching/045_update_default_store_hours.sql"/>
+   </changeSet>
+   <changeSet author="bnuthalapati" id="046_static_content_test_data">
+	<comment>static content for FAQ and updates.</comment>
+	<sqlFile path="schemas/import/dml/switching/046_static_content_test_data.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="047_delete_extra_gc_skus">
+	<comment>remove extra gc skus</comment>
+	<sqlFile path="schemas/import/dml/switching/047_delete_extra_gc_skus.sql"/>
+   </changeSet>
+   <changeSet author="cgopalan" id="048_add_restricted_locations">
+	<comment>add restricted locations</comment>
+	<sqlFile path="schemas/import/dml/switching/048_add_restricted_locations.sql"/>
+   </changeSet>   
+
+</databaseChangeLog>

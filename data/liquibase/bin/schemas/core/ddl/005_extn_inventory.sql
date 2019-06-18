@@ -1,0 +1,41 @@
+create table mff_inventory ( 
+	inventory_id   			varchar2(40 byte) not null enable,
+	version        			number(38,0) not null enable,
+	inventory_lock 			varchar2(20 byte),
+	creation_date 			timestamp (6),
+	start_date 			timestamp (6),
+	end_date 			timestamp (6),
+	display_name   			varchar2(254 byte),
+	description    			varchar2(254 byte),
+	catalog_ref_id 			varchar2(40 byte) not null enable,
+	avail_status			number(38,0) not null enable,
+	availability_date 		timestamp (6),
+	stock_level      		number(38,0) default 0,
+	stock_level_with_fraction	number(19,7),
+	backorder_level  		number(38,0),
+	backorder_level_with_fraction	number(19,7),
+	preorder_level   		number(38,0),
+	preorder_level_with_fraction	number(19,7),
+	stock_thresh     		number(38,0),
+	backorder_thresh 		number(38,0),
+	preorder_thresh  		number(38,0),
+	location_id			varchar2(40 byte),
+	sold				number(19),
+	allocated			number(19),
+	shipped				number(19),
+	constraint mff_inventory_p primary key (inventory_id) enable,
+	constraint mff_inventory_idx unique (catalog_ref_id) enable
+); 
+
+create table mff_store_inventory (
+	inventory_id   		varchar2(40 byte) not null enable,
+	store_id   		varchar2(40 byte) not null enable,
+	catalog_ref_id 		varchar2(40 byte) not null enable,
+	stock_level      	number(38,0) default 0,
+	creation_date 		timestamp (6),
+	last_update_date	timestamp (6),
+	eod_stock_level		number(19),
+	allocated		number(19),
+	shipped			number(19),	
+	constraint mff_store_inventory_p primary key (inventory_id) enable
+);

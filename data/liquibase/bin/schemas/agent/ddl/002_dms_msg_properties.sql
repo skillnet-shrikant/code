@@ -1,0 +1,1 @@
+ALTER TABLE dms_msg_properties MODIFY (value VARCHAR2(1024));

@@ -1,0 +1,1 @@
+alter table tmp_price_csv add promo_id varchar2(40);

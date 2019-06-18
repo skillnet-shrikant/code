@@ -1,0 +1,367 @@
+<project name="data" default="liquibase-update" basedir=".">
+   <import file="liquibase_includes.xml" />
+
+   <!-- this should only be called once after creating db12c vm -->
+   <target name="init">
+      <subant target="init">
+	 <fileset dir="init" includes="build.xml"/>
+      </subant>
+   </target>
+
+   <target name="init-with-schema">
+      <subant target="init-with-schema">
+	 <property name="schema" value="${schema}" />
+	 <fileset dir="init" includes="build.xml"/>
+      </subant>
+   </target>
+
+   <target name="init-with-staging">
+      <subant target="init-with-staging">
+	 <fileset dir="init" includes="build.xml"/>
+      </subant>
+   </target>
+
+   <filelist id="build-order" dir=".">
+      <file name="schemas/core/build.xml"/>
+      <file name="schemas/switching/build.xml"/>
+      <file name="schemas/catfeed/build.xml"/>
+      <file name="schemas/pub/build.xml"/>
+      <file name="schemas/agent/build.xml"/>
+   </filelist>
+
+   <filelist id="build-core-order" dir=".">
+      <file name="schemas/core/build.xml"/>
+   </filelist>
+
+   <filelist id="build-switching-order" dir=".">
+      <file name="schemas/switching/build.xml"/>
+   </filelist>
+
+   <filelist id="build-catfeed-order" dir=".">
+      <file name="schemas/catfeed/build.xml"/>
+   </filelist>
+
+   <filelist id="build-agent-order" dir=".">
+      <file name="schemas/agent/build.xml"/>
+   </filelist>
+
+   <filelist id="build-pub-order" dir=".">
+      <file name="schemas/pub/build.xml"/>
+   </filelist>
+
+   <filelist id="build-system-order" dir=".">
+      <file name="schemas/system/build.xml"/>
+   </filelist>
+
+   <filelist id="build-import-order" dir=".">
+      <file name="schemas/import/build.xml"/>
+   </filelist>
+
+   <filelist id="build-legacy-order" dir=".">
+      <file name="schemas/legacy/build.xml"/>
+   </filelist>
+
+
+   <!-- this will import sql changes into all schemas except staging -->
+   <target name="liquibase-update">
+      <subant target="liquibase-update">
+	 	<filelist refid="build-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-update-staging">
+      <subant target="liquibase-update-staging">
+	 <filelist refid="build-order"/>
+      </subant>
+   </target>
+
+
+   <target name="liquibase-update-core" description="Updates core schema">
+      <subant target="liquibase-update">
+	 <filelist refid="build-core-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-update-switching" description="Updates switching catalog schema">
+      <subant target="liquibase-update">
+	 <filelist refid="build-switching-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-update-catfeed" description="Updates catfeed schema">
+      <subant target="liquibase-update">
+	 <filelist refid="build-catfeed-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-update-agent" description="Updates catfeed schema">
+      <subant target="liquibase-update">
+	 <filelist refid="build-agent-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-update-pub" description="Updates merch schema">
+      <subant target="liquibase-update">
+	 <filelist refid="build-pub-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-grant-permissions" description="Grants permissions to catfeed schema">
+      <subant target="liquibase-grant-permissions">
+	 <filelist refid="build-system-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-import-catfeed-test-data" description="Imports catfeed test data">
+      <subant target="liquibase-import-catfeed-test-data">
+	 <filelist refid="build-import-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-import-catfeed-data" description="Imports data">
+	   	<subant target="liquibase-import-catfeed-data">
+		 	<filelist refid="build-import-order"/>
+	  	</subant>
+   </target>
+
+	
+	
+   <target name="liquibase-import-switching-data">
+      <subant target="liquibase-import-switching-data">
+	 <filelist refid="build-import-order"/>
+      </subant>
+   </target>	
+
+   <target name="liquibase-import-stage-switching-data">
+      <subant target="liquibase-import-stage-switching-data">
+	 <filelist refid="build-import-order"/>
+      </subant>
+   </target>	
+
+   <target name="liquibase-import-stage-core-data">
+      <subant target="liquibase-import-stage-core-data">
+	 <filelist refid="build-import-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-import-core-data">
+      <subant target="liquibase-import-core-data">
+	 <filelist refid="build-import-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-import-oms-data">
+      <subant target="liquibase-import-oms-data">
+	 <filelist refid="build-import-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-import-agent-data">
+      <subant target="liquibase-import-agent-data">
+	 <filelist refid="build-import-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-import-legacy-data">
+      <subant target="liquibase-import-legacy-data">
+	 <filelist refid="build-import-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-import-pub-data">
+      <subant target="liquibase-import-pub-data">
+	 <filelist refid="build-import-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-update-legacy" description="Updates legacy schema">
+      <subant target="liquibase-update">
+	 <filelist refid="build-legacy-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-update-staging-core" description="Updates staging core schema">
+      <subant target="liquibase-update-staging">
+	 <filelist refid="build-core-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-update-staging-switching" description="Updates staging catalog schema">
+      <subant target="liquibase-update-staging">
+	 <filelist refid="build-switching-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-rollback-with-tag-core">
+      <subant target="liquibase-rollback-with-tag">
+	 <property name="rollback-tagId" value="${tagId}" />
+	 <filelist refid="build-core-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-rollback-with-tag-staging-core">
+      <subant target="liquibase-rollback-with-tag-staging">
+	 <property name="rollback-tagId" value="${tagId}" />
+	 <filelist refid="build-core-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-rollback-with-tag-switching">
+      <subant target="liquibase-rollback-with-tag">
+	 <property name="rollback-tagId" value="${tagId}" />
+	 <filelist refid="build-switching-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-rollback-with-tag-staging-switching">
+      <subant target="liquibase-rollback-with-tag-staging">
+	 <property name="rollback-tagId" value="${tagId}" />
+	 <filelist refid="build-switching-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-rollback-with-tag-catfeed">
+      <subant target="liquibase-rollback-with-tag">
+	 <property name="rollback-tagId" value="${tagId}" />
+	 <filelist refid="build-catfeed-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-rollback-with-tag-agent">
+      <subant target="liquibase-rollback-with-tag">
+	 <property name="rollback-tagId" value="${tagId}" />
+	 <filelist refid="build-agent-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-rollback-with-tag-pub">
+      <subant target="liquibase-rollback-with-tag">
+	 <property name="rollback-tagId" value="${tagId}" />
+	 <filelist refid="build-pub-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-rollback-with-tag-legacy">
+      <subant target="liquibase-rollback-with-tag">
+	 <property name="rollback-tagId" value="${tagId}" />
+	 <filelist refid="build-legacy-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-rollback-with-count-core">
+      <subant target="liquibase-rollback-with-count">
+	 <property name="rollback-count" value="${count}" />
+	 <filelist refid="build-core-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-rollback-with-count-staging-core">
+      <subant target="liquibase-rollback-with-count-staging">
+	 <property name="rollback-count" value="${count}" />
+	 <filelist refid="build-core-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-rollback-with-count-switching">
+      <subant target="liquibase-rollback-with-count">
+	 <property name="rollback-count" value="${count}" />
+	 <filelist refid="build-switching-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-rollback-with-count-staging-switching">
+      <subant target="liquibase-rollback-with-count-staging">
+	 <property name="rollback-count" value="${count}" />
+	 <filelist refid="build-switching-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-rollback-with-count-catfeed">
+      <subant target="liquibase-rollback-with-count">
+	 <property name="rollback-count" value="${count}" />
+	 <filelist refid="build-catfeed-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-rollback-with-count-agent">
+      <subant target="liquibase-rollback-with-count">
+	 <property name="rollback-count" value="${count}" />
+	 <filelist refid="build-agent-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-rollback-with-count-pub">
+      <subant target="liquibase-rollback-with-count">
+	 <property name="rollback-count" value="${count}" />
+	 <filelist refid="build-pub-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-rollback-with-count-legacy">
+      <subant target="liquibase-rollback-with-count">
+	 <property name="rollback-count" value="${count}" />
+	 <filelist refid="build-legacy-order"/>
+      </subant>
+   </target>
+	
+	<target name="liquibase-import-data">
+      <antcall  target="liquibase-import-core-data" />
+	  <antcall  target="liquibase-import-oms-data" />
+	  <antcall  target="liquibase-import-agent-data" />
+	  <antcall  target="liquibase-import-legacy-data" />
+	  <antcall  target="liquibase-import-pub-data" />
+	  <antcall  target="liquibase-import-switching-data" />
+	  <antcall  target="liquibase-grant-permissions" />
+	  <antcall  target="liquibase-import-catfeed-test-data" />
+   </target>
+	
+   <target name="liquibase-import-core-data-with-label" description="Imports core data">
+	   	<subant target="liquibase-import-core-data-with-label">
+		 	<filelist refid="build-import-order"/>
+	  	</subant>
+   </target>
+
+	
+	
+   <target name="liquibase-import-stage-core-data-with-label">
+      <subant target="liquibase-import-stage-core-data-with-label">
+	 	<filelist refid="build-import-order"/>
+      </subant>
+   </target>	
+
+   <target name="liquibase-import-switching-data-with-label">
+      <subant target="liquibase-import-switching-data-with-label">
+	 <filelist refid="build-import-order"/>
+      </subant>
+   </target>	
+
+   <target name="liquibase-import-stage-switching-data-with-label">
+      <subant target="liquibase-import-stage-switching-data-with-label">
+	 <filelist refid="build-import-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-import-agent-data-with-label">
+      <subant target="liquibase-import-agent-data-with-label">
+	 <filelist refid="build-import-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-import-oms-data-with-label">
+      <subant target="liquibase-import-oms-data-with-label">
+	 <filelist refid="build-import-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-import-pub-data-with-label">
+      <subant target="liquibase-import-pub-data-with-label">
+	 <filelist refid="build-import-order"/>
+      </subant>
+   </target>
+
+   <target name="liquibase-import-catfeed-data-with-label">
+      <subant target="liquibase-import-catfeed-data-with-label">
+	 <filelist refid="build-import-order"/>
+      </subant>
+   </target>
+</project>

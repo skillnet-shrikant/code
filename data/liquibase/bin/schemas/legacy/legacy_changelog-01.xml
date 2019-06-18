@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+		  
+	<changeSet author="nkola" id="001_legacy_ddl_export">
+	    <comment>Creates base tables for legacy schema</comment>
+	    <sqlFile path="schemas/legacy/ddl/001_legacy_ddl_export.sql"/>
+   </changeSet>
+   <changeSet author="pventrapragada" id="002_legacy_ddl_export">
+	    <comment>Drop previous tables</comment>
+	    <sqlFile path="schemas/legacy/ddl/002_legacy_ddl_export.sql"/>
+   </changeSet>
+   <changeSet author="pventrapragada" id="003_legacy_ddl_export">
+	    <comment>Creates base tables for legacy schema</comment>
+	    <sqlFile path="schemas/legacy/ddl/003_legacy_ddl_export.sql"/>
+   </changeSet>
+   <changeSet author="pventrapragada" id="004_legacy_ddl_export">
+	    <comment>Creates base tables for legacy schema</comment>
+	    <sqlFile path="schemas/legacy/ddl/004_legacy_ddl_export.sql"/>
+   </changeSet>
+  <changeSet author="pventrapragada" id="005_legacy_ddl_export">
+	<comment>Creates base tables for legacy schema</comment>
+	<sqlFile path="schemas/legacy/ddl/005_legacy_ddl_export.sql"/>
+   </changeSet>
+   <changeSet author="pventrapragada" id="006_legacy_ddl_export">
+	<comment>Creates base tables for legacy schema</comment>
+	<sqlFile path="schemas/legacy/ddl/006_legacy_ddl_export.sql"/>
+   </changeSet>
+   <changeSet author="pventrapragada" id="007_legacy_ddl_export">
+	<comment>Creates base tables for legacy schema</comment>
+	<sqlFile path="schemas/legacy/ddl/007_legacy_ddl_export.sql"/>
+   </changeSet>
+
+</databaseChangeLog>

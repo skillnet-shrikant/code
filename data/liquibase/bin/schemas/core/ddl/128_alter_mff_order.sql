@@ -1,0 +1,1 @@
+alter table mff_order modify BOPIS_PERSON varchar2(254);

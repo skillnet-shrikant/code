@@ -1,0 +1,1 @@
+alter table mff_category add visibility number(3);

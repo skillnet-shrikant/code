@@ -1,0 +1,1 @@
+alter table tmp_sku_data add tax_code varchar2(254);

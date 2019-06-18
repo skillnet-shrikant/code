@@ -1,0 +1,1 @@
+alter table tmp_sku_data add orig_product varchar2(40);

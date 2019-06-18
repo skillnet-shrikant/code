@@ -1,0 +1,1 @@
+alter table mff_user add is_legacy number(1) default 0 ;

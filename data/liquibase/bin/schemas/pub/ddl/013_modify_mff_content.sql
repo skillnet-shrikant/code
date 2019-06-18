@@ -1,0 +1,1 @@
+alter table mff_content add jsp_page_path varchar2(254);

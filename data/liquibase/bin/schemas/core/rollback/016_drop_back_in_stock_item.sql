@@ -1,0 +1,1 @@
+drop table mff_back_in_stock;

@@ -1,0 +1,2 @@
+alter table mff_product_attr add constraint mff_product_attr_p primary key (product_id,attribute_name);
+alter table mff_product_attr add constraint mff_prodattr_d_f foreign key (product_id) references dcs_product(product_id);

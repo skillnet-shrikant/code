@@ -1,0 +1,1 @@
+alter table tmp_sku_data add shipping_surcharges varchar2(4000);

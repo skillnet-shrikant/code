@@ -1,0 +1,1 @@
+alter table mff_store_allocation modify	FIRST_NAME varchar2(81);

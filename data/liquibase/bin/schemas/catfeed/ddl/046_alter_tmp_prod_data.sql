@@ -1,0 +1,1 @@
+alter table tmp_prod_data add picker_change number(1);

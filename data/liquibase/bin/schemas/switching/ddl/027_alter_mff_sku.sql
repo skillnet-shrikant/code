@@ -1,0 +1,1 @@
+alter table mff_sku add(ormd number(1) default 0);

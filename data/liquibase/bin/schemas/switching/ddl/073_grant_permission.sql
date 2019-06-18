@@ -1,0 +1,1 @@
+grant select, update, delete, insert on mff_location to atg_catfeed;
